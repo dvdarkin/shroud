@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Shroud</PackageId>
+    <Description>Sensitive data detection and tokenization for text files. Zero dependencies. Auditable.</Description>
+    <Authors>LogMark</Authors>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageTags>security;privacy;tokenization;redaction;sensitive-data;markdown</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Shroud.Cli" />
+    <InternalsVisibleTo Include="Shroud.Tests.Unit" />
+    <InternalsVisibleTo Include="Shroud.Tests.Integration" />
+  </ItemGroup>
+</Project>

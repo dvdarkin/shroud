@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>shroud</ToolCommandName>
+    <PackageId>Shroud.Cli</PackageId>
+    <Description>CLI tool for detecting and masking sensitive data in markdown files.</Description>
+    <Authors>LogMark</Authors>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="Exists('..\Shroud.Private\Shroud.Private.csproj')">
+    <DefineConstants>$(DefineConstants);HAS_PRIVATE_PATTERNS</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shroud\Shroud.csproj" />
+    <ProjectReference Include="..\Shroud.Private\Shroud.Private.csproj"
+                      Condition="Exists('..\Shroud.Private\Shroud.Private.csproj')" />
+  </ItemGroup>
+</Project>
