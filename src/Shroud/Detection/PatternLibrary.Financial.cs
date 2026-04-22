@@ -139,6 +139,21 @@ public static partial class PatternLibrary
             new Regex(@"\b\d{1,}(?:,\d{3})*\.\d{2,}\b", Opts),
             0.15, ["quantity", "price", "value", "balance", "asset", "contract", "token", "ETH", "BTC", "USDT", "USDC", "stETH"], 0.55, "table_quantity"),
 
+        // --- Bare integer/decimal inside a markdown table cell ---
+        // Matches "| 30 |", "| 0.5 |", "| 1,234 |" etc. Required for financial tables
+        // (exchange order-history paste, portfolio snapshots) where small amounts like
+        // "30 USDT" appear without the unit in the same cell -- the asset name is in
+        // a header row out of the 120-char context window, and the only in-window
+        // signal is the pipe-cell structure plus neighbour values (Limit | Buy |
+        // [QTY:...] | 30 | Filled | ...). Low base confidence; relies on nearby
+        // column-header and trading keywords to cross the threshold.
+        new(EntityType.Quantity, SensitivityDomain.Financial,
+            new Regex(@"(?<=\|\s*)\d+(?:[.,]\d+)?(?=\s*\|)", Opts),
+            0.20,
+            ["price", "amount", "total", "executed", "iceberg", "qty", "quantity",
+             "balance", "filled", "order", "trigger", "limit", "buy", "sell"],
+            0.55, "table_cell_number"),
+
         // --- Price patterns ---
         // Excludes time formats: "at 10:43" and IP-like: "at 192.168"
         // Price with explicit $ symbol: structural

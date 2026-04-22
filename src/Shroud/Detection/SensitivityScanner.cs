@@ -23,6 +23,44 @@ public class SensitivityScanner
         @"(?:source_file|file|path|attachment):\s*.+$",
         RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
+    // Date and time patterns. These never produce SensitiveSpans; they only carve
+    // "do not touch" zones so numeric patterns (year-as-amount, day-as-quantity,
+    // time-as-number) do not false-positive-match inside temporal text. A span is
+    // dropped only when FULLY contained in a zone, so "$2026" and "2026 USDC"
+    // still match (their spans extend past the bare-year zone).
+    private static readonly Regex[] DateTimeExclusionRegexes =
+    {
+        // ISO date with optional time: 2026-04-20, 2026-04-20T17:30, 2026-04-20 17:30:34.123Z
+        new(@"\b(?:19|20)\d{2}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])(?:[T ]\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:?\d{2})?)?\b",
+            RegexOptions.Compiled),
+        // Year-month: 2026-04
+        new(@"\b(?:19|20)\d{2}-(?:0[1-9]|1[0-2])\b",
+            RegexOptions.Compiled),
+        // Clock time: 17:30:34, 14:25, 5:00
+        new(@"\b(?:[01]?\d|2[0-3]):[0-5]\d(?::[0-5]\d(?:\.\d+)?)?\b",
+            RegexOptions.Compiled),
+        // MM/DD/YYYY, MM-DD-YYYY, MM.DD.YYYY with 2- or 4-digit year
+        new(@"\b(?:0?[1-9]|1[0-2])[/.\-](?:0?[1-9]|[12]\d|3[01])[/.\-](?:19|20)?\d{2}\b",
+            RegexOptions.Compiled),
+        // DD/MM/YYYY, DD-MM-YYYY, DD.MM.YYYY (4-digit year only to disambiguate)
+        new(@"\b(?:0?[1-9]|[12]\d|3[01])[/.\-](?:0?[1-9]|1[0-2])[/.\-](?:19|20)\d{2}\b",
+            RegexOptions.Compiled),
+        // Month-name dates: "20 Apr 2026", "April 20, 2026", "Apr 2026"
+        new(@"\b(?:(?:0?[1-9]|[12]\d|3[01])\s+)?(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*(?:\s+(?:0?[1-9]|[12]\d|3[01]))?[,\s]+(?:19|20)\d{2}\b",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase),
+        // ISO week: 2026-W17, 2026-W17-3
+        new(@"\b(?:19|20)\d{2}-W(?:0[1-9]|[1-4]\d|5[0-3])(?:-[1-7])?\b",
+            RegexOptions.Compiled),
+        // 12-hour clock: 5pm, 5:30pm, 11:45 AM
+        new(@"\b(?:0?[1-9]|1[0-2])(?::[0-5]\d)?\s*[ap]m\b",
+            RegexOptions.Compiled | RegexOptions.IgnoreCase),
+        // Bare 4-digit year (1900-2099). Last-resort zone; any pattern that truly
+        // needs a year (with $ symbol, currency code, asset) extends past 4 chars
+        // and so survives the fully-contained check.
+        new(@"\b(?:19|20)\d{2}\b",
+            RegexOptions.Compiled),
+    };
+
     public SensitivityScanner(
         IReadOnlyList<SensitivityPattern>? patterns = null,
         double tokenizeThreshold = 0.70)
@@ -222,6 +260,9 @@ public class SensitivityScanner
             zones.Add((m.Index, m.Index + m.Length));
         foreach (Match m in FilePathRegex.Matches(text))
             zones.Add((m.Index, m.Index + m.Length));
+        foreach (var rx in DateTimeExclusionRegexes)
+            foreach (Match m in rx.Matches(text))
+                zones.Add((m.Index, m.Index + m.Length));
         return zones;
     }
 
