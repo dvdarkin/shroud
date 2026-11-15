@@ -4,7 +4,7 @@
  * including its line endings (os.EOL, CRLF on Windows) and number formatting.
  */
 import { randomFillSync } from 'node:crypto';
-import { mkdirSync, readFileSync, readSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, readdirSync, readSync, writeFileSync } from 'node:fs';
 import { EOL } from 'node:os';
 import { sep } from 'node:path';
 import {
@@ -163,7 +163,7 @@ function parseArgs(args: string[], flagNames: string[], valueNames: string[]): P
     if (arg.length < 2 || arg[0] !== '-') parsed.positionals.push(arg);
     else if (flagNames.includes(arg)) parsed.flags.add(arg);
     else if (valueNames.includes(arg)) {
-      if (i + 1 >= args.length) return `Option ${arg} needs a value.`;
+      if (i + 1 >= args.length || args[i + 1]!.length === 0) return `Option ${arg} needs a value.`;
       parsed.values.set(arg, args[++i]!);
     } else return `Unknown option: ${arg}`;
   }
@@ -188,6 +188,27 @@ function namedDirectory(dir: string): string {
 function isSameOrInside(dir: string, path: string): boolean {
   const relative = getRelativePath(getFullPath(dir), getFullPath(path));
   return relative === '.' || (!isPathRooted(relative) && relative !== '..' && !relative.startsWith('..' + sep));
+}
+
+const VAULT_FILE_NAME = 'vault.shroud';
+const MANIFEST_FILE_NAME = 'manifest.json';
+const PUBLIC_DIR_NAME = 'public';
+
+/**
+ * True when `dir` can take vault output: it does not exist, holds nothing but hidden
+ * entries (names starting with '.'), or holds an earlier vault (vault.shroud, with at most
+ * manifest.json and public/ beside it). vault replaces public/, so any other directory
+ * could lose files it never wrote.
+ */
+function canHoldVaultOutput(dir: string): boolean {
+  if (fileExists(dir)) return false;
+  if (!directoryExists(dir)) return true;
+  const names = readdirSync(dir).filter((name) => !name.startsWith('.'));
+  return (
+    names.length === 0 ||
+    (names.includes(VAULT_FILE_NAME) &&
+      names.every((name) => name === VAULT_FILE_NAME || name === MANIFEST_FILE_NAME || name === PUBLIC_DIR_NAME))
+  );
 }
 
 function runScan(args: string[]): number {
@@ -317,6 +338,18 @@ async function runVault(args: string[]): Promise<number> {
   // An output inside the source would be scanned by the next run (masked copies of masked copies).
   if (isSameOrInside(sourceDir, outputDir)) {
     return error(`Output directory ${outputDir} is inside the source directory. Choose a location outside it with -o.`);
+  }
+
+  // A source inside the output would be overwritten by public/ or removed as a stale copy.
+  if (isSameOrInside(outputDir, sourceDir)) {
+    return error(
+      `Source directory ${sourceDir} is inside the output directory ${outputDir}. Choose an output outside it with -o.`,
+    );
+  }
+
+  // vault replaces public/ in its output, so the output must be new, empty or an earlier vault.
+  if (!canHoldVaultOutput(outputDir)) {
+    return error(`Output directory ${outputDir} is not empty and is not a Shroud vault. Choose a new or empty directory with -o.`);
   }
 
   const configPath = optionValue(parsed.values, '-c', '--config');

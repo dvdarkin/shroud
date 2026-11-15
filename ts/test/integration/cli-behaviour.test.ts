@@ -264,6 +264,67 @@ describe('CliBehaviourTests', () => {
     assert.equal(existsSync(join('notes', 'out')), false);
   });
 
+  test('vault source inside the output, is refused, deletes nothing', async () => {
+    mkdirSync(join('y', 'notes'), { recursive: true });
+    mkdirSync(join('y', 'public', 'docs'), { recursive: true });
+    writeFileSync(join('y', 'notes', 'a.md'), `wallet ${WALLET}\n`);
+    writeFileSync(join('y', 'public', 'docs', 'readme.md'), 'not ours\n');
+
+    const { exit, err } = await run('vault', join('y', 'notes'), '-p', 'pw', '-o', 'y');
+
+    assert.equal(exit, 1);
+    assert.ok(err.includes('inside the output directory'));
+    assert.equal(readFileSync(join('y', 'public', 'docs', 'readme.md'), 'utf8'), 'not ours\n');
+    assert.equal(existsSync(join('y', 'vault.shroud')), false);
+  });
+
+  test("vault source is the output's public directory, is refused, leaves the originals", async () => {
+    mkdirSync(join('x', 'public'), { recursive: true });
+    writeFileSync(join('x', 'public', 'a.md'), `wallet ${WALLET}\n`);
+
+    const { exit, err } = await run('vault', join('x', 'public'), '-p', 'pw', '-o', 'x');
+
+    assert.equal(exit, 1);
+    assert.ok(err.includes('inside the output directory'));
+    assert.equal(readFileSync(join('x', 'public', 'a.md'), 'utf8'), `wallet ${WALLET}\n`);
+  });
+
+  test('vault output is an unrelated directory, is refused, deletes nothing', async () => {
+    mkdirSync('notes');
+    mkdirSync(join('site', 'public'), { recursive: true });
+    writeFileSync(join('notes', 'a.md'), `wallet ${WALLET}\n`);
+    writeFileSync(join('site', 'public', 'index.md'), 'not ours\n');
+
+    const { exit, err } = await run('vault', 'notes', '-p', 'pw', '-o', 'site');
+
+    assert.equal(exit, 1);
+    assert.ok(err.includes('is not empty and is not a Shroud vault'));
+    assert.deepEqual(filesUnder('site'), ['public/index.md']);
+  });
+
+  test('vault output holding only hidden entries, is accepted', async () => {
+    mkdirSync('notes');
+    mkdirSync(join('repo', '.git'), { recursive: true });
+    writeFileSync(join('notes', 'a.md'), `wallet ${WALLET}\n`);
+    writeFileSync(join('repo', '.gitignore'), '*.revealed/\n');
+
+    const { exit } = await run('vault', 'notes', '-p', 'pw', '-o', 'repo');
+
+    assert.equal(exit, 0);
+    assert.deepEqual(filesUnder('repo'), ['.gitignore', 'manifest.json', 'public/a.md', 'vault.shroud']);
+  });
+
+  test('options with an empty value, are errors', async () => {
+    mkdirSync('notes');
+    writeFileSync(join('notes', 'a.md'), `wallet ${WALLET}\n`);
+
+    const { exit, err } = await run('vault', 'notes', '-p', 'pw', '-o', '');
+
+    assert.equal(exit, 1);
+    assert.ok(err.includes('Option -o needs a value.'));
+    assert.equal(existsSync('manifest.json'), false);
+  });
+
   test('vault second run, removes masked copies of files no longer in the source', async () => {
     mkdirSync(join('notes', 'sub'), { recursive: true });
     writeFileSync(join('notes', 'a.md'), `wallet ${WALLET}\n`);

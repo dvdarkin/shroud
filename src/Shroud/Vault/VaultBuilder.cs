@@ -107,6 +107,31 @@ public class VaultBuilder
         return new VaultResult(sourceDir, maskedFiles, allTokens);
     }
 
+    /// <summary>
+    /// The *.md files under <paramref name="dir"/>, without descending into a directory link
+    /// (junction or symbolic link): a link inside public/ must not let the stale-copy cleanup
+    /// delete files outside the vault. Same set as the TypeScript enumerateFiles.
+    /// </summary>
+    private static IEnumerable<string> MaskedCopiesIn(string dir)
+    {
+        var options = new EnumerationOptions
+        {
+            RecurseSubdirectories = false,
+            AttributesToSkip = 0,
+            MatchType = MatchType.Win32,
+            IgnoreInaccessible = false
+        };
+        foreach (var file in Directory.EnumerateFiles(dir, "*.md", options))
+            yield return file;
+        foreach (var sub in Directory.EnumerateDirectories(dir, "*", options))
+        {
+            if ((File.GetAttributes(sub) & FileAttributes.ReparsePoint) != 0)
+                continue;
+            foreach (var file in MaskedCopiesIn(sub))
+                yield return file;
+        }
+    }
+
     public void WriteOutput(VaultResult result, string outputDir, string password)
     {
         var publicDir = Path.Combine(outputDir, "public");
@@ -116,7 +141,7 @@ public class VaultBuilder
         // cannot resolve, so they are removed first. Only *.md files are touched.
         if (Directory.Exists(publicDir))
         {
-            foreach (var stale in Directory.EnumerateFiles(publicDir, "*.md", SearchOption.AllDirectories).ToList())
+            foreach (var stale in MaskedCopiesIn(publicDir).ToList())
                 File.Delete(stale);
         }
         Directory.CreateDirectory(publicDir);

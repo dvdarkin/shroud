@@ -41,7 +41,7 @@ while IFS= read -r -d '' file; do
     printf 'shroud: %s\n%s\n' "$file" "$report" >&2
     fail=1
   fi
-done < <(git diff --cached --name-only --diff-filter=ACM -z -- '*.md' '*.txt' '*.env' '*.json' '*.yml' '*.yaml')
+done < <(git diff --cached --name-only --diff-filter=ACMRT -z -- '*.md' '*.txt' '*.env' '*.json' '*.yml' '*.yaml')
 if [ "$fail" -ne 0 ]; then
   echo "Commit refused. Remove the values, or bypass once with: git commit --no-verify" >&2
 fi
@@ -80,7 +80,7 @@ Two hooks, both in [`examples/claude-code/`](../examples/claude-code). Copy the 
 - Otherwise it scans the file. If it has sensitive values, the hook exits 2 and the read is refused; the reason goes to the model, so it is printed with `--no-values`.
 - A clean file is read normally.
 
-Both hooks were run in live Claude Code sessions (2.1.325, Windows, headless `claude -p`, with the C# and the TypeScript CLI) using made-up canary values. In the redirect, refuse and clean cases the canary appeared nowhere in the session output or transcript. What that run showed about the prompt guard:
+Both hooks were run in live Claude Code sessions (2.1.325, Windows, headless `claude -p`, with the C# and the TypeScript CLI) using made-up canary values. That run used the previous version of the scripts; the current ones (stdin for the read guard, fail-closed) were tested with simulated hook input only. In the redirect, refuse and clean cases the canary appeared nowhere in the session output or transcript. What that run showed about the prompt guard:
 
 - A blocked prompt makes no API call at all (zero turns, zero tokens).
 - Claude Code itself still keeps the text you typed: it echoes it back to you as "Original prompt: ..." and records it in the local session transcript under `~/.claude/projects/`. The guard keeps the value away from the model, not off your own disk.
@@ -91,7 +91,8 @@ Things to know:
 - The hooks call `shroud` from `PATH`. Set `SHROUD_BIN` to use a specific executable.
 - The read guard serves whatever masked copy exists. After editing a vaulted source file, run `shroud vault` again, or the model reads the old masked text.
 - The guard covers the `Read` tool only. `Bash` (`cat notes/a.md`) and other tools are not intercepted (confirmed in the same live run: `cat` on an unvaulted file put the canary in front of the model); for a hard boundary, also deny the source directory in Claude Code's permission settings and point Claude at `notes.shroud/public`.
-- A failure of the hook itself (Shroud not installed, exit 1) does not block: Claude Code treats only exit 2 as blocking.
+- Both hooks fail closed. Claude Code treats only exit 2 as blocking, so each hook turns every outcome other than a clean scan (Shroud not installed, a Shroud error, input it cannot parse) into exit 2 with a one-line reason. With Shroud missing, every prompt and every `Read` is refused until it is installed or `SHROUD_BIN` points at it.
+- The read guard passes the file to Shroud on stdin (`scan -`), never as an argument, so a path with spaces or shell characters (`&`, `|`, `^`) cannot change the command that runs.
 
 ## 3. Reveal on demand, with the password from a secret store
 
@@ -180,7 +181,7 @@ jobs:
           fail=0
           while IFS= read -r -d '' file; do
             shroud scan "$file" --exit-code --no-values || fail=1
-          done < <(git diff --name-only --diff-filter=ACM -z "origin/${{ github.base_ref }}...HEAD" -- '*.md' '*.txt' '*.env' '*.json' '*.yml' '*.yaml')
+          done < <(git diff --name-only --diff-filter=ACMRT -z "origin/${{ github.base_ref }}...HEAD" -- '*.md' '*.txt' '*.env' '*.json' '*.yml' '*.yaml')
           exit $fail
 ```
 

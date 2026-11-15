@@ -64,7 +64,7 @@ public static class Program
                 flags.Add(arg);
             else if (valueNames.Contains(arg))
             {
-                if (i + 1 >= args.Length)
+                if (i + 1 >= args.Length || args[i + 1].Length == 0)
                     return $"Option {arg} needs a value.";
                 values[arg] = args[++i];
             }
@@ -117,6 +117,31 @@ public static class Program
                (!Path.IsPathRooted(relative) && relative != ".." &&
                 !relative.StartsWith(".." + Path.DirectorySeparatorChar, StringComparison.Ordinal));
     }
+
+    /// <summary>
+    /// True when <paramref name="dir"/> can take vault output: it does not exist, holds nothing
+    /// but hidden entries (names starting with '.'), or holds an earlier vault (vault.shroud, with
+    /// at most manifest.json and public/ beside it). vault replaces public/, so any other
+    /// directory could lose files it never wrote.
+    /// </summary>
+    private static bool CanHoldVaultOutput(string dir)
+    {
+        if (File.Exists(dir))
+            return false;
+        if (!Directory.Exists(dir))
+            return true;
+        var names = Directory.EnumerateFileSystemEntries(dir)
+            .Select(Path.GetFileName)
+            .Where(name => !name!.StartsWith('.'))
+            .ToList();
+        return names.Count == 0 ||
+               (names.Contains(VaultFileName) &&
+                names.All(name => name is VaultFileName or ManifestFileName or PublicDirName));
+    }
+
+    private const string VaultFileName = "vault.shroud";
+    private const string ManifestFileName = "manifest.json";
+    private const string PublicDirName = "public";
 
     private static int RunScan(string[] args)
     {
@@ -264,6 +289,14 @@ public static class Program
         // An output inside the source would be scanned by the next run (masked copies of masked copies).
         if (IsSameOrInside(sourceDir, outputDir))
             return Error($"Output directory {outputDir} is inside the source directory. Choose a location outside it with -o.");
+
+        // A source inside the output would be overwritten by public/ or removed as a stale copy.
+        if (IsSameOrInside(outputDir, sourceDir))
+            return Error($"Source directory {sourceDir} is inside the output directory {outputDir}. Choose an output outside it with -o.");
+
+        // vault replaces public/ in its output, so the output must be new, empty or an earlier vault.
+        if (!CanHoldVaultOutput(outputDir))
+            return Error($"Output directory {outputDir} is not empty and is not a Shroud vault. Choose a new or empty directory with -o.");
 
         var configPath = Value(values, "-c", "--config");
         var config = LoadConfig(configPath);

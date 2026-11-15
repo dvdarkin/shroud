@@ -4,7 +4,7 @@ This is the first written specification of the files Shroud reads and writes. It
 derived from the C# sources (`src/Shroud/Vault/VaultEncryption.cs`,
 `VaultBuilder.cs`, `Masking/SpanMasker.cs`, `Models/ShroudConfig.cs`,
 `Shroud.Cli/Program.cs`) and checked against the running .NET 8 build. Both
-implementations (C# `Shroud` and TypeScript `@logmark/shroud`, both 0.3.x) produce and accept
+implementations (C# `Shroud` and TypeScript `@logmark/shroud`, both 0.3.0 and later) produce and accept
 exactly this format; vaults are interchangeable in both directions.
 
 Keywords MUST/SHOULD describe what an independent implementation needs to do to

@@ -1,6 +1,6 @@
 {
   "name": "@logmark/shroud",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Sensitive data detection and tokenization for text files. Zero dependencies. Auditable. TypeScript port of Shroud.",
   "license": "Apache-2.0",
   "author": "LogMark",
