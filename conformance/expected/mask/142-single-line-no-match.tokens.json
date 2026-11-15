@@ -1,0 +1,9 @@
+{
+  "input": "142-single-line-no-match.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 23,
+  "maskedSha256": "63bcf0d083c9abbb6b57a17d9e1c6cdb5ccbad6fbb379c578074eeab77931487",
+  "tokenCount": 0,
+  "tokensInReplacementOrder": []
+}

@@ -1,0 +1,65 @@
+{
+  "created": "2026-11-15T01:00:55.0668098Z",
+  "source": "input",
+  "fileCount": 3,
+  "tokenCount": 6,
+  "tokens": {
+    "PASSWD:31136116": {
+      "service": "password_assignment",
+      "domain": "secrets",
+      "files": [
+        "cjk.md"
+      ],
+      "occurrences": 1
+    },
+    "AMT:210f7590": {
+      "service": "symbol_amount",
+      "domain": "financial",
+      "files": [
+        "cjk.md",
+        "crlf-notes.md"
+      ],
+      "occurrences": 2
+    },
+    "ADDR:e5ddfbd5": {
+      "service": "evm_address",
+      "domain": "onchain",
+      "files": [
+        "cjk.md"
+      ],
+      "occurrences": 1
+    },
+    "KEY:4206e4a5": {
+      "service": "aws_access_key",
+      "domain": "credentials",
+      "files": [
+        "crlf-notes.md"
+      ],
+      "occurrences": 1
+    },
+    "EMAIL:2b5bdd35": {
+      "service": "email",
+      "domain": "identity",
+      "files": [
+        "crlf-notes.md"
+      ],
+      "occurrences": 1
+    },
+    "ADDR:80f5d623": {
+      "service": "evm_address",
+      "domain": "onchain",
+      "files": [
+        "crlf-notes.md",
+        "no-trailing-newline.md"
+      ],
+      "occurrences": 2
+    }
+  },
+  "summary": {
+    "secrets": 1,
+    "financial": 2,
+    "onchain": 3,
+    "credentials": 1,
+    "identity": 1
+  }
+}

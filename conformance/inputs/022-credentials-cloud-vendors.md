@@ -1,0 +1,13 @@
+## Cloud vendor keys
+
+AWS AKIA: AKIAAAAAAAAAAAAAAAAA
+AWS ASIA: ASIABBBBBBBBBBBBBBBB
+AWS A3T: A3TACCCCCCCCCCCCCCCC
+AWS lowercase (no): akiaAAAAAAAAAAAAAAAA
+Google: AIzaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+OpenAI: sk-proj-aaaaaaaaaaaaaaaaaaaaaaaa
+Anthropic: sk-ant-api03-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Stripe live: sk_live_aaaaaaaaaaaaaaaaaaaaaaaa
+Stripe restricted: rk_test_bbbbbbbbbbbbbbbbbbbbbbbb
+Stripe webhook: whsec_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+SendGrid: SG.aaaaaaaaaaaaaaaaaaaaaa.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb

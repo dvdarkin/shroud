@@ -1,0 +1,44 @@
+{
+  "input": "008-onchain-correlation-with-context.md",
+  "config": "no-onchain",
+  "inputBytes": 274,
+  "inputSha256": "7f786784e5e3d256af5caf46bcf4092d18e423580fe44b1e58b5e4309b792762",
+  "inputUtf16Length": 274,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 2,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 178,
+      "end": 185,
+      "length": 7,
+      "matchedText": "1234567",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 223,
+      "end": 226,
+      "length": 3,
+      "matchedText": "123",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    }
+  ]
+}

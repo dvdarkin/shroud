@@ -1,0 +1,74 @@
+{
+  "input": "051-financial-credit-card-luhn.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 608,
+  "maskedSha256": "97cabbf33a1cc23f5074ae11c101db55d706e0bab88b07fd502ed5b12fe27878",
+  "tokenCount": 8,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "CC:06222412",
+      "start": 505,
+      "end": 521,
+      "originalValue": "4111111111111111",
+      "entityType": "CreditCard",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "CC:f8094bf8",
+      "start": 454,
+      "end": 473,
+      "originalValue": "4111-1111 1111-1111",
+      "entityType": "CreditCard",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "CC:8eefd076",
+      "start": 418,
+      "end": 435,
+      "originalValue": "3782 822463 10005",
+      "entityType": "CreditCard",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "CC:800bccdc",
+      "start": 350,
+      "end": 365,
+      "originalValue": "378282246310005",
+      "entityType": "CreditCard",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "CC:5ccbb1e4",
+      "start": 225,
+      "end": 241,
+      "originalValue": "5555555555554444",
+      "entityType": "CreditCard",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "CC:634b0351",
+      "start": 146,
+      "end": 165,
+      "originalValue": "4242 4242 4242 4242",
+      "entityType": "CreditCard",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "CC:ce86700c",
+      "start": 107,
+      "end": 126,
+      "originalValue": "4242-4242-4242-4242",
+      "entityType": "CreditCard",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "CC:06222412",
+      "start": 34,
+      "end": 50,
+      "originalValue": "4111111111111111",
+      "entityType": "CreditCard",
+      "domain": "Financial"
+    }
+  ]
+}

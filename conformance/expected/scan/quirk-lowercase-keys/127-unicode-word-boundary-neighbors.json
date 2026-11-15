@@ -1,0 +1,30 @@
+{
+  "input": "127-unicode-word-boundary-neighbors.md",
+  "config": "quirk-lowercase-keys",
+  "inputBytes": 340,
+  "inputSha256": "33fca8e6f265fa57924a79177c1884198538726dc7d20bd2c49d6ca6de33f399",
+  "inputUtf16Length": 331,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 46,
+      "end": 81,
+      "length": 35,
+      "matchedText": "x1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "sol_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.3,
+      "confidenceString": "0.3",
+      "aboveThreshold": false
+    }
+  ]
+}

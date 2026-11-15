@@ -1,0 +1,15 @@
+{
+  "input": "140-empty-file.md",
+  "config": "no-onchain",
+  "inputBytes": 0,
+  "inputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "inputUtf16Length": 0,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

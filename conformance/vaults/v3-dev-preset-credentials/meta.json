@@ -1,0 +1,10 @@
+{
+  "name": "v3-dev-preset-credentials",
+  "passphrase": "simple-test-passphrase-3",
+  "passphraseUtf8Hex": "73696d706c652d746573742d706173737068726173652d33",
+  "config": "configs/dev.json",
+  "vaultFileBytes": 729,
+  "tokenCount": 7,
+  "sourceFiles": ["secrets.md", "sub/ids.md"],
+  "note": "vault/vault.shroud, vault/manifest.json and vault/public/ were written by the C# VaultBuilder on Windows; relative paths inside manifest.json and vault-data.decrypted.json (files lists, fileHashes keys) use the OS separator, i.e. backslash here."
+}

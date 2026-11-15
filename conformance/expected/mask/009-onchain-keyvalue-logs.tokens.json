@@ -1,0 +1,106 @@
+{
+  "input": "009-onchain-keyvalue-logs.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 182,
+  "maskedSha256": "ba3fe1a25d792c4f874734275053f8d7e22f88affe4d973048af9f93688492e6",
+  "tokenCount": 12,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "TX:20faf590",
+      "start": 311,
+      "end": 323,
+      "originalValue": "slotNumber:1",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:0f97e39f",
+      "start": 290,
+      "end": 310,
+      "originalValue": "BLOCKNUMBER=18000000",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:99c9123c",
+      "start": 269,
+      "end": 289,
+      "originalValue": "timestamp=1700000000",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:085389f7",
+      "start": 250,
+      "end": 268,
+      "originalValue": "gasLimit: 30000000",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:71191733",
+      "start": 236,
+      "end": 249,
+      "originalValue": "gasUsed=21000",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:4b50e6f8",
+      "start": 214,
+      "end": 235,
+      "originalValue": "validatorIndex=548231",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:84731586",
+      "start": 200,
+      "end": 213,
+      "originalValue": "epoch: 298445",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:1ab346ed",
+      "start": 187,
+      "end": 199,
+      "originalValue": "slot=9234567",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:ec519b7a",
+      "start": 131,
+      "end": 186,
+      "originalValue": "feeRecipient=0x2222222222222222222222222222222222222222",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:133241e6",
+      "start": 110,
+      "end": 130,
+      "originalValue": "blockHash = 0xdef456",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:eb53566a",
+      "start": 93,
+      "end": 109,
+      "originalValue": "txHash: 0xabc123",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:02aa2e64",
+      "start": 14,
+      "end": 92,
+      "originalValue": "payloadHash=0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    }
+  ]
+}

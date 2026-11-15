@@ -1,0 +1,11 @@
+{
+  "domains": {
+    "onChain": { "enabled": true },
+    "financial": { "enabled": true, "layer": "directional" },
+    "identity": { "enabled": true },
+    "credentials": { "enabled": true },
+    "secrets": { "enabled": true }
+  },
+  "threshold": 0.50,
+  "preset": "paranoid"
+}

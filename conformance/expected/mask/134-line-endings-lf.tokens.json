@@ -1,0 +1,82 @@
+{
+  "input": "134-line-endings-lf.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 229,
+  "maskedSha256": "d05471f34305f481c1fd8fc769bd70d2da3794f6960ac90d69b429141c1e8334",
+  "tokenCount": 9,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "QTY:f1e8e14e",
+      "start": 207,
+      "end": 209,
+      "originalValue": "30",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:3de25508",
+      "start": 178,
+      "end": 190,
+      "originalValue": "1,734.56 AUD",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:7105ec4d",
+      "start": 171,
+      "end": 177,
+      "originalValue": "500.00",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:6b12b0a9",
+      "start": 162,
+      "end": 170,
+      "originalValue": "1,234.56",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "PASSWD:0086884c",
+      "start": 127,
+      "end": 153,
+      "originalValue": "password = \"lf_password_1\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets"
+    },
+    {
+      "tokenId": "SSN:c36200a4",
+      "start": 115,
+      "end": 126,
+      "originalValue": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "ADDR:818ae287",
+      "start": 66,
+      "end": 108,
+      "originalValue": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "PRICE:799c38b5",
+      "start": 24,
+      "end": 33,
+      "originalValue": "at $1,234",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:815ea90f",
+      "start": 15,
+      "end": 23,
+      "originalValue": " 0.5 ETH",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    }
+  ]
+}

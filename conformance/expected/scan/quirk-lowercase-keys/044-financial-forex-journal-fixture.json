@@ -1,0 +1,30 @@
+{
+  "input": "044-financial-forex-journal-fixture.md",
+  "config": "quirk-lowercase-keys",
+  "inputBytes": 345,
+  "inputSha256": "a33d0840263917e51e4808784a26beccee66a007e4537ab331904144370cde8e",
+  "inputUtf16Length": 345,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 184,
+      "end": 189,
+      "length": 5,
+      "matchedText": "above",
+      "entityType": "SeedPhrase",
+      "domain": "OnChain",
+      "service": "bip39",
+      "typeAbbreviation": "SEED",
+      "confidence": 0.1,
+      "confidenceString": "0.1",
+      "aboveThreshold": false
+    }
+  ]
+}

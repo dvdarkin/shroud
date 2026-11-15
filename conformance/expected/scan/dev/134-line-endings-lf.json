@@ -1,0 +1,58 @@
+{
+  "input": "134-line-endings-lf.md",
+  "config": "dev",
+  "inputBytes": 221,
+  "inputSha256": "60f142bc042f0798d5ff0555a24cbb0d2514a5eb283b0cd18145130f70dd0435",
+  "inputUtf16Length": 221,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 3,
+    "aboveThreshold": 3,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 66,
+      "end": 108,
+      "length": 42,
+      "matchedText": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 115,
+      "end": 126,
+      "length": 11,
+      "matchedText": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity",
+      "service": "us_ssn",
+      "typeAbbreviation": "SSN",
+      "confidence": 0.8999999999999999,
+      "confidenceString": "0.8999999999999999",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 127,
+      "end": 153,
+      "length": 26,
+      "matchedText": "password = \"lf_password_1\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets",
+      "service": "password_assignment",
+      "typeAbbreviation": "PASSWD",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    }
+  ]
+}

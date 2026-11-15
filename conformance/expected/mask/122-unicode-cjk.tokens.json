@@ -1,0 +1,66 @@
+{
+  "input": "122-unicode-cjk.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 179,
+  "maskedSha256": "47a686ce0f93643200663c5953a0ce204bfae4713bc3099a052b585b9f14665c",
+  "tokenCount": 7,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "QTY:9f79903d",
+      "start": 191,
+      "end": 200,
+      "originalValue": " 743 USDC",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "IP:ff0e7fc9",
+      "start": 144,
+      "end": 157,
+      "originalValue": "192.168.1.100",
+      "entityType": "IpAddress",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "EMAIL:a2338a59",
+      "start": 118,
+      "end": 134,
+      "originalValue": "user@example.com",
+      "entityType": "Email",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "PASSWD:7894c306",
+      "start": 96,
+      "end": 114,
+      "originalValue": "password = \"密码是这个\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets"
+    },
+    {
+      "tokenId": "KEY:2c699160",
+      "start": 70,
+      "end": 90,
+      "originalValue": "AKIAAAAAAAAAAAAAAAAA",
+      "entityType": "ApiKey",
+      "domain": "Credentials"
+    },
+    {
+      "tokenId": "AMT:653b8ea0",
+      "start": 58,
+      "end": 65,
+      "originalValue": "$12,345",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 12,
+      "end": 54,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

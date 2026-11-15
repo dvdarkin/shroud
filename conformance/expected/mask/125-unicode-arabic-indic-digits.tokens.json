@@ -1,0 +1,98 @@
+{
+  "input": "125-unicode-arabic-indic-digits.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 361,
+  "maskedSha256": "9258af2016154893d614776a5f456ff1fa26b06cc113777febb8efef2011d815",
+  "tokenCount": 11,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "AMT:653b8ea0",
+      "start": 319,
+      "end": 326,
+      "originalValue": "$12,345",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 268,
+      "end": 310,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "AMT:af206aef",
+      "start": 240,
+      "end": 246,
+      "originalValue": "$१२३४५",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:c4833abf",
+      "start": 224,
+      "end": 227,
+      "originalValue": "۷۴۳",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:e9fb4d07",
+      "start": 206,
+      "end": 212,
+      "originalValue": "$۱۲۳۴۵",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "VKEY:7bc100d4",
+      "start": 165,
+      "end": 182,
+      "originalValue": "validator #٥٤٨٢٣١",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:2166e6ab",
+      "start": 118,
+      "end": 133,
+      "originalValue": "block #١٢٣٤٥٦٧٨",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:a9221784",
+      "start": 107,
+      "end": 110,
+      "originalValue": "٧٤٣",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "SSN:9eaf622b",
+      "start": 69,
+      "end": 80,
+      "originalValue": "١٢٣-٤٥-٦٧٨٩",
+      "entityType": "Ssn",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "QTY:cfbbfe4b",
+      "start": 53,
+      "end": 58,
+      "originalValue": "١,٢٣٤",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:8b7866bd",
+      "start": 32,
+      "end": 38,
+      "originalValue": "$١٢٣٤٥",
+      "entityType": "Amount",
+      "domain": "Financial"
+    }
+  ]
+}

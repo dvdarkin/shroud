@@ -1,0 +1,66 @@
+{
+  "input": "004-onchain-multichain-wallet-fixture.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 572,
+  "maskedSha256": "cbbd56dfdb1f26ca1a909c3035969ef19afa4d962e73e7856ccdd1f81b821105",
+  "tokenCount": 7,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "ADDR:54d414a3",
+      "start": 548,
+      "end": 593,
+      "originalValue": "ltc1qabc123def456abc123def456abc123def456abc1",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:97d4c15b",
+      "start": 501,
+      "end": 537,
+      "originalValue": "tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:44e487ff",
+      "start": 459,
+      "end": 493,
+      "originalValue": "TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:1bc69088",
+      "start": 418,
+      "end": 452,
+      "originalValue": "rN7n3473SaZBCG4dFL83w7p1W9cganksPc",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:73e7032d",
+      "start": 367,
+      "end": 412,
+      "originalValue": "cosmos1abc123def456abc123def456abc123def456ab",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:107430d2",
+      "start": 116,
+      "end": 160,
+      "originalValue": "bc1qabc123def456abc123def456abc123def456abc1",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:d1fd173c",
+      "start": 61,
+      "end": 105,
+      "originalValue": "5555555555555555555555555555555555555555\nBTC",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    }
+  ]
+}

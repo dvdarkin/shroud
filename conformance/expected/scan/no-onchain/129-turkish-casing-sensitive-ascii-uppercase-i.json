@@ -1,0 +1,72 @@
+{
+  "input": "129-turkish-casing-sensitive-ascii-uppercase-i.md",
+  "config": "no-onchain",
+  "inputBytes": 308,
+  "inputSha256": "725fb850134093c5ea6640bf35bdc3dd3f7c2bc085986f9e0e8a9743ba79a0d7",
+  "inputUtf16Length": 308,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 4,
+    "aboveThreshold": 4,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 136,
+      "end": 151,
+      "length": 15,
+      "matchedText": "LOGIN = \"bobby\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets",
+      "service": "login_assignment",
+      "typeAbbreviation": "PASSWD",
+      "confidence": 0.7,
+      "confidenceString": "0.7",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 152,
+      "end": 173,
+      "length": 21,
+      "matchedText": "API_KEY = \"key-67890\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets",
+      "service": "password_assignment",
+      "typeAbbreviation": "PASSWD",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 248,
+      "end": 256,
+      "length": 8,
+      "matchedText": "12345678",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.8,
+      "confidenceString": "0.8",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 304,
+      "end": 307,
+      "length": 3,
+      "matchedText": "743",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "verb_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.8,
+      "confidenceString": "0.8",
+      "aboveThreshold": true
+    }
+  ]
+}

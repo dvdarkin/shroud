@@ -1,0 +1,12 @@
+## Bitcoin family
+
+Legacy P2PKH: 1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Legacy P2SH: 3BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+Segwit: bc1qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Segwit long: bc1qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Taproot: bc1paaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Taproot too short: bc1paaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Bitcoin Cash: bitcoincash:qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Litecoin legacy (no context): LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Litecoin legacy with ltc context: LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA is a litecoin address
+Litecoin segwit: ltc1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

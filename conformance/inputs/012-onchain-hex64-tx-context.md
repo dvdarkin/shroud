@@ -1,0 +1,8 @@
+## 64-hex values
+
+Bare hash: abababababababababababababababababababababababababababababababab
+With tx context: confirmed tx abababababababababababababababababababababababababababababababab in mempool
+Hash function output sha256: cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd
+Mixed in sentence: the block hash is 0000000000000000000000000000000000000000000000000000000000000000.
+63 chars: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+65 chars: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

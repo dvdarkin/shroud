@@ -1,0 +1,33 @@
+{
+  "config": "no-onchain",
+  "sourceFile": "configs/no-onchain.json",
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "preset": null,
+  "keyFile": null,
+  "domains": {
+    "onChain": {
+      "enabled": false,
+      "layer": "markets"
+    },
+    "financial": {
+      "enabled": true,
+      "layer": "directional"
+    },
+    "identity": {
+      "enabled": true,
+      "layer": "markets"
+    },
+    "credentials": {
+      "enabled": true,
+      "layer": "markets"
+    },
+    "secrets": {
+      "enabled": true,
+      "layer": "markets"
+    }
+  },
+  "patternCount": 63,
+  "patternIndexes": [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103],
+  "patternServices": ["aws_access_key", "github_pat", "github_oauth", "github_user", "github_app", "github_fine_grained", "gitlab_pat", "slack_bot", "slack_user", "slack_app", "google_api_key", "openai_key", "anthropic_key", "stripe_key", "stripe_webhook", "sendgrid_key", "twilio_key", "telegram_bot", "discord_bot", "shopify_access", "npm_token", "pypi_token", "nuget_key", "cloudflare_key", "heroku_key", "pem_private_key", "jwt", "database_uri", "sql_connection_string", "password_assignment", "login_assignment", "pair_slash", "pair_dash", "symbol_amount", "usd_code_amount", "fiat_currency_amount", "fiat_amount_trailing", "shorthand_amount", "arithmetic_operand", "arithmetic_equals_left", "arithmetic_result", "arithmetic_equals_right", "arithmetic_sum_operand", "verb_quantity", "comma_number", "large_number", "asset_quantity", "wei_precision_quantity", "table_quantity", "table_cell_number", "price_dollar", "price_bare", "visa", "mastercard", "amex", "us_ssn", "iban", "ipv4", "unc_network_path", "file_uri_network_path", "mac_colon", "mac_dash", "email"]
+}

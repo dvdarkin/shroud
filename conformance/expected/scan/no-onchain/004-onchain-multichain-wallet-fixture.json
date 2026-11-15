@@ -1,0 +1,44 @@
+{
+  "input": "004-onchain-multichain-wallet-fixture.md",
+  "config": "no-onchain",
+  "inputBytes": 750,
+  "inputSha256": "6e614383f1b05c1c0af0fca53ee229e2d98d597aa3d73700fdda89601d514705",
+  "inputUtf16Length": 750,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 2,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 61,
+      "end": 105,
+      "length": 44,
+      "matchedText": "5555555555555555555555555555555555555555\nBTC",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "asset_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.75,
+      "confidenceString": "0.75",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 159,
+      "end": 164,
+      "length": 5,
+      "matchedText": "1\nBTC",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "asset_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.75,
+      "confidenceString": "0.75",
+      "aboveThreshold": true
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "input": "115-context-near-vs-far-lines.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 354,
+  "maskedSha256": "f6d76af8e0d31b7400b68371de8719ac3dd3a18dddf90cebda74a1155204f6dd",
+  "tokenCount": 0,
+  "tokensInReplacementOrder": []
+}

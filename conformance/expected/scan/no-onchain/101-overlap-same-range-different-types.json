@@ -1,0 +1,58 @@
+{
+  "input": "101-overlap-same-range-different-types.md",
+  "config": "no-onchain",
+  "inputBytes": 426,
+  "inputSha256": "7f61e9285d4db021ae96b09b7dbf90da521e9929e14873fac21901ff49777b2d",
+  "inputUtf16Length": 426,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 3,
+    "aboveThreshold": 2,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 325,
+      "end": 361,
+      "length": 36,
+      "matchedText": "12345678-1234-1234-1234-123456789012",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "heroku_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.2,
+      "confidenceString": "0.2",
+      "aboveThreshold": false
+    },
+    {
+      "index": 1,
+      "start": 402,
+      "end": 407,
+      "length": 5,
+      "matchedText": "12.5k",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "shorthand_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 420,
+      "end": 425,
+      "length": 5,
+      "matchedText": "1,234",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "comma_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    }
+  ]
+}

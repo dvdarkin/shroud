@@ -1,0 +1,15 @@
+{
+  "input": "054-fp-devops-log.md",
+  "config": "dev",
+  "inputBytes": 404,
+  "inputSha256": "1a485f79312d234695e351ee9d533c9b81d4d4f2b3c1cfc531ce28649710ff55",
+  "inputUtf16Length": 404,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -1,0 +1,86 @@
+{
+  "input": "070-fp-academic-paper.md",
+  "config": "layer-magnitudes",
+  "inputBytes": 444,
+  "inputSha256": "7394eb2987bc4d46b72896f500c9a5fe1b23ee63f0733db69f70b17209b7f22a",
+  "inputUtf16Length": 444,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 5,
+    "aboveThreshold": 4,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 277,
+      "end": 280,
+      "length": 3,
+      "matchedText": "512",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.8,
+      "confidenceString": "0.8",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 372,
+      "end": 376,
+      "length": 4,
+      "matchedText": "1024",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.8,
+      "confidenceString": "0.8",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 417,
+      "end": 419,
+      "length": 2,
+      "matchedText": "50",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "arithmetic_operand",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.25,
+      "confidenceString": "0.25",
+      "aboveThreshold": false
+    },
+    {
+      "index": 3,
+      "start": 422,
+      "end": 426,
+      "length": 4,
+      "matchedText": "9.81",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "table_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.8,
+      "confidenceString": "0.8",
+      "aboveThreshold": true
+    },
+    {
+      "index": 4,
+      "start": 429,
+      "end": 434,
+      "length": 5,
+      "matchedText": "490.5",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.8,
+      "confidenceString": "0.8",
+      "aboveThreshold": true
+    }
+  ]
+}

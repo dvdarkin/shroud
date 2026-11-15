@@ -1,0 +1,100 @@
+{
+  "input": "101-overlap-same-range-different-types.md",
+  "config": "quirk-preset-name-only",
+  "inputBytes": 426,
+  "inputSha256": "7f61e9285d4db021ae96b09b7dbf90da521e9929e14873fac21901ff49777b2d",
+  "inputUtf16Length": 426,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 6,
+    "aboveThreshold": 5,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 45,
+      "end": 111,
+      "length": 66,
+      "matchedText": "0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "evm_tx",
+      "typeAbbreviation": "TX",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 141,
+      "end": 205,
+      "length": 64,
+      "matchedText": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "hex64_tx",
+      "typeAbbreviation": "TX",
+      "confidence": 0.9500000000000001,
+      "confidenceString": "0.9500000000000001",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 224,
+      "end": 258,
+      "length": 34,
+      "matchedText": "1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "sol_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.9500000000000001,
+      "confidenceString": "0.9500000000000001",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 325,
+      "end": 361,
+      "length": 36,
+      "matchedText": "12345678-1234-1234-1234-123456789012",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "heroku_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.2,
+      "confidenceString": "0.2",
+      "aboveThreshold": false
+    },
+    {
+      "index": 4,
+      "start": 402,
+      "end": 407,
+      "length": 5,
+      "matchedText": "12.5k",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "shorthand_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    },
+    {
+      "index": 5,
+      "start": 420,
+      "end": 425,
+      "length": 5,
+      "matchedText": "1,234",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "comma_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    }
+  ]
+}

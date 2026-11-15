@@ -1,0 +1,10 @@
+{
+  "name": "v1-basic-mixed-nested",
+  "passphrase": "correct horse battery staple (test only)",
+  "passphraseUtf8Hex": "636f727265637420686f727365206261747465727920737461706c65202874657374206f6e6c7929",
+  "config": "configs/default.json",
+  "vaultFileBytes": 1320,
+  "tokenCount": 13,
+  "sourceFiles": ["README.md", "clean.md", "notes/deep/keys.md", "notes/finance.md", "notes/wallets.md"],
+  "note": "vault/vault.shroud, vault/manifest.json and vault/public/ were written by the C# VaultBuilder on Windows; relative paths inside manifest.json and vault-data.decrypted.json (files lists, fileHashes keys) use the OS separator, i.e. backslash here."
+}

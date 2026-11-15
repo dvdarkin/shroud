@@ -1,0 +1,82 @@
+{
+  "input": "124-unicode-fullwidth-digits.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 366,
+  "maskedSha256": "86967acb4fabebd2e737139dad99adf4ff8b6df74352f545e4915bcc6da90929",
+  "tokenCount": 9,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "VKEY:42d028b1",
+      "start": 293,
+      "end": 310,
+      "originalValue": "validator #５４８２３１",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:98a2ca8e",
+      "start": 207,
+      "end": 223,
+      "originalValue": "４１１１１１１１１１１１１１１１",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:36e29517",
+      "start": 185,
+      "end": 190,
+      "originalValue": "12345",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:59440f31",
+      "start": 157,
+      "end": 160,
+      "originalValue": "100",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:921cc0ab",
+      "start": 139,
+      "end": 145,
+      "originalValue": "$12345",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "SSN:9f6a3af8",
+      "start": 108,
+      "end": 119,
+      "originalValue": "１２３-４５-６７８９",
+      "entityType": "Ssn",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "QTY:ed77e478",
+      "start": 86,
+      "end": 91,
+      "originalValue": "１,２３４",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:acd76ca7",
+      "start": 68,
+      "end": 71,
+      "originalValue": "１００",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:2923efc6",
+      "start": 39,
+      "end": 45,
+      "originalValue": "$１２３４５",
+      "entityType": "Amount",
+      "domain": "Financial"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "input": "079-fp-substring-context-words.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 263,
+  "maskedSha256": "d8e7091abd1c4b8e7735b84c487a314263f41a30d1e049f0f838ddd22d6b9243",
+  "tokenCount": 2,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "ADDR:9f6a00db",
+      "start": 237,
+      "end": 277,
+      "originalValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:9f6a00db",
+      "start": 64,
+      "end": 104,
+      "originalValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

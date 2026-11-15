@@ -1,0 +1,66 @@
+{
+  "input": "046-financial-prices.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 296,
+  "maskedSha256": "8b03f61db2041b706e06cd0d50409d25da6542d2a3ad85a210a227014126a41d",
+  "tokenCount": 7,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "PRICE:e5499853",
+      "start": 236,
+      "end": 242,
+      "originalValue": "at 100",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:b4e80826",
+      "start": 200,
+      "end": 203,
+      "originalValue": "512",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "IP:31ee747b",
+      "start": 155,
+      "end": 166,
+      "originalValue": "192.168.1.1",
+      "entityType": "IpAddress",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "PRICE:479fc437",
+      "start": 91,
+      "end": 100,
+      "originalValue": "at 1.0845",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "PRICE:0624ba6d",
+      "start": 54,
+      "end": 61,
+      "originalValue": "at $512",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:00eed55b",
+      "start": 38,
+      "end": 45,
+      "originalValue": "$50,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "PRICE:799c38b5",
+      "start": 17,
+      "end": 26,
+      "originalValue": "at $1,234",
+      "entityType": "Price",
+      "domain": "Financial"
+    }
+  ]
+}

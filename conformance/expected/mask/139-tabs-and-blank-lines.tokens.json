@@ -1,0 +1,26 @@
+{
+  "input": "139-tabs-and-blank-lines.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 47,
+  "maskedSha256": "54855a76b034ecfbd1ac423186d9a1a362d1ae598aeab1ebfa652f03ce35eb3a",
+  "tokenCount": 2,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "AMT:5da9ab58",
+      "start": 56,
+      "end": 62,
+      "originalValue": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 13,
+      "end": 55,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

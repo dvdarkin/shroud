@@ -1,0 +1,30 @@
+{
+  "input": "083-mixed-validator-bridge-fixture.md",
+  "config": "no-onchain",
+  "inputBytes": 463,
+  "inputSha256": "ba80c28f86a9f699e03966153e9d5ca232f5b1049a5445018bf3df37b6225c84",
+  "inputUtf16Length": 463,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 96,
+      "end": 105,
+      "length": 9,
+      "matchedText": " 500 USDC",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "asset_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.75,
+      "confidenceString": "0.75",
+      "aboveThreshold": true
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "input": "079-fp-substring-context-words.md",
+  "config": "no-onchain",
+  "inputBytes": 313,
+  "inputSha256": "baf72bcdfb684bfadf1fbca88504bc51b6b459a5889340e43e9800ef8a5afde1",
+  "inputUtf16Length": 313,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 215,
+      "end": 220,
+      "length": 5,
+      "matchedText": "12345",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.30000000000000004,
+      "confidenceString": "0.30000000000000004",
+      "aboveThreshold": false
+    }
+  ]
+}

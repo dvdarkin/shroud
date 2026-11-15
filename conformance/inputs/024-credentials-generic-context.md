@@ -1,0 +1,7 @@
+## Generic shapes
+
+Cloudflare bare: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Cloudflare with context: cloudflare x-auth-key AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Heroku bare: 12345678-1234-1234-1234-123456789012
+Heroku with context: HEROKU_API_KEY=12345678-1234-1234-1234-123456789012
+UUID in prose: request id 12345678-abcd-abcd-abcd-123456789012 ok

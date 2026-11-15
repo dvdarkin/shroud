@@ -1,0 +1,9 @@
+{
+  "input": "140-empty-file.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 0,
+  "maskedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "tokenCount": 0,
+  "tokensInReplacementOrder": []
+}

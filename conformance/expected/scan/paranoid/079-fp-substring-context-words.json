@@ -1,0 +1,58 @@
+{
+  "input": "079-fp-substring-context-words.md",
+  "config": "paranoid",
+  "inputBytes": 313,
+  "inputSha256": "baf72bcdfb684bfadf1fbca88504bc51b6b459a5889340e43e9800ef8a5afde1",
+  "inputUtf16Length": 313,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 3,
+    "aboveThreshold": 2,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 64,
+      "end": 104,
+      "length": 40,
+      "matchedText": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "sol_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.8500000000000001,
+      "confidenceString": "0.8500000000000001",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 215,
+      "end": 220,
+      "length": 5,
+      "matchedText": "12345",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.30000000000000004,
+      "confidenceString": "0.30000000000000004",
+      "aboveThreshold": false
+    },
+    {
+      "index": 2,
+      "start": 237,
+      "end": 277,
+      "length": 40,
+      "matchedText": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "sol_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.8500000000000001,
+      "confidenceString": "0.8500000000000001",
+      "aboveThreshold": true
+    }
+  ]
+}

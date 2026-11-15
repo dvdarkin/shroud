@@ -1,0 +1,44 @@
+{
+  "input": "138-utf8-bom.md",
+  "config": "no-credentials-secrets",
+  "inputBytes": 96,
+  "inputSha256": "4d8de40db0c470275a230c60397b870692d8445327bfc7981298036602a39f49",
+  "inputUtf16Length": 93,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 2,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 29,
+      "end": 71,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 80,
+      "end": 91,
+      "length": 11,
+      "matchedText": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity",
+      "service": "us_ssn",
+      "typeAbbreviation": "SSN",
+      "confidence": 0.8999999999999999,
+      "confidenceString": "0.8999999999999999",
+      "aboveThreshold": true
+    }
+  ]
+}

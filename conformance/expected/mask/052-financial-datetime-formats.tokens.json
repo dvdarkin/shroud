@@ -1,0 +1,18 @@
+{
+  "input": "052-financial-datetime-formats.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 1123,
+  "maskedSha256": "663786f3b9c48fc559f93d65f09d0fc49ad6a855ae10a734af16a713ba57f848",
+  "tokenCount": 1,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "QTY:59440f31",
+      "start": 1103,
+      "end": 1106,
+      "originalValue": "100",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    }
+  ]
+}

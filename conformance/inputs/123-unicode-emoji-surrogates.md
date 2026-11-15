@@ -1,0 +1,8 @@
+## Emoji 😀
+
+😀😀 0x1111111111111111111111111111111111111111 😀
+🔑 AKIAAAAAAAAAAAAAAAAA 🔑
+😀 $1,234 😀 and 100000 USDC 🚀
+👨‍👩‍👧 1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 👨‍👩‍👧
+e-mail 📧 alice@example.com 📧
+password = "p😀ssword1"

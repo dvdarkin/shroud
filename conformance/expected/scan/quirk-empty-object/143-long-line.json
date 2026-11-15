@@ -1,0 +1,72 @@
+{
+  "input": "143-long-line.md",
+  "config": "quirk-empty-object",
+  "inputBytes": 32490,
+  "inputSha256": "f6b8616430643d6b71dabfff8a217e761abd25fdf160f8fe0d9bf44660873cfc",
+  "inputUtf16Length": 32490,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 4,
+    "aboveThreshold": 4,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 0,
+      "end": 42,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 10847,
+      "end": 10858,
+      "length": 11,
+      "matchedText": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity",
+      "service": "us_ssn",
+      "typeAbbreviation": "SSN",
+      "confidence": 0.8999999999999999,
+      "confidenceString": "0.8999999999999999",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 21659,
+      "end": 21679,
+      "length": 20,
+      "matchedText": "AKIAAAAAAAAAAAAAAAAA",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "aws_access_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 21680,
+      "end": 21686,
+      "length": 6,
+      "matchedText": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    }
+  ]
+}

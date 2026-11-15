@@ -1,0 +1,50 @@
+{
+  "input": "060-identity-ssn-iban.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 421,
+  "maskedSha256": "df5a741c337862de2150b90113091a3c7540c0e3ce8d2ab72de4e865d50bc09a",
+  "tokenCount": 5,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "IBAN:a5a48a81",
+      "start": 379,
+      "end": 391,
+      "originalValue": "GB82WEST1234",
+      "entityType": "Iban",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "IBAN:72d0d183",
+      "start": 339,
+      "end": 361,
+      "originalValue": "DE89370400440532013000",
+      "entityType": "Iban",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "IBAN:72d0d183",
+      "start": 258,
+      "end": 280,
+      "originalValue": "DE89370400440532013000",
+      "entityType": "Iban",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "SSN:c36200a4",
+      "start": 92,
+      "end": 103,
+      "originalValue": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "SSN:c36200a4",
+      "start": 46,
+      "end": 57,
+      "originalValue": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity"
+    }
+  ]
+}

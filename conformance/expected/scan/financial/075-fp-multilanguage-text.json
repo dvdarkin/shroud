@@ -1,0 +1,15 @@
+{
+  "input": "075-fp-multilanguage-text.md",
+  "config": "financial",
+  "inputBytes": 445,
+  "inputSha256": "ebf21b9b0430670d96993155a169bf0d4c907df184dd8b9cab07ff85eec3314b",
+  "inputUtf16Length": 443,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -1,0 +1,82 @@
+{
+  "input": "001-onchain-evm-addresses.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 475,
+  "maskedSha256": "8559495586d9ac7f263760c20c73f4b9077cd2b12fc64349775434fd1ad73c0c",
+  "tokenCount": 9,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "TX:b835bd82",
+      "start": 537,
+      "end": 603,
+      "originalValue": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:286c6ee4",
+      "start": 478,
+      "end": 518,
+      "originalValue": "0x0549ddh7f61865fc...cb13e78360y0c0557y6",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:ab553ea0",
+      "start": 451,
+      "end": 466,
+      "originalValue": "[0x1234...5678]",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:b5b2abd6",
+      "start": 433,
+      "end": 446,
+      "originalValue": "[0x0118…8110]",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:42e1fb26",
+      "start": 410,
+      "end": 421,
+      "originalValue": "0x0118…8110",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:3afa4bdd",
+      "start": 377,
+      "end": 389,
+      "originalValue": "0x1234..5678",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:c0a25cff",
+      "start": 335,
+      "end": 356,
+      "originalValue": "0x1111aaaa...bbbb2222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:9d20d1fb",
+      "start": 79,
+      "end": 121,
+      "originalValue": "0xAbCdEfAbCdEfAbCdEfAbCdEfAbCdEfAbCdEfAbCd",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 24,
+      "end": 66,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

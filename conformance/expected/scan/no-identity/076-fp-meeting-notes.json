@@ -1,0 +1,44 @@
+{
+  "input": "076-fp-meeting-notes.md",
+  "config": "no-identity",
+  "inputBytes": 419,
+  "inputSha256": "f2ddf6dff87dc932a3a8babf272cd59752e389ccb74fc2f1e4ab52cb81b6bba0",
+  "inputUtf16Length": 419,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 2,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 159,
+      "end": 165,
+      "length": 6,
+      "matchedText": "$3,500",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 193,
+      "end": 199,
+      "length": 6,
+      "matchedText": "$2,800",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    }
+  ]
+}

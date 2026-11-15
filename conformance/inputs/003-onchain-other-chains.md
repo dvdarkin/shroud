@@ -1,0 +1,18 @@
+## Other chains
+
+Solana bare: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Solana with context (phantom wallet): AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Cardano: addr1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Cosmos: cosmos1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Osmosis: osmo1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Ripple bare: rAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Ripple with xrp context: rAAAAAAAAAAAAAAAAAAAAAAAAAAAA on the XRP ledger
+Tron: TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Dogecoin bare: D5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Dogecoin with doge context: D5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA (dogecoin)
+Monero: 4A111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+Polkadot bare: 1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Polkadot with context: 1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA on kusama parachain
+Tezos: tz1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Avalanche X-chain: X-avax1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Avalanche P-chain: P-avax1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

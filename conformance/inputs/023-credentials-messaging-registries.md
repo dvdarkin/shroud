@@ -1,0 +1,11 @@
+## Messaging and registries
+
+Telegram: 123456789:AAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Discord: Maaaaaaaaaaaaaaaaaaaaaaa.bbbbbb.ccccccccccccccccccccccccccc
+Shopify: shpat_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+npm: npm_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+PyPI: pypi-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Twilio bare: SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Twilio with context: twilio key SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+NuGet bare: oy2aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+NuGet with context: nuget oy2aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

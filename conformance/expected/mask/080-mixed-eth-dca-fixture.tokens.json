@@ -1,0 +1,74 @@
+{
+  "input": "080-mixed-eth-dca-fixture.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 343,
+  "maskedSha256": "f6f814524b79d68b004628643398ffb577ff7c2e7f6205e69b2beeda258a5bb7",
+  "tokenCount": 8,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "AMT:f8a46cb7",
+      "start": 380,
+      "end": 386,
+      "originalValue": "$1,500",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:9092a571",
+      "start": 329,
+      "end": 335,
+      "originalValue": "$1,200",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:90a58fe8",
+      "start": 310,
+      "end": 317,
+      "originalValue": " 10 ETH",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:818ae287",
+      "start": 233,
+      "end": 275,
+      "originalValue": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:b835bd82",
+      "start": 146,
+      "end": 212,
+      "originalValue": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 89,
+      "end": 131,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "PRICE:799c38b5",
+      "start": 45,
+      "end": 54,
+      "originalValue": "at $1,234",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:815ea90f",
+      "start": 36,
+      "end": 44,
+      "originalValue": " 0.5 ETH",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    }
+  ]
+}

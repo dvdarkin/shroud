@@ -1,0 +1,62 @@
+{
+  "runtime": ".NET 8.0.29",
+  "password": "p\u00E4ssw\u00F6rd \uD83D\uDD12",
+  "vaultShroudBase64": "C\u002BeR1xjUwmvypt44nW/PMxN1G2OW9FbXpJtUi9ipePplJe15VG04vfgYKGdaDejdfFh\u002BT4rOA6NkuE76zxJKVaU3KbuYyWT3WdySf2RQtjdr10VYXLmiZLB1DMeHNFx0\u002BbkDv7uia10ztY4jqFBf0WtvU7kbkcikdjKUV\u002Bj02wYLiIAIfgiIm\u002BLB0BGxuUadQkOWvvnF5o23y2Wl\u002BQwjTFrWQCvI6mfagNvIrBvOkmDVyG0BXu0wMNFESF79qOXVNKbbV7TkHWTAQO4\u002BoaORoSELPvj0skwYEM0lKBMh3c1xc07DRufjJqAgxyPnJB6E77JfR6qAZnO7LARWyU8QeFTMIuxenPC5/ejHU0Z002jo/vsCiYbx0qS/jRHzkgTiPLgeS/MXB03mn1FtMkutq5u/dcKXXsFIXPp23C0igxbWWfl956LYZnxFnT2o9vLioIzag49CVmixeAR/js6DzW8LLQ0awpRTce4uB6TcTQG7Lybn3SToWWGQ6AoUV/9gBwmv6RgQqInsQlvDjaTmB5Q5TqxrpbBstSb8wPevGd\u002B8U1j3Q0bXUXOVuj2rIW9r\u002Bop3VKZVwemOr06orSqpbGYYvbZHjEfLKMuGR94xQws9eRGq1yu5s3NfP0FfiOPq/i98Uxh1VzEVVk\u002BjhP5oGHoUgtVN\u002BJNZ93Ia/24nhfeir2GBtirbrv4nMVxoue9/IFfgU4XvDxWt5NcWSkGHL8VRINWNYSOzeqa9V0dh\u002BXhLVO0GM/MahChiKRqLplFUyv43hIolXqoIKRsM5u\u002Bjpe/vuFOtY2ECc654mW0zJrl8B5Iqyq5mvyh0SCYbnyCjKSMKZ/9tAw6By93B0At84pxOfDmKg67yXvv0K1/6kygcxt7STQl/\u002BZmw/bQ\u002B/3nO36e7oqPWLA/PoEKYfHzC5iM0hXm8Zl6hbmWXQYfZ/ddUd25Ey40fKkTzxI8nlT1jIJ4U6buo8pZw0qRLy2sN1LNUTNvGew7AZLNyEaiz2tLQbOnOIjj3oKs/35YpXbb9\u002BFdOYwHo7ktJ/8vEAsSLmHjq3kHG8PMLy6eQ6RrrVPKOiF5ZC46Wko/IG/9MnMh3iI9fXbFso8OkZe5ayT8A1Zar6YnOJuvNGs0tBKvXDa\u002B5ubz0UYJJBFQtmIL0UbEeGhz\u002BkI\u002BzvG6dHTufcaqLNq8=",
+  "vaultJson": "{\r\n  \u0022version\u0022: 1,\r\n  \u0022created\u0022: \u00222026-11-15T02:01:58.4610891Z\u0022,\r\n  \u0022tokens\u0022: {\r\n    \u0022TX:8f04c0f0\u0022: \u0022nonce:\\u0085123456\u0022,\r\n    \u0022QTY:ff3ac475\u0022: \u0022 \\u0661\\u0662\\u0663 ETH\u0022,\r\n    \u0022IP:0e8c22b9\u0022: \u0022\\\\\\\\192.168.10.2\\\\share\\\\f.md\u0022,\r\n    \u0022PASSWD:19c6f1ce\u0022: \u0022password = \\u0022p\\u003Ca\\u003E\\u0026\\u0027\u0022,\r\n    \u0022PRICE:8b757bff\u0022: \u0022at $1,234\u0022,\r\n    \u0022ADDR:70b41da9\u0022: \u00220x1111111111111111111111111111111111111111\u0022,\r\n    \u0022QTY:fd9d198e\u0022: \u0022 0.5 ETH\u0022,\r\n    \u0022TOKEN:090a4ac0\u0022: \u0022ghp_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaA\u0022,\r\n    \u0022SSN:749d4e99\u0022: \u0022123-45-6789\u0022\r\n  },\r\n  \u0022fileHashes\u0022: {\r\n    \u0022a.md\u0022: \u0022sha256:4cc4e42a8a3ab1869fc8a04cee79633e57ecf523c899605a655040fb05562f40\u0022,\r\n    \u0022clean.md\u0022: \u0022sha256:eb38ca40211a0821582acaf2dd3291dadb09778dddfc4245ba3ca2edb69b177c\u0022,\r\n    \u0022sub\\\\b.md\u0022: \u0022sha256:228f81b00e9100b94a491685cb6dc79cd0a8e7ec21aa06e00418b21942f952be\u0022\r\n  }\r\n}",
+  "manifestJson": "{\r\n  \u0022created\u0022: \u00222026-11-15T02:01:58.4610891Z\u0022,\r\n  \u0022source\u0022: \u0022C:\\\\Users\\\\Denis\\\\AppData\\\\Local\\\\Temp\\\\shroud-vectors-ec19fcfd\\\\src\u0022,\r\n  \u0022fileCount\u0022: 3,\r\n  \u0022tokenCount\u0022: 9,\r\n  \u0022tokens\u0022: {\r\n    \u0022TX:8f04c0f0\u0022: {\r\n      \u0022service\u0022: \u0022tx_nonce\u0022,\r\n      \u0022domain\u0022: \u0022onchain\u0022,\r\n      \u0022files\u0022: [\r\n        \u0022a.md\u0022\r\n      ],\r\n      \u0022occurrences\u0022: 1\r\n    },\r\n    \u0022QTY:ff3ac475\u0022: {\r\n      \u0022service\u0022: \u0022asset_quantity\u0022,\r\n      \u0022domain\u0022: \u0022financial\u0022,\r\n      \u0022files\u0022: [\r\n        \u0022a.md\u0022\r\n      ],\r\n      \u0022occurrences\u0022: 1\r\n    },\r\n    \u0022IP:0e8c22b9\u0022: {\r\n      \u0022service\u0022: \u0022unc_network_path\u0022,\r\n      \u0022domain\u0022: \u0022identity\u0022,\r\n      \u0022files\u0022: [\r\n        \u0022a.md\u0022\r\n      ],\r\n      \u0022occurrences\u0022: 1\r\n    },\r\n    \u0022PASSWD:19c6f1ce\u0022: {\r\n      \u0022service\u0022: \u0022password_assignment\u0022,\r\n      \u0022domain\u0022: \u0022secrets\u0022,\r\n      \u0022files\u0022: [\r\n        \u0022a.md\u0022\r\n      ],\r\n      \u0022occurrences\u0022: 1\r\n    },\r\n    \u0022PRICE:8b757bff\u0022: {\r\n      \u0022service\u0022: \u0022price_dollar\u0022,\r\n      \u0022domain\u0022: \u0022financial\u0022,\r\n      \u0022files\u0022: [\r\n        \u0022a.md\u0022\r\n      ],\r\n      \u0022occurrences\u0022: 1\r\n    },\r\n    \u0022ADDR:70b41da9\u0022: {\r\n      \u0022service\u0022: \u0022evm_address\u0022,\r\n      \u0022domain\u0022: \u0022onchain\u0022,\r\n      \u0022files\u0022: [\r\n        \u0022a.md\u0022\r\n      ],\r\n      \u0022occurrences\u0022: 1\r\n    },\r\n    \u0022QTY:fd9d198e\u0022: {\r\n      \u0022service\u0022: \u0022asset_quantity\u0022,\r\n      \u0022domain\u0022: \u0022financial\u0022,\r\n      \u0022files\u0022: [\r\n        \u0022a.md\u0022,\r\n        \u0022sub\\\\b.md\u0022\r\n      ],\r\n      \u0022occurrences\u0022: 2\r\n    },\r\n    \u0022TOKEN:090a4ac0\u0022: {\r\n      \u0022service\u0022: \u0022github_pat\u0022,\r\n      \u0022domain\u0022: \u0022credentials\u0022,\r\n      \u0022files\u0022: [\r\n        \u0022sub\\\\b.md\u0022\r\n      ],\r\n      \u0022occurrences\u0022: 1\r\n    },\r\n    \u0022SSN:749d4e99\u0022: {\r\n      \u0022service\u0022: \u0022us_ssn\u0022,\r\n      \u0022domain\u0022: \u0022identity\u0022,\r\n      \u0022files\u0022: [\r\n        \u0022sub\\\\b.md\u0022\r\n      ],\r\n      \u0022occurrences\u0022: 1\r\n    }\r\n  },\r\n  \u0022summary\u0022: {\r\n    \u0022onchain\u0022: 2,\r\n    \u0022financial\u0022: 4,\r\n    \u0022identity\u0022: 2,\r\n    \u0022secrets\u0022: 1,\r\n    \u0022credentials\u0022: 1\r\n  }\r\n}",
+  "publicFilesBase64": {
+    "a.md": "U2VudFtRVFk6ZmQ5ZDE5OGVdIHRvIFtBRERSOjcwYjQxZGE5XSBbUFJJQ0U6OGI3NTdiZmZdLgpbUEFTU1dEOjE5YzZmMWNlXStgXFx4IiBhbmQgW0lQOjBlOGMyMmI5XQpib3VnaHRbUVRZOmZmM2FjNDc1XSDDqXTDqSDwn5iAIFtUWDo4ZjA0YzBmMF0gdHgK",
+    "clean.md": "Tm90aGluZyBoZXJlLg==",
+    "sub/b.md": "U1NOIFtTU046NzQ5ZDRlOTldDQpbVE9LRU46MDkwYTRhYzBdDQpTZW50W1FUWTpmZDlkMTk4ZV0gYWdhaW4NCg=="
+  },
+  "smallBlobs": {
+    "": "D1gf0366yMXN8eqMsuWARLcLLdXb0tHHaZ8jHQ9SugtQrcz/37C1pHgCoAQ=|",
+    "test-password-123": "gv2swAbzygp\u002BgBV3w99b2LyUuCIpsesSuj4D9mpivtpbFgXL/V\u002BV\u002BMojHgobBpoEf9w\u002B\u002BLGJJZ1rvQ==|Hello, Shroud!",
+    "\u65E5\u672C\u8A9E": "1IxUPWLNXeQqGXWVrKJMYNqgpPL0F5G\u002B6RFHsgykAKQCBfBa18eCdmNxvkgFJOAftQZnXc7oaLxW|{\u0022version\u0022:1}"
+  },
+  "maskKeyHex": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+  "tokens": [
+    [
+      "CryptoAddr",
+      "003000780031003100310031003100310031003100310031003100310031003100310031003100310031003100310031003100310031003100310031003100310031003100310031003100310031003100310031",
+      "ADDR:282a9c42",
+      "[ADDR:282a9c42]"
+    ],
+    [
+      "Ssn",
+      "003100320033002d00340035002d0036003700380039",
+      "SSN:4b9db896",
+      "[SSN:4b9db896]"
+    ],
+    [
+      "Amount",
+      "0024003500300030",
+      "AMT:ad4eca12",
+      "[AMT:ad4eca12]"
+    ],
+    [
+      "Email",
+      "00e9d83dde0000400078002e0069006f",
+      "EMAIL:81e42c19",
+      "[EMAIL:81e42c19]"
+    ],
+    [
+      "PhoneNumber",
+      "",
+      "PHONE:462476a8",
+      "[PHONE:462476a8]"
+    ],
+    [
+      "Quantity",
+      "d800",
+      "QTY:56a7807c",
+      "[QTY:56a7807c]"
+    ]
+  ],
+  "configs": {
+    "financial": "{\r\n  \u0022domains\u0022: {\r\n    \u0022onChain\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    },\r\n    \u0022financial\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    },\r\n    \u0022identity\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    },\r\n    \u0022credentials\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    },\r\n    \u0022secrets\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    }\r\n  },\r\n  \u0022threshold\u0022: 0.7,\r\n  \u0022preset\u0022: \u0022financial\u0022\r\n}",
+    "dev": "{\r\n  \u0022domains\u0022: {\r\n    \u0022onChain\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    },\r\n    \u0022financial\u0022: {\r\n      \u0022enabled\u0022: false,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    },\r\n    \u0022identity\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    },\r\n    \u0022credentials\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    },\r\n    \u0022secrets\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    }\r\n  },\r\n  \u0022threshold\u0022: 0.7,\r\n  \u0022preset\u0022: \u0022dev\u0022\r\n}",
+    "paranoid": "{\r\n  \u0022domains\u0022: {\r\n    \u0022onChain\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    },\r\n    \u0022financial\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022directional\u0022\r\n    },\r\n    \u0022identity\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    },\r\n    \u0022credentials\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    },\r\n    \u0022secrets\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    }\r\n  },\r\n  \u0022threshold\u0022: 0.5,\r\n  \u0022preset\u0022: \u0022paranoid\u0022\r\n}",
+    "custom": "{\r\n  \u0022domains\u0022: {\r\n    \u0022onChain\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    },\r\n    \u0022financial\u0022: {\r\n      \u0022enabled\u0022: true\r\n    },\r\n    \u0022identity\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    },\r\n    \u0022credentials\u0022: {\r\n      \u0022enabled\u0022: true,\r\n      \u0022layer\u0022: \u0022markets\u0022\r\n    }\r\n  },\r\n  \u0022threshold\u0022: 1E-07,\r\n  \u0022keyFile\u0022: \u0022keys/k.bin\u0022\r\n}"
+  }
+}

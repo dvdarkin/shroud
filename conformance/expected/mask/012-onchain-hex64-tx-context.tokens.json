@@ -1,0 +1,42 @@
+{
+  "input": "012-onchain-hex64-tx-context.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 343,
+  "maskedSha256": "f4ca23422b68cb31ef37885abb3184d65aeae9e7183c961acc7e50d4e67624a2",
+  "tokenCount": 4,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "TX:316f0152",
+      "start": 331,
+      "end": 395,
+      "originalValue": "0000000000000000000000000000000000000000000000000000000000000000",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:c32e0129",
+      "start": 229,
+      "end": 293,
+      "originalValue": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:58363023",
+      "start": 124,
+      "end": 188,
+      "originalValue": "abababababababababababababababababababababababababababababababab",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:58363023",
+      "start": 29,
+      "end": 93,
+      "originalValue": "abababababababababababababababababababababababababababababababab",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    }
+  ]
+}

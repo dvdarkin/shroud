@@ -1,0 +1,82 @@
+{
+  "input": "121-unicode-cyrillic.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 262,
+  "maskedSha256": "ae8dc2700d17decd08d7a104e6f1b01d7e318efced5406affd261692a44fde4d",
+  "tokenCount": 9,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "QTY:8ba539f5",
+      "start": 307,
+      "end": 313,
+      "originalValue": "123456",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:c45e2c75",
+      "start": 289,
+      "end": 292,
+      "originalValue": "743",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "PASSWD:54e193f1",
+      "start": 246,
+      "end": 275,
+      "originalValue": "password = \"секретный_пароль\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets"
+    },
+    {
+      "tokenId": "EMAIL:79c953ad",
+      "start": 204,
+      "end": 220,
+      "originalValue": "ivan@example.com",
+      "entityType": "Email",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "KEY:9cfc93e8",
+      "start": 176,
+      "end": 196,
+      "originalValue": "AKIABBBBBBBBBBBBBBBB",
+      "entityType": "ApiKey",
+      "domain": "Credentials"
+    },
+    {
+      "tokenId": "KEY:2c699160",
+      "start": 143,
+      "end": 163,
+      "originalValue": "AKIAAAAAAAAAAAAAAAAA",
+      "entityType": "ApiKey",
+      "domain": "Credentials"
+    },
+    {
+      "tokenId": "ADDR:818ae287",
+      "start": 95,
+      "end": 137,
+      "originalValue": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "AMT:653b8ea0",
+      "start": 80,
+      "end": 87,
+      "originalValue": "$12,345",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 29,
+      "end": 71,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

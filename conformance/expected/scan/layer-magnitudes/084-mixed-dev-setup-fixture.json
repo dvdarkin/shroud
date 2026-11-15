@@ -1,0 +1,72 @@
+{
+  "input": "084-mixed-dev-setup-fixture.md",
+  "config": "layer-magnitudes",
+  "inputBytes": 399,
+  "inputSha256": "852180feee5ea780148494fca1d8b296b2fb378d5b11cce35354a1d5ef29ecf2",
+  "inputUtf16Length": 399,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 4,
+    "aboveThreshold": 4,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 69,
+      "end": 104,
+      "length": 35,
+      "matchedText": "sk_test_FAKEFAKEFAKEFAKEFAKEFAKEFAK",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "stripe_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 134,
+      "end": 147,
+      "length": 13,
+      "matchedText": "192.168.1.100",
+      "entityType": "IpAddress",
+      "domain": "Identity",
+      "service": "ipv4",
+      "typeAbbreviation": "IP",
+      "confidence": 0.9500000000000001,
+      "confidenceString": "0.9500000000000001",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 179,
+      "end": 189,
+      "length": 10,
+      "matchedText": "10.0.0.200",
+      "entityType": "IpAddress",
+      "domain": "Identity",
+      "service": "ipv4",
+      "typeAbbreviation": "IP",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 205,
+      "end": 314,
+      "length": 109,
+      "matchedText": "xpub6abc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc123ab",
+      "entityType": "ApiKey",
+      "domain": "OnChain",
+      "service": "bip32_extended_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

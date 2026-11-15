@@ -1,0 +1,86 @@
+{
+  "input": "050-financial-credit-card-fixture.md",
+  "config": "layer-magnitudes",
+  "inputBytes": 276,
+  "inputSha256": "89cc48482dc86989549ed67a0591daa8cbe232d871c7820e8f2490c6f26dc8b1",
+  "inputUtf16Length": 276,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 5,
+    "aboveThreshold": 0,
+    "belowThreshold": 5
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 80,
+      "end": 96,
+      "length": 16,
+      "matchedText": "4532015112830366",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.30000000000000004,
+      "confidenceString": "0.30000000000000004",
+      "aboveThreshold": false
+    },
+    {
+      "index": 1,
+      "start": 110,
+      "end": 125,
+      "length": 15,
+      "matchedText": "371449635398431",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.30000000000000004,
+      "confidenceString": "0.30000000000000004",
+      "aboveThreshold": false
+    },
+    {
+      "index": 2,
+      "start": 138,
+      "end": 154,
+      "length": 16,
+      "matchedText": "5425233430109903",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.30000000000000004,
+      "confidenceString": "0.30000000000000004",
+      "aboveThreshold": false
+    },
+    {
+      "index": 3,
+      "start": 208,
+      "end": 224,
+      "length": 16,
+      "matchedText": "4532015112830367",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.30000000000000004,
+      "confidenceString": "0.30000000000000004",
+      "aboveThreshold": false
+    },
+    {
+      "index": 4,
+      "start": 234,
+      "end": 250,
+      "length": 16,
+      "matchedText": "1234567890123456",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.30000000000000004,
+      "confidenceString": "0.30000000000000004",
+      "aboveThreshold": false
+    }
+  ]
+}

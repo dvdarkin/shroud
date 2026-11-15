@@ -1,0 +1,44 @@
+{
+  "input": "090-code-fenced-block.md",
+  "config": "no-credentials-secrets",
+  "inputBytes": 260,
+  "inputSha256": "bf68a462c5edd3c06d75b87f190867b5fe66f0932a5f065920cee03b6837c102",
+  "inputUtf16Length": 260,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 2,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 80,
+      "end": 151,
+      "length": 71,
+      "matchedText": "https://etherscan.io/address/0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "block_explorer_url",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 217,
+      "end": 259,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

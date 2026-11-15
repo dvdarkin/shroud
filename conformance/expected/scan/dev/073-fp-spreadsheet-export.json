@@ -1,0 +1,15 @@
+{
+  "input": "073-fp-spreadsheet-export.md",
+  "config": "dev",
+  "inputBytes": 246,
+  "inputSha256": "9b7d80e9dc650c9dac2a4018087812e631b9f71d1a250ff240b973845c54ebac",
+  "inputUtf16Length": 246,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

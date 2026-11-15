@@ -1,0 +1,86 @@
+{
+  "input": "060-identity-ssn-iban.md",
+  "config": "financial",
+  "inputBytes": 426,
+  "inputSha256": "87b2e100121822663f76a69573048484a1eee9c87b08a9a7db7f55e4ec7f0d64",
+  "inputUtf16Length": 426,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 5,
+    "aboveThreshold": 5,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 46,
+      "end": 57,
+      "length": 11,
+      "matchedText": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity",
+      "service": "us_ssn",
+      "typeAbbreviation": "SSN",
+      "confidence": 0.8999999999999999,
+      "confidenceString": "0.8999999999999999",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 92,
+      "end": 103,
+      "length": 11,
+      "matchedText": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity",
+      "service": "us_ssn",
+      "typeAbbreviation": "SSN",
+      "confidence": 0.8999999999999999,
+      "confidenceString": "0.8999999999999999",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 258,
+      "end": 280,
+      "length": 22,
+      "matchedText": "DE89370400440532013000",
+      "entityType": "Iban",
+      "domain": "Identity",
+      "service": "iban",
+      "typeAbbreviation": "IBAN",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 339,
+      "end": 361,
+      "length": 22,
+      "matchedText": "DE89370400440532013000",
+      "entityType": "Iban",
+      "domain": "Identity",
+      "service": "iban",
+      "typeAbbreviation": "IBAN",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 4,
+      "start": 379,
+      "end": 391,
+      "length": 12,
+      "matchedText": "GB82WEST1234",
+      "entityType": "Iban",
+      "domain": "Identity",
+      "service": "iban",
+      "typeAbbreviation": "IBAN",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    }
+  ]
+}

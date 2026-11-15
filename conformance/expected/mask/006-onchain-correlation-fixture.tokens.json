@@ -1,0 +1,82 @@
+{
+  "input": "006-onchain-correlation-fixture.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 372,
+  "maskedSha256": "d42a147a2fb50f7920c851532dab6b6dc868d7df2225655ef2a3cfccbfa5244d",
+  "tokenCount": 9,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "VKEY:de5d0fd0",
+      "start": 320,
+      "end": 381,
+      "originalValue": "pool1abc123def456abc123def456abc123def456abc123def456abc123de",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:e78c6020",
+      "start": 233,
+      "end": 249,
+      "originalValue": "position #482331",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:75f3f828",
+      "start": 210,
+      "end": 216,
+      "originalValue": "2 Gwei",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:ab4957be",
+      "start": 185,
+      "end": 195,
+      "originalValue": "0.107 Gwei",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:ce2442d0",
+      "start": 164,
+      "end": 175,
+      "originalValue": "nonce: 1247",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:2e76b359",
+      "start": 147,
+      "end": 162,
+      "originalValue": "block #24808457",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:07acd86a",
+      "start": 92,
+      "end": 105,
+      "originalValue": "epoch #298445",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:41c35fbc",
+      "start": 71,
+      "end": 84,
+      "originalValue": "slot #9234567",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "VKEY:6a9d8347",
+      "start": 41,
+      "end": 58,
+      "originalValue": "validator #548231",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    }
+  ]
+}

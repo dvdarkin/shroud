@@ -1,0 +1,970 @@
+{
+  "input": "145-many-matches-dense.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 2120,
+  "maskedSha256": "7bd14b3cd29e9fd2de6a26833b6162821199e09612562818124c514ce29c07c6",
+  "tokenCount": 120,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "QTY:b58c3c5c",
+      "start": 2467,
+      "end": 2470,
+      "originalValue": "139",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:88518187",
+      "start": 2452,
+      "end": 2459,
+      "originalValue": "$40,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:39247b38",
+      "start": 2409,
+      "end": 2451,
+      "originalValue": "0x9999999999999999999999999999999999999999",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:d0e978f9",
+      "start": 2405,
+      "end": 2408,
+      "originalValue": "138",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:bec6ed97",
+      "start": 2390,
+      "end": 2397,
+      "originalValue": "$39,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f95d393b",
+      "start": 2347,
+      "end": 2389,
+      "originalValue": "0x8888888888888888888888888888888888888888",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:3b41e20e",
+      "start": 2343,
+      "end": 2346,
+      "originalValue": "137",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:312a722a",
+      "start": 2328,
+      "end": 2335,
+      "originalValue": "$38,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:c4bbe1ea",
+      "start": 2285,
+      "end": 2327,
+      "originalValue": "0x7777777777777777777777777777777777777777",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:232505da",
+      "start": 2281,
+      "end": 2284,
+      "originalValue": "136",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:5e896a90",
+      "start": 2266,
+      "end": 2273,
+      "originalValue": "$37,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:e2034703",
+      "start": 2223,
+      "end": 2265,
+      "originalValue": "0x6666666666666666666666666666666666666666",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:398699a5",
+      "start": 2219,
+      "end": 2222,
+      "originalValue": "135",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:28a5eaf6",
+      "start": 2204,
+      "end": 2211,
+      "originalValue": "$36,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:bbc86947",
+      "start": 2161,
+      "end": 2203,
+      "originalValue": "0x5555555555555555555555555555555555555555",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:5d0acd03",
+      "start": 2157,
+      "end": 2160,
+      "originalValue": "134",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:83b10101",
+      "start": 2142,
+      "end": 2149,
+      "originalValue": "$35,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:3cf7ce68",
+      "start": 2099,
+      "end": 2141,
+      "originalValue": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:ff47917c",
+      "start": 2095,
+      "end": 2098,
+      "originalValue": "133",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:71f64e32",
+      "start": 2080,
+      "end": 2087,
+      "originalValue": "$34,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 2037,
+      "end": 2079,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:cbe67572",
+      "start": 2033,
+      "end": 2036,
+      "originalValue": "132",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:528bd6de",
+      "start": 2018,
+      "end": 2025,
+      "originalValue": "$33,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:818ae287",
+      "start": 1975,
+      "end": 2017,
+      "originalValue": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:eb545be1",
+      "start": 1971,
+      "end": 1974,
+      "originalValue": "131",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:2ac0a328",
+      "start": 1956,
+      "end": 1963,
+      "originalValue": "$32,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 1913,
+      "end": 1955,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:5e1d4152",
+      "start": 1909,
+      "end": 1912,
+      "originalValue": "130",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:b4c4cd5b",
+      "start": 1894,
+      "end": 1901,
+      "originalValue": "$31,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:1cf940e7",
+      "start": 1851,
+      "end": 1893,
+      "originalValue": "0x0000000000000000000000000000000000000000",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:5c962c0d",
+      "start": 1847,
+      "end": 1850,
+      "originalValue": "129",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:2ea6f6bb",
+      "start": 1832,
+      "end": 1839,
+      "originalValue": "$30,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:39247b38",
+      "start": 1789,
+      "end": 1831,
+      "originalValue": "0x9999999999999999999999999999999999999999",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:5213139e",
+      "start": 1785,
+      "end": 1788,
+      "originalValue": "128",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:51169a04",
+      "start": 1770,
+      "end": 1777,
+      "originalValue": "$29,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f95d393b",
+      "start": 1727,
+      "end": 1769,
+      "originalValue": "0x8888888888888888888888888888888888888888",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:90bbec06",
+      "start": 1723,
+      "end": 1726,
+      "originalValue": "127",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:3175f32c",
+      "start": 1708,
+      "end": 1715,
+      "originalValue": "$28,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:c4bbe1ea",
+      "start": 1665,
+      "end": 1707,
+      "originalValue": "0x7777777777777777777777777777777777777777",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:5da16f85",
+      "start": 1661,
+      "end": 1664,
+      "originalValue": "126",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:20659201",
+      "start": 1646,
+      "end": 1653,
+      "originalValue": "$27,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:e2034703",
+      "start": 1603,
+      "end": 1645,
+      "originalValue": "0x6666666666666666666666666666666666666666",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:fb9aa2f9",
+      "start": 1599,
+      "end": 1602,
+      "originalValue": "125",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:f1fd8309",
+      "start": 1584,
+      "end": 1591,
+      "originalValue": "$26,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:bbc86947",
+      "start": 1541,
+      "end": 1583,
+      "originalValue": "0x5555555555555555555555555555555555555555",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:df3ffe76",
+      "start": 1537,
+      "end": 1540,
+      "originalValue": "124",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:dc6b1d33",
+      "start": 1522,
+      "end": 1529,
+      "originalValue": "$25,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:3cf7ce68",
+      "start": 1479,
+      "end": 1521,
+      "originalValue": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:e7c5538a",
+      "start": 1475,
+      "end": 1478,
+      "originalValue": "123",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:2dbecac7",
+      "start": 1460,
+      "end": 1467,
+      "originalValue": "$24,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 1417,
+      "end": 1459,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:624fda67",
+      "start": 1413,
+      "end": 1416,
+      "originalValue": "122",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:3ab97069",
+      "start": 1398,
+      "end": 1405,
+      "originalValue": "$23,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:818ae287",
+      "start": 1355,
+      "end": 1397,
+      "originalValue": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:7f0980ee",
+      "start": 1351,
+      "end": 1354,
+      "originalValue": "121",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:12a55482",
+      "start": 1336,
+      "end": 1343,
+      "originalValue": "$22,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 1293,
+      "end": 1335,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:caaaf7c6",
+      "start": 1289,
+      "end": 1292,
+      "originalValue": "120",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:cb85cdc3",
+      "start": 1274,
+      "end": 1281,
+      "originalValue": "$21,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:1cf940e7",
+      "start": 1231,
+      "end": 1273,
+      "originalValue": "0x0000000000000000000000000000000000000000",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:84a81a18",
+      "start": 1227,
+      "end": 1230,
+      "originalValue": "119",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:b35b0ccd",
+      "start": 1212,
+      "end": 1219,
+      "originalValue": "$20,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:39247b38",
+      "start": 1169,
+      "end": 1211,
+      "originalValue": "0x9999999999999999999999999999999999999999",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:cb7a3dfd",
+      "start": 1165,
+      "end": 1168,
+      "originalValue": "118",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:f237e5f4",
+      "start": 1150,
+      "end": 1157,
+      "originalValue": "$19,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f95d393b",
+      "start": 1107,
+      "end": 1149,
+      "originalValue": "0x8888888888888888888888888888888888888888",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:5047cb95",
+      "start": 1103,
+      "end": 1106,
+      "originalValue": "117",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:df9fe9dd",
+      "start": 1088,
+      "end": 1095,
+      "originalValue": "$18,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:c4bbe1ea",
+      "start": 1045,
+      "end": 1087,
+      "originalValue": "0x7777777777777777777777777777777777777777",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:89b2b5fd",
+      "start": 1041,
+      "end": 1044,
+      "originalValue": "116",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:444f19a1",
+      "start": 1026,
+      "end": 1033,
+      "originalValue": "$17,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:e2034703",
+      "start": 983,
+      "end": 1025,
+      "originalValue": "0x6666666666666666666666666666666666666666",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:85816295",
+      "start": 979,
+      "end": 982,
+      "originalValue": "115",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:f9b216dd",
+      "start": 964,
+      "end": 971,
+      "originalValue": "$16,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:bbc86947",
+      "start": 921,
+      "end": 963,
+      "originalValue": "0x5555555555555555555555555555555555555555",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:cf472ca3",
+      "start": 917,
+      "end": 920,
+      "originalValue": "114",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:d418b195",
+      "start": 902,
+      "end": 909,
+      "originalValue": "$15,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:3cf7ce68",
+      "start": 859,
+      "end": 901,
+      "originalValue": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:58968436",
+      "start": 855,
+      "end": 858,
+      "originalValue": "113",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:f1cf6cd6",
+      "start": 840,
+      "end": 847,
+      "originalValue": "$14,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 797,
+      "end": 839,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:a0363bf3",
+      "start": 793,
+      "end": 796,
+      "originalValue": "112",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:f688a767",
+      "start": 778,
+      "end": 785,
+      "originalValue": "$13,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:818ae287",
+      "start": 735,
+      "end": 777,
+      "originalValue": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:da3ccaa2",
+      "start": 731,
+      "end": 734,
+      "originalValue": "111",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:7ae2e16b",
+      "start": 716,
+      "end": 723,
+      "originalValue": "$12,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 673,
+      "end": 715,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:3d541b07",
+      "start": 669,
+      "end": 672,
+      "originalValue": "110",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:25406658",
+      "start": 654,
+      "end": 661,
+      "originalValue": "$11,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:1cf940e7",
+      "start": 611,
+      "end": 653,
+      "originalValue": "0x0000000000000000000000000000000000000000",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:95909989",
+      "start": 607,
+      "end": 610,
+      "originalValue": "109",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:3da1d829",
+      "start": 592,
+      "end": 599,
+      "originalValue": "$10,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:39247b38",
+      "start": 549,
+      "end": 591,
+      "originalValue": "0x9999999999999999999999999999999999999999",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:ec8c39fb",
+      "start": 545,
+      "end": 548,
+      "originalValue": "108",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:2b02dca7",
+      "start": 531,
+      "end": 537,
+      "originalValue": "$9,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f95d393b",
+      "start": 488,
+      "end": 530,
+      "originalValue": "0x8888888888888888888888888888888888888888",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:55ea8fdb",
+      "start": 484,
+      "end": 487,
+      "originalValue": "107",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:843ff501",
+      "start": 470,
+      "end": 476,
+      "originalValue": "$8,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:c4bbe1ea",
+      "start": 427,
+      "end": 469,
+      "originalValue": "0x7777777777777777777777777777777777777777",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:4b43ee34",
+      "start": 423,
+      "end": 426,
+      "originalValue": "106",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:6b431cd7",
+      "start": 409,
+      "end": 415,
+      "originalValue": "$7,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:e2034703",
+      "start": 366,
+      "end": 408,
+      "originalValue": "0x6666666666666666666666666666666666666666",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:efed7411",
+      "start": 362,
+      "end": 365,
+      "originalValue": "105",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:ad9cab41",
+      "start": 348,
+      "end": 354,
+      "originalValue": "$6,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:bbc86947",
+      "start": 305,
+      "end": 347,
+      "originalValue": "0x5555555555555555555555555555555555555555",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:3f1caa63",
+      "start": 301,
+      "end": 304,
+      "originalValue": "104",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:7da3cc53",
+      "start": 287,
+      "end": 293,
+      "originalValue": "$5,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:3cf7ce68",
+      "start": 244,
+      "end": 286,
+      "originalValue": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:35373f0e",
+      "start": 240,
+      "end": 243,
+      "originalValue": "103",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:f1628ade",
+      "start": 226,
+      "end": 232,
+      "originalValue": "$4,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 183,
+      "end": 225,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:1774d827",
+      "start": 179,
+      "end": 182,
+      "originalValue": "102",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:9e8ba38e",
+      "start": 165,
+      "end": 171,
+      "originalValue": "$3,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:818ae287",
+      "start": 122,
+      "end": 164,
+      "originalValue": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:9d63b02b",
+      "start": 118,
+      "end": 121,
+      "originalValue": "101",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:0fa23b6d",
+      "start": 104,
+      "end": 110,
+      "originalValue": "$2,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 61,
+      "end": 103,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:59440f31",
+      "start": 57,
+      "end": 60,
+      "originalValue": "100",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:42c8fdf7",
+      "start": 43,
+      "end": 49,
+      "originalValue": "$1,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:1cf940e7",
+      "start": 0,
+      "end": 42,
+      "originalValue": "0x0000000000000000000000000000000000000000",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "input": "120-unicode-accented-latin.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 407,
+  "maskedSha256": "99c3eb75bb501d866e88e3d8d6f53770373997a6ba6e65615e55465adffd0af4",
+  "tokenCount": 7,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "QTY:c45e2c75",
+      "start": 311,
+      "end": 314,
+      "originalValue": "743",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:27e7aaa9",
+      "start": 294,
+      "end": 303,
+      "originalValue": " 500 USDC",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "EMAIL:a2338a59",
+      "start": 267,
+      "end": 283,
+      "originalValue": "user@example.com",
+      "entityType": "Email",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "KEY:2c699160",
+      "start": 188,
+      "end": 208,
+      "originalValue": "AKIAAAAAAAAAAAAAAAAA",
+      "entityType": "ApiKey",
+      "domain": "Credentials"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 144,
+      "end": 186,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 85,
+      "end": 127,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "AMT:5da9ab58",
+      "start": 57,
+      "end": 63,
+      "originalValue": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial"
+    }
+  ]
+}

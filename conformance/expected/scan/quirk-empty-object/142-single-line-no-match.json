@@ -1,0 +1,15 @@
+{
+  "input": "142-single-line-no-match.md",
+  "config": "quirk-empty-object",
+  "inputBytes": 23,
+  "inputSha256": "63bcf0d083c9abbb6b57a17d9e1c6cdb5ccbad6fbb379c578074eeab77931487",
+  "inputUtf16Length": 23,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

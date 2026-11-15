@@ -1,0 +1,18 @@
+{
+  "input": "112-context-after-edge-inside.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 135,
+  "maskedSha256": "b5aec001880a2f56b29dcaadcf1e30f0242b82728f6dd75cbb406b20f52ea260",
+  "tokenCount": 1,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "ADDR:9f6a00db",
+      "start": 0,
+      "end": 40,
+      "originalValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

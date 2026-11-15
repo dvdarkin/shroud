@@ -1,0 +1,9 @@
+{
+  "input": "078-fp-code-discussion.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 513,
+  "maskedSha256": "702680ec0a4f4ce79718953c46df7668720888bc3ba1df108b8caf3f95c3ee32",
+  "tokenCount": 0,
+  "tokensInReplacementOrder": []
+}

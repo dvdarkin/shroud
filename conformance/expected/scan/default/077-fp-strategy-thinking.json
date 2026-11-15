@@ -1,0 +1,30 @@
+{
+  "input": "077-fp-strategy-thinking.md",
+  "config": "default",
+  "inputBytes": 468,
+  "inputSha256": "29d5cc9b96905d88e8c98a1bf41959e2e7f82ac196b407cf8c2e78fe4fa0e232",
+  "inputUtf16Length": 468,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 30,
+      "end": 35,
+      "length": 5,
+      "matchedText": "about",
+      "entityType": "SeedPhrase",
+      "domain": "OnChain",
+      "service": "bip39",
+      "typeAbbreviation": "SEED",
+      "confidence": 0.1,
+      "confidenceString": "0.1",
+      "aboveThreshold": false
+    }
+  ]
+}

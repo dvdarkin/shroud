@@ -1,0 +1,106 @@
+{
+  "input": "048-financial-table-cells.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 453,
+  "maskedSha256": "ae61f1dbc45f523d916ef9dbdbdefbd5818e3e8fc5385cdb8de73702d7ebf759",
+  "tokenCount": 12,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "QTY:5710088c",
+      "start": 302,
+      "end": 305,
+      "originalValue": "3.6",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:3a8b1711",
+      "start": 298,
+      "end": 299,
+      "originalValue": "0",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:f1e8e14e",
+      "start": 293,
+      "end": 295,
+      "originalValue": "30",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:f1e8e14e",
+      "start": 288,
+      "end": 290,
+      "originalValue": "30",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:0540b4b6",
+      "start": 281,
+      "end": 285,
+      "originalValue": "0.12",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:0540b4b6",
+      "start": 274,
+      "end": 278,
+      "originalValue": "0.12",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:7d06c8b6",
+      "start": 196,
+      "end": 201,
+      "originalValue": "1,234",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:52a0441e",
+      "start": 190,
+      "end": 193,
+      "originalValue": "0.5",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:f1e8e14e",
+      "start": 159,
+      "end": 161,
+      "originalValue": "30",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:0540b4b6",
+      "start": 152,
+      "end": 156,
+      "originalValue": "0.12",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:80ddc334",
+      "start": 59,
+      "end": 60,
+      "originalValue": "2",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:1660ab3d",
+      "start": 44,
+      "end": 45,
+      "originalValue": "3",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    }
+  ]
+}

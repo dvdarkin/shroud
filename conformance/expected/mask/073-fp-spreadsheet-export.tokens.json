@@ -1,0 +1,26 @@
+{
+  "input": "073-fp-spreadsheet-export.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 261,
+  "maskedSha256": "7f0632c3c92990f2e0d6cfb18f3f8f6898633e4a87037ea3041fdf86ed6511c8",
+  "tokenCount": 2,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "QTY:0fe50e7f",
+      "start": 132,
+      "end": 138,
+      "originalValue": "150.00",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:c4f77e23",
+      "start": 112,
+      "end": 119,
+      "originalValue": "1500.00",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    }
+  ]
+}

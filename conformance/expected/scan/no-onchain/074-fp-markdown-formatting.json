@@ -1,0 +1,30 @@
+{
+  "input": "074-fp-markdown-formatting.md",
+  "config": "no-onchain",
+  "inputBytes": 418,
+  "inputSha256": "e9c99adaf292a1dc6fe7060e04ee3e968a4996d25574900aea785a385a63cb82",
+  "inputUtf16Length": 418,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 413,
+      "end": 417,
+      "length": 4,
+      "matchedText": "1234",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.2,
+      "confidenceString": "0.2",
+      "aboveThreshold": false
+    }
+  ]
+}

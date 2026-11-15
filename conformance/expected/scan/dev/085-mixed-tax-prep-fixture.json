@@ -1,0 +1,44 @@
+{
+  "input": "085-mixed-tax-prep-fixture.md",
+  "config": "dev",
+  "inputBytes": 284,
+  "inputSha256": "2bf820a49a032a59a423721594a4788cb28054503468a3a7182a508d37302001",
+  "inputUtf16Length": 284,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 2,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 138,
+      "end": 149,
+      "length": 11,
+      "matchedText": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity",
+      "service": "us_ssn",
+      "typeAbbreviation": "SSN",
+      "confidence": 0.8999999999999999,
+      "confidenceString": "0.8999999999999999",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 189,
+      "end": 211,
+      "length": 22,
+      "matchedText": "DE89370400440532013000",
+      "entityType": "Iban",
+      "domain": "Identity",
+      "service": "iban",
+      "typeAbbreviation": "IBAN",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    }
+  ]
+}

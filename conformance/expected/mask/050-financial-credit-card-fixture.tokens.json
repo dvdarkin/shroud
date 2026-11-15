@@ -1,0 +1,34 @@
+{
+  "input": "050-financial-credit-card-fixture.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 268,
+  "maskedSha256": "3fda656ed54b4aa0c41bf2fa1238ba055c776295f27b66594f19938f6b839861",
+  "tokenCount": 3,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "CC:10c3dfab",
+      "start": 138,
+      "end": 154,
+      "originalValue": "5425233430109903",
+      "entityType": "CreditCard",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "CC:6a394ebb",
+      "start": 110,
+      "end": 125,
+      "originalValue": "371449635398431",
+      "entityType": "CreditCard",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "CC:63d4c8bf",
+      "start": 80,
+      "end": 96,
+      "originalValue": "4532015112830366",
+      "entityType": "CreditCard",
+      "domain": "Financial"
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "input": "049-financial-wallet-table-fixture.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 563,
+  "maskedSha256": "94a2596478fc46fb86c020af169b76554a55b724618d0668b1e150363070d803",
+  "tokenCount": 16,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "AMT:fe83a720",
+      "start": 832,
+      "end": 841,
+      "originalValue": "$1,234.56",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:43535ad9",
+      "start": 824,
+      "end": 828,
+      "originalValue": "0.07",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:8dd1a6eb",
+      "start": 816,
+      "end": 821,
+      "originalValue": "$1.00",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:a8e9a470",
+      "start": 806,
+      "end": 813,
+      "originalValue": "1234.56",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:9a370009",
+      "start": 708,
+      "end": 803,
+      "originalValue": "[0x88888888...888888888](https://etherscan.io/token/0x8888888888888888888888888888888888888888)",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:8211542d",
+      "start": 570,
+      "end": 698,
+      "originalValue": "[Tether USD](https://etherscan.io/token/0x8888888888888888888888888888888888888888?a=0x7777777777777777777777777777777777777777)",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "AMT:49360c7c",
+      "start": 549,
+      "end": 558,
+      "originalValue": "$1,524.69",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:d47c7e8d",
+      "start": 533,
+      "end": 539,
+      "originalValue": "$1,235",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:836d36cc",
+      "start": 510,
+      "end": 530,
+      "originalValue": "1.234567890123456789",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:1920ed11",
+      "start": 412,
+      "end": 507,
+      "originalValue": "[0x66666666...666666666](https://etherscan.io/token/0x6666666666666666666666666666666666666666)",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:52f45963",
+      "start": 278,
+      "end": 401,
+      "originalValue": "[stETH](https://etherscan.io/token/0x6666666666666666666666666666666666666666?a=0x7777777777777777777777777777777777777777)",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "AMT:0566e5c6",
+      "start": 259,
+      "end": 266,
+      "originalValue": "$152.39",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:ecab702e",
+      "start": 251,
+      "end": 255,
+      "originalValue": "2.88",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:5da9ab58",
+      "start": 242,
+      "end": 248,
+      "originalValue": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:ee9f4858",
+      "start": 219,
+      "end": 239,
+      "originalValue": "0.123456789012345678",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:5da9ab58",
+      "start": 22,
+      "end": 28,
+      "originalValue": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial"
+    }
+  ]
+}

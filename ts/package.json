@@ -1,0 +1,46 @@
+{
+  "name": "@logmark/shroud",
+  "version": "0.2.0",
+  "description": "Sensitive data detection and tokenization for text files. Zero dependencies. Auditable. TypeScript port of Shroud.",
+  "license": "Apache-2.0",
+  "author": "LogMark",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    }
+  },
+  "bin": {
+    "shroud": "./dist/src/cli.js"
+  },
+  "files": [
+    "dist/src",
+    "src",
+    "README.md",
+    "FORMAT.md"
+  ],
+  "keywords": [
+    "security",
+    "privacy",
+    "tokenization",
+    "redaction",
+    "sensitive-data",
+    "markdown"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsc -p tsconfig.json && node scripts/test.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.0",
+    "typescript": "^5.6.0"
+  }
+}

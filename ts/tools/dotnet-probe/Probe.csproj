@@ -1,0 +1,19 @@
+<!--
+  Dev-only ground-truth probe for the TS port. It references the C# Shroud library and
+  reports what the real .NET 8 engine does (character classes, case equivalences,
+  System.Text.Json escaping, number formatting, culture ordering, and full scan
+  results with diagnostics) so tools/differential.mjs can diff the TS build against it.
+  Not part of the npm package.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Probe</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Shroud\Shroud.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,44 @@
+{
+  "input": "062-identity-unc-file-uri.md",
+  "config": "no-identity",
+  "inputBytes": 183,
+  "inputSha256": "c5df565c27f2960da631fdbddcac73cd01996b65fc93d6ca612902cf4b22c0ed",
+  "inputUtf16Length": 183,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 0,
+    "belowThreshold": 2
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 25,
+      "end": 32,
+      "length": 7,
+      "matchedText": "192.168",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.2,
+      "confidenceString": "0.2",
+      "aboveThreshold": false
+    },
+    {
+      "index": 1,
+      "start": 78,
+      "end": 85,
+      "length": 7,
+      "matchedText": "192.168",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.2,
+      "confidenceString": "0.2",
+      "aboveThreshold": false
+    }
+  ]
+}

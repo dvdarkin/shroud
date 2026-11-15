@@ -1,0 +1,58 @@
+{
+  "input": "008-onchain-correlation-with-context.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 291,
+  "maskedSha256": "6e1e64f814fa1d9fbabd891b7216b9c24ba331a52d881c4a84aa1bdb89a306d1",
+  "tokenCount": 6,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "TX:23b678ec",
+      "start": 248,
+      "end": 254,
+      "originalValue": "5 Gwei",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:d867dfc0",
+      "start": 217,
+      "end": 226,
+      "originalValue": "epoch 123",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:6f31156b",
+      "start": 173,
+      "end": 185,
+      "originalValue": "slot 1234567",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:6be29d58",
+      "start": 135,
+      "end": 146,
+      "originalValue": "position 77",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:ac2a28da",
+      "start": 91,
+      "end": 99,
+      "originalValue": "nonce 42",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:2f0c1191",
+      "start": 41,
+      "end": 56,
+      "originalValue": "block #12345678",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    }
+  ]
+}

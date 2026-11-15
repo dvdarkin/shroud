@@ -1,0 +1,2 @@
+# Corpus files are byte-exact test data (CRLF, BOM, binary vault files): never normalise line endings.
+* -text

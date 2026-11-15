@@ -1,0 +1,58 @@
+{
+  "input": "063-identity-server-metrics-fixture.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 391,
+  "maskedSha256": "125e5625562c18c4ff656359b1750ec09280941acf2dbd37564c7dbd51d81820",
+  "tokenCount": 6,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "MAC:7760b71a",
+      "start": 349,
+      "end": 366,
+      "originalValue": "AA:BB:CC:DD:EE:FF",
+      "entityType": "MacAddress",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "IP:b54c26b2",
+      "start": 303,
+      "end": 314,
+      "originalValue": "172.16.0.10",
+      "entityType": "IpAddress",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "IP:697b5eeb",
+      "start": 271,
+      "end": 280,
+      "originalValue": "10.0.0.50",
+      "entityType": "IpAddress",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "IP:ff0e7fc9",
+      "start": 232,
+      "end": 245,
+      "originalValue": "192.168.1.100",
+      "entityType": "IpAddress",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "AMT:50c2cc53",
+      "start": 159,
+      "end": 163,
+      "originalValue": "500m",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:ac17b0a2",
+      "start": 105,
+      "end": 108,
+      "originalValue": "12k",
+      "entityType": "Amount",
+      "domain": "Financial"
+    }
+  ]
+}

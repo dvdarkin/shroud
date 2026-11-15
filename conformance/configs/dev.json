@@ -1,0 +1,11 @@
+{
+  "domains": {
+    "onChain": { "enabled": true },
+    "financial": { "enabled": false, "layer": "markets" },
+    "identity": { "enabled": true },
+    "credentials": { "enabled": true },
+    "secrets": { "enabled": true }
+  },
+  "threshold": 0.70,
+  "preset": "dev"
+}

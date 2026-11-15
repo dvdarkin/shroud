@@ -1,0 +1,42 @@
+{
+  "input": "070-fp-academic-paper.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 484,
+  "maskedSha256": "4a2b39514667528d27760070113beaa0772d4da27e4bc5a4e7db9088de0fcb40",
+  "tokenCount": 4,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "QTY:875901d2",
+      "start": 429,
+      "end": 434,
+      "originalValue": "490.5",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:168cb8e5",
+      "start": 422,
+      "end": 426,
+      "originalValue": "9.81",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:0ad550f8",
+      "start": 372,
+      "end": 376,
+      "originalValue": "1024",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:b4e80826",
+      "start": 277,
+      "end": 280,
+      "originalValue": "512",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    }
+  ]
+}

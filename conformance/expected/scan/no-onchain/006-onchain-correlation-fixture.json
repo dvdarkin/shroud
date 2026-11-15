@@ -1,0 +1,44 @@
+{
+  "input": "006-onchain-correlation-fixture.md",
+  "config": "no-onchain",
+  "inputBytes": 413,
+  "inputSha256": "a7d14ada47ee8b08062e0ddda3973c0d8b34edfce1fd177b35c2b5f258b75822",
+  "inputUtf16Length": 413,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 2,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 171,
+      "end": 175,
+      "length": 4,
+      "matchedText": "1247",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.75,
+      "confidenceString": "0.75",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 185,
+      "end": 190,
+      "length": 5,
+      "matchedText": "0.107",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "table_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.8,
+      "confidenceString": "0.8",
+      "aboveThreshold": true
+    }
+  ]
+}

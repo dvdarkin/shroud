@@ -1,0 +1,146 @@
+{
+  "input": "040-financial-currency-fixture.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 683,
+  "maskedSha256": "afc0e70343cd1ea9bfc05c063a5e3caf3247444d9335a9788fd5cc7556896ffb",
+  "tokenCount": 17,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "AMT:dcfdfcf5",
+      "start": 491,
+      "end": 495,
+      "originalValue": "500k",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:ac17b0a2",
+      "start": 471,
+      "end": 474,
+      "originalValue": "12k",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:cbe04443",
+      "start": 403,
+      "end": 407,
+      "originalValue": "2.5B",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:dcfdfcf5",
+      "start": 385,
+      "end": 389,
+      "originalValue": "500k",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:e58ce4fe",
+      "start": 369,
+      "end": 373,
+      "originalValue": "1.2M",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:6f3175cd",
+      "start": 350,
+      "end": 355,
+      "originalValue": "12.5k",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:7d06c8b6",
+      "start": 289,
+      "end": 294,
+      "originalValue": "1,234",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:c8dd69ce",
+      "start": 274,
+      "end": 281,
+      "originalValue": "750 EUR",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:263cd2a4",
+      "start": 260,
+      "end": 269,
+      "originalValue": "12.5k AUD",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:6b2edc66",
+      "start": 246,
+      "end": 255,
+      "originalValue": "5,000 USD",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:62006257",
+      "start": 213,
+      "end": 221,
+      "originalValue": "EUR 1.2M",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:2164e0b5",
+      "start": 199,
+      "end": 208,
+      "originalValue": "AUD 12.5k",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:56970d66",
+      "start": 189,
+      "end": 194,
+      "originalValue": "5,000",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:a6d95b79",
+      "start": 117,
+      "end": 121,
+      "originalValue": "$500",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:92551d8a",
+      "start": 58,
+      "end": 63,
+      "originalValue": "$1.2M",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:227493a6",
+      "start": 47,
+      "end": 53,
+      "originalValue": "$12.5k",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:5da9ab58",
+      "start": 36,
+      "end": 42,
+      "originalValue": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "input": "083-mixed-validator-bridge-fixture.md",
+  "config": "financial",
+  "inputBytes": 463,
+  "inputSha256": "ba80c28f86a9f699e03966153e9d5ca232f5b1049a5445018bf3df37b6225c84",
+  "inputUtf16Length": 463,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 5,
+    "aboveThreshold": 5,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 96,
+      "end": 105,
+      "length": 9,
+      "matchedText": " 500 USDC",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "asset_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.75,
+      "confidenceString": "0.75",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 174,
+      "end": 240,
+      "length": 66,
+      "matchedText": "0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "evm_tx",
+      "typeAbbreviation": "TX",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 267,
+      "end": 309,
+      "length": 42,
+      "matchedText": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 324,
+      "end": 336,
+      "length": 12,
+      "matchedText": "testname.eth",
+      "entityType": "EnsName",
+      "domain": "OnChain",
+      "service": "ens",
+      "typeAbbreviation": "ENS",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    },
+    {
+      "index": 4,
+      "start": 397,
+      "end": 407,
+      "length": 10,
+      "matchedText": "myname.eth",
+      "entityType": "EnsName",
+      "domain": "OnChain",
+      "service": "ens",
+      "typeAbbreviation": "ENS",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    }
+  ]
+}

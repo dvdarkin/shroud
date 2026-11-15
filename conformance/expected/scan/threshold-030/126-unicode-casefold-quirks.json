@@ -1,0 +1,86 @@
+{
+  "input": "126-unicode-casefold-quirks.md",
+  "config": "threshold-030",
+  "inputBytes": 335,
+  "inputSha256": "932dfc6c58ceeaf8a4285b994a8de7b8e69fc9b0f93c4942a8e1cca3e468ee0d",
+  "inputUtf16Length": 324,
+  "threshold": 0.3,
+  "thresholdString": "0.3",
+  "counts": {
+    "allDetected": 5,
+    "aboveThreshold": 5,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 122,
+      "end": 135,
+      "length": 13,
+      "matchedText": "slot #9234567",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "beacon_slot",
+      "typeAbbreviation": "TX",
+      "confidence": 0.9000000000000001,
+      "confidenceString": "0.9000000000000001",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 174,
+      "end": 187,
+      "length": 13,
+      "matchedText": "validator #12",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain",
+      "service": "eth_validator_index",
+      "typeAbbreviation": "VKEY",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 205,
+      "end": 218,
+      "length": 13,
+      "matchedText": "validator #12",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain",
+      "service": "eth_validator_index",
+      "typeAbbreviation": "VKEY",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 228,
+      "end": 243,
+      "length": 15,
+      "matchedText": "BLOCK #12345678",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "block_number",
+      "typeAbbreviation": "TX",
+      "confidence": 0.8500000000000001,
+      "confidenceString": "0.8500000000000001",
+      "aboveThreshold": true
+    },
+    {
+      "index": 4,
+      "start": 270,
+      "end": 274,
+      "length": 4,
+      "matchedText": "$100",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

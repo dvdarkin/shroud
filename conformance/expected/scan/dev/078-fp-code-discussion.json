@@ -1,0 +1,15 @@
+{
+  "input": "078-fp-code-discussion.md",
+  "config": "dev",
+  "inputBytes": 513,
+  "inputSha256": "702680ec0a4f4ce79718953c46df7668720888bc3ba1df108b8caf3f95c3ee32",
+  "inputUtf16Length": 513,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

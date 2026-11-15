@@ -1,0 +1,210 @@
+{
+  "input": "045-financial-quantities.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 683,
+  "maskedSha256": "de8d471c6d941018810eff95088658d3c0e0fff8316b3c03c2d44b8d35c965d7",
+  "tokenCount": 25,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "QTY:48324d65",
+      "start": 491,
+      "end": 501,
+      "originalValue": "0.12345678",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:f1c2165a",
+      "start": 468,
+      "end": 481,
+      "originalValue": "12.1234567890",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:ee9f4858",
+      "start": 443,
+      "end": 463,
+      "originalValue": "0.123456789012345678",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:c6b272a7",
+      "start": 419,
+      "end": 427,
+      "originalValue": " 7 stETH",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:d5f7cd72",
+      "start": 409,
+      "end": 415,
+      "originalValue": "-5 BTC",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:292d1786",
+      "start": 390,
+      "end": 404,
+      "originalValue": " 1234.... USDC",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:07dd6a90",
+      "start": 375,
+      "end": 386,
+      "originalValue": "+ 1234 USDC",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:947923c2",
+      "start": 360,
+      "end": 370,
+      "originalValue": " 1234 USDC",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:2e4273e6",
+      "start": 348,
+      "end": 356,
+      "originalValue": " 0.5 eth",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:8ba539f5",
+      "start": 320,
+      "end": 326,
+      "originalValue": "123456",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:8ba539f5",
+      "start": 264,
+      "end": 270,
+      "originalValue": "123456",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:374cfa80",
+      "start": 198,
+      "end": 209,
+      "originalValue": "123,456,789",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:6b12b0a9",
+      "start": 185,
+      "end": 193,
+      "originalValue": "1,234.56",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:a286d31b",
+      "start": 174,
+      "end": 180,
+      "originalValue": "11,234",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:7d06c8b6",
+      "start": 164,
+      "end": 169,
+      "originalValue": "1,234",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:7761b1cc",
+      "start": 142,
+      "end": 143,
+      "originalValue": "1",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:59440f31",
+      "start": 134,
+      "end": 137,
+      "originalValue": "100",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:cd4ebabc",
+      "start": 121,
+      "end": 123,
+      "originalValue": "7b",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:e6050590",
+      "start": 107,
+      "end": 111,
+      "originalValue": "2.5m",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:1660ab3d",
+      "start": 92,
+      "end": 93,
+      "originalValue": "3",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:22c03f3f",
+      "start": 82,
+      "end": 85,
+      "originalValue": "1,5",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:6f3175cd",
+      "start": 64,
+      "end": 69,
+      "originalValue": "12.5k",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:c04bad74",
+      "start": 49,
+      "end": 52,
+      "originalValue": "500",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:45578e5f",
+      "start": 35,
+      "end": 37,
+      "originalValue": "10",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:c45e2c75",
+      "start": 22,
+      "end": 25,
+      "originalValue": "743",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "input": "130-frontmatter-lf.md",
+  "config": "no-identity",
+  "inputBytes": 145,
+  "inputSha256": "fd96499c127cc9477502c148dddbdf6e18f5652381a78053caa91f2fdda9bb46",
+  "inputUtf16Length": 145,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 102,
+      "end": 144,
+      "length": 42,
+      "matchedText": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

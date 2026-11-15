@@ -1,0 +1,9 @@
+{
+  "input": "077-fp-strategy-thinking.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 468,
+  "maskedSha256": "29d5cc9b96905d88e8c98a1bf41959e2e7f82ac196b407cf8c2e78fe4fa0e232",
+  "tokenCount": 0,
+  "tokensInReplacementOrder": []
+}

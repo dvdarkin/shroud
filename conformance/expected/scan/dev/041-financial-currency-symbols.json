@@ -1,0 +1,15 @@
+{
+  "input": "041-financial-currency-symbols.md",
+  "config": "dev",
+  "inputBytes": 190,
+  "inputSha256": "a871b04ba598342687903b15e4c43d11e0004554ec46b756b04eaa16089bce5f",
+  "inputUtf16Length": 180,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

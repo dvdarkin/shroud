@@ -1,0 +1,72 @@
+{
+  "input": "055-financial-wei-precision-no-context.md",
+  "config": "threshold-030",
+  "inputBytes": 209,
+  "inputSha256": "7199d44054c85483fdf367f42a0c56b8b30774e3681d489688f4bbb3612798e1",
+  "inputUtf16Length": 209,
+  "threshold": 0.3,
+  "thresholdString": "0.3",
+  "counts": {
+    "allDetected": 4,
+    "aboveThreshold": 3,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 74,
+      "end": 90,
+      "length": 16,
+      "matchedText": "3.14159265358979",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "wei_precision_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.8,
+      "confidenceString": "0.8",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 109,
+      "end": 122,
+      "length": 13,
+      "matchedText": "12.1234567890",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "wei_precision_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.8,
+      "confidenceString": "0.8",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 127,
+      "end": 148,
+      "length": 21,
+      "matchedText": "0.1234567890123456789",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "wei_precision_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.8,
+      "confidenceString": "0.8",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 175,
+      "end": 186,
+      "length": 11,
+      "matchedText": "1.123456789",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "table_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.15,
+      "confidenceString": "0.15",
+      "aboveThreshold": false
+    }
+  ]
+}

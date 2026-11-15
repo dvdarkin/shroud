@@ -1,0 +1,26 @@
+{
+  "input": "138-utf8-bom.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 69,
+  "maskedSha256": "019d38be49a361002960c1d3e8a32e17a198e961fa35a71af7c27169551c8327",
+  "tokenCount": 2,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "SSN:c36200a4",
+      "start": 80,
+      "end": 91,
+      "originalValue": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 29,
+      "end": 71,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "input": "043-financial-markets.md",
+  "config": "dev",
+  "inputBytes": 319,
+  "inputSha256": "c081116226e8a55d52969c860167bc3c3b7203745b085009877f6dc72ff763d6",
+  "inputUtf16Length": 319,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

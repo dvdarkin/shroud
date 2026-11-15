@@ -1,0 +1,30 @@
+{
+  "input": "128-unicode-combining-and-special-spaces.md",
+  "config": "quirk-lowercase-keys",
+  "inputBytes": 397,
+  "inputSha256": "c24a57847638b98d61e0df67e2cda7fea728111f0da856fd5c414f391b1d91aa",
+  "inputUtf16Length": 378,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 306,
+      "end": 348,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

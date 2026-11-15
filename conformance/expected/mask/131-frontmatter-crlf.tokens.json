@@ -1,0 +1,18 @@
+{
+  "input": "131-frontmatter-crlf.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 125,
+  "maskedSha256": "0ba835534e03cba40f1428862adbe972c2873d04ab5e07c74c6322c0ff4bd823",
+  "tokenCount": 1,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "ADDR:818ae287",
+      "start": 108,
+      "end": 150,
+      "originalValue": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

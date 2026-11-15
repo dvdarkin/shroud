@@ -1,0 +1,30 @@
+{
+  "input": "046-financial-prices.md",
+  "config": "dev",
+  "inputBytes": 243,
+  "inputSha256": "f06d5009ca7d779b7a1588a208db035fc6ab2dd46b7ab04a82ced45f1884ab22",
+  "inputUtf16Length": 243,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 155,
+      "end": 166,
+      "length": 11,
+      "matchedText": "192.168.1.1",
+      "entityType": "IpAddress",
+      "domain": "Identity",
+      "service": "ipv4",
+      "typeAbbreviation": "IP",
+      "confidence": 0.8,
+      "confidenceString": "0.8",
+      "aboveThreshold": true
+    }
+  ]
+}

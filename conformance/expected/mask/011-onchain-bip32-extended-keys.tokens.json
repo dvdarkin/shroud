@@ -1,0 +1,42 @@
+{
+  "input": "011-onchain-bip32-extended-keys.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 171,
+  "maskedSha256": "e5f6cfd3b6dff887e3800b49302c9e88c10701eea851bc0afb9925ee5da43915",
+  "tokenCount": 4,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "KEY:052d34a1",
+      "start": 447,
+      "end": 556,
+      "originalValue": "xpub6abc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc123ab",
+      "entityType": "ApiKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "KEY:6b6d5c96",
+      "start": 260,
+      "end": 371,
+      "originalValue": "tpubccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "entityType": "ApiKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "KEY:7d803df6",
+      "start": 142,
+      "end": 253,
+      "originalValue": "xprvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "entityType": "ApiKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "KEY:76f79568",
+      "start": 24,
+      "end": 135,
+      "originalValue": "xpubaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "ApiKey",
+      "domain": "OnChain"
+    }
+  ]
+}

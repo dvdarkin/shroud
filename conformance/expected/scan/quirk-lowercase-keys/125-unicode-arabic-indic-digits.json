@@ -1,0 +1,58 @@
+{
+  "input": "125-unicode-arabic-indic-digits.md",
+  "config": "quirk-lowercase-keys",
+  "inputBytes": 394,
+  "inputSha256": "e3e6eb15383ef4243388bba83ecf2b1dfac6ab4a0ee7b8bafcce82ef6f36748a",
+  "inputUtf16Length": 327,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 3,
+    "aboveThreshold": 2,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 118,
+      "end": 133,
+      "length": 15,
+      "matchedText": "block #١٢٣٤٥٦٧٨",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "block_number",
+      "typeAbbreviation": "TX",
+      "confidence": 0.9000000000000001,
+      "confidenceString": "0.9000000000000001",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 165,
+      "end": 182,
+      "length": 17,
+      "matchedText": "validator #٥٤٨٢٣١",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain",
+      "service": "eth_validator_index",
+      "typeAbbreviation": "VKEY",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": false
+    },
+    {
+      "index": 2,
+      "start": 268,
+      "end": 310,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

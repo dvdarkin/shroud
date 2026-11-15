@@ -1,0 +1,82 @@
+{
+  "input": "128-unicode-combining-and-special-spaces.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 429,
+  "maskedSha256": "e9fa39adb0720c6567750c97c52cfe457c8dd978828e27ff90a9f661f1f5ebed",
+  "tokenCount": 9,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "AMT:5da9ab58",
+      "start": 369,
+      "end": 375,
+      "originalValue": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 306,
+      "end": 348,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:c45e2c75",
+      "start": 234,
+      "end": 237,
+      "originalValue": "743",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:fb64cb74",
+      "start": 203,
+      "end": 207,
+      "originalValue": "1111",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:fb64cb74",
+      "start": 198,
+      "end": 202,
+      "originalValue": "1111",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:fb64cb74",
+      "start": 193,
+      "end": 197,
+      "originalValue": "1111",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:68cb23ec",
+      "start": 188,
+      "end": 192,
+      "originalValue": "4111",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:5da9ab58",
+      "start": 161,
+      "end": 167,
+      "originalValue": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:c45e2c75",
+      "start": 142,
+      "end": 145,
+      "originalValue": "743",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    }
+  ]
+}

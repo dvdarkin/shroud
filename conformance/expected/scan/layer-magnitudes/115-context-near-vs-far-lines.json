@@ -1,0 +1,30 @@
+{
+  "input": "115-context-near-vs-far-lines.md",
+  "config": "layer-magnitudes",
+  "inputBytes": 354,
+  "inputSha256": "f6d76af8e0d31b7400b68371de8719ac3dd3a18dddf90cebda74a1155204f6dd",
+  "inputUtf16Length": 354,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 165,
+      "end": 205,
+      "length": 40,
+      "matchedText": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "sol_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.3,
+      "confidenceString": "0.3",
+      "aboveThreshold": false
+    }
+  ]
+}

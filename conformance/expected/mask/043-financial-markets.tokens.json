@@ -1,0 +1,82 @@
+{
+  "input": "043-financial-markets.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 389,
+  "maskedSha256": "33409a5682415a636ac21c3c5fe2e4a13b8140094bf5fcaedefea7a0bb8fb0c0",
+  "tokenCount": 9,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "MKT:4cbb66ce",
+      "start": 292,
+      "end": 299,
+      "originalValue": "ETH-USD",
+      "entityType": "MarketPair",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "MKT:6ac90ea0",
+      "start": 231,
+      "end": 236,
+      "originalValue": "CI-CD",
+      "entityType": "MarketPair",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "MKT:6ac90ea0",
+      "start": 195,
+      "end": 200,
+      "originalValue": "CI-CD",
+      "entityType": "MarketPair",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "MKT:0c389936",
+      "start": 162,
+      "end": 168,
+      "originalValue": "TCP/IP",
+      "entityType": "MarketPair",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "MKT:d124788f",
+      "start": 126,
+      "end": 133,
+      "originalValue": "GBP/USD",
+      "entityType": "MarketPair",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "MKT:e4ed3450",
+      "start": 70,
+      "end": 77,
+      "originalValue": "AUD/JPY",
+      "entityType": "MarketPair",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:83315793",
+      "start": 57,
+      "end": 62,
+      "originalValue": "1,000",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "PRICE:479fc437",
+      "start": 41,
+      "end": 50,
+      "originalValue": "at 1.0845",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "MKT:f90f1eab",
+      "start": 24,
+      "end": 31,
+      "originalValue": "EUR/USD",
+      "entityType": "MarketPair",
+      "domain": "Financial"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "input": "101-overlap-same-range-different-types.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 321,
+  "maskedSha256": "ed0078d9eae56d78c5d2669e62a63d39ae2dff506168cd8ced3e4965084ef444",
+  "tokenCount": 5,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "QTY:7d06c8b6",
+      "start": 420,
+      "end": 425,
+      "originalValue": "1,234",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:6f3175cd",
+      "start": 402,
+      "end": 407,
+      "originalValue": "12.5k",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:9aaf925e",
+      "start": 224,
+      "end": 258,
+      "originalValue": "1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:665283b1",
+      "start": 141,
+      "end": 205,
+      "originalValue": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:f7e7dad9",
+      "start": 45,
+      "end": 111,
+      "originalValue": "0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "input": "131-frontmatter-crlf.md",
+  "config": "default",
+  "inputBytes": 152,
+  "inputSha256": "078bd62970281952fb8668f69c3acb8231f3956b39ad060687f195d1f328b34e",
+  "inputUtf16Length": 152,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 108,
+      "end": 150,
+      "length": 42,
+      "matchedText": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "created": "2026-11-15T01:00:54.2447069Z",
+  "source": "input",
+  "fileCount": 5,
+  "tokenCount": 13,
+  "tokens": {
+    "IP:026e059a": {
+      "service": "ipv4",
+      "domain": "identity",
+      "files": [
+        "notes\\deep\\keys.md"
+      ],
+      "occurrences": 1
+    },
+    "PASSWD:0ab9b326": {
+      "service": "password_assignment",
+      "domain": "secrets",
+      "files": [
+        "notes\\deep\\keys.md"
+      ],
+      "occurrences": 1
+    },
+    "JWT:e3a47a43": {
+      "service": "jwt",
+      "domain": "secrets",
+      "files": [
+        "notes\\deep\\keys.md"
+      ],
+      "occurrences": 1
+    },
+    "KEY:85574f87": {
+      "service": "aws_access_key",
+      "domain": "credentials",
+      "files": [
+        "notes\\deep\\keys.md"
+      ],
+      "occurrences": 1
+    },
+    "IBAN:c7cb76c3": {
+      "service": "iban",
+      "domain": "identity",
+      "files": [
+        "notes\\finance.md"
+      ],
+      "occurrences": 1
+    },
+    "ADDR:c9fea93d": {
+      "service": "evm_address",
+      "domain": "onchain",
+      "files": [
+        "notes\\finance.md",
+        "notes\\wallets.md"
+      ],
+      "occurrences": 3
+    },
+    "EMAIL:a701a43e": {
+      "service": "email",
+      "domain": "identity",
+      "files": [
+        "notes\\finance.md"
+      ],
+      "occurrences": 1
+    },
+    "SSN:26a25f23": {
+      "service": "us_ssn",
+      "domain": "identity",
+      "files": [
+        "notes\\finance.md"
+      ],
+      "occurrences": 1
+    },
+    "PRICE:1ebb6521": {
+      "service": "price_dollar",
+      "domain": "financial",
+      "files": [
+        "notes\\finance.md"
+      ],
+      "occurrences": 1
+    },
+    "QTY:0d042031": {
+      "service": "asset_quantity",
+      "domain": "financial",
+      "files": [
+        "notes\\finance.md"
+      ],
+      "occurrences": 1
+    },
+    "ENS:370f8381": {
+      "service": "ens",
+      "domain": "onchain",
+      "files": [
+        "notes\\wallets.md"
+      ],
+      "occurrences": 1
+    },
+    "TX:602bc330": {
+      "service": "evm_tx",
+      "domain": "onchain",
+      "files": [
+        "notes\\wallets.md"
+      ],
+      "occurrences": 1
+    },
+    "ADDR:4e727c40": {
+      "service": "evm_address",
+      "domain": "onchain",
+      "files": [
+        "notes\\wallets.md"
+      ],
+      "occurrences": 1
+    }
+  },
+  "summary": {
+    "identity": 4,
+    "secrets": 2,
+    "credentials": 1,
+    "onchain": 6,
+    "financial": 2
+  }
+}

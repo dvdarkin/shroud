@@ -1,0 +1,72 @@
+{
+  "input": "091-code-inline.md",
+  "config": "quirk-empty-object",
+  "inputBytes": 164,
+  "inputSha256": "49be65c9a4e272ab45453f18dc4dd2f78710a4525a4f41a56199460ed0882123",
+  "inputUtf16Length": 164,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 4,
+    "aboveThreshold": 4,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 8,
+      "end": 50,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 57,
+      "end": 92,
+      "length": 35,
+      "matchedText": "sk_test_FAKEFAKEFAKEFAKEFAKEFAKEFAK",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "stripe_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 99,
+      "end": 105,
+      "length": 6,
+      "matchedText": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 135,
+      "end": 148,
+      "length": 13,
+      "matchedText": "192.168.1.100",
+      "entityType": "IpAddress",
+      "domain": "Identity",
+      "service": "ipv4",
+      "typeAbbreviation": "IP",
+      "confidence": 0.8,
+      "confidenceString": "0.8",
+      "aboveThreshold": true
+    }
+  ]
+}

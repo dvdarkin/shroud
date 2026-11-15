@@ -1,0 +1,72 @@
+{
+  "input": "049-financial-wallet-table-fixture.md",
+  "config": "dev",
+  "inputBytes": 879,
+  "inputSha256": "1e47d121cc21eab3bae1ef54cbb604716151409f089ab92f848a938277065c88",
+  "inputUtf16Length": 879,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 4,
+    "aboveThreshold": 4,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 278,
+      "end": 401,
+      "length": 123,
+      "matchedText": "[stETH](https://etherscan.io/token/0x6666666666666666666666666666666666666666?a=0x7777777777777777777777777777777777777777)",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "explorer_link_addr_token",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 412,
+      "end": 507,
+      "length": 95,
+      "matchedText": "[0x66666666...666666666](https://etherscan.io/token/0x6666666666666666666666666666666666666666)",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "explorer_link_addr_token",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 570,
+      "end": 698,
+      "length": 128,
+      "matchedText": "[Tether USD](https://etherscan.io/token/0x8888888888888888888888888888888888888888?a=0x7777777777777777777777777777777777777777)",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "explorer_link_addr_token",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 708,
+      "end": 803,
+      "length": 95,
+      "matchedText": "[0x88888888...888888888](https://etherscan.io/token/0x8888888888888888888888888888888888888888)",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "explorer_link_addr_token",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    }
+  ]
+}

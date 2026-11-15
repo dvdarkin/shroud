@@ -1,0 +1,58 @@
+{
+  "input": "136-line-endings-mixed-and-lone-cr.md",
+  "config": "no-credentials-secrets",
+  "inputBytes": 136,
+  "inputSha256": "c95b47a38b45d5e5bc14036eff802f4155db3a81e2a1653d65ac6919075cbd7f",
+  "inputUtf16Length": 136,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 3,
+    "aboveThreshold": 3,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 9,
+      "end": 51,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 62,
+      "end": 68,
+      "length": 6,
+      "matchedText": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 84,
+      "end": 95,
+      "length": 11,
+      "matchedText": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity",
+      "service": "us_ssn",
+      "typeAbbreviation": "SSN",
+      "confidence": 0.8999999999999999,
+      "confidenceString": "0.8999999999999999",
+      "aboveThreshold": true
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "input": "048-financial-table-cells.md",
+  "config": "quirk-lowercase-keys",
+  "inputBytes": 317,
+  "inputSha256": "b4c9846d110a243c2b58aa2a4fb9e5fcd34d1e39e79eff8a70c0afeed2cb6347",
+  "inputUtf16Length": 317,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

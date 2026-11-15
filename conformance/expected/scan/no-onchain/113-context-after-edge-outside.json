@@ -1,0 +1,15 @@
+{
+  "input": "113-context-after-edge-outside.md",
+  "config": "no-onchain",
+  "inputBytes": 161,
+  "inputSha256": "d6a73007da5553ecd5a97fa2539cade11edd6a4f4a91ccf28200eac70ff87d72",
+  "inputUtf16Length": 161,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

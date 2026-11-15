@@ -1,0 +1,30 @@
+{
+  "input": "111-context-before-edge-outside.md",
+  "config": "quirk-lowercase-keys",
+  "inputBytes": 161,
+  "inputSha256": "067274efe4a38c4a237d5fc67fdc5f1414f55e87ae62be26d2f91b3ff4508b8d",
+  "inputUtf16Length": 161,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 121,
+      "end": 161,
+      "length": 40,
+      "matchedText": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "sol_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.3,
+      "confidenceString": "0.3",
+      "aboveThreshold": false
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "input": "083-mixed-validator-bridge-fixture.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 394,
+  "maskedSha256": "11e0bcf8d586699479e5f14a58d1d4ad8140f648a59f4d7bbf5656a1d0c3d1cc",
+  "tokenCount": 5,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "ENS:7e5c6b5d",
+      "start": 397,
+      "end": 407,
+      "originalValue": "myname.eth",
+      "entityType": "EnsName",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ENS:600bfb20",
+      "start": 324,
+      "end": 336,
+      "originalValue": "testname.eth",
+      "entityType": "EnsName",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:3cf7ce68",
+      "start": 267,
+      "end": 309,
+      "originalValue": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:f7e7dad9",
+      "start": 174,
+      "end": 240,
+      "originalValue": "0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:27e7aaa9",
+      "start": 96,
+      "end": 105,
+      "originalValue": " 500 USDC",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    }
+  ]
+}

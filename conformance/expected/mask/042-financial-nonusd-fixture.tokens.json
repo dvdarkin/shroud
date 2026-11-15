@@ -1,0 +1,58 @@
+{
+  "input": "042-financial-nonusd-fixture.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 307,
+  "maskedSha256": "3ad4fe00630a0cc5df382e51aa200aade7a2fdd08fb5adfdfe5a4ee42ff52bef",
+  "tokenCount": 6,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "AMT:082a1b38",
+      "start": 240,
+      "end": 252,
+      "originalValue": "2,034.56 AUD",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:357f7a1b",
+      "start": 233,
+      "end": 239,
+      "originalValue": "200.00",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:6b12b0a9",
+      "start": 209,
+      "end": 217,
+      "originalValue": "1,234.56",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:b8a22a7d",
+      "start": 169,
+      "end": 178,
+      "originalValue": "GBP 12.50",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:cc4b827e",
+      "start": 118,
+      "end": 128,
+      "originalValue": "EUR 500.00",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:3ebaa3d2",
+      "start": 38,
+      "end": 50,
+      "originalValue": "AUD 1,234.56",
+      "entityType": "Amount",
+      "domain": "Financial"
+    }
+  ]
+}

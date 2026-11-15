@@ -1,0 +1,50 @@
+{
+  "input": "082-mixed-defi-yield-fixture.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 319,
+  "maskedSha256": "971139d50a26eb199ab2a97791bb7db27a11fc340ff97342c8a31bfd101240c3",
+  "tokenCount": 5,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "AMT:3da1d829",
+      "start": 330,
+      "end": 337,
+      "originalValue": "$10,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:7da3cc53",
+      "start": 281,
+      "end": 287,
+      "originalValue": "$5,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 163,
+      "end": 205,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:c652d28d",
+      "start": 81,
+      "end": 147,
+      "originalValue": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:03dc05ac",
+      "start": 26,
+      "end": 37,
+      "originalValue": " 1,000 USDC",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    }
+  ]
+}

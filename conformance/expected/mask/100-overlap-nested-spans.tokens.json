@@ -1,0 +1,114 @@
+{
+  "input": "100-overlap-nested-spans.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 649,
+  "maskedSha256": "a5dce23bdf4d474b754e8db29a32170508c0e2cfb032e8c96cdfb46f81cab124",
+  "tokenCount": 13,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "SSN:c36200a4",
+      "start": 997,
+      "end": 1008,
+      "originalValue": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "QTY:947923c2",
+      "start": 943,
+      "end": 953,
+      "originalValue": " 1234 USDC",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:818ae287",
+      "start": 871,
+      "end": 913,
+      "originalValue": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 828,
+      "end": 870,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:818ae287",
+      "start": 765,
+      "end": 807,
+      "originalValue": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:584fe4b8",
+      "start": 677,
+      "end": 698,
+      "originalValue": "0x1234abcd...5678efgh",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:ab553ea0",
+      "start": 647,
+      "end": 662,
+      "originalValue": "[0x1234...5678]",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "PRICE:799c38b5",
+      "start": 606,
+      "end": 615,
+      "originalValue": "at $1,234",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "EMAIL:a59fc578",
+      "start": 552,
+      "end": 569,
+      "originalValue": "alice@example.com",
+      "entityType": "Email",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "CONNSTR:57173ef5",
+      "start": 460,
+      "end": 511,
+      "originalValue": "postgres://alice@example.com:pw@host.example.com/db",
+      "entityType": "ConnectionString",
+      "domain": "Secrets"
+    },
+    {
+      "tokenId": "TX:0c8240bd",
+      "start": 346,
+      "end": 419,
+      "originalValue": "txHash=0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:4a15d2af",
+      "start": 169,
+      "end": 329,
+      "originalValue": "[0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa](https://etherscan.io/tx/0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:c0dfa574",
+      "start": 63,
+      "end": 134,
+      "originalValue": "https://etherscan.io/address/0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

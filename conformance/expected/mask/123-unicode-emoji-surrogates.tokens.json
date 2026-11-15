@@ -1,0 +1,66 @@
+{
+  "input": "123-unicode-emoji-surrogates.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 182,
+  "maskedSha256": "09012dde9322530329a5449334d817442e20b2c694774bcb928e59d8f63ec9ed",
+  "tokenCount": 7,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "PASSWD:dfdb27e7",
+      "start": 207,
+      "end": 230,
+      "originalValue": "password = \"p😀ssword1\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets"
+    },
+    {
+      "tokenId": "EMAIL:a59fc578",
+      "start": 186,
+      "end": 203,
+      "originalValue": "alice@example.com",
+      "entityType": "Email",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "ADDR:9aaf925e",
+      "start": 132,
+      "end": 166,
+      "originalValue": "1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "QTY:4ea4445f",
+      "start": 107,
+      "end": 119,
+      "originalValue": " 100000 USDC",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:5da9ab58",
+      "start": 94,
+      "end": 100,
+      "originalValue": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "KEY:2c699160",
+      "start": 67,
+      "end": 87,
+      "originalValue": "AKIAAAAAAAAAAAAAAAAA",
+      "entityType": "ApiKey",
+      "domain": "Credentials"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 18,
+      "end": 60,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

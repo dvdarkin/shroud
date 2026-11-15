@@ -1,0 +1,58 @@
+{
+  "input": "080-mixed-eth-dca-fixture.md",
+  "config": "quirk-lowercase-keys",
+  "inputBytes": 414,
+  "inputSha256": "98c932b6ec9700c3fd59b95c001e08a9e53772bb7bf9a582bfcb3bd6e5e64a67",
+  "inputUtf16Length": 414,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 3,
+    "aboveThreshold": 3,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 89,
+      "end": 131,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 146,
+      "end": 212,
+      "length": 66,
+      "matchedText": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "evm_tx",
+      "typeAbbreviation": "TX",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 233,
+      "end": 275,
+      "length": 42,
+      "matchedText": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

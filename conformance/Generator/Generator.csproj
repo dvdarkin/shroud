@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Conformance corpus generator. References the Shroud library project directly
+    (public API only). Lives outside src/ so `dotnet test src` / `dotnet build src`
+    never see it. src/Directory.Build.props does not apply here, so the shared
+    settings are repeated.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Shroud.Conformance.Generator</RootNamespace>
+    <AssemblyName>Shroud.Conformance.Generator</AssemblyName>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Shroud\Shroud.csproj" />
+  </ItemGroup>
+
+</Project>

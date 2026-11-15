@@ -1,0 +1,72 @@
+{
+  "input": "090-code-fenced-block.md",
+  "config": "quirk-empty-object",
+  "inputBytes": 260,
+  "inputSha256": "bf68a462c5edd3c06d75b87f190867b5fe66f0932a5f065920cee03b6837c102",
+  "inputUtf16Length": 260,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 4,
+    "aboveThreshold": 4,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 54,
+      "end": 74,
+      "length": 20,
+      "matchedText": "AKIAIOSFODNN7EXAMPLE",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "aws_access_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 80,
+      "end": 151,
+      "length": 71,
+      "matchedText": "https://etherscan.io/address/0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "block_explorer_url",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 161,
+      "end": 192,
+      "length": 31,
+      "matchedText": "password = \"tilde_fence_secret\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets",
+      "service": "password_assignment",
+      "typeAbbreviation": "PASSWD",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 217,
+      "end": 259,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

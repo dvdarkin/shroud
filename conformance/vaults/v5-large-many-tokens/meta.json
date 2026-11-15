@@ -1,0 +1,10 @@
+{
+  "name": "v5-large-many-tokens",
+  "passphrase": "large-vault-passphrase-5",
+  "passphraseUtf8Hex": "6c617267652d7661756c742d706173737068726173652d35",
+  "config": "configs/financial.json",
+  "vaultFileBytes": 73228,
+  "tokenCount": 1600,
+  "sourceFiles": ["large.md"],
+  "note": "vault/vault.shroud, vault/manifest.json and vault/public/ were written by the C# VaultBuilder on Windows; relative paths inside manifest.json and vault-data.decrypted.json (files lists, fileHashes keys) use the OS separator, i.e. backslash here."
+}

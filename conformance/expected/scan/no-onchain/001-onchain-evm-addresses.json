@@ -1,0 +1,72 @@
+{
+  "input": "001-onchain-evm-addresses.md",
+  "config": "no-onchain",
+  "inputBytes": 608,
+  "inputSha256": "5c81798c9755627b676087b7def983117b649998c45b0f971ebfc004ac0604fe",
+  "inputUtf16Length": 604,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 4,
+    "aboveThreshold": 0,
+    "belowThreshold": 4
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 385,
+      "end": 389,
+      "length": 4,
+      "matchedText": "5678",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.30000000000000004,
+      "confidenceString": "0.30000000000000004",
+      "aboveThreshold": false
+    },
+    {
+      "index": 1,
+      "start": 417,
+      "end": 421,
+      "length": 4,
+      "matchedText": "8110",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.30000000000000004,
+      "confidenceString": "0.30000000000000004",
+      "aboveThreshold": false
+    },
+    {
+      "index": 2,
+      "start": 441,
+      "end": 445,
+      "length": 4,
+      "matchedText": "8110",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.30000000000000004,
+      "confidenceString": "0.30000000000000004",
+      "aboveThreshold": false
+    },
+    {
+      "index": 3,
+      "start": 461,
+      "end": 465,
+      "length": 4,
+      "matchedText": "5678",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.30000000000000004,
+      "confidenceString": "0.30000000000000004",
+      "aboveThreshold": false
+    }
+  ]
+}

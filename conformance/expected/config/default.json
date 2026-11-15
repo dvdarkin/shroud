@@ -1,0 +1,33 @@
+{
+  "config": "default",
+  "sourceFile": "configs/default.json",
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "preset": "paranoid",
+  "keyFile": null,
+  "domains": {
+    "onChain": {
+      "enabled": true,
+      "layer": "markets"
+    },
+    "financial": {
+      "enabled": true,
+      "layer": "directional"
+    },
+    "identity": {
+      "enabled": true,
+      "layer": "markets"
+    },
+    "credentials": {
+      "enabled": true,
+      "layer": "markets"
+    },
+    "secrets": {
+      "enabled": true,
+      "layer": "markets"
+    }
+  },
+  "patternCount": 104,
+  "patternIndexes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103],
+  "patternServices": ["evm_address", "evm_address_truncated", "evm_address_corrupted", "evm_address_bracketed", "btc_legacy", "btc_segwit", "btc_taproot", "bch_cashaddr", "ltc_legacy", "ltc_segwit", "sol_address", "ada_shelley", "cosmos_bech32", "xrp_address", "tron_address", "doge_address", "xmr_address", "dot_ss58", "tez_address", "avax_bech32", "evm_tx", "hex64_tx", "ens", "bip39", "block_number", "explorer_link_block_tx", "explorer_link_addr_token", "eth_validator_index", "tx_nonce", "nft_token_id", "lp_position_id", "gas_gwei", "beacon_slot", "beacon_epoch", "kv_hash", "kv_block_identifier", "ada_pool_id", "cosmos_valoper", "block_explorer_url", "generic_explorer_url", "aws_access_key", "github_pat", "github_oauth", "github_user", "github_app", "github_fine_grained", "gitlab_pat", "slack_bot", "slack_user", "slack_app", "google_api_key", "openai_key", "anthropic_key", "stripe_key", "stripe_webhook", "sendgrid_key", "twilio_key", "telegram_bot", "discord_bot", "shopify_access", "npm_token", "pypi_token", "nuget_key", "cloudflare_key", "heroku_key", "bip32_extended_key", "pem_private_key", "jwt", "database_uri", "sql_connection_string", "password_assignment", "login_assignment", "pair_slash", "pair_dash", "symbol_amount", "usd_code_amount", "fiat_currency_amount", "fiat_amount_trailing", "shorthand_amount", "arithmetic_operand", "arithmetic_equals_left", "arithmetic_result", "arithmetic_equals_right", "arithmetic_sum_operand", "verb_quantity", "comma_number", "large_number", "asset_quantity", "wei_precision_quantity", "table_quantity", "table_cell_number", "price_dollar", "price_bare", "visa", "mastercard", "amex", "us_ssn", "iban", "ipv4", "unc_network_path", "file_uri_network_path", "mac_colon", "mac_dash", "email"]
+}

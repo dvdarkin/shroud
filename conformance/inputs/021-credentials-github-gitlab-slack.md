@@ -1,0 +1,12 @@
+## Token families
+
+ghp: ghp_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+gho: gho_bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+ghu: ghu_cccccccccccccccccccccccccccccccccccc
+ghs: ghs_dddddddddddddddddddddddddddddddddddd
+fine-grained: github_pat_eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+gitlab: glpat-ffffffffffffffffffff
+slack bot: xoxb-1111111111-2222222222-AAAAAAAAAAAAAAAAAAAAAAAA
+slack user: xoxp-1111111111-2222222222-BBBBBBBBBBBBBBBBBBBBBBBB
+slack app: xoxa-1111111111-2222222222-CCCCCCCCCCCCCCCCCCCCCCCC
+ghp too short: ghp_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

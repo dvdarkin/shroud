@@ -1,0 +1,15 @@
+{
+  "input": "060-identity-ssn-iban.md",
+  "config": "quirk-lowercase-keys",
+  "inputBytes": 426,
+  "inputSha256": "87b2e100121822663f76a69573048484a1eee9c87b08a9a7db7f55e4ec7f0d64",
+  "inputUtf16Length": 426,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

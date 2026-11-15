@@ -1,0 +1,26 @@
+{
+  "input": "076-fp-meeting-notes.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 435,
+  "maskedSha256": "e996a73c28b7d4e76fea85abefecee4bd46a40daadfc69a12ce21d5895260a03",
+  "tokenCount": 2,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "AMT:52a2711a",
+      "start": 193,
+      "end": 199,
+      "originalValue": "$2,800",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:a4bf2f59",
+      "start": 159,
+      "end": 165,
+      "originalValue": "$3,500",
+      "entityType": "Amount",
+      "domain": "Financial"
+    }
+  ]
+}

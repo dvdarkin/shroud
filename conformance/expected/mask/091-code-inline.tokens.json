@@ -1,0 +1,42 @@
+{
+  "input": "091-code-inline.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 124,
+  "maskedSha256": "2e58c9299011674d542af45e5a62edf947be8bde47070f7b680f3de39294bf08",
+  "tokenCount": 4,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "IP:ff0e7fc9",
+      "start": 135,
+      "end": 148,
+      "originalValue": "192.168.1.100",
+      "entityType": "IpAddress",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "AMT:5da9ab58",
+      "start": 99,
+      "end": 105,
+      "originalValue": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "KEY:d0aa8981",
+      "start": 57,
+      "end": 92,
+      "originalValue": "sk_test_FAKEFAKEFAKEFAKEFAKEFAKEFAK",
+      "entityType": "ApiKey",
+      "domain": "Credentials"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 8,
+      "end": 50,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "input": "011-onchain-bip32-extended-keys.md",
+  "config": "quirk-preset-name-only",
+  "inputBytes": 557,
+  "inputSha256": "27ce6c48211e3203290e577c4e920e0ce32f09be8973304e86bfe4a775133d53",
+  "inputUtf16Length": 557,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 4,
+    "aboveThreshold": 4,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 24,
+      "end": 135,
+      "length": 111,
+      "matchedText": "xpubaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "ApiKey",
+      "domain": "OnChain",
+      "service": "bip32_extended_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 142,
+      "end": 253,
+      "length": 111,
+      "matchedText": "xprvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "entityType": "ApiKey",
+      "domain": "OnChain",
+      "service": "bip32_extended_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 260,
+      "end": 371,
+      "length": 111,
+      "matchedText": "tpubccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "entityType": "ApiKey",
+      "domain": "OnChain",
+      "service": "bip32_extended_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 447,
+      "end": 556,
+      "length": 109,
+      "matchedText": "xpub6abc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc123ab",
+      "entityType": "ApiKey",
+      "domain": "OnChain",
+      "service": "bip32_extended_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

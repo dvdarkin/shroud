@@ -1,0 +1,74 @@
+{
+  "input": "129-turkish-casing-sensitive-ascii-uppercase-i.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 313,
+  "maskedSha256": "a509aa11f17cb8f7bb20d173aa66e4e8b2a110e3ebd0cd2deb6b62991f9a37d1",
+  "tokenCount": 8,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "QTY:c45e2c75",
+      "start": 304,
+      "end": 307,
+      "originalValue": "743",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "TX:e4cade19",
+      "start": 242,
+      "end": 256,
+      "originalValue": "BLOCK 12345678",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:ad95bee0",
+      "start": 211,
+      "end": 223,
+      "originalValue": "POSITION #77",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:630ce56f",
+      "start": 190,
+      "end": 203,
+      "originalValue": "SLOT #1234567",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "PASSWD:b543db0f",
+      "start": 152,
+      "end": 173,
+      "originalValue": "API_KEY = \"key-67890\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets"
+    },
+    {
+      "tokenId": "PASSWD:1e03de97",
+      "start": 136,
+      "end": 151,
+      "originalValue": "LOGIN = \"bobby\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets"
+    },
+    {
+      "tokenId": "VKEY:08dce95e",
+      "start": 69,
+      "end": 86,
+      "originalValue": "Validator #548232",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "VKEY:f7e11d43",
+      "start": 51,
+      "end": 68,
+      "originalValue": "VALIDATOR #548231",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    }
+  ]
+}

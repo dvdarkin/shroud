@@ -1,0 +1,82 @@
+{
+  "input": "061-identity-ip-mac-email.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 449,
+  "maskedSha256": "196f88ed9a65fc2982dae03feb5ce4a2ec8a81fb1ff169a70f31d24b3354e874",
+  "tokenCount": 9,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "EMAIL:6aeb8042",
+      "start": 446,
+      "end": 463,
+      "originalValue": "carol@example.org",
+      "entityType": "Email",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "EMAIL:40545820",
+      "start": 354,
+      "end": 386,
+      "originalValue": "bob.smith+tag@mail.example.co.uk",
+      "entityType": "Email",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "EMAIL:a59fc578",
+      "start": 302,
+      "end": 319,
+      "originalValue": "alice@example.com",
+      "entityType": "Email",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "MAC:a5a687c6",
+      "start": 247,
+      "end": 264,
+      "originalValue": "aa-bb-cc-dd-ee-ff",
+      "entityType": "MacAddress",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "MAC:7760b71a",
+      "start": 219,
+      "end": 236,
+      "originalValue": "AA:BB:CC:DD:EE:FF",
+      "entityType": "MacAddress",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "IP:bcfc4fb9",
+      "start": 200,
+      "end": 207,
+      "originalValue": "1.2.3.4",
+      "entityType": "IpAddress",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "IP:d2c9c22d",
+      "start": 161,
+      "end": 176,
+      "originalValue": "010.001.001.001",
+      "entityType": "IpAddress",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "IP:697b5eeb",
+      "start": 74,
+      "end": 83,
+      "originalValue": "10.0.0.50",
+      "entityType": "IpAddress",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "IP:ff0e7fc9",
+      "start": 33,
+      "end": 46,
+      "originalValue": "192.168.1.100",
+      "entityType": "IpAddress",
+      "domain": "Identity"
+    }
+  ]
+}

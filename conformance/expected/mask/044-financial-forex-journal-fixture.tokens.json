@@ -1,0 +1,90 @@
+{
+  "input": "044-financial-forex-journal-fixture.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 428,
+  "maskedSha256": "62255d9f6f58a55f27e0178815a068db3076c790f99ea4315a6c447f6a205539",
+  "tokenCount": 10,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "PRICE:b09f4fda",
+      "start": 294,
+      "end": 299,
+      "originalValue": "at 12",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:5d821d1f",
+      "start": 266,
+      "end": 269,
+      "originalValue": "$25",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:2396729a",
+      "start": 253,
+      "end": 260,
+      "originalValue": "50, GBP",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "MKT:f90f1eab",
+      "start": 243,
+      "end": 250,
+      "originalValue": "EUR/USD",
+      "entityType": "MarketPair",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:c04bad74",
+      "start": 213,
+      "end": 216,
+      "originalValue": "500",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:61db112a",
+      "start": 131,
+      "end": 139,
+      "originalValue": "100.\nAUD",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "PRICE:c505150f",
+      "start": 91,
+      "end": 100,
+      "originalValue": "at 1.0790",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:83315793",
+      "start": 68,
+      "end": 73,
+      "originalValue": "1,000",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "PRICE:479fc437",
+      "start": 52,
+      "end": 61,
+      "originalValue": "at 1.0845",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "MKT:f90f1eab",
+      "start": 35,
+      "end": 42,
+      "originalValue": "EUR/USD",
+      "entityType": "MarketPair",
+      "domain": "Financial"
+    }
+  ]
+}

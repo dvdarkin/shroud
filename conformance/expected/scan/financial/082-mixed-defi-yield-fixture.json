@@ -1,0 +1,86 @@
+{
+  "input": "082-mixed-defi-yield-fixture.md",
+  "config": "financial",
+  "inputBytes": 381,
+  "inputSha256": "c279af20b70b30d087e405a6ab243f40d2ca2d0b23a897e1e02fe51eeb0ecfc3",
+  "inputUtf16Length": 381,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 5,
+    "aboveThreshold": 5,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 26,
+      "end": 37,
+      "length": 11,
+      "matchedText": " 1,000 USDC",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "asset_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.75,
+      "confidenceString": "0.75",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 81,
+      "end": 147,
+      "length": 66,
+      "matchedText": "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "evm_tx",
+      "typeAbbreviation": "TX",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 163,
+      "end": 205,
+      "length": 42,
+      "matchedText": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 281,
+      "end": 287,
+      "length": 6,
+      "matchedText": "$5,000",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 4,
+      "start": 330,
+      "end": 337,
+      "length": 7,
+      "matchedText": "$10,000",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    }
+  ]
+}

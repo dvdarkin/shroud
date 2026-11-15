@@ -1,0 +1,26 @@
+{
+  "input": "072-fp-crypto-tech-doc.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 379,
+  "maskedSha256": "362e2c15bfa91b1d42b32ce8927ecf803d85b4deb5ad12b4b2e03f8a467b431d",
+  "tokenCount": 2,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "TX:5635b5c3",
+      "start": 287,
+      "end": 353,
+      "originalValue": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:1cf940e7",
+      "start": 123,
+      "end": 165,
+      "originalValue": "0x0000000000000000000000000000000000000000",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

@@ -1,0 +1,558 @@
+{
+  "inputs": [
+    {
+      "name": "001-onchain-evm-addresses.md",
+      "bytes": 608,
+      "utf16Length": 604,
+      "sha256": "5c81798c9755627b676087b7def983117b649998c45b0f971ebfc004ac0604fe"
+    },
+    {
+      "name": "002-onchain-bitcoin-family.md",
+      "bytes": 656,
+      "utf16Length": 656,
+      "sha256": "8f419d56fb84d552a9c49249ec145a7daf6788cac1f5cb894ba9e480ac09ba65"
+    },
+    {
+      "name": "003-onchain-other-chains.md",
+      "bytes": 1045,
+      "utf16Length": 1045,
+      "sha256": "a01017bdc416f1e2827eba25316c3257ad875c716933a0b481915a2a7c5964d5"
+    },
+    {
+      "name": "004-onchain-multichain-wallet-fixture.md",
+      "bytes": 750,
+      "utf16Length": 750,
+      "sha256": "6e614383f1b05c1c0af0fca53ee229e2d98d597aa3d73700fdda89601d514705"
+    },
+    {
+      "name": "005-onchain-ens-validators-pools.md",
+      "bytes": 523,
+      "utf16Length": 523,
+      "sha256": "51842dffa523a8a82ee9451a4ba2860552beb9b09e1298d011cfdd961d07459d"
+    },
+    {
+      "name": "006-onchain-correlation-fixture.md",
+      "bytes": 413,
+      "utf16Length": 413,
+      "sha256": "a7d14ada47ee8b08062e0ddda3973c0d8b34edfce1fd177b35c2b5f258b75822"
+    },
+    {
+      "name": "007-onchain-correlation-no-context.md",
+      "bytes": 190,
+      "utf16Length": 190,
+      "sha256": "b8c57ce0b17a06f6a7be9d80799470f3f0ee6566b0215190215c4d0b5aaaf892"
+    },
+    {
+      "name": "008-onchain-correlation-with-context.md",
+      "bytes": 274,
+      "utf16Length": 274,
+      "sha256": "7f786784e5e3d256af5caf46bcf4092d18e423580fe44b1e58b5e4309b792762"
+    },
+    {
+      "name": "009-onchain-keyvalue-logs.md",
+      "bytes": 324,
+      "utf16Length": 324,
+      "sha256": "734c4f827bc5984da9ca8cef41562441815d0e01a8eea5f70529c3689352c6a7"
+    },
+    {
+      "name": "010-onchain-explorer-urls.md",
+      "bytes": 615,
+      "utf16Length": 615,
+      "sha256": "ef19d32a36f2adbee51a40eb6803c125fd44dd910a1f2268f85ab0e67cd02d08"
+    },
+    {
+      "name": "011-onchain-bip32-extended-keys.md",
+      "bytes": 557,
+      "utf16Length": 557,
+      "sha256": "27ce6c48211e3203290e577c4e920e0ce32f09be8973304e86bfe4a775133d53"
+    },
+    {
+      "name": "012-onchain-hex64-tx-context.md",
+      "bytes": 547,
+      "utf16Length": 547,
+      "sha256": "7d109b572f9696e563d55a65c3d9e4bf06834644ca627f90f12756a77e36f4dc"
+    },
+    {
+      "name": "020-credentials-fixture.md",
+      "bytes": 981,
+      "utf16Length": 981,
+      "sha256": "ac1f69bda03a46604c2b50d9c42386e769495e985aeea54418a906a2f0a8655f"
+    },
+    {
+      "name": "021-credentials-github-gitlab-slack.md",
+      "bytes": 586,
+      "utf16Length": 586,
+      "sha256": "d2a61e8a7d4ac69c3f6c18d8cb0812f8072d1102d1d5d53dcd7e1d2c6ea17c5e"
+    },
+    {
+      "name": "022-credentials-cloud-vendors.md",
+      "bytes": 597,
+      "utf16Length": 597,
+      "sha256": "f446b011519ca545a66bea91d66a33434d4f016a29aa28a9f35b1a6ff357100d"
+    },
+    {
+      "name": "023-credentials-messaging-registries.md",
+      "bytes": 547,
+      "utf16Length": 547,
+      "sha256": "c01dfd74e9d0ee1ea28d69c3168fc5e9eb99b98284666d85de9c5249f8598035"
+    },
+    {
+      "name": "024-credentials-generic-context.md",
+      "bytes": 348,
+      "utf16Length": 348,
+      "sha256": "2a1aa5b7cf7981f237720ea3b5d16e5594db1895b102074bf0714dc41540e675"
+    },
+    {
+      "name": "030-secrets-pem-jwt-conn.md",
+      "bytes": 711,
+      "utf16Length": 711,
+      "sha256": "4af7c4d49804227b41ee0cac7c5e8402e33efbcab33201517e964c4d5e4b4a9c"
+    },
+    {
+      "name": "031-secrets-password-login.md",
+      "bytes": 261,
+      "utf16Length": 261,
+      "sha256": "49269f643a819244b4f85fd70eee43848a95aa2d602293236a1d512f73708251"
+    },
+    {
+      "name": "032-secrets-in-yaml-and-json.md",
+      "bytes": 162,
+      "utf16Length": 162,
+      "sha256": "bfee1ae1fa222949bc71813a0be3363bc52e02f9810d338f77cf3ec1f67e10cf"
+    },
+    {
+      "name": "040-financial-currency-fixture.md",
+      "bytes": 542,
+      "utf16Length": 542,
+      "sha256": "d745cd107f4c3eaea5e514df6e0342c37fc85102e5f9f1cc69eeaae4aa0ff2ba"
+    },
+    {
+      "name": "041-financial-currency-symbols.md",
+      "bytes": 190,
+      "utf16Length": 180,
+      "sha256": "a871b04ba598342687903b15e4c43d11e0004554ec46b756b04eaa16089bce5f"
+    },
+    {
+      "name": "042-financial-nonusd-fixture.md",
+      "bytes": 280,
+      "utf16Length": 280,
+      "sha256": "5da6a09c93a91ea2346b615becaddff705351ce5d3e7f55e357ddae4837098f6"
+    },
+    {
+      "name": "043-financial-markets.md",
+      "bytes": 319,
+      "utf16Length": 319,
+      "sha256": "c081116226e8a55d52969c860167bc3c3b7203745b085009877f6dc72ff763d6"
+    },
+    {
+      "name": "044-financial-forex-journal-fixture.md",
+      "bytes": 345,
+      "utf16Length": 345,
+      "sha256": "a33d0840263917e51e4808784a26beccee66a007e4537ab331904144370cde8e"
+    },
+    {
+      "name": "045-financial-quantities.md",
+      "bytes": 502,
+      "utf16Length": 502,
+      "sha256": "387d6de65ab71c88e4b959fd61bf0c26c0460f37f2495d10daa2cb99e2a7ca51"
+    },
+    {
+      "name": "046-financial-prices.md",
+      "bytes": 243,
+      "utf16Length": 243,
+      "sha256": "f06d5009ca7d779b7a1588a208db035fc6ab2dd46b7ab04a82ced45f1884ab22"
+    },
+    {
+      "name": "047-financial-arithmetic.md",
+      "bytes": 252,
+      "utf16Length": 252,
+      "sha256": "c723ebf85871ebf5f071f64821e3cf5466289c3e05092c73901765a3fe7036e3"
+    },
+    {
+      "name": "048-financial-table-cells.md",
+      "bytes": 317,
+      "utf16Length": 317,
+      "sha256": "b4c9846d110a243c2b58aa2a4fb9e5fcd34d1e39e79eff8a70c0afeed2cb6347"
+    },
+    {
+      "name": "049-financial-wallet-table-fixture.md",
+      "bytes": 879,
+      "utf16Length": 879,
+      "sha256": "1e47d121cc21eab3bae1ef54cbb604716151409f089ab92f848a938277065c88"
+    },
+    {
+      "name": "050-financial-credit-card-fixture.md",
+      "bytes": 276,
+      "utf16Length": 276,
+      "sha256": "89cc48482dc86989549ed67a0591daa8cbe232d871c7820e8f2490c6f26dc8b1"
+    },
+    {
+      "name": "051-financial-credit-card-luhn.md",
+      "bytes": 641,
+      "utf16Length": 641,
+      "sha256": "be9a941e28234e56accdf69876a52aab7d03b2d1f02e59e02a78c85383dba80c"
+    },
+    {
+      "name": "052-financial-datetime-formats.md",
+      "bytes": 1112,
+      "utf16Length": 1112,
+      "sha256": "fa19ac2d812d3d73be0b0056a33bad56242c0f1d3be86486d4846d2c0e7c5ff8"
+    },
+    {
+      "name": "053-financial-datetime-vs-amounts.md",
+      "bytes": 292,
+      "utf16Length": 292,
+      "sha256": "ef804f41223737f82719fb6b1f995535e9e7f45bf5be93f2c6241419d811c7ad"
+    },
+    {
+      "name": "054-fp-devops-log.md",
+      "bytes": 404,
+      "utf16Length": 404,
+      "sha256": "1a485f79312d234695e351ee9d533c9b81d4d4f2b3c1cfc531ce28649710ff55"
+    },
+    {
+      "name": "055-financial-wei-precision-no-context.md",
+      "bytes": 209,
+      "utf16Length": 209,
+      "sha256": "7199d44054c85483fdf367f42a0c56b8b30774e3681d489688f4bbb3612798e1"
+    },
+    {
+      "name": "060-identity-ssn-iban.md",
+      "bytes": 426,
+      "utf16Length": 426,
+      "sha256": "87b2e100121822663f76a69573048484a1eee9c87b08a9a7db7f55e4ec7f0d64"
+    },
+    {
+      "name": "061-identity-ip-mac-email.md",
+      "bytes": 465,
+      "utf16Length": 465,
+      "sha256": "62df8200e7d35824de27e1c3b16301b6c53519b9dab093ab15a3470519bcf600"
+    },
+    {
+      "name": "062-identity-unc-file-uri.md",
+      "bytes": 183,
+      "utf16Length": 183,
+      "sha256": "c5df565c27f2960da631fdbddcac73cd01996b65fc93d6ca612902cf4b22c0ed"
+    },
+    {
+      "name": "063-identity-server-metrics-fixture.md",
+      "bytes": 367,
+      "utf16Length": 367,
+      "sha256": "c4f7ed270a44d1d60a70c3a6a7a6e848e9cd413e99c11cfd325eef0bf9d6c300"
+    },
+    {
+      "name": "070-fp-academic-paper.md",
+      "bytes": 444,
+      "utf16Length": 444,
+      "sha256": "7394eb2987bc4d46b72896f500c9a5fe1b23ee63f0733db69f70b17209b7f22a"
+    },
+    {
+      "name": "071-fp-legal-contract.md",
+      "bytes": 356,
+      "utf16Length": 356,
+      "sha256": "6a2a055469f8d7ccffe0e65c6a47646e20eb9d890ef3ded8b0fc0101f9fe3189"
+    },
+    {
+      "name": "072-fp-crypto-tech-doc.md",
+      "bytes": 459,
+      "utf16Length": 459,
+      "sha256": "62a12e0fc8ae17bb324f3aae60bd859b3457f8e211a601ece1d76ba6bd5178ea"
+    },
+    {
+      "name": "073-fp-spreadsheet-export.md",
+      "bytes": 246,
+      "utf16Length": 246,
+      "sha256": "9b7d80e9dc650c9dac2a4018087812e631b9f71d1a250ff240b973845c54ebac"
+    },
+    {
+      "name": "074-fp-markdown-formatting.md",
+      "bytes": 418,
+      "utf16Length": 418,
+      "sha256": "e9c99adaf292a1dc6fe7060e04ee3e968a4996d25574900aea785a385a63cb82"
+    },
+    {
+      "name": "075-fp-multilanguage-text.md",
+      "bytes": 445,
+      "utf16Length": 443,
+      "sha256": "ebf21b9b0430670d96993155a169bf0d4c907df184dd8b9cab07ff85eec3314b"
+    },
+    {
+      "name": "076-fp-meeting-notes.md",
+      "bytes": 419,
+      "utf16Length": 419,
+      "sha256": "f2ddf6dff87dc932a3a8babf272cd59752e389ccb74fc2f1e4ab52cb81b6bba0"
+    },
+    {
+      "name": "077-fp-strategy-thinking.md",
+      "bytes": 468,
+      "utf16Length": 468,
+      "sha256": "29d5cc9b96905d88e8c98a1bf41959e2e7f82ac196b407cf8c2e78fe4fa0e232"
+    },
+    {
+      "name": "078-fp-code-discussion.md",
+      "bytes": 513,
+      "utf16Length": 513,
+      "sha256": "702680ec0a4f4ce79718953c46df7668720888bc3ba1df108b8caf3f95c3ee32"
+    },
+    {
+      "name": "079-fp-substring-context-words.md",
+      "bytes": 313,
+      "utf16Length": 313,
+      "sha256": "baf72bcdfb684bfadf1fbca88504bc51b6b459a5889340e43e9800ef8a5afde1"
+    },
+    {
+      "name": "080-mixed-eth-dca-fixture.md",
+      "bytes": 414,
+      "utf16Length": 414,
+      "sha256": "98c932b6ec9700c3fd59b95c001e08a9e53772bb7bf9a582bfcb3bd6e5e64a67"
+    },
+    {
+      "name": "081-mixed-btc-position-fixture.md",
+      "bytes": 451,
+      "utf16Length": 451,
+      "sha256": "ecf2434f7d9307be3668cd97f4bd5fddeb164ba42301fe82ab0c93b8f487d9bf"
+    },
+    {
+      "name": "082-mixed-defi-yield-fixture.md",
+      "bytes": 381,
+      "utf16Length": 381,
+      "sha256": "c279af20b70b30d087e405a6ab243f40d2ca2d0b23a897e1e02fe51eeb0ecfc3"
+    },
+    {
+      "name": "083-mixed-validator-bridge-fixture.md",
+      "bytes": 463,
+      "utf16Length": 463,
+      "sha256": "ba80c28f86a9f699e03966153e9d5ca232f5b1049a5445018bf3df37b6225c84"
+    },
+    {
+      "name": "084-mixed-dev-setup-fixture.md",
+      "bytes": 399,
+      "utf16Length": 399,
+      "sha256": "852180feee5ea780148494fca1d8b296b2fb378d5b11cce35354a1d5ef29ecf2"
+    },
+    {
+      "name": "085-mixed-tax-prep-fixture.md",
+      "bytes": 284,
+      "utf16Length": 284,
+      "sha256": "2bf820a49a032a59a423721594a4788cb28054503468a3a7182a508d37302001"
+    },
+    {
+      "name": "090-code-fenced-block.md",
+      "bytes": 260,
+      "utf16Length": 260,
+      "sha256": "bf68a462c5edd3c06d75b87f190867b5fe66f0932a5f065920cee03b6837c102"
+    },
+    {
+      "name": "091-code-inline.md",
+      "bytes": 164,
+      "utf16Length": 164,
+      "sha256": "49be65c9a4e272ab45453f18dc4dd2f78710a4525a4f41a56199460ed0882123"
+    },
+    {
+      "name": "100-overlap-nested-spans.md",
+      "bytes": 1019,
+      "utf16Length": 1019,
+      "sha256": "3784d877ae409b36fd05c1f7b3ca076f1806c212551dc7256310d91667d04ad2"
+    },
+    {
+      "name": "101-overlap-same-range-different-types.md",
+      "bytes": 426,
+      "utf16Length": 426,
+      "sha256": "7f61e9285d4db021ae96b09b7dbf90da521e9929e14873fac21901ff49777b2d"
+    },
+    {
+      "name": "110-context-before-edge-inside.md",
+      "bytes": 160,
+      "utf16Length": 160,
+      "sha256": "3d039744fc6bdaeac5e5256dd28db68c9f4f1ae96eec8806ab2569327a31b40e"
+    },
+    {
+      "name": "111-context-before-edge-outside.md",
+      "bytes": 161,
+      "utf16Length": 161,
+      "sha256": "067274efe4a38c4a237d5fc67fdc5f1414f55e87ae62be26d2f91b3ff4508b8d"
+    },
+    {
+      "name": "112-context-after-edge-inside.md",
+      "bytes": 160,
+      "utf16Length": 160,
+      "sha256": "96a25d675a54c5cbd3f5cfcfb45dbe98b9f6d6ba95be90436187bd34805e0087"
+    },
+    {
+      "name": "113-context-after-edge-outside.md",
+      "bytes": 161,
+      "utf16Length": 161,
+      "sha256": "d6a73007da5553ecd5a97fa2539cade11edd6a4f4a91ccf28200eac70ff87d72"
+    },
+    {
+      "name": "114-context-case-and-multiple-words.md",
+      "bytes": 230,
+      "utf16Length": 230,
+      "sha256": "7fe7ede6bf8915d221e6e019fdaa0fc5993c0b5ffacddede3e84d7916551f1eb"
+    },
+    {
+      "name": "115-context-near-vs-far-lines.md",
+      "bytes": 354,
+      "utf16Length": 354,
+      "sha256": "f6d76af8e0d31b7400b68371de8719ac3dd3a18dddf90cebda74a1155204f6dd"
+    },
+    {
+      "name": "120-unicode-accented-latin.md",
+      "bytes": 460,
+      "utf16Length": 443,
+      "sha256": "5ba27bb0a0ad5393c9f29631f5af3b7f912b747c39218d0e166e63fb06d958c6"
+    },
+    {
+      "name": "121-unicode-cyrillic.md",
+      "bytes": 406,
+      "utf16Length": 314,
+      "sha256": "6dd304799e1c99c37c666962c0db92e0fd81af2b04ff330d9a848cdb8e9678fd"
+    },
+    {
+      "name": "122-unicode-cjk.md",
+      "bytes": 283,
+      "utf16Length": 201,
+      "sha256": "97409584e97b4df3fee04245d677ddb55f598477f01e67605034a56b5530ec82"
+    },
+    {
+      "name": "123-unicode-emoji-surrogates.md",
+      "bytes": 275,
+      "utf16Length": 231,
+      "sha256": "9bb886367292476fde4527ab2109788327798b9016dfcb1da978e7fe81813ae4"
+    },
+    {
+      "name": "124-unicode-fullwidth-digits.md",
+      "bytes": 479,
+      "utf16Length": 311,
+      "sha256": "e31c9c378bfb1108d60b56e8f2c9c4c6727b814686f55575d154e16700fe2466"
+    },
+    {
+      "name": "125-unicode-arabic-indic-digits.md",
+      "bytes": 394,
+      "utf16Length": 327,
+      "sha256": "e3e6eb15383ef4243388bba83ecf2b1dfac6ab4a0ee7b8bafcce82ef6f36748a"
+    },
+    {
+      "name": "126-unicode-casefold-quirks.md",
+      "bytes": 335,
+      "utf16Length": 324,
+      "sha256": "932dfc6c58ceeaf8a4285b994a8de7b8e69fc9b0f93c4942a8e1cca3e468ee0d"
+    },
+    {
+      "name": "127-unicode-word-boundary-neighbors.md",
+      "bytes": 340,
+      "utf16Length": 331,
+      "sha256": "33fca8e6f265fa57924a79177c1884198538726dc7d20bd2c49d6ca6de33f399"
+    },
+    {
+      "name": "128-unicode-combining-and-special-spaces.md",
+      "bytes": 397,
+      "utf16Length": 378,
+      "sha256": "c24a57847638b98d61e0df67e2cda7fea728111f0da856fd5c414f391b1d91aa"
+    },
+    {
+      "name": "129-turkish-casing-sensitive-ascii-uppercase-i.md",
+      "bytes": 308,
+      "utf16Length": 308,
+      "sha256": "725fb850134093c5ea6640bf35bdc3dd3f7c2bc085986f9e0e8a9743ba79a0d7"
+    },
+    {
+      "name": "130-frontmatter-lf.md",
+      "bytes": 145,
+      "utf16Length": 145,
+      "sha256": "fd96499c127cc9477502c148dddbdf6e18f5652381a78053caa91f2fdda9bb46"
+    },
+    {
+      "name": "131-frontmatter-crlf.md",
+      "bytes": 152,
+      "utf16Length": 152,
+      "sha256": "078bd62970281952fb8668f69c3acb8231f3956b39ad060687f195d1f328b34e"
+    },
+    {
+      "name": "132-frontmatter-edge-cases.md",
+      "bytes": 226,
+      "utf16Length": 226,
+      "sha256": "686faba84cffff302492ff540a402b260f1ce75e0086c120583ed983495fc9b4"
+    },
+    {
+      "name": "133-file-path-metadata-lines.md",
+      "bytes": 537,
+      "utf16Length": 537,
+      "sha256": "020650f4ba1ed26a98a2159887f23442b47fd1bfd957e4e22edee86515aa9ffb"
+    },
+    {
+      "name": "134-line-endings-lf.md",
+      "bytes": 221,
+      "utf16Length": 221,
+      "sha256": "60f142bc042f0798d5ff0555a24cbb0d2514a5eb283b0cd18145130f70dd0435"
+    },
+    {
+      "name": "135-line-endings-crlf.md",
+      "bytes": 229,
+      "utf16Length": 229,
+      "sha256": "7c01cc7604d34b45ea974cf609adc8edd237b1b33b4c8bdb6b06643bae4238a9"
+    },
+    {
+      "name": "136-line-endings-mixed-and-lone-cr.md",
+      "bytes": 136,
+      "utf16Length": 136,
+      "sha256": "c95b47a38b45d5e5bc14036eff802f4155db3a81e2a1653d65ac6919075cbd7f"
+    },
+    {
+      "name": "137-no-trailing-newline.md",
+      "bytes": 49,
+      "utf16Length": 49,
+      "sha256": "6b16d7f205d3d5339ab310e14d374b332407fb38f1220b63136a505b492cb3bf"
+    },
+    {
+      "name": "138-utf8-bom.md",
+      "bytes": 96,
+      "utf16Length": 93,
+      "sha256": "4d8de40db0c470275a230c60397b870692d8445327bfc7981298036602a39f49"
+    },
+    {
+      "name": "139-tabs-and-blank-lines.md",
+      "bytes": 66,
+      "utf16Length": 66,
+      "sha256": "3b73027d02d69b1ad1b460fbb0cf2fc961f21f9de80db07c9d312a398ca6558b"
+    },
+    {
+      "name": "140-empty-file.md",
+      "bytes": 0,
+      "utf16Length": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "141-whitespace-only.md",
+      "bytes": 10,
+      "utf16Length": 10,
+      "sha256": "b1d2cdf7f771fcbdeaf58634fc8f866285ce18777f40d820463e963ce64a8542"
+    },
+    {
+      "name": "142-single-line-no-match.md",
+      "bytes": 23,
+      "utf16Length": 23,
+      "sha256": "63bcf0d083c9abbb6b57a17d9e1c6cdb5ccbad6fbb379c578074eeab77931487"
+    },
+    {
+      "name": "143-long-line.md",
+      "bytes": 32490,
+      "utf16Length": 32490,
+      "sha256": "f6b8616430643d6b71dabfff8a217e761abd25fdf160f8fe0d9bf44660873cfc"
+    },
+    {
+      "name": "144-long-digit-and-hex-runs.md",
+      "bytes": 4319,
+      "utf16Length": 4319,
+      "sha256": "04593d4378a355ac173ac60907ac45bc422d04cf33542fb76429bee99b14812c"
+    },
+    {
+      "name": "145-many-matches-dense.md",
+      "bytes": 2471,
+      "utf16Length": 2471,
+      "sha256": "becf9d214ff2f78bb3377239295bb2c6bf1d01efbdd22546ae25f37228a09d01"
+    }
+  ],
+  "configs": ["default", "dev", "financial", "layer-magnitudes", "no-credentials-secrets", "no-identity", "no-onchain", "paranoid", "quirk-empty-object", "quirk-lowercase-keys", "quirk-preset-name-only", "threshold-030", "threshold-090"],
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+}

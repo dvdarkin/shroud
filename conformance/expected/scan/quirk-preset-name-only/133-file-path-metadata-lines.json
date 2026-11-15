@@ -1,0 +1,30 @@
+{
+  "input": "133-file-path-metadata-lines.md",
+  "config": "quirk-preset-name-only",
+  "inputBytes": 537,
+  "inputSha256": "020650f4ba1ed26a98a2159887f23442b47fd1bfd957e4e22edee86515aa9ffb",
+  "inputUtf16Length": 537,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 494,
+      "end": 536,
+      "length": 42,
+      "matchedText": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "input": "130-frontmatter-lf.md",
+  "config": "no-onchain",
+  "inputBytes": 145,
+  "inputSha256": "fd96499c127cc9477502c148dddbdf6e18f5652381a78053caa91f2fdda9bb46",
+  "inputUtf16Length": 145,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

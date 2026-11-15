@@ -1,0 +1,100 @@
+{
+  "input": "008-onchain-correlation-with-context.md",
+  "config": "dev",
+  "inputBytes": 274,
+  "inputSha256": "7f786784e5e3d256af5caf46bcf4092d18e423580fe44b1e58b5e4309b792762",
+  "inputUtf16Length": 274,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 6,
+    "aboveThreshold": 6,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 41,
+      "end": 56,
+      "length": 15,
+      "matchedText": "block #12345678",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "block_number",
+      "typeAbbreviation": "TX",
+      "confidence": 0.9500000000000001,
+      "confidenceString": "0.9500000000000001",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 91,
+      "end": 99,
+      "length": 8,
+      "matchedText": "nonce 42",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "tx_nonce",
+      "typeAbbreviation": "TX",
+      "confidence": 0.9500000000000001,
+      "confidenceString": "0.9500000000000001",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 135,
+      "end": 146,
+      "length": 11,
+      "matchedText": "position 77",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "lp_position_id",
+      "typeAbbreviation": "TX",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 173,
+      "end": 185,
+      "length": 12,
+      "matchedText": "slot 1234567",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "beacon_slot",
+      "typeAbbreviation": "TX",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 4,
+      "start": 217,
+      "end": 226,
+      "length": 9,
+      "matchedText": "epoch 123",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "beacon_epoch",
+      "typeAbbreviation": "TX",
+      "confidence": 0.9500000000000001,
+      "confidenceString": "0.9500000000000001",
+      "aboveThreshold": true
+    },
+    {
+      "index": 5,
+      "start": 248,
+      "end": 254,
+      "length": 6,
+      "matchedText": "5 Gwei",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "gas_gwei",
+      "typeAbbreviation": "TX",
+      "confidence": 0.9500000000000001,
+      "confidenceString": "0.9500000000000001",
+      "aboveThreshold": true
+    }
+  ]
+}

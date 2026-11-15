@@ -1,0 +1,10 @@
+{
+  "name": "v2-unicode-passphrase-crlf",
+  "passphrase": "pässwörd-тест-密码-😀",
+  "passphraseUtf8Hex": "70c3a4737377c3b672642dd182d0b5d181d1822de5af86e7a0812df09f9880",
+  "config": "configs/default.json",
+  "vaultFileBytes": 784,
+  "tokenCount": 6,
+  "sourceFiles": ["cjk.md", "crlf-notes.md", "no-trailing-newline.md"],
+  "note": "vault/vault.shroud, vault/manifest.json and vault/public/ were written by the C# VaultBuilder on Windows; relative paths inside manifest.json and vault-data.decrypted.json (files lists, fileHashes keys) use the OS separator, i.e. backslash here."
+}

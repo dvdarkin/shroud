@@ -1,0 +1,82 @@
+{
+  "input": "135-line-endings-crlf.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 235,
+  "maskedSha256": "f6a0c28b46cd8c9c62152004b57a079ae0a991bbede15fc92bd59206a9d99072",
+  "tokenCount": 9,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "QTY:f1e8e14e",
+      "start": 214,
+      "end": 216,
+      "originalValue": "30",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:3de25508",
+      "start": 184,
+      "end": 196,
+      "originalValue": "1,734.56 AUD",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:7105ec4d",
+      "start": 177,
+      "end": 183,
+      "originalValue": "500.00",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:6b12b0a9",
+      "start": 168,
+      "end": 176,
+      "originalValue": "1,234.56",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "PASSWD:168251b2",
+      "start": 130,
+      "end": 158,
+      "originalValue": "password = \"crlf_password_1\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets"
+    },
+    {
+      "tokenId": "SSN:c36200a4",
+      "start": 117,
+      "end": 128,
+      "originalValue": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "ADDR:818ae287",
+      "start": 67,
+      "end": 109,
+      "originalValue": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "PRICE:799c38b5",
+      "start": 24,
+      "end": 33,
+      "originalValue": "at $1,234",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:815ea90f",
+      "start": 15,
+      "end": 23,
+      "originalValue": " 0.5 ETH",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    }
+  ]
+}

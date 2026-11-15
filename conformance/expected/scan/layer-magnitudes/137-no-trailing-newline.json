@@ -1,0 +1,30 @@
+{
+  "input": "137-no-trailing-newline.md",
+  "config": "layer-magnitudes",
+  "inputBytes": 49,
+  "inputSha256": "6b16d7f205d3d5339ab310e14d374b332407fb38f1220b63136a505b492cb3bf",
+  "inputUtf16Length": 49,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 7,
+      "end": 49,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "input": "081-mixed-btc-position-fixture.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 467,
+  "maskedSha256": "7b11bd963a7090347b54889d22d99eaaafa2e63b8a90731bee58e9af8581525a",
+  "tokenCount": 8,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "PRICE:09c6a728",
+      "start": 391,
+      "end": 401,
+      "originalValue": "at $50,000",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:c5cafbc9",
+      "start": 382,
+      "end": 390,
+      "originalValue": " 0.1 BTC",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "MKT:36166790",
+      "start": 289,
+      "end": 296,
+      "originalValue": "BTC/USD",
+      "entityType": "MarketPair",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:dc6b1d33",
+      "start": 249,
+      "end": 256,
+      "originalValue": "$25,000",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "PRICE:09c6a728",
+      "start": 215,
+      "end": 225,
+      "originalValue": "at $50,000",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:1b815080",
+      "start": 107,
+      "end": 151,
+      "originalValue": "bc1qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "AMT:653b8ea0",
+      "start": 87,
+      "end": 94,
+      "originalValue": "$12,345",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:853c215b",
+      "start": 64,
+      "end": 72,
+      "originalValue": " 0.5 BTC",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    }
+  ]
+}

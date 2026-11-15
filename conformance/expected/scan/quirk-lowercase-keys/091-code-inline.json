@@ -1,0 +1,44 @@
+{
+  "input": "091-code-inline.md",
+  "config": "quirk-lowercase-keys",
+  "inputBytes": 164,
+  "inputSha256": "49be65c9a4e272ab45453f18dc4dd2f78710a4525a4f41a56199460ed0882123",
+  "inputUtf16Length": 164,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 2,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 8,
+      "end": 50,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 57,
+      "end": 92,
+      "length": 35,
+      "matchedText": "sk_test_FAKEFAKEFAKEFAKEFAKEFAKEFAK",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "stripe_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

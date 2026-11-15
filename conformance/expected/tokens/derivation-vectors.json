@@ -1,0 +1,559 @@
+{
+  "algorithm": "tokenId = TypeAbbreviation + \":\" + lowercaseHex(HMAC-SHA256(key, UTF8(matchedText))[0..4]); masked text contains \"[\" + tokenId + \"]\"",
+  "vectors": [
+    {
+      "keyLabel": "fixed-32 (bytes 0x00..0x1f)",
+      "keyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "textUtf8Hex": "307831313131313131313131313131313131313131313131313131313131313131313131313131313131",
+      "text": "0x1111111111111111111111111111111111111111",
+      "textUtf16Length": 42,
+      "entityType": "Email",
+      "tokenId": "EMAIL:f116adc4"
+    },
+    {
+      "keyLabel": "fixed-32 (bytes 0x00..0x1f)",
+      "keyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "textUtf8Hex": "616c696365406578616d706c652e636f6d",
+      "text": "alice@example.com",
+      "textUtf16Length": 17,
+      "entityType": "Email",
+      "tokenId": "EMAIL:a59fc578"
+    },
+    {
+      "keyLabel": "fixed-32 (bytes 0x00..0x1f)",
+      "keyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "textUtf8Hex": "3132332d34352d36373839",
+      "text": "123-45-6789",
+      "textUtf16Length": 11,
+      "entityType": "Email",
+      "tokenId": "EMAIL:c36200a4"
+    },
+    {
+      "keyLabel": "fixed-32 (bytes 0x00..0x1f)",
+      "keyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "textUtf8Hex": "",
+      "text": "",
+      "textUtf16Length": 0,
+      "entityType": "Email",
+      "tokenId": "EMAIL:d38b4209"
+    },
+    {
+      "keyLabel": "fixed-32 (bytes 0x00..0x1f)",
+      "keyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "textUtf8Hex": "636166c3a920c389",
+      "text": "café É",
+      "textUtf16Length": 6,
+      "entityType": "Email",
+      "tokenId": "EMAIL:68484eee"
+    },
+    {
+      "keyLabel": "fixed-32 (bytes 0x00..0x1f)",
+      "keyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "textUtf8Hex": "d0bfd180d0b8d0b2d0b5d182",
+      "text": "привет",
+      "textUtf16Length": 6,
+      "entityType": "Email",
+      "tokenId": "EMAIL:8e68d717"
+    },
+    {
+      "keyLabel": "fixed-32 (bytes 0x00..0x1f)",
+      "keyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "textUtf8Hex": "e992b1e58c85e59cb0e59d80",
+      "text": "钱包地址",
+      "textUtf16Length": 4,
+      "entityType": "Email",
+      "tokenId": "EMAIL:a5efbcf2"
+    },
+    {
+      "keyLabel": "fixed-32 (bytes 0x00..0x1f)",
+      "keyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "textUtf8Hex": "f09f988020656d6f6a6920f09f9491",
+      "text": "😀 emoji 🔑",
+      "textUtf16Length": 11,
+      "entityType": "Email",
+      "tokenId": "EMAIL:c89937dd"
+    },
+    {
+      "keyLabel": "fixed-32 (bytes 0x00..0x1f)",
+      "keyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "textUtf8Hex": "6c696e65310d0a6c696e6532",
+      "text": "line1\r\nline2",
+      "textUtf16Length": 12,
+      "entityType": "Email",
+      "tokenId": "EMAIL:ac92e462"
+    },
+    {
+      "keyLabel": "fixed-32 (bytes 0x00..0x1f)",
+      "keyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "textUtf8Hex": "7461620968657265",
+      "text": "tab\there",
+      "textUtf16Length": 8,
+      "entityType": "Email",
+      "tokenId": "EMAIL:d219a446"
+    },
+    {
+      "keyLabel": "fixed-32 (bytes 0x00..0x1f)",
+      "keyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "textUtf8Hex": "24312c3233342e3536",
+      "text": "$1,234.56",
+      "textUtf16Length": 9,
+      "entityType": "Email",
+      "tokenId": "EMAIL:fe83a720"
+    },
+    {
+      "keyLabel": "fixed-32 (bytes 0x00..0x1f)",
+      "keyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "textUtf8Hex": null,
+      "text": "the character x repeated 5000 times",
+      "textUtf16Length": 5000,
+      "entityType": "Email",
+      "tokenId": "EMAIL:a80540ef"
+    },
+    {
+      "keyLabel": "ascii-9 (short-key)",
+      "keyHex": "73686f72742d6b6579",
+      "textUtf8Hex": "307831313131313131313131313131313131313131313131313131313131313131313131313131313131",
+      "text": "0x1111111111111111111111111111111111111111",
+      "textUtf16Length": 42,
+      "entityType": "Email",
+      "tokenId": "EMAIL:95b5be9e"
+    },
+    {
+      "keyLabel": "ascii-9 (short-key)",
+      "keyHex": "73686f72742d6b6579",
+      "textUtf8Hex": "616c696365406578616d706c652e636f6d",
+      "text": "alice@example.com",
+      "textUtf16Length": 17,
+      "entityType": "Email",
+      "tokenId": "EMAIL:8eb4ac33"
+    },
+    {
+      "keyLabel": "ascii-9 (short-key)",
+      "keyHex": "73686f72742d6b6579",
+      "textUtf8Hex": "3132332d34352d36373839",
+      "text": "123-45-6789",
+      "textUtf16Length": 11,
+      "entityType": "Email",
+      "tokenId": "EMAIL:2479ec94"
+    },
+    {
+      "keyLabel": "ascii-9 (short-key)",
+      "keyHex": "73686f72742d6b6579",
+      "textUtf8Hex": "",
+      "text": "",
+      "textUtf16Length": 0,
+      "entityType": "Email",
+      "tokenId": "EMAIL:9fd8de44"
+    },
+    {
+      "keyLabel": "ascii-9 (short-key)",
+      "keyHex": "73686f72742d6b6579",
+      "textUtf8Hex": "636166c3a920c389",
+      "text": "café É",
+      "textUtf16Length": 6,
+      "entityType": "Email",
+      "tokenId": "EMAIL:b96b4cae"
+    },
+    {
+      "keyLabel": "ascii-9 (short-key)",
+      "keyHex": "73686f72742d6b6579",
+      "textUtf8Hex": "d0bfd180d0b8d0b2d0b5d182",
+      "text": "привет",
+      "textUtf16Length": 6,
+      "entityType": "Email",
+      "tokenId": "EMAIL:a7edf88c"
+    },
+    {
+      "keyLabel": "ascii-9 (short-key)",
+      "keyHex": "73686f72742d6b6579",
+      "textUtf8Hex": "e992b1e58c85e59cb0e59d80",
+      "text": "钱包地址",
+      "textUtf16Length": 4,
+      "entityType": "Email",
+      "tokenId": "EMAIL:415a4b4c"
+    },
+    {
+      "keyLabel": "ascii-9 (short-key)",
+      "keyHex": "73686f72742d6b6579",
+      "textUtf8Hex": "f09f988020656d6f6a6920f09f9491",
+      "text": "😀 emoji 🔑",
+      "textUtf16Length": 11,
+      "entityType": "Email",
+      "tokenId": "EMAIL:0faa7e45"
+    },
+    {
+      "keyLabel": "ascii-9 (short-key)",
+      "keyHex": "73686f72742d6b6579",
+      "textUtf8Hex": "6c696e65310d0a6c696e6532",
+      "text": "line1\r\nline2",
+      "textUtf16Length": 12,
+      "entityType": "Email",
+      "tokenId": "EMAIL:ae8270bd"
+    },
+    {
+      "keyLabel": "ascii-9 (short-key)",
+      "keyHex": "73686f72742d6b6579",
+      "textUtf8Hex": "7461620968657265",
+      "text": "tab\there",
+      "textUtf16Length": 8,
+      "entityType": "Email",
+      "tokenId": "EMAIL:6c6dd437"
+    },
+    {
+      "keyLabel": "ascii-9 (short-key)",
+      "keyHex": "73686f72742d6b6579",
+      "textUtf8Hex": "24312c3233342e3536",
+      "text": "$1,234.56",
+      "textUtf16Length": 9,
+      "entityType": "Email",
+      "tokenId": "EMAIL:9a2f7237"
+    },
+    {
+      "keyLabel": "ascii-9 (short-key)",
+      "keyHex": "73686f72742d6b6579",
+      "textUtf8Hex": null,
+      "text": "the character x repeated 5000 times",
+      "textUtf16Length": 5000,
+      "entityType": "Email",
+      "tokenId": "EMAIL:29d0880f"
+    },
+    {
+      "keyLabel": "repeat-100 (0xAB x 100, longer than the HMAC block size)",
+      "keyHex": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab",
+      "textUtf8Hex": "307831313131313131313131313131313131313131313131313131313131313131313131313131313131",
+      "text": "0x1111111111111111111111111111111111111111",
+      "textUtf16Length": 42,
+      "entityType": "Email",
+      "tokenId": "EMAIL:b5adf876"
+    },
+    {
+      "keyLabel": "repeat-100 (0xAB x 100, longer than the HMAC block size)",
+      "keyHex": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab",
+      "textUtf8Hex": "616c696365406578616d706c652e636f6d",
+      "text": "alice@example.com",
+      "textUtf16Length": 17,
+      "entityType": "Email",
+      "tokenId": "EMAIL:5685fbe7"
+    },
+    {
+      "keyLabel": "repeat-100 (0xAB x 100, longer than the HMAC block size)",
+      "keyHex": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab",
+      "textUtf8Hex": "3132332d34352d36373839",
+      "text": "123-45-6789",
+      "textUtf16Length": 11,
+      "entityType": "Email",
+      "tokenId": "EMAIL:55b0a3f6"
+    },
+    {
+      "keyLabel": "repeat-100 (0xAB x 100, longer than the HMAC block size)",
+      "keyHex": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab",
+      "textUtf8Hex": "",
+      "text": "",
+      "textUtf16Length": 0,
+      "entityType": "Email",
+      "tokenId": "EMAIL:c4563220"
+    },
+    {
+      "keyLabel": "repeat-100 (0xAB x 100, longer than the HMAC block size)",
+      "keyHex": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab",
+      "textUtf8Hex": "636166c3a920c389",
+      "text": "café É",
+      "textUtf16Length": 6,
+      "entityType": "Email",
+      "tokenId": "EMAIL:70398059"
+    },
+    {
+      "keyLabel": "repeat-100 (0xAB x 100, longer than the HMAC block size)",
+      "keyHex": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab",
+      "textUtf8Hex": "d0bfd180d0b8d0b2d0b5d182",
+      "text": "привет",
+      "textUtf16Length": 6,
+      "entityType": "Email",
+      "tokenId": "EMAIL:2e4a3bf5"
+    },
+    {
+      "keyLabel": "repeat-100 (0xAB x 100, longer than the HMAC block size)",
+      "keyHex": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab",
+      "textUtf8Hex": "e992b1e58c85e59cb0e59d80",
+      "text": "钱包地址",
+      "textUtf16Length": 4,
+      "entityType": "Email",
+      "tokenId": "EMAIL:ec62de7e"
+    },
+    {
+      "keyLabel": "repeat-100 (0xAB x 100, longer than the HMAC block size)",
+      "keyHex": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab",
+      "textUtf8Hex": "f09f988020656d6f6a6920f09f9491",
+      "text": "😀 emoji 🔑",
+      "textUtf16Length": 11,
+      "entityType": "Email",
+      "tokenId": "EMAIL:dc031454"
+    },
+    {
+      "keyLabel": "repeat-100 (0xAB x 100, longer than the HMAC block size)",
+      "keyHex": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab",
+      "textUtf8Hex": "6c696e65310d0a6c696e6532",
+      "text": "line1\r\nline2",
+      "textUtf16Length": 12,
+      "entityType": "Email",
+      "tokenId": "EMAIL:27ced026"
+    },
+    {
+      "keyLabel": "repeat-100 (0xAB x 100, longer than the HMAC block size)",
+      "keyHex": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab",
+      "textUtf8Hex": "7461620968657265",
+      "text": "tab\there",
+      "textUtf16Length": 8,
+      "entityType": "Email",
+      "tokenId": "EMAIL:55f7d555"
+    },
+    {
+      "keyLabel": "repeat-100 (0xAB x 100, longer than the HMAC block size)",
+      "keyHex": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab",
+      "textUtf8Hex": "24312c3233342e3536",
+      "text": "$1,234.56",
+      "textUtf16Length": 9,
+      "entityType": "Email",
+      "tokenId": "EMAIL:7608d696"
+    },
+    {
+      "keyLabel": "repeat-100 (0xAB x 100, longer than the HMAC block size)",
+      "keyHex": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab",
+      "textUtf8Hex": null,
+      "text": "the character x repeated 5000 times",
+      "textUtf16Length": 5000,
+      "entityType": "Email",
+      "tokenId": "EMAIL:d1f4a72e"
+    },
+    {
+      "keyLabel": "empty-0",
+      "keyHex": "",
+      "textUtf8Hex": "307831313131313131313131313131313131313131313131313131313131313131313131313131313131",
+      "text": "0x1111111111111111111111111111111111111111",
+      "textUtf16Length": 42,
+      "entityType": "Email",
+      "tokenId": "EMAIL:2456c8e0"
+    },
+    {
+      "keyLabel": "empty-0",
+      "keyHex": "",
+      "textUtf8Hex": "616c696365406578616d706c652e636f6d",
+      "text": "alice@example.com",
+      "textUtf16Length": 17,
+      "entityType": "Email",
+      "tokenId": "EMAIL:0cf19c8f"
+    },
+    {
+      "keyLabel": "empty-0",
+      "keyHex": "",
+      "textUtf8Hex": "3132332d34352d36373839",
+      "text": "123-45-6789",
+      "textUtf16Length": 11,
+      "entityType": "Email",
+      "tokenId": "EMAIL:2b85a10a"
+    },
+    {
+      "keyLabel": "empty-0",
+      "keyHex": "",
+      "textUtf8Hex": "",
+      "text": "",
+      "textUtf16Length": 0,
+      "entityType": "Email",
+      "tokenId": "EMAIL:b613679a"
+    },
+    {
+      "keyLabel": "empty-0",
+      "keyHex": "",
+      "textUtf8Hex": "636166c3a920c389",
+      "text": "café É",
+      "textUtf16Length": 6,
+      "entityType": "Email",
+      "tokenId": "EMAIL:5c9b89a2"
+    },
+    {
+      "keyLabel": "empty-0",
+      "keyHex": "",
+      "textUtf8Hex": "d0bfd180d0b8d0b2d0b5d182",
+      "text": "привет",
+      "textUtf16Length": 6,
+      "entityType": "Email",
+      "tokenId": "EMAIL:9c63bdaa"
+    },
+    {
+      "keyLabel": "empty-0",
+      "keyHex": "",
+      "textUtf8Hex": "e992b1e58c85e59cb0e59d80",
+      "text": "钱包地址",
+      "textUtf16Length": 4,
+      "entityType": "Email",
+      "tokenId": "EMAIL:a72c752f"
+    },
+    {
+      "keyLabel": "empty-0",
+      "keyHex": "",
+      "textUtf8Hex": "f09f988020656d6f6a6920f09f9491",
+      "text": "😀 emoji 🔑",
+      "textUtf16Length": 11,
+      "entityType": "Email",
+      "tokenId": "EMAIL:a9f33237"
+    },
+    {
+      "keyLabel": "empty-0",
+      "keyHex": "",
+      "textUtf8Hex": "6c696e65310d0a6c696e6532",
+      "text": "line1\r\nline2",
+      "textUtf16Length": 12,
+      "entityType": "Email",
+      "tokenId": "EMAIL:3dc772a6"
+    },
+    {
+      "keyLabel": "empty-0",
+      "keyHex": "",
+      "textUtf8Hex": "7461620968657265",
+      "text": "tab\there",
+      "textUtf16Length": 8,
+      "entityType": "Email",
+      "tokenId": "EMAIL:94d3038f"
+    },
+    {
+      "keyLabel": "empty-0",
+      "keyHex": "",
+      "textUtf8Hex": "24312c3233342e3536",
+      "text": "$1,234.56",
+      "textUtf16Length": 9,
+      "entityType": "Email",
+      "tokenId": "EMAIL:f12315ab"
+    },
+    {
+      "keyLabel": "empty-0",
+      "keyHex": "",
+      "textUtf8Hex": null,
+      "text": "the character x repeated 5000 times",
+      "textUtf16Length": 5000,
+      "entityType": "Email",
+      "tokenId": "EMAIL:7a426eb0"
+    }
+  ],
+  "typeAbbreviations": [
+    {
+      "entityType": "CryptoAddr",
+      "typeAbbreviation": "ADDR",
+      "tokenIdForTextSampleWithFixedKey": "ADDR:6d09d001"
+    },
+    {
+      "entityType": "TxHash",
+      "typeAbbreviation": "TX",
+      "tokenIdForTextSampleWithFixedKey": "TX:6d09d001"
+    },
+    {
+      "entityType": "ValidatorKey",
+      "typeAbbreviation": "VKEY",
+      "tokenIdForTextSampleWithFixedKey": "VKEY:6d09d001"
+    },
+    {
+      "entityType": "EnsName",
+      "typeAbbreviation": "ENS",
+      "tokenIdForTextSampleWithFixedKey": "ENS:6d09d001"
+    },
+    {
+      "entityType": "SeedPhrase",
+      "typeAbbreviation": "SEED",
+      "tokenIdForTextSampleWithFixedKey": "SEED:6d09d001"
+    },
+    {
+      "entityType": "ApiKey",
+      "typeAbbreviation": "KEY",
+      "tokenIdForTextSampleWithFixedKey": "KEY:6d09d001"
+    },
+    {
+      "entityType": "AccessToken",
+      "typeAbbreviation": "TOKEN",
+      "tokenIdForTextSampleWithFixedKey": "TOKEN:6d09d001"
+    },
+    {
+      "entityType": "WebhookSecret",
+      "typeAbbreviation": "WHSEC",
+      "tokenIdForTextSampleWithFixedKey": "WHSEC:6d09d001"
+    },
+    {
+      "entityType": "PrivateKey",
+      "typeAbbreviation": "PRIVKEY",
+      "tokenIdForTextSampleWithFixedKey": "PRIVKEY:6d09d001"
+    },
+    {
+      "entityType": "Jwt",
+      "typeAbbreviation": "JWT",
+      "tokenIdForTextSampleWithFixedKey": "JWT:6d09d001"
+    },
+    {
+      "entityType": "ConnectionString",
+      "typeAbbreviation": "CONNSTR",
+      "tokenIdForTextSampleWithFixedKey": "CONNSTR:6d09d001"
+    },
+    {
+      "entityType": "PasswordInContext",
+      "typeAbbreviation": "PASSWD",
+      "tokenIdForTextSampleWithFixedKey": "PASSWD:6d09d001"
+    },
+    {
+      "entityType": "Quantity",
+      "typeAbbreviation": "QTY",
+      "tokenIdForTextSampleWithFixedKey": "QTY:6d09d001"
+    },
+    {
+      "entityType": "Amount",
+      "typeAbbreviation": "AMT",
+      "tokenIdForTextSampleWithFixedKey": "AMT:6d09d001"
+    },
+    {
+      "entityType": "Price",
+      "typeAbbreviation": "PRICE",
+      "tokenIdForTextSampleWithFixedKey": "PRICE:6d09d001"
+    },
+    {
+      "entityType": "MarketPair",
+      "typeAbbreviation": "MKT",
+      "tokenIdForTextSampleWithFixedKey": "MKT:6d09d001"
+    },
+    {
+      "entityType": "AssetName",
+      "typeAbbreviation": "ASSET",
+      "tokenIdForTextSampleWithFixedKey": "ASSET:6d09d001"
+    },
+    {
+      "entityType": "CreditCard",
+      "typeAbbreviation": "CC",
+      "tokenIdForTextSampleWithFixedKey": "CC:6d09d001"
+    },
+    {
+      "entityType": "Ssn",
+      "typeAbbreviation": "SSN",
+      "tokenIdForTextSampleWithFixedKey": "SSN:6d09d001"
+    },
+    {
+      "entityType": "Iban",
+      "typeAbbreviation": "IBAN",
+      "tokenIdForTextSampleWithFixedKey": "IBAN:6d09d001"
+    },
+    {
+      "entityType": "IpAddress",
+      "typeAbbreviation": "IP",
+      "tokenIdForTextSampleWithFixedKey": "IP:6d09d001"
+    },
+    {
+      "entityType": "MacAddress",
+      "typeAbbreviation": "MAC",
+      "tokenIdForTextSampleWithFixedKey": "MAC:6d09d001"
+    },
+    {
+      "entityType": "Email",
+      "typeAbbreviation": "EMAIL",
+      "tokenIdForTextSampleWithFixedKey": "EMAIL:6d09d001"
+    },
+    {
+      "entityType": "PhoneNumber",
+      "typeAbbreviation": "PHONE",
+      "tokenIdForTextSampleWithFixedKey": "PHONE:6d09d001"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "created": "2026-11-15T01:00:55.0668098Z",
+  "tokens": {
+    "PASSWD:31136116": "password = \u0022\u5BC6\u7801\u662F\u8FD9\u4E2A\u0022",
+    "AMT:210f7590": "$12,345",
+    "ADDR:e5ddfbd5": "0x2222222222222222222222222222222222222222",
+    "KEY:4206e4a5": "AKIAAAAAAAAAAAAAAAAA",
+    "EMAIL:2b5bdd35": "ivan@example.com",
+    "ADDR:80f5d623": "0x1111111111111111111111111111111111111111"
+  },
+  "fileHashes": {
+    "cjk.md": "sha256:efbd8dd909ea700f32f08fa26f39161b9a2f565c64905a5a9a76edfc158fed0f",
+    "crlf-notes.md": "sha256:67e0d66a16a191f2ab60fef505eeecd117a9dcd87e8070a253bb103e90a96708",
+    "no-trailing-newline.md": "sha256:a7699c2f5003f704914cf8cb92ac8f2ef19d271ed8e369c81dd8a1fdc33127f0"
+  }
+}

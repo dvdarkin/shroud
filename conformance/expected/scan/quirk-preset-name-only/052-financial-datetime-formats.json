@@ -1,0 +1,30 @@
+{
+  "input": "052-financial-datetime-formats.md",
+  "config": "quirk-preset-name-only",
+  "inputBytes": 1112,
+  "inputSha256": "fa19ac2d812d3d73be0b0056a33bad56242c0f1d3be86486d4846d2c0e7c5ff8",
+  "inputUtf16Length": 1112,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 1103,
+      "end": 1106,
+      "length": 3,
+      "matchedText": "100",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    }
+  ]
+}

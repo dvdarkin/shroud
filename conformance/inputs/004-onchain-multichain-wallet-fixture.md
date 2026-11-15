@@ -1,0 +1,18 @@
+## 2026-04-05 09:00
+
+Wallet inventory across chains:
+
+ETH: 0x5555555555555555555555555555555555555555
+BTC (segwit): bc1qabc123def456abc123def456abc123def456abc1
+BTC (taproot): bc1pabc123def456abc123def456abc123def456abc123def456abc123def456ab
+Cardano: addr1qabc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc1
+Cosmos: cosmos1abc123def456abc123def456abc123def456ab
+XRP: rN7n3473SaZBCG4dFL83w7p1W9cganksPc
+Tron: TJCnKsPa7y5okkXvQAidZBzqx3QyQ6sxMW
+Tezos: tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
+Litecoin: ltc1qabc123def456abc123def456abc123def456abc1
+Monero: 4A1abc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc123def456abc123def4
+
+Do NOT share this list.
+
+context: Notes, Desktop

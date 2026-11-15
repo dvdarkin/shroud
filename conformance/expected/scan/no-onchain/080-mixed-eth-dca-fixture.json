@@ -1,0 +1,86 @@
+{
+  "input": "080-mixed-eth-dca-fixture.md",
+  "config": "no-onchain",
+  "inputBytes": 414,
+  "inputSha256": "98c932b6ec9700c3fd59b95c001e08a9e53772bb7bf9a582bfcb3bd6e5e64a67",
+  "inputUtf16Length": 414,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 5,
+    "aboveThreshold": 5,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 36,
+      "end": 44,
+      "length": 8,
+      "matchedText": " 0.5 ETH",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "asset_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.75,
+      "confidenceString": "0.75",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 45,
+      "end": 54,
+      "length": 9,
+      "matchedText": "at $1,234",
+      "entityType": "Price",
+      "domain": "Financial",
+      "service": "price_dollar",
+      "typeAbbreviation": "PRICE",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 310,
+      "end": 317,
+      "length": 7,
+      "matchedText": " 10 ETH",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "asset_quantity",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.75,
+      "confidenceString": "0.75",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 329,
+      "end": 335,
+      "length": 6,
+      "matchedText": "$1,200",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 4,
+      "start": 380,
+      "end": 386,
+      "length": 6,
+      "matchedText": "$1,500",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    }
+  ]
+}

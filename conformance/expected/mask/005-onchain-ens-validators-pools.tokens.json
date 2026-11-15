@@ -1,0 +1,90 @@
+{
+  "input": "005-onchain-ens-validators-pools.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 435,
+  "maskedSha256": "264aa83d00487d0eb72bfe4f5e23c1f62ab2d3eea08828dc4a8e84130709c334",
+  "tokenCount": 10,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "VKEY:33760846",
+      "start": 333,
+      "end": 383,
+      "originalValue": "osmovaloper1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "VKEY:d0e579f3",
+      "start": 262,
+      "end": 314,
+      "originalValue": "cosmosvaloper1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "VKEY:d89d1efd",
+      "start": 187,
+      "end": 244,
+      "originalValue": "pool1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "VKEY:2e4decb4",
+      "start": 161,
+      "end": 172,
+      "originalValue": "validator#7",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "VKEY:7e4d49ea",
+      "start": 144,
+      "end": 156,
+      "originalValue": "Validator 12",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "VKEY:6a9d8347",
+      "start": 122,
+      "end": 139,
+      "originalValue": "validator #548231",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ENS:282dbc0d",
+      "start": 92,
+      "end": 99,
+      "originalValue": "bad.eth",
+      "entityType": "EnsName",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ENS:6d31b52b",
+      "start": 62,
+      "end": 67,
+      "originalValue": "a.eth",
+      "entityType": "EnsName",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ENS:69c00298",
+      "start": 46,
+      "end": 57,
+      "originalValue": "my-name.eth",
+      "entityType": "EnsName",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ENS:600bfb20",
+      "start": 29,
+      "end": 41,
+      "originalValue": "testname.eth",
+      "entityType": "EnsName",
+      "domain": "OnChain"
+    }
+  ]
+}

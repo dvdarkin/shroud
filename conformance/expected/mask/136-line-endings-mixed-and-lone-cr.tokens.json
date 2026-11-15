@@ -1,0 +1,42 @@
+{
+  "input": "136-line-endings-mixed-and-lone-cr.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 114,
+  "maskedSha256": "4130a72ec3354726f1ba9abbd1a6cba65b192ff9f71670a185ea610fd42b2bad",
+  "tokenCount": 4,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "PASSWD:fca234dd",
+      "start": 106,
+      "end": 129,
+      "originalValue": "password = \"mixed_pw_1\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets"
+    },
+    {
+      "tokenId": "SSN:c36200a4",
+      "start": 84,
+      "end": 95,
+      "originalValue": "123-45-6789",
+      "entityType": "Ssn",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "AMT:5da9ab58",
+      "start": 62,
+      "end": 68,
+      "originalValue": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 9,
+      "end": 51,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

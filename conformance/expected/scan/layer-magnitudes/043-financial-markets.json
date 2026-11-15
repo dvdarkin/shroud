@@ -1,0 +1,44 @@
+{
+  "input": "043-financial-markets.md",
+  "config": "layer-magnitudes",
+  "inputBytes": 319,
+  "inputSha256": "c081116226e8a55d52969c860167bc3c3b7203745b085009877f6dc72ff763d6",
+  "inputUtf16Length": 319,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 2,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 41,
+      "end": 50,
+      "length": 9,
+      "matchedText": "at 1.0845",
+      "entityType": "Price",
+      "domain": "Financial",
+      "service": "price_bare",
+      "typeAbbreviation": "PRICE",
+      "confidence": 0.8999999999999999,
+      "confidenceString": "0.8999999999999999",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 57,
+      "end": 62,
+      "length": 5,
+      "matchedText": "1,000",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "comma_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    }
+  ]
+}

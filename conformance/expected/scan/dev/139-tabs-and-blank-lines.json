@@ -1,0 +1,30 @@
+{
+  "input": "139-tabs-and-blank-lines.md",
+  "config": "dev",
+  "inputBytes": 66,
+  "inputSha256": "3b73027d02d69b1ad1b460fbb0cf2fc961f21f9de80db07c9d312a398ca6558b",
+  "inputUtf16Length": 66,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 13,
+      "end": 55,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

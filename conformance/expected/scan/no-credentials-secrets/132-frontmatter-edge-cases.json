@@ -1,0 +1,30 @@
+{
+  "input": "132-frontmatter-edge-cases.md",
+  "config": "no-credentials-secrets",
+  "inputBytes": 226,
+  "inputSha256": "686faba84cffff302492ff540a402b260f1ce75e0086c120583ed983495fc9b4",
+  "inputUtf16Length": 226,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 183,
+      "end": 225,
+      "length": 42,
+      "matchedText": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

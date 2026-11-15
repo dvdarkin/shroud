@@ -1,0 +1,66 @@
+{
+  "input": "010-onchain-explorer-urls.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 294,
+  "maskedSha256": "40a75cc48da04fab54bff65bc6ae93563a97cec2115d4a64c11280890f0ec866",
+  "tokenCount": 7,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "ADDR:91c4534e",
+      "start": 539,
+      "end": 570,
+      "originalValue": "https://solscan.io/tx/ABCDEF123",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:236996c6",
+      "start": 492,
+      "end": 523,
+      "originalValue": "https://solscan.io/account/AAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:ac39f5ae",
+      "start": 393,
+      "end": 480,
+      "originalValue": "[0x1111...1111](https://example.org/address/0x1111111111111111111111111111111111111111)",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:f3cc8bc9",
+      "start": 325,
+      "end": 369,
+      "originalValue": "[1326681](https://example.org/block/1326681)",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:84a504f0",
+      "start": 233,
+      "end": 303,
+      "originalValue": "https://example.org/address/0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:c0dfa574",
+      "start": 143,
+      "end": 214,
+      "originalValue": "https://etherscan.io/address/0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:1b9ab23d",
+      "start": 33,
+      "end": 123,
+      "originalValue": "https://etherscan.io/tx/0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

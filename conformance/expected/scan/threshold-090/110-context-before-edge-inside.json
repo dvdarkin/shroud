@@ -1,0 +1,30 @@
+{
+  "input": "110-context-before-edge-inside.md",
+  "config": "threshold-090",
+  "inputBytes": 160,
+  "inputSha256": "3d039744fc6bdaeac5e5256dd28db68c9f4f1ae96eec8806ab2569327a31b40e",
+  "inputUtf16Length": 160,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 120,
+      "end": 160,
+      "length": 40,
+      "matchedText": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "sol_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.8500000000000001,
+      "confidenceString": "0.8500000000000001",
+      "aboveThreshold": false
+    }
+  ]
+}

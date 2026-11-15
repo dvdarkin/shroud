@@ -1,0 +1,100 @@
+{
+  "input": "078-fp-code-discussion.md",
+  "config": "no-credentials-secrets",
+  "inputBytes": 513,
+  "inputSha256": "702680ec0a4f4ce79718953c46df7668720888bc3ba1df108b8caf3f95c3ee32",
+  "inputUtf16Length": 513,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 6,
+    "aboveThreshold": 0,
+    "belowThreshold": 6
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 167,
+      "end": 172,
+      "length": 5,
+      "matchedText": "10000",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.2,
+      "confidenceString": "0.2",
+      "aboveThreshold": false
+    },
+    {
+      "index": 1,
+      "start": 220,
+      "end": 224,
+      "length": 4,
+      "matchedText": "8080",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.2,
+      "confidenceString": "0.2",
+      "aboveThreshold": false
+    },
+    {
+      "index": 2,
+      "start": 249,
+      "end": 252,
+      "length": 3,
+      "matchedText": "512",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.2,
+      "confidenceString": "0.2",
+      "aboveThreshold": false
+    },
+    {
+      "index": 3,
+      "start": 294,
+      "end": 297,
+      "length": 3,
+      "matchedText": "342",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.2,
+      "confidenceString": "0.2",
+      "aboveThreshold": false
+    },
+    {
+      "index": 4,
+      "start": 413,
+      "end": 421,
+      "length": 8,
+      "matchedText": "20260401",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.2,
+      "confidenceString": "0.2",
+      "aboveThreshold": false
+    },
+    {
+      "index": 5,
+      "start": 433,
+      "end": 437,
+      "length": 4,
+      "matchedText": "1847",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.2,
+      "confidenceString": "0.2",
+      "aboveThreshold": false
+    }
+  ]
+}

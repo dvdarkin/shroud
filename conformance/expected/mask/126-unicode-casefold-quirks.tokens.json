@@ -1,0 +1,50 @@
+{
+  "input": "126-unicode-casefold-quirks.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 336,
+  "maskedSha256": "b63c104242a79ec14133111e6a02f598ae18906653c89cc2d11ce1d3ed2051c0",
+  "tokenCount": 5,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "AMT:f75ebe89",
+      "start": 270,
+      "end": 274,
+      "originalValue": "$100",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "TX:a244b4c5",
+      "start": 228,
+      "end": 243,
+      "originalValue": "BLOCK #12345678",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "VKEY:f03aa5fd",
+      "start": 205,
+      "end": 218,
+      "originalValue": "validator #12",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "VKEY:f03aa5fd",
+      "start": 174,
+      "end": 187,
+      "originalValue": "validator #12",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TX:41c35fbc",
+      "start": 122,
+      "end": 135,
+      "originalValue": "slot #9234567",
+      "entityType": "TxHash",
+      "domain": "OnChain"
+    }
+  ]
+}

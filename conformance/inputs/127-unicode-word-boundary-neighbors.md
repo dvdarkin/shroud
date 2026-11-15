@@ -1,0 +1,11 @@
+## Letters adjacent to word-bounded patterns
+
+x1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+é1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+ж1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAé
+é1234 USD
+USDé
+ghp_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa中
+中ghp_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+_ghp_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

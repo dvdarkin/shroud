@@ -1,0 +1,15 @@
+{
+  "input": "133-file-path-metadata-lines.md",
+  "config": "no-onchain",
+  "inputBytes": 537,
+  "inputSha256": "020650f4ba1ed26a98a2159887f23442b47fd1bfd957e4e22edee86515aa9ffb",
+  "inputUtf16Length": 537,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

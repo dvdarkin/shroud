@@ -1,0 +1,10 @@
+{
+  "name": "v4-clean-only-no-tokens",
+  "passphrase": "empty-vault-passphrase",
+  "passphraseUtf8Hex": "656d7074792d7661756c742d70617373706872617365",
+  "config": "configs/default.json",
+  "vaultFileBytes": 242,
+  "tokenCount": 0,
+  "sourceFiles": ["only.md"],
+  "note": "vault/vault.shroud, vault/manifest.json and vault/public/ were written by the C# VaultBuilder on Windows; relative paths inside manifest.json and vault-data.decrypted.json (files lists, fileHashes keys) use the OS separator, i.e. backslash here."
+}

@@ -1,0 +1,30 @@
+{
+  "input": "139-tabs-and-blank-lines.md",
+  "config": "no-onchain",
+  "inputBytes": 66,
+  "inputSha256": "3b73027d02d69b1ad1b460fbb0cf2fc961f21f9de80db07c9d312a398ca6558b",
+  "inputUtf16Length": 66,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 56,
+      "end": 62,
+      "length": 6,
+      "matchedText": "$1,234",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "input": "141-whitespace-only.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 10,
+  "maskedSha256": "b1d2cdf7f771fcbdeaf58634fc8f866285ce18777f40d820463e963ce64a8542",
+  "tokenCount": 0,
+  "tokensInReplacementOrder": []
+}

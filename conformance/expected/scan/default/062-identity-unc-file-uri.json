@@ -1,0 +1,44 @@
+{
+  "input": "062-identity-unc-file-uri.md",
+  "config": "default",
+  "inputBytes": 183,
+  "inputSha256": "c5df565c27f2960da631fdbddcac73cd01996b65fc93d6ca612902cf4b22c0ed",
+  "inputUtf16Length": 183,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 2,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 23,
+      "end": 50,
+      "length": 27,
+      "matchedText": "\\\\192.168.10.2\\share\\folder",
+      "entityType": "IpAddress",
+      "domain": "Identity",
+      "service": "unc_network_path",
+      "typeAbbreviation": "IP",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 76,
+      "end": 96,
+      "length": 20,
+      "matchedText": "\\\\192.168.10.2\\share",
+      "entityType": "IpAddress",
+      "domain": "Identity",
+      "service": "unc_network_path",
+      "typeAbbreviation": "IP",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    }
+  ]
+}

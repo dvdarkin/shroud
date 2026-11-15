@@ -1,0 +1,58 @@
+{
+  "input": "114-context-case-and-multiple-words.md",
+  "config": "paranoid",
+  "inputBytes": 230,
+  "inputSha256": "7fe7ede6bf8915d221e6e019fdaa0fc5993c0b5ffacddede3e84d7916551f1eb",
+  "inputUtf16Length": 230,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 3,
+    "aboveThreshold": 3,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 14,
+      "end": 54,
+      "length": 40,
+      "matchedText": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "sol_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 87,
+      "end": 127,
+      "length": 40,
+      "matchedText": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "sol_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 189,
+      "end": 229,
+      "length": 40,
+      "matchedText": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "sol_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    }
+  ]
+}

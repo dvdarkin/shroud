@@ -1,0 +1,30 @@
+{
+  "input": "124-unicode-fullwidth-digits.md",
+  "config": "quirk-lowercase-keys",
+  "inputBytes": 479,
+  "inputSha256": "e31c9c378bfb1108d60b56e8f2c9c4c6727b814686f55575d154e16700fe2466",
+  "inputUtf16Length": 311,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 293,
+      "end": 310,
+      "length": 17,
+      "matchedText": "validator #５４８２３１",
+      "entityType": "ValidatorKey",
+      "domain": "OnChain",
+      "service": "eth_validator_index",
+      "typeAbbreviation": "VKEY",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": false
+    }
+  ]
+}

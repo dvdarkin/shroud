@@ -1,0 +1,100 @@
+{
+  "input": "121-unicode-cyrillic.md",
+  "config": "dev",
+  "inputBytes": 406,
+  "inputSha256": "6dd304799e1c99c37c666962c0db92e0fd81af2b04ff330d9a848cdb8e9678fd",
+  "inputUtf16Length": 314,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 6,
+    "aboveThreshold": 6,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 29,
+      "end": 71,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 95,
+      "end": 137,
+      "length": 42,
+      "matchedText": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 143,
+      "end": 163,
+      "length": 20,
+      "matchedText": "AKIAAAAAAAAAAAAAAAAA",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "aws_access_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 176,
+      "end": 196,
+      "length": 20,
+      "matchedText": "AKIABBBBBBBBBBBBBBBB",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "aws_access_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 4,
+      "start": 204,
+      "end": 220,
+      "length": 16,
+      "matchedText": "ivan@example.com",
+      "entityType": "Email",
+      "domain": "Identity",
+      "service": "email",
+      "typeAbbreviation": "EMAIL",
+      "confidence": 0.7,
+      "confidenceString": "0.7",
+      "aboveThreshold": true
+    },
+    {
+      "index": 5,
+      "start": 246,
+      "end": 275,
+      "length": 29,
+      "matchedText": "password = \"секретный_пароль\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets",
+      "service": "password_assignment",
+      "typeAbbreviation": "PASSWD",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    }
+  ]
+}

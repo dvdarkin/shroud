@@ -1,0 +1,58 @@
+{
+  "input": "007-onchain-correlation-no-context.md",
+  "config": "no-onchain",
+  "inputBytes": 190,
+  "inputSha256": "b8c57ce0b17a06f6a7be9d80799470f3f0ee6566b0215190215c4d0b5aaaf892",
+  "inputUtf16Length": 190,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 3,
+    "aboveThreshold": 3,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 34,
+      "end": 42,
+      "length": 8,
+      "matchedText": "12345678",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.75,
+      "confidenceString": "0.75",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 104,
+      "end": 111,
+      "length": 7,
+      "matchedText": "1234567",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.75,
+      "confidenceString": "0.75",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 125,
+      "end": 128,
+      "length": 3,
+      "matchedText": "123",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.75,
+      "confidenceString": "0.75",
+      "aboveThreshold": true
+    }
+  ]
+}

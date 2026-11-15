@@ -1,0 +1,9 @@
+{
+  "input": "127-unicode-word-boundary-neighbors.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 331,
+  "maskedSha256": "33fca8e6f265fa57924a79177c1884198538726dc7d20bd2c49d6ca6de33f399",
+  "tokenCount": 0,
+  "tokensInReplacementOrder": []
+}

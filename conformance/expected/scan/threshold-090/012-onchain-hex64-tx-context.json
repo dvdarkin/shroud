@@ -1,0 +1,72 @@
+{
+  "input": "012-onchain-hex64-tx-context.md",
+  "config": "threshold-090",
+  "inputBytes": 547,
+  "inputSha256": "7d109b572f9696e563d55a65c3d9e4bf06834644ca627f90f12756a77e36f4dc",
+  "inputUtf16Length": 547,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 4,
+    "aboveThreshold": 4,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 29,
+      "end": 93,
+      "length": 64,
+      "matchedText": "abababababababababababababababababababababababababababababababab",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "hex64_tx",
+      "typeAbbreviation": "TX",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 124,
+      "end": 188,
+      "length": 64,
+      "matchedText": "abababababababababababababababababababababababababababababababab",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "hex64_tx",
+      "typeAbbreviation": "TX",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 229,
+      "end": 293,
+      "length": 64,
+      "matchedText": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "hex64_tx",
+      "typeAbbreviation": "TX",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 331,
+      "end": 395,
+      "length": 64,
+      "matchedText": "0000000000000000000000000000000000000000000000000000000000000000",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "hex64_tx",
+      "typeAbbreviation": "TX",
+      "confidence": 0.9500000000000001,
+      "confidenceString": "0.9500000000000001",
+      "aboveThreshold": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+## Structural secrets
+
+[PRIVKEY:56020a1d]
+[PRIVKEY:1a0b325b]
+[PRIVKEY:6dd89cea]
+[PRIVKEY:8586c64e]
+[PRIVKEY:dfd72ca3]
+[PRIVKEY:72b264f7]
+-----BEGIN PUBLIC KEY-----
+
+JWT: [JWT:43214594]
+Not JWT: eyJhbGciOiJub25lIn0.notpayload.c2ln
+
+[CONNSTR:12953f4a]
+[CONNSTR:8c4fe3fd]
+[CONNSTR:f0317a86]
+[CONNSTR:840183f1]
+[CONNSTR:9d22f575]
+postgres://nopassword@host/db
+[CONNSTR:3df7377e];
+[CONNSTR:1ac99709];

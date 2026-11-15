@@ -1,0 +1,44 @@
+{
+  "input": "074-fp-markdown-formatting.md",
+  "config": "threshold-030",
+  "inputBytes": 418,
+  "inputSha256": "e9c99adaf292a1dc6fe7060e04ee3e968a4996d25574900aea785a385a63cb82",
+  "inputUtf16Length": 418,
+  "threshold": 0.3,
+  "thresholdString": "0.3",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 1,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 188,
+      "end": 252,
+      "length": 64,
+      "matchedText": "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9",
+      "entityType": "TxHash",
+      "domain": "OnChain",
+      "service": "hex64_tx",
+      "typeAbbreviation": "TX",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 413,
+      "end": 417,
+      "length": 4,
+      "matchedText": "1234",
+      "entityType": "Quantity",
+      "domain": "Financial",
+      "service": "large_number",
+      "typeAbbreviation": "QTY",
+      "confidence": 0.2,
+      "confidenceString": "0.2",
+      "aboveThreshold": false
+    }
+  ]
+}

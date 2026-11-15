@@ -1,0 +1,30 @@
+{
+  "input": "126-unicode-casefold-quirks.md",
+  "config": "no-onchain",
+  "inputBytes": 335,
+  "inputSha256": "932dfc6c58ceeaf8a4285b994a8de7b8e69fc9b0f93c4942a8e1cca3e468ee0d",
+  "inputUtf16Length": 324,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 270,
+      "end": 274,
+      "length": 4,
+      "matchedText": "$100",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

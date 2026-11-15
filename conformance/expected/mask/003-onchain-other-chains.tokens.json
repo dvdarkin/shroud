@@ -1,0 +1,138 @@
+{
+  "input": "003-onchain-other-chains.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 577,
+  "maskedSha256": "a02b469caf6f6eb9fe693fa071095ebba40f3067b15842e1d23d3867868a157e",
+  "tokenCount": 16,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "ADDR:7370acb9",
+      "start": 997,
+      "end": 1044,
+      "originalValue": "P-avax1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:535440b0",
+      "start": 932,
+      "end": 977,
+      "originalValue": "X-avax1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:e769d814",
+      "start": 876,
+      "end": 912,
+      "originalValue": "tz1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:c26d020d",
+      "start": 801,
+      "end": 848,
+      "originalValue": "1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:c26d020d",
+      "start": 730,
+      "end": 777,
+      "originalValue": "1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:1c07c6c9",
+      "start": 619,
+      "end": 714,
+      "originalValue": "4A111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:1edacbd5",
+      "start": 565,
+      "end": 599,
+      "originalValue": "D5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:1edacbd5",
+      "start": 502,
+      "end": 536,
+      "originalValue": "D5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:808ba798",
+      "start": 452,
+      "end": 486,
+      "originalValue": "TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:c52f3880",
+      "start": 398,
+      "end": 427,
+      "originalValue": "rAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:c52f3880",
+      "start": 343,
+      "end": 372,
+      "originalValue": "rAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:a794b8f0",
+      "start": 286,
+      "end": 329,
+      "originalValue": "osmo1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:169f93d2",
+      "start": 231,
+      "end": 276,
+      "originalValue": "cosmos1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:2498fa15",
+      "start": 159,
+      "end": 222,
+      "originalValue": "addr1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:9f6a00db",
+      "start": 109,
+      "end": 149,
+      "originalValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:9f6a00db",
+      "start": 30,
+      "end": 70,
+      "originalValue": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

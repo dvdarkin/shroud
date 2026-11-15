@@ -1,0 +1,15 @@
+{
+  "input": "141-whitespace-only.md",
+  "config": "no-identity",
+  "inputBytes": 10,
+  "inputSha256": "b1d2cdf7f771fcbdeaf58634fc8f866285ce18777f40d820463e963ce64a8542",
+  "inputUtf16Length": 10,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

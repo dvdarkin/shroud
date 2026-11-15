@@ -1,0 +1,58 @@
+{
+  "input": "090-code-fenced-block.md",
+  "config": "no-onchain",
+  "inputBytes": 260,
+  "inputSha256": "bf68a462c5edd3c06d75b87f190867b5fe66f0932a5f065920cee03b6837c102",
+  "inputUtf16Length": 260,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 3,
+    "aboveThreshold": 2,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 54,
+      "end": 74,
+      "length": 20,
+      "matchedText": "AKIAIOSFODNN7EXAMPLE",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "aws_access_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 109,
+      "end": 110,
+      "length": 1,
+      "matchedText": "0",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "arithmetic_result",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.25,
+      "confidenceString": "0.25",
+      "aboveThreshold": false
+    },
+    {
+      "index": 2,
+      "start": 161,
+      "end": 192,
+      "length": 31,
+      "matchedText": "password = \"tilde_fence_secret\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets",
+      "service": "password_assignment",
+      "typeAbbreviation": "PASSWD",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": true
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "input": "071-fp-legal-contract.md",
+  "config": "threshold-030",
+  "inputBytes": 356,
+  "inputSha256": "6a2a055469f8d7ccffe0e65c6a47646e20eb9d890ef3ded8b0fc0101f9fe3189",
+  "inputUtf16Length": 356,
+  "threshold": 0.3,
+  "thresholdString": "0.3",
+  "counts": {
+    "allDetected": 3,
+    "aboveThreshold": 3,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 212,
+      "end": 219,
+      "length": 7,
+      "matchedText": "$50,000",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 285,
+      "end": 291,
+      "length": 6,
+      "matchedText": "$2,500",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 1,
+      "confidenceString": "1",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 336,
+      "end": 342,
+      "length": 6,
+      "matchedText": "at 123",
+      "entityType": "Price",
+      "domain": "Financial",
+      "service": "price_bare",
+      "typeAbbreviation": "PRICE",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

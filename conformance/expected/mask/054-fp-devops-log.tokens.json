@@ -1,0 +1,50 @@
+{
+  "input": "054-fp-devops-log.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 454,
+  "maskedSha256": "cb2c876a095c48103d1b14d2ca0810c2c709ab3de1d8559b5950cb8de63583c8",
+  "tokenCount": 5,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "PRICE:b0f2afff",
+      "start": 371,
+      "end": 377,
+      "originalValue": "at 2.4",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:ac17b0a2",
+      "start": 302,
+      "end": 305,
+      "originalValue": "12k",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:7a680b12",
+      "start": 53,
+      "end": 57,
+      "originalValue": "128m",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "QTY:75a2b066",
+      "start": 35,
+      "end": 39,
+      "originalValue": "1234",
+      "entityType": "Quantity",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "MKT:6ac90ea0",
+      "start": 3,
+      "end": 8,
+      "originalValue": "CI-CD",
+      "entityType": "MarketPair",
+      "domain": "Financial"
+    }
+  ]
+}

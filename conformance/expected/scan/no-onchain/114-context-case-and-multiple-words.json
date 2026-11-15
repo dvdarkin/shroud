@@ -1,0 +1,15 @@
+{
+  "input": "114-context-case-and-multiple-words.md",
+  "config": "no-onchain",
+  "inputBytes": 230,
+  "inputSha256": "7fe7ede6bf8915d221e6e019fdaa0fc5993c0b5ffacddede3e84d7916551f1eb",
+  "inputUtf16Length": 230,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

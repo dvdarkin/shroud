@@ -1,0 +1,42 @@
+{
+  "input": "090-code-fenced-block.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 157,
+  "maskedSha256": "3c079e13fa3793c69f2934d569915a4608d22fa20b3aafb2ae3f84f8ef174bc1",
+  "tokenCount": 4,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "ADDR:f116adc4",
+      "start": 217,
+      "end": 259,
+      "originalValue": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "PASSWD:0736a651",
+      "start": 161,
+      "end": 192,
+      "originalValue": "password = \"tilde_fence_secret\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets"
+    },
+    {
+      "tokenId": "ADDR:c0dfa574",
+      "start": 80,
+      "end": 151,
+      "originalValue": "https://etherscan.io/address/0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "KEY:65fbd4cd",
+      "start": 54,
+      "end": 74,
+      "originalValue": "AKIAIOSFODNN7EXAMPLE",
+      "entityType": "ApiKey",
+      "domain": "Credentials"
+    }
+  ]
+}

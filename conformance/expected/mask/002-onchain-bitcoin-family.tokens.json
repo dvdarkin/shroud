@@ -1,0 +1,82 @@
+{
+  "input": "002-onchain-bitcoin-family.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 401,
+  "maskedSha256": "f9fb521f4319fd3412b218f2047da08fbcd4230f0f1e43cbc7a2b862c0d6394e",
+  "tokenCount": 9,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "ADDR:f4c1af1b",
+      "start": 612,
+      "end": 655,
+      "originalValue": "ltc1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:7583be43",
+      "start": 541,
+      "end": 572,
+      "originalValue": "LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:7583be43",
+      "start": 475,
+      "end": 506,
+      "originalValue": "LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:f7d44104",
+      "start": 390,
+      "end": 444,
+      "originalValue": "bitcoincash:qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:286df955",
+      "start": 249,
+      "end": 311,
+      "originalValue": "bc1paaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:7527d6b3",
+      "start": 177,
+      "end": 239,
+      "originalValue": "bc1qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:4cfe42c0",
+      "start": 121,
+      "end": 163,
+      "originalValue": "bc1qaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:c764d09c",
+      "start": 81,
+      "end": 112,
+      "originalValue": "3BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:9aaf925e",
+      "start": 33,
+      "end": 67,
+      "originalValue": "1AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

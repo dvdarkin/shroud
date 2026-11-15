@@ -1,0 +1,15 @@
+{
+  "input": "063-identity-server-metrics-fixture.md",
+  "config": "quirk-lowercase-keys",
+  "inputBytes": 367,
+  "inputSha256": "c4f7ed270a44d1d60a70c3a6a7a6e848e9cd413e99c11cfd325eef0bf9d6c300",
+  "inputUtf16Length": 367,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}
