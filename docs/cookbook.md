@@ -80,11 +80,17 @@ Two hooks, both in [`examples/claude-code/`](../examples/claude-code). Copy the 
 - Otherwise it scans the file. If it has sensitive values, the hook exits 2 and the read is refused; the reason goes to the model, so it is printed with `--no-values`.
 - A clean file is read normally.
 
+Both hooks were run in live Claude Code sessions (2.1.325, Windows, headless `claude -p`, with the C# and the TypeScript CLI) using made-up canary values. In the redirect, refuse and clean cases the canary appeared nowhere in the session output or transcript. What that run showed about the prompt guard:
+
+- A blocked prompt makes no API call at all (zero turns, zero tokens).
+- Claude Code itself still keeps the text you typed: it echoes it back to you as "Original prompt: ..." and records it in the local session transcript under `~/.claude/projects/`. The guard keeps the value away from the model, not off your own disk.
+- In headless mode the run ends with exit code 0 and the block message as its result.
+
 Things to know:
 
 - The hooks call `shroud` from `PATH`. Set `SHROUD_BIN` to use a specific executable.
 - The read guard serves whatever masked copy exists. After editing a vaulted source file, run `shroud vault` again, or the model reads the old masked text.
-- The guard covers the `Read` tool only. `Bash` (`cat notes/a.md`) and other tools are not intercepted; for a hard boundary, also deny the source directory in Claude Code's permission settings and point Claude at `notes.shroud/public`.
+- The guard covers the `Read` tool only. `Bash` (`cat notes/a.md`) and other tools are not intercepted (confirmed in the same live run: `cat` on an unvaulted file put the canary in front of the model); for a hard boundary, also deny the source directory in Claude Code's permission settings and point Claude at `notes.shroud/public`.
 - A failure of the hook itself (Shroud not installed, exit 1) does not block: Claude Code treats only exit 2 as blocking.
 
 ## 3. Reveal on demand, with the password from a secret store
@@ -178,7 +184,7 @@ jobs:
           exit $fail
 ```
 
-Commit a `shroud.json` at the repository root so CI and the pre-commit hook (recipe 1) agree on what counts. This workflow has the same loop as the pre-commit hook but has not been run on GitHub by the authors; check the first run.
+Commit a `shroud.json` at the repository root so CI and the pre-commit hook (recipe 1) agree on what counts. The scan step was run locally against a pull-request branch with a real `origin` (a file with a token fails the step, removing it passes, file names with spaces work). This repository's own CI runs the same diff range and loop on every pull request, with Shroud installed from the checkout (the `cookbook-gate` job in `.github/workflows/ci.yml`).
 
 ## 6. Sync and back up only the vault
 

@@ -55,3 +55,53 @@ jobs:
         run: |
           dotnet run --project conformance/Generator
           git diff --exit-code -- conformance/expected
+
+  # Recipe 5 of docs/cookbook.md (the pull-request gate), run for real: the same diff
+  # range and loop, with Shroud installed from this checkout. It checks that the recipe
+  # works on GitHub, not that this repository is free of example values: a changed file
+  # may exit 0 or 2, only a tool error (1) fails.
+  cookbook-gate:
+    name: cookbook CI gate recipe
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install shroud from this checkout
+        working-directory: ts
+        run: |
+          npm ci
+          npm run build
+          npm install -g .
+
+      - name: The gate tells a clean file from one with a token
+        run: |
+          dir=$(mktemp -d)
+          printf 'nothing to see here\n' > "$dir/clean note.md"
+          printf 'key ghp_abcdefghijklmnopqrstuvwxyzABCDEFGHIJ\n' > "$dir/dirty note.md"
+          shroud scan "$dir/clean note.md" --exit-code --no-values
+          code=0
+          shroud scan "$dir/dirty note.md" --exit-code --no-values > "$dir/report.txt" || code=$?
+          cat "$dir/report.txt"
+          test "$code" -eq 2
+          ! grep -q ghp_ "$dir/report.txt"
+
+      - name: The recipe's diff range and loop on this pull request
+        run: |
+          fail=0
+          count=0
+          while IFS= read -r -d '' file; do
+            code=0
+            shroud scan "$file" --exit-code --no-values > /dev/null || code=$?
+            echo "exit $code  $file"
+            count=$((count + 1))
+            if [ "$code" -ne 0 ] && [ "$code" -ne 2 ]; then fail=1; fi
+          done < <(git diff --name-only --diff-filter=ACM -z "origin/${{ github.base_ref }}...HEAD" -- '*.md' '*.txt' '*.env' '*.json' '*.yml' '*.yaml')
+          echo "$count changed text files scanned"
+          exit $fail
