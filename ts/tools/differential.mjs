@@ -9,7 +9,8 @@
 //     overlap resolution.
 // The corpus mixes test strings, repository documents, Unicode edge cases, seeded fuzz
 // and targeted inputs for the exclusion rules (front matter at and away from offset 0,
-// metadata keys glued to words or at the end of a line) and digit-less financial text.
+// metadata keys glued to any character outside the line-start/space/tab/"(" allowlist or at the
+// end of a line, uppercase ASCII I in case-insensitive patterns) and digit-less financial text.
 //
 //   npm run build && node tools/differential.mjs [fuzzCount] [seed]
 //
@@ -90,6 +91,17 @@ for (const t of ['17:30:34', '14:25', '5:00', '5pm', '11:45 AM', '5:30pm']) test
     'file2path: ' + A, 'file: C:\\wallets\\' + A, 'FILE: wallet-' + A + '.txt', 'source_file: notes/' + A + '.md', 'path: /home/x/' + A,
     'Attachment: ' + A, '- file: ' + A]) testStrings.push('## Notes\n\n' + line + '\n');
   for (const t of ['file:\n' + A + '\n', 'path:   \n' + A + '\n', 'attachment:\r\n' + A + '\r\n']) testStrings.push('## Notes\n\n' + t);
+  // Fix A (metadata key allowlist): genuine positions, glued characters, lone CR, offset 0.
+  for (const line of ['(path: ' + A + ')', '  file: ' + A, '\tpath: ' + A, 'see (attachment: ' + A + ')']) testStrings.push('## Notes\n\n' + line + '\n');
+  for (const glue of ['e\u{301}', '\u{200D}', '\u{200C}', '\u{1D400}', '\u{1F600}', '|', '>', '"', '[', '*', '`', '<', '.', '\u{A0}']) {
+    for (const key of ['file:', 'FILE:', 'path:', 'source_file:', 'attachment:']) testStrings.push('## Notes\n\n' + glue + key + ' ' + A + '\n');
+  }
+  testStrings.push('x\rfile: ' + A + '\r', '## Notes\rpath: ' + A + '\r', 'file: ' + A + '\n');
+  // Fix B (culture): uppercase ASCII I in case-insensitive patterns and exclusions.
+  testStrings.push('VALIDATOR #548231', 'LOGIN = "bobby"', 'API_KEY = "key-67890"', 'POSITION #77 UNISWAP LIQUIDITY',
+    'FILE: ' + A + '\nSOURCE_FILE: x\nPATH: y\nATTACHMENT: z\nAPRIL 8, 2025 at 5 PM\n',
+    '## Notes\n\nVALIDATOR #548231\nFILE: ' + A + '\nLOGIN = "bobby"\nAPI_KEY = "key-67890"\nPOSITION #77 UNISWAP LIQUIDITY\n',
+    'VAL\u{130}DATOR #548231 val\u{131}dator #548232 F\u{130}LE: ' + A + ' f\u{131}le: ' + B);
   testStrings.push('fee 1,250 = 5 usd and paid $1,200 and EUR 300', 'bought 1,234 units.\n\nfee 1,234 = 5 usd\n',
     'card 4111 1111 1111 1111\n', 'balance 1234.56\n');
 }
@@ -166,11 +178,14 @@ const words = [...lib.TRADING_CONTEXT, ...lib.PRICE_CONTEXT, ...lib.AMOUNT_CONTE
   'Jan', 'FEB', 'mar', 'April', 'May', 'jun', 'JUL', 'Aug', 'sep', 'Oct', 'nov', 'Dec', 'AM', 'pm', 'GB', 'MB', 'tb', 'k', 'M', 'B', 'm',
   'password', 'passwd', 'pwd', 'secret', 'apikey', 'api_key', 'login', 'username', 'user', 'Server=', 'Data Source=', 'Password=', 'Pwd=',
   'mongodb://', 'postgres://', 'mysql://', 'redis://', 'mongodb+srv://', 'file:', 'path:', 'source_file:', 'attachment:', 'File:'];
-// Characters before a metadata key: letters (ASCII, accented, Cyrillic, CJK, modifier), Unicode
-// decimal digits, `_` and `-` make it part of a longer word; the rest do not.
+// Characters before a metadata key. Only a line start, a space, a tab or "(" make it a
+// metadata key; everything else (letters, digits, "_", "-", marks, joiners, surrogates,
+// punctuation, other spaces, a lone CR) makes the line ordinary text.
 const metadataGlue = ['', ' ', '- ', '(', '[', '"', '/', '.', ':', 'pro', 'class', 'my-', 'my_', 'Doc', 'file2', 'é', 'Ж', '中', 'ʰ', '々',
   '١', '３', '৩', '9', '_', '-', '́', 'ः', '²', '‿', 'Ⅰ', '〇', '‌', '‍', ' ', '\t', '😀', '\uD800', 'K', 'ſ', 'İ'];
-const metadataKeys = ['file:', 'FILE:', 'File:', 'path:', 'PATH:', 'source_file:', 'Source_File:', 'attachment:', 'Attachment:', 'fıle:', 'ſource_file:', 'patħ:'];
+metadataGlue.push('e\u{301}', '\u{1D400}', '\u{1D7CE}', '\u{1F511}', '\uDC00', '|', '>', '`', '*', '<', '=', '\r', 'x\r', '\u{A0}',
+  '\u{3000}', '\u{2028}', '\u{85}', '\v', '\f', '* ', '1. ', '> ', '| ', '\t(', '((', ' (', '\u{FEFF}');
+const metadataKeys = ['file:', 'FILE:', 'FİLE:', 'ATTACHMENT:', 'SOURCE_FILE:', 'File:', 'path:', 'PATH:', 'source_file:', 'Source_File:', 'attachment:', 'Attachment:', 'fıle:', 'ſource_file:', 'patħ:'];
 // Separator-only text in the financial shapes built from [\d,]+.
 const digitlessShapes = ['fee x, = 5 usd', 'usd fee: total = , then', 'usd fee x, * 2', 'usd fee 2 * , x', 'usd fee x,,,, - 3',
   'Paid $, then left', 'Balance x, USD', 'Paid EUR , ok', 'Paid x, EUR ok', 'filled at $,x price', 'filled at ,x price',

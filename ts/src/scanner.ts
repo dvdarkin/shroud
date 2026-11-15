@@ -53,9 +53,13 @@ export function createScanDiagnostics(): ScanDiagnostics {
 // time, so LF and CRLF both work and an empty block ("---\n---") ends at its own closing
 // line. A pair of "---" lines later in the document is a pair of horizontal rules.
 const FRONTMATTER = dotnetRegex(String.raw`\A---[ \t]*\r?\n(?:[^\n]*\n)*?---[ \t]*\r?$`, { multiline: true });
-// File-path metadata line ("file: ...", "source_file: ..."). The key must be a whole word:
-// not preceded by a letter, digit, underscore or hyphen, and its value is on the same line.
-const FILE_PATH = dotnetRegex(String.raw`(?<![\p{L}\p{Nd}_\-])(?:source_file|file|path|attachment):[ \t]*.+$`, {
+// File-path metadata line ("file: ...", "source_file: ..."). The key is a metadata key only
+// when it starts a line (multiline ^: offset 0 or just after "\n") or directly follows a space,
+// a tab or "(" ("- file:", "  path:", "(path: x)"). Anything else before it (a letter, digit,
+// "_", "-", a combining mark, ZWJ/ZWNJ, half of a surrogate pair, punctuation, a lone "\r")
+// makes the line ordinary text, and it is scanned. The value ends at the first "\r" or "\n".
+// (C# builds this, like every Shroud regex, with RegexOptions.CultureInvariant.)
+const FILE_PATH = dotnetRegex(String.raw`(?:^|(?<=[ \t(]))(?:source_file|file|path|attachment):[ \t]*[^\r\n]+`, {
   multiline: true,
   ignoreCase: true,
 });

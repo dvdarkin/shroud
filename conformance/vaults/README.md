@@ -48,7 +48,7 @@ Passphrases are used as UTF-8 bytes exactly as written, with no normalisation an
   ordinary directories.
 - `manifest.json` `source` is `input`: the generator passes the ABSOLUTE path of `input/` and the builder keeps only
   the directory name (it never stores an absolute path; the CLI behaves the same for `.` or any path the user types).
-- The C# key order inside `tokens` / `fileHashes` follows culture-sensitive file ordering and token creation order;
-  readers must not depend on it.
+- The C# key order inside `tokens` / `fileHashes` follows the file order (ordinal on the stored relative path, so
+  `README.md` comes before `clean.md` in `v1`) and token creation order; readers must not depend on it.
 - Each token id embeds the masking key, so a different implementation cannot reproduce these ids; it can only
   verify restore.

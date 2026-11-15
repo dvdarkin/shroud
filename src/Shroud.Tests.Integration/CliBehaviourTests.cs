@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.Json;
 using FluentAssertions;
 using Xunit;
@@ -193,5 +194,49 @@ public class CliBehaviourTests : IDisposable
         stdout.Should().Contain("table_quantity");
         stdout.Should().Contain("(base: 0.15 + context: +0.55)");
         stdout.Should().NotContain("(base: 0.20 + context: +0.45)");
+    }
+
+    // ---- Culture independence: numbers in CLI output are invariant ----
+
+    private static T WithCulture<T>(string name, Func<T> action)
+    {
+        var oldCulture = CultureInfo.CurrentCulture;
+        var oldUiCulture = CultureInfo.CurrentUICulture;
+        try
+        {
+            CultureInfo.CurrentCulture = new CultureInfo(name);
+            CultureInfo.CurrentUICulture = new CultureInfo(name);
+            return action();
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = oldCulture;
+            CultureInfo.CurrentUICulture = oldUiCulture;
+        }
+    }
+
+    [Fact]
+    public void ScanVerbose_UnderTurkishCulture_PrintsInvariantNumbers()
+    {
+        // tr-TR writes 0.95 as "0,95"; the report must not depend on the user's locale.
+        File.WriteAllText("a.md", "card 4111 1111 1111 1111\nseed abandon\n");
+
+        var (exit, stdout, _) = WithCulture("tr-TR", () => Run("scan", "a.md", "--verbose", "--debug"));
+
+        exit.Should().Be(0);
+        stdout.Should().Contain("0.95  4111 1111 1111 1111");
+        stdout.Should().Contain("(base: 0.80 + context: +0.15)");
+        stdout.Should().Contain("Below threshold (0.50):");
+        stdout.Should().NotContain("0,95").And.NotContain("0,80").And.NotContain("0,15").And.NotContain("0,50");
+    }
+
+    [Fact]
+    public void Init_UnderTurkishCulture_PrintsInvariantThreshold()
+    {
+        var (exit, stdout, _) = WithCulture("tr-TR", () => Run("init", "--preset", "dev"));
+
+        exit.Should().Be(0);
+        stdout.Should().Contain("Threshold: 0.7");
+        stdout.Should().NotContain("0,7");
     }
 }

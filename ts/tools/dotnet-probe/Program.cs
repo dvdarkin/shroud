@@ -13,7 +13,6 @@ switch (mode)
     case "json": JsonEsc(args[1]); break;
     case "fmt": Fmt(args[1], args[2]); break;
     case "scan": Scan(args[1], args[2]); break;
-    case "sort": SortProbe(args[1], args[2]); break;
     case "oic": Oic.Run(args[1]); break;
     case "bench": Bench.Run(args[1]); break;
     case "vectors": Vectors.Run(args[1]); break;
@@ -41,24 +40,12 @@ static void Classes(string outPath)
     var s = new Regex(@"^\s$");
     var dot = new Regex(@"^.$");
     var b = new Regex(@"\b");
-    var ciAz = new Regex(@"^[a-z]$", RegexOptions.IgnoreCase);
-    var ciAzInline = new Regex(@"(?i)^[a-z]$");
-    var ciAf = new Regex(@"^[a-fA-F0-9]$", RegexOptions.IgnoreCase);
-    var pL = new Regex(@"^\p{L}$");
-    var pNd = new Regex(@"^\p{Nd}$");
-    // The look-behind class of SensitivityScanner.FilePathRegex, with and without its options.
-    var guard = new Regex(@"^[\p{L}\p{Nd}_\-]$");
-    var guardCi = new Regex(@"^[\p{L}\p{Nd}_\-]$", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-    var ciAll = new Dictionary<string, List<int[]>>();
-    for (int a = 0x20; a < 0x7F; a++)
-    {
-        var rx = new Regex("^" + Regex.Escape(((char)a).ToString()) + "$", RegexOptions.IgnoreCase);
-        var rxInline = new Regex("(?i)^" + Regex.Escape(((char)a).ToString()) + "$");
-        var r1 = Ranges(c => rx.IsMatch(c.ToString()));
-        var r2 = Ranges(c => rxInline.IsMatch(c.ToString()));
-        if (JsonSerializer.Serialize(r1) != JsonSerializer.Serialize(r2)) throw new Exception("inline vs option differ " + a);
-        ciAll[a.ToString()] = r1;
-    }
+    // Every Shroud regex is CultureInvariant, so the IgnoreCase tables are taken from
+    // CultureInvariant regexes, and must come out the same under tr-TR as under the current culture.
+    var ci = CaseTables(CultureInfo.CurrentCulture);
+    var ciTurkish = CaseTables(new CultureInfo("tr-TR"));
+    if (JsonSerializer.Serialize(ci) != JsonSerializer.Serialize(ciTurkish))
+        throw new Exception("CultureInvariant IgnoreCase tables differ between the current culture and tr-TR");
     var result = new Dictionary<string, object>
     {
         ["culture"] = CultureInfo.CurrentCulture.Name,
@@ -67,18 +54,50 @@ static void Classes(string outPath)
         ["space"] = Ranges(c => s.IsMatch(c.ToString())),
         ["dot"] = Ranges(c => dot.IsMatch(c.ToString())),
         ["boundaryWord"] = Ranges(c => b.IsMatch(c.ToString())),
-        ["ciAz"] = Ranges(c => ciAz.IsMatch(c.ToString())),
-        ["ciAzInline"] = Ranges(c => ciAzInline.IsMatch(c.ToString())),
-        ["ciAf"] = Ranges(c => ciAf.IsMatch(c.ToString())),
+        ["ciAz"] = ci["ciAz"],
+        ["ciAzInline"] = ci["ciAzInline"],
+        ["ciAf"] = ci["ciAf"],
         ["isDigit"] = Ranges(char.IsDigit),
-        ["letter"] = Ranges(c => pL.IsMatch(c.ToString())),
-        ["pNd"] = Ranges(c => pNd.IsMatch(c.ToString())),
-        ["metadataKeyGuard"] = Ranges(c => guard.IsMatch(c.ToString())),
-        ["metadataKeyGuardCi"] = Ranges(c => guardCi.IsMatch(c.ToString())),
         ["isControl"] = Ranges(char.IsControl),
-        ["ci"] = ciAll,
+        ["ci"] = ci["ci"],
     };
     File.WriteAllText(outPath, JsonSerializer.Serialize(result));
+}
+
+// IgnoreCase | CultureInvariant equivalence tables, with the regexes constructed under `culture`
+// (a Regex captures the culture at construction; CultureInvariant must make that irrelevant).
+static Dictionary<string, object> CaseTables(CultureInfo culture)
+{
+    const RegexOptions Ci = RegexOptions.IgnoreCase | RegexOptions.CultureInvariant;
+    var old = CultureInfo.CurrentCulture;
+    CultureInfo.CurrentCulture = culture;
+    try
+    {
+        var ciAz = new Regex(@"^[a-z]$", Ci);
+        var ciAzInline = new Regex(@"(?i)^[a-z]$", RegexOptions.CultureInvariant);
+        var ciAf = new Regex(@"^[a-fA-F0-9]$", Ci);
+        var ciAll = new Dictionary<string, List<int[]>>();
+        for (int a = 0x20; a < 0x7F; a++)
+        {
+            var rx = new Regex("^" + Regex.Escape(((char)a).ToString()) + "$", Ci);
+            var rxInline = new Regex("(?i)^" + Regex.Escape(((char)a).ToString()) + "$", RegexOptions.CultureInvariant);
+            var r1 = Ranges(c => rx.IsMatch(c.ToString()));
+            var r2 = Ranges(c => rxInline.IsMatch(c.ToString()));
+            if (JsonSerializer.Serialize(r1) != JsonSerializer.Serialize(r2)) throw new Exception("inline vs option differ " + a);
+            ciAll[a.ToString()] = r1;
+        }
+        return new Dictionary<string, object>
+        {
+            ["ciAz"] = Ranges(c => ciAz.IsMatch(c.ToString())),
+            ["ciAzInline"] = Ranges(c => ciAzInline.IsMatch(c.ToString())),
+            ["ciAf"] = Ranges(c => ciAf.IsMatch(c.ToString())),
+            ["ci"] = ciAll,
+        };
+    }
+    finally
+    {
+        CultureInfo.CurrentCulture = old;
+    }
 }
 
 static void JsonEsc(string outPath)
@@ -126,13 +145,6 @@ static void Fmt(string inPath, string outPath)
           .Append(JsonSerializer.Serialize(dbl)).Append('\n');
     }
     File.WriteAllText(outPath, sb.ToString());
-}
-
-static void SortProbe(string inPath, string outPath)
-{
-    var items = JsonSerializer.Deserialize<List<string>>(File.ReadAllText(inPath))!;
-    var sorted = items.OrderBy(f => f).ToList();
-    File.WriteAllText(outPath, JsonSerializer.Serialize(sorted));
 }
 
 static string Bits(double d) => BitConverter.DoubleToInt64Bits(d).ToString("x16");

@@ -1,10 +1,10 @@
 # Shroud on-disk formats (v1)
 
 This is the first written specification of the files Shroud reads and writes. It was
-derived from the C# 0.2.0 sources (`src/Shroud/Vault/VaultEncryption.cs`,
+derived from the C# sources (`src/Shroud/Vault/VaultEncryption.cs`,
 `VaultBuilder.cs`, `Masking/SpanMasker.cs`, `Models/ShroudConfig.cs`,
 `Shroud.Cli/Program.cs`) and checked against the running .NET 8 build. Both
-implementations (C# `Shroud` 0.2.0 and `@logmark/shroud` 0.2.0) produce and accept
+implementations (C# `Shroud` and TypeScript `@logmark/shroud`, both 0.3.0) produce and accept
 exactly this format; vaults are interchangeable in both directions.
 
 Keywords MUST/SHOULD describe what an independent implementation needs to do to
@@ -26,9 +26,12 @@ than designed.
   `.shroud` (so `notes/` gives `notes.shroud`; observed: `.` gives `..shroud`).
 - Input files: every file matching `*.md` in `<dir>` and all subdirectories (Win32
   wildcard matching, case-insensitive on Windows, case-sensitive elsewhere), processed
-  in culture-sensitive order of their full path strings (.NET `OrderBy` with the
-  current culture; the TS port uses `Intl.Collator()` with the default locale, which
-  agreed with .NET on every sample tested).
+  in ordinal order of their relative path string exactly as stored in the output
+  (`StringComparer.Ordinal`: UTF-16 code units compared numerically, so uppercase ASCII
+  sorts before lowercase and the platform separator takes part: `\` is 0x5C on
+  Windows, `/` is 0x2F elsewhere, so `a-b.md` < `a/x.md` < `a_b.md` on both but
+  `aZ.md` sorts before `a\x.md` on Windows and after `a/x.md` elsewhere). The order
+  does not depend on the process culture or on the file system's enumeration order.
 - All text files are written as UTF-8 without a byte order mark.
 
 ## 2. `vault.shroud` container

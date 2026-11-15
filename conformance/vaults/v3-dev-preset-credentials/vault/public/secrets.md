@@ -1,7 +1,7 @@
 ## Credentials
 
-ghp: [TOKEN:46aa376a]
-Stripe: [KEY:283d8db8]
-DB: [CONNSTR:4b4de462]
+ghp: [TOKEN:90e9edc3]
+Stripe: [KEY:d60104d9]
+DB: [CONNSTR:dd0c52f8]
 Amount stays visible under dev preset: $1,234 and bought 743
-[PRIVKEY:1191e873]
+[PRIVKEY:18a43845]

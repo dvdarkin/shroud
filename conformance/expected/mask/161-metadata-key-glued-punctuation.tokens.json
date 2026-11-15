@@ -1,0 +1,90 @@
+{
+  "input": "161-metadata-key-glued-punctuation.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 407,
+  "maskedSha256": "558249b08d297f8d5b12cfd9ec4a47d33acc1a51b1fcbb21864f48cdb105afac",
+  "tokenCount": 10,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "IP:bb71de60",
+      "start": 549,
+      "end": 586,
+      "originalValue": "file:///\\\\192.168.10.3\\share\\doc.txt>",
+      "entityType": "IpAddress",
+      "domain": "Identity"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 500,
+      "end": 542,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 447,
+      "end": 489,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:3cf7ce68",
+      "start": 392,
+      "end": 434,
+      "originalValue": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TOKEN:7ea0599e",
+      "start": 344,
+      "end": 384,
+      "originalValue": "ghp_EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "entityType": "AccessToken",
+      "domain": "Credentials"
+    },
+    {
+      "tokenId": "ADDR:3cf7ce68",
+      "start": 290,
+      "end": 332,
+      "originalValue": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:3cf7ce68",
+      "start": 239,
+      "end": 281,
+      "originalValue": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 179,
+      "end": 221,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 116,
+      "end": 158,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 64,
+      "end": 106,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

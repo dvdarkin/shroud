@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using Shroud.Detection;
+using static System.FormattableString;
 using Shroud.Masking;
 using Shroud.Models;
 using Shroud.Vault;
@@ -345,7 +346,7 @@ public static class Program
         Console.WriteLine($"  Domains: onchain={config.Domains.OnChain.Enabled}, " +
                           $"financial={config.Domains.Financial.Enabled} ({config.Domains.Financial.Layer}), " +
                           $"identity={config.Domains.Identity.Enabled}");
-        Console.WriteLine($"  Threshold: {config.Threshold}");
+        Console.WriteLine(Invariant($"  Threshold: {config.Threshold}"));
         return 0;
     }
 
@@ -367,20 +368,20 @@ public static class Program
                     ? span.MatchedText[..35] + "..."
                     : span.MatchedText;
                 var svc = string.IsNullOrEmpty(span.Service) ? "-" : span.Service;
-                Console.WriteLine($"    {span.Domain,-12} {span.EntityType,-18} {svc,-24} {span.Confidence,5:F2}  {display}");
+                Console.WriteLine(Invariant($"    {span.Domain,-12} {span.EntityType,-18} {svc,-24} {span.Confidence,5:F2}  {display}"));
             }
         }
 
         if (result.BelowThreshold.Count > 0)
         {
             Console.WriteLine();
-            Console.WriteLine($"    Below threshold ({result.Threshold:F2}):");
+            Console.WriteLine(Invariant($"    Below threshold ({result.Threshold:F2}):"));
             foreach (var span in result.BelowThreshold)
             {
                 var display = span.MatchedText.Length > 40
                     ? span.MatchedText[..40] + "..."
                     : span.MatchedText;
-                Console.WriteLine($"      {span.Domain,-12} {span.EntityType,-18} {span.Confidence,5:F2}  {display}");
+                Console.WriteLine(Invariant($"      {span.Domain,-12} {span.EntityType,-18} {span.Confidence,5:F2}  {display}"));
             }
         }
     }
@@ -411,7 +412,7 @@ public static class Program
                     ? span.MatchedText[..35] + "..."
                     : span.MatchedText;
                 var svc = string.IsNullOrEmpty(span.Service) ? "-" : span.Service;
-                Console.WriteLine($"    {span.Domain,-12} {span.EntityType,-18} {svc,-24} {span.Confidence,5:F2}  {display}");
+                Console.WriteLine(Invariant($"    {span.Domain,-12} {span.EntityType,-18} {svc,-24} {span.Confidence,5:F2}  {display}"));
 
                 var diag = diagnostics.AllSpans
                     .FirstOrDefault(d => d.Span.Start == span.Start && d.Span.End == span.End && d.Span.EntityType == span.EntityType && d.Span.Service == span.Service && !d.WasExcluded && !d.FailedLuhn);
@@ -423,13 +424,13 @@ public static class Program
         if (result.BelowThreshold.Count > 0)
         {
             Console.WriteLine();
-            Console.WriteLine($"    Below threshold ({result.Threshold:F2}):");
+            Console.WriteLine(Invariant($"    Below threshold ({result.Threshold:F2}):"));
             foreach (var span in result.BelowThreshold)
             {
                 var display = span.MatchedText.Length > 40
                     ? span.MatchedText[..40] + "..."
                     : span.MatchedText;
-                Console.WriteLine($"      {span.Domain,-12} {span.EntityType,-18} {span.Confidence,5:F2}  {display}");
+                Console.WriteLine(Invariant($"      {span.Domain,-12} {span.EntityType,-18} {span.Confidence,5:F2}  {display}"));
 
                 var diag = diagnostics.AllSpans
                     .FirstOrDefault(d => d.Span.Start == span.Start && d.Span.End == span.End && d.Span.EntityType == span.EntityType && d.Span.Service == span.Service && !d.WasExcluded && !d.FailedLuhn);
@@ -472,7 +473,7 @@ public static class Program
         if (!scoring.HasContextWords)
         {
             // No context words: the final confidence IS the base.
-            Console.WriteLine($"              structural match (base: {scoring.BaseConfidence:F2})");
+            Console.WriteLine(Invariant($"              structural match (base: {scoring.BaseConfidence:F2})"));
         }
         else
         {
@@ -480,7 +481,7 @@ public static class Program
             // breakdown whenever the pattern has any.
             var kind = scoring.IsStructural ? "structural" : "contextual";
             var boostStr = scoring.FinalConfidence - scoring.BaseConfidence;
-            Console.WriteLine($"              {kind} match (base: {scoring.BaseConfidence:F2} + context: +{boostStr:F2})");
+            Console.WriteLine(Invariant($"              {kind} match (base: {scoring.BaseConfidence:F2} + context: +{boostStr:F2})"));
             if (scoring.ContextWordsFound.Count > 0)
             {
                 var words = string.Join(", ", scoring.ContextWordsFound.Select(w => $"\"{w}\""));
@@ -488,8 +489,8 @@ public static class Program
             }
             if (debug)
             {
-                if (scoring.AssetBoostApplied) Console.WriteLine($"              + asset name boost (+{ContextScorer.AssetNameBoost:F2})");
-                if (scoring.CurrencyBoostApplied) Console.WriteLine($"              + currency signal boost (+{ContextScorer.CurrencySignalBoost:F2})");
+                if (scoring.AssetBoostApplied) Console.WriteLine(Invariant($"              + asset name boost (+{ContextScorer.AssetNameBoost:F2})"));
+                if (scoring.CurrencyBoostApplied) Console.WriteLine(Invariant($"              + currency signal boost (+{ContextScorer.CurrencySignalBoost:F2})"));
                 Console.WriteLine($"              context window: chars {scoring.ContextWindowStart}-{scoring.ContextWindowEnd}");
             }
         }

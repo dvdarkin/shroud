@@ -20,15 +20,21 @@ public class SensitivityScanner
     // has already stripped a BOM), ending at the next "---" line. Whole lines are consumed one at
     // a time, so LF and CRLF both work and an empty block ("---\n---") ends at its own closing line.
     // A pair of "---" lines later in the document is a pair of horizontal rules, not front matter.
+    // Every regex here is CultureInvariant, like the pattern library: detection must not depend
+    // on the process culture (under tr-TR, IgnoreCase "file" would not match "FILE").
     private static readonly Regex FrontmatterRegex = new(
         @"\A---[ \t]*\r?\n(?:[^\n]*\n)*?---[ \t]*\r?$",
-        RegexOptions.Compiled | RegexOptions.Multiline);
-    // File-path metadata line ("file: ...", "source_file: ..."). The key must be a whole word:
-    // not preceded by a letter, digit, underscore or hyphen, so "profile:", "classpath:" and
-    // "my-file:" are ordinary text.
+        RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.CultureInvariant);
+    // File-path metadata line ("file: ...", "source_file: ..."). The key is a metadata key only
+    // when it starts a line (Multiline ^: offset 0 or just after "\n") or directly follows a
+    // space, a tab or "(" ("- file:", "  path:", "(path: x)"). Anything else before it (a letter,
+    // digit, "_", "-", a combining mark, ZWJ/ZWNJ, half of a surrogate pair, punctuation, a lone
+    // "\r") makes the line ordinary text, and it is scanned: an allowlist, so an unforeseen
+    // character errs towards scanning more. The value ends at the first "\r" or "\n", so a zone
+    // never runs across a lone CR.
     private static readonly Regex FilePathRegex = new(
-        @"(?<![\p{L}\p{Nd}_\-])(?:source_file|file|path|attachment):[ \t]*.+$",
-        RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.IgnoreCase);
+        @"(?:^|(?<=[ \t(]))(?:source_file|file|path|attachment):[ \t]*[^\r\n]+",
+        RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
     // Date and time patterns. These never produce SensitiveSpans; they only carve
     // "do not touch" zones so numeric patterns (year-as-amount, day-as-quantity,
@@ -39,33 +45,33 @@ public class SensitivityScanner
     {
         // ISO date with optional time: 2026-04-20, 2026-04-20T17:30, 2026-04-20 17:30:34.123Z
         new(@"\b(?:19|20)\d{2}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])(?:[T ]\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:?\d{2})?)?\b",
-            RegexOptions.Compiled),
+            RegexOptions.Compiled | RegexOptions.CultureInvariant),
         // Year-month: 2026-04
         new(@"\b(?:19|20)\d{2}-(?:0[1-9]|1[0-2])\b",
-            RegexOptions.Compiled),
+            RegexOptions.Compiled | RegexOptions.CultureInvariant),
         // Clock time: 17:30:34, 14:25, 5:00
         new(@"\b(?:[01]?\d|2[0-3]):[0-5]\d(?::[0-5]\d(?:\.\d+)?)?\b",
-            RegexOptions.Compiled),
+            RegexOptions.Compiled | RegexOptions.CultureInvariant),
         // MM/DD/YYYY, MM-DD-YYYY, MM.DD.YYYY with 2- or 4-digit year
         new(@"\b(?:0?[1-9]|1[0-2])[/.\-](?:0?[1-9]|[12]\d|3[01])[/.\-](?:19|20)?\d{2}\b",
-            RegexOptions.Compiled),
+            RegexOptions.Compiled | RegexOptions.CultureInvariant),
         // DD/MM/YYYY, DD-MM-YYYY, DD.MM.YYYY (4-digit year only to disambiguate)
         new(@"\b(?:0?[1-9]|[12]\d|3[01])[/.\-](?:0?[1-9]|1[0-2])[/.\-](?:19|20)\d{2}\b",
-            RegexOptions.Compiled),
+            RegexOptions.Compiled | RegexOptions.CultureInvariant),
         // Month-name dates: "20 Apr 2026", "April 20, 2026", "Apr 2026"
         new(@"\b(?:(?:0?[1-9]|[12]\d|3[01])\s+)?(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*(?:\s+(?:0?[1-9]|[12]\d|3[01]))?[,\s]+(?:19|20)\d{2}\b",
-            RegexOptions.Compiled | RegexOptions.IgnoreCase),
+            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant),
         // ISO week: 2026-W17, 2026-W17-3
         new(@"\b(?:19|20)\d{2}-W(?:0[1-9]|[1-4]\d|5[0-3])(?:-[1-7])?\b",
-            RegexOptions.Compiled),
+            RegexOptions.Compiled | RegexOptions.CultureInvariant),
         // 12-hour clock: 5pm, 5:30pm, 11:45 AM
         new(@"\b(?:0?[1-9]|1[0-2])(?::[0-5]\d)?\s*[ap]m\b",
-            RegexOptions.Compiled | RegexOptions.IgnoreCase),
+            RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant),
         // Bare 4-digit year (1900-2099). Last-resort zone; any pattern that truly
         // needs a year (with $ symbol, currency code, asset) extends past 4 chars
         // and so survives the fully-contained check.
         new(@"\b(?:19|20)\d{2}\b",
-            RegexOptions.Compiled),
+            RegexOptions.Compiled | RegexOptions.CultureInvariant),
     };
 
     public SensitivityScanner(

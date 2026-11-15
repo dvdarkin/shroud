@@ -1,9 +1,9 @@
 # @logmark/shroud
 
-TypeScript port of [Shroud](../README.md) 0.2.0: sensitive data detection and masking for
+TypeScript port of [Shroud](../README.md) 0.3.0: sensitive data detection and masking for
 markdown files. Same five detection domains, same patterns, same confidence scoring, same
 CLI, same `shroud.json`, and the same vault format. A vault written by the C# build
-reveals with this one and vice versa ([FORMAT.md](FORMAT.md) specifies every byte).
+reveals with this one and vice versa ([docs/format.md](../docs/format.md) specifies every byte).
 
 Zero runtime dependencies (only `node:` built-ins). Node.js 20 or later. ESM.
 
@@ -28,7 +28,7 @@ config or key file is touched), and `init --preset` accepts only `paranoid`,
 `shroud.json` property names are matched case-insensitively at every level, like the
 C# loader (System.Text.Json `PropertyNameCaseInsensitive`): `"onchain"`, `"OnChain"`
 and `"ONCHAIN"` all configure `onChain`, and a repeated name wins with its last
-occurrence. [FORMAT.md](FORMAT.md) section 8 has the exact rules.
+occurrence. [docs/format.md](../docs/format.md) section 8 has the exact rules.
 
 ## Library
 
@@ -52,9 +52,12 @@ never its absolute path.
 
 A match is ignored when it lies fully inside an exclusion zone: YAML front matter (only
 a `---` block that starts at offset 0, up to the next `---` line), a file-path metadata
-line (`file:`, `path:`, `source_file:` or `attachment:` as a whole word, with its value
-on the same line) or a date or time. A financial amount, quantity or price must also
-contain a decimal digit, so separator-only text such as a lone `,` is never a span.
+line (`file:`, `path:`, `source_file:` or `attachment:` at the start of a line or right
+after a space, a tab or `(`, with its value on the same line; a key glued to any other
+character, such as `my-file:`, `|file:` or a combining mark, is ordinary text) or a date
+or time. A financial amount, quantity or price must also contain a decimal digit, so
+separator-only text such as a lone `,` is never a span. Detection does not depend on the
+process locale (the C# build uses `RegexOptions.CultureInvariant` throughout).
 
 Custom patterns can be written in .NET regex syntax and compiled with `dotnetRegex`,
 which gives them the same matching semantics as the built-in ones.
@@ -63,15 +66,18 @@ which gives them the same matching semantics as the built-in ones.
 
 The C# patterns are kept verbatim and translated at load time by
 `src/internal/dotnet-regex.ts`, because JavaScript and .NET disagree on constructs that
-look identical: `\d`, `\w`, `\s`, `\b`, `\p{L}` and `\p{Nd}` are Unicode-aware in .NET
-(with different tables than JS), `.` and `$` treat `\r` differently, and .NET IgnoreCase has its own
-case-equivalence table (`k` matches the Kelvin sign). The translator emits explicit
-UTF-16 code-unit classes extracted from the .NET 8 engine and uses no regex flags, so
-match offsets line up with .NET exactly. Unsupported constructs throw.
+look identical: `\d`, `\w`, `\s` and `\b` are Unicode-aware in .NET (with different
+tables than JS), `.` and `$` treat `\r` differently, and .NET IgnoreCase has its own
+case-equivalence table (culture-invariant, as the C# build uses everywhere: `k` matches
+the Kelvin sign, `i` does not match `İ`). The translator emits explicit UTF-16
+code-unit classes extracted from the .NET 8 engine and uses no regex flags, so match
+offsets line up with .NET exactly. Unsupported constructs (including every `\p{..}`
+Unicode category) throw.
 
 Number formatting (`F2` breaks exact ties to even, `ToString` uses `E+XX` exponents),
-System.Text.Json escaping, BOM handling, culture-sensitive file ordering and Win32
-wildcards are reproduced the same way, each in `src/internal/`.
+System.Text.Json escaping, BOM handling and Win32 wildcards are reproduced the same way,
+each in `src/internal/`. Vault files are processed in ordinal (UTF-16 code unit) order
+of their relative path, which needs no emulation.
 
 ## Known differences from the C# build
 
@@ -82,8 +88,6 @@ wildcards are reproduced the same way, each in `src/internal/`.
   the .NET host's exit code, but the message text is approximate and there is no .NET
   stack trace.
 - `created` timestamps have millisecond resolution (`.fff0000Z`).
-- .NET picks its IgnoreCase table from the current culture; the port uses the
-  non-Turkish table (under a Turkish culture .NET would match `i` differently).
 - `scanWithDiagnostics` is public (it is `internal` in C#), and so is the optional
   `maskingKey` argument of `new VaultBuilder(scanner, maskingKey)` (an `internal`
   constructor, a test seam, in C#). The other C# internals the tests use
@@ -105,7 +109,8 @@ node tools/differential.mjs      # needs .NET 8: diff every match against the C#
 ```
 
 - `tools/dotnet-probe/` is a small .NET program that reports ground truth from the C#
-  library: character classes, case tables, JSON escaping, number formatting, full scan
+  library: character classes, culture-invariant case tables (checked to be the same
+  when built under tr-TR), JSON escaping, number formatting, full scan
   diagnostics, interop vectors, `shroud.json` loading (`configs`) and manifest `source`
   resolution (`paths`). `tools/differential.mjs` rebuilds it on every run.
 - `tools/generate-unicode-tables.mjs` regenerates `src/internal/unicode-tables.ts` from

@@ -1,0 +1,44 @@
+{
+  "input": "159-metadata-key-glued-combining-and-joiners.md",
+  "config": "no-onchain",
+  "inputBytes": 636,
+  "inputSha256": "189eeb1be1985dbdfcf62a32e17d37173bfa90c48da961851add2ca31ea39370",
+  "inputUtf16Length": 627,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 1,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 402,
+      "end": 403,
+      "length": 1,
+      "matchedText": "0",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "arithmetic_result",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.15,
+      "confidenceString": "0.15",
+      "aboveThreshold": false
+    },
+    {
+      "index": 1,
+      "start": 505,
+      "end": 545,
+      "length": 40,
+      "matchedText": "ghp_EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "entityType": "AccessToken",
+      "domain": "Credentials",
+      "service": "github_pat",
+      "typeAbbreviation": "TOKEN",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

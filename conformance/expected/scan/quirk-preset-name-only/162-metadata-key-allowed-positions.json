@@ -1,0 +1,15 @@
+{
+  "input": "162-metadata-key-allowed-positions.md",
+  "config": "quirk-preset-name-only",
+  "inputBytes": 765,
+  "inputSha256": "a08fc41418be9d0856c458fd01d0e5f3730fd0b04685c1cea9b906e6a5dcaa19",
+  "inputUtf16Length": 765,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

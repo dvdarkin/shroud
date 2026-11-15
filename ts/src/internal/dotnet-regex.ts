@@ -10,8 +10,8 @@
  *    the .NET engine (see unicode-tables.ts). .NET classes are Unicode-aware but
  *    operate on UTF-16 code units; JS without the `u` flag is ASCII-only for \d/\w
  *    and has a different \s (JS includes U+FEFF, .NET includes U+0085).
- *  - \p{L} and \p{Nd} (and \P{..}) become the .NET 8 letter and decimal-digit tables;
- *    no other Unicode category is supported. Like .NET, IgnoreCase does not change them.
+ *  - Unicode category escapes (\p{..}, \P{..}) are not supported and throw: no Shroud
+ *    pattern uses one.
  *  - \A is the start of the input in every mode.
  *  - \b is rebuilt from lookarounds over the .NET word set (which also counts
  *    U+200C/U+200D as word characters for boundaries). JS \b is ASCII-only.
@@ -20,8 +20,11 @@
  *    mode also honours \r, U+2028, U+2029); without Multiline .NET `$` also
  *    matches before a final \n.
  *  - IgnoreCase is expanded into explicit classes using the .NET case equivalence
- *    table (for example `k` also matches U+212A KELVIN SIGN and `i` also matches
- *    U+0130), instead of relying on JS `i` flag canonicalization.
+ *    table (for example `k` also matches U+212A KELVIN SIGN), instead of relying on JS
+ *    `i` flag canonicalization. Shroud builds every .NET regex with
+ *    RegexOptions.CultureInvariant, so this is the culture-invariant table: `i` does not
+ *    match U+0130 (it would without CultureInvariant under a non-Turkish culture) and `I`
+ *    does not match U+0131 (it would under tr-TR).
  *
  * The output RegExp uses no flags at all (no `u`, `i`, `m` or `s`), so JS matches on
  * UTF-16 code units exactly like .NET does and match indices are directly comparable.
@@ -43,7 +46,6 @@ import {
   DOTNET_BOUNDARY_EXTRA,
   DOTNET_DIGIT,
   DOTNET_IGNORECASE_EXTRAS,
-  DOTNET_LETTER,
   DOTNET_SPACE,
   DOTNET_WORD,
 } from './unicode-tables.js';
@@ -56,7 +58,6 @@ export interface DotnetRegexOptions {
 }
 
 const DIGIT: CharSet = normalize(DOTNET_DIGIT);
-const LETTER: CharSet = normalize(DOTNET_LETTER);
 const WORD: CharSet = normalize(DOTNET_WORD);
 const SPACE: CharSet = normalize(DOTNET_SPACE);
 const BOUNDARY_WORD: CharSet = union(WORD, DOTNET_BOUNDARY_EXTRA.map((c) => [c, c] as const));
@@ -248,28 +249,12 @@ class Parser {
       this.pos += 2;
       return { kind: 'bos' };
     }
-    if (e === 'p' || e === 'P') return { kind: 'set', set: this.parseCategory() };
     const shorthand = shorthandSet(e);
     if (shorthand) {
       this.pos += 2;
       return { kind: 'set', set: shorthand };
     }
     return this.literal(this.parseCharEscape(false));
-  }
-
-  /**
-   * Parses \p{Name} or \P{Name}; positioned at the backslash. Only the categories
-   * Shroud uses (L, Nd) are supported. Category sets are not case-closed under
-   * IgnoreCase, matching .NET (checked by tools/generate-unicode-tables.mjs).
-   */
-  private parseCategory(): CharSet {
-    const negated = this.pattern[this.pos + 1] === 'P';
-    const m = /^\{([A-Za-z]+)\}/.exec(this.pattern.slice(this.pos + 2));
-    if (!m) this.fail('bad \\p{...} escape');
-    const set = UNICODE_CATEGORIES[m[1]!];
-    if (!set) this.fail(`Unicode category \\p{${m[1]}}`);
-    this.pos += 2 + m[0].length;
-    return negated ? complement(set) : set;
   }
 
   /** Parses an escape that denotes a single code unit; positioned at the backslash. */
@@ -322,11 +307,9 @@ class Parser {
       first = false;
       if (c === '-' && this.peek(1) === '[') this.fail('character class subtraction');
       if (c === '\\') {
-        const e = this.pattern[this.pos + 1] ?? '';
-        const category = e === 'p' || e === 'P';
-        const s = category ? this.parseCategory() : shorthandSet(e);
+        const s = shorthandSet(this.pattern[this.pos + 1] ?? '');
         if (s) {
-          if (!category) this.pos += 2;
+          this.pos += 2;
           if (this.peek() === '-' && this.peek(1) !== ']') this.fail('class shorthand used as range start');
           shorthands.push(s);
           continue;
@@ -336,7 +319,7 @@ class Parser {
       if (this.peek() === '-' && this.peek(1) !== ']' && this.peek(1) !== undefined) {
         if (this.peek(1) === '[') this.fail('character class subtraction');
         this.pos++; // -
-        if (this.peek() === '\\' && (shorthandSet(this.pattern[this.pos + 1] ?? '') || /[pP]/.test(this.pattern[this.pos + 1] ?? ''))) {
+        if (this.peek() === '\\' && shorthandSet(this.pattern[this.pos + 1] ?? '')) {
           this.fail('class shorthand used as range end');
         }
         const hi = this.classChar();
@@ -360,8 +343,6 @@ class Parser {
     return c.charCodeAt(0);
   }
 }
-
-const UNICODE_CATEGORIES: Readonly<Record<string, CharSet>> = { L: LETTER, Nd: DIGIT };
 
 function shorthandSet(e: string): CharSet | undefined {
   switch (e) {

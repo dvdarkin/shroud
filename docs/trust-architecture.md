@@ -182,3 +182,9 @@ Option 2 is the trust play. A user who doesn't trust precompiled binaries can cl
 ---
 
 **Version:** 1.0
+
+## Implementations
+
+The tiers above are a property of the file format and the keys, not of one program. Shroud has two implementations, C# and TypeScript, that produce and accept the same files: a vault masked by one is revealed by the other, with the same password. They are held together by the conformance corpus in `conformance/` and the format specification in [format.md](format.md).
+
+Auditing the trust boundary therefore means reading either implementation, or neither: the specification states what a vault contains and how the keys are derived, and the corpus contains vaults with their passwords that any third implementation can test itself against.

@@ -1,10 +1,10 @@
 {
-  "created": "2026-11-15T02:48:17.3541358Z",
+  "created": "2026-11-15T07:13:52.8245000Z",
   "source": "input",
   "fileCount": 1,
   "tokenCount": 3,
   "tokens": {
-    "AMT:0a3daba2": {
+    "AMT:39b64944": {
       "service": "arithmetic_equals_right",
       "domain": "financial",
       "files": [
@@ -12,7 +12,7 @@
       ],
       "occurrences": 1
     },
-    "AMT:f15239f7": {
+    "AMT:87d67264": {
       "service": "arithmetic_equals_left",
       "domain": "financial",
       "files": [
@@ -20,7 +20,7 @@
       ],
       "occurrences": 1
     },
-    "QTY:f15239f7": {
+    "QTY:87d67264": {
       "service": "comma_number",
       "domain": "financial",
       "files": [

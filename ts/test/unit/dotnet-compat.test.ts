@@ -62,12 +62,14 @@ describe('DotnetCompatTests', () => {
       assert.ok(!dotnetRegex('x$').test('x\n\n'));
     });
 
-    test('IgnoreCase uses the .NET case table (KELVIN SIGN, dotted I) and not JS folding', () => {
+    test('IgnoreCase uses the .NET culture-invariant case table (KELVIN SIGN) and not JS folding', () => {
       const k = dotnetRegex('(?i)block');
       assert.ok(k.test('BLOCK'));
       const i = dotnetRegex('(?i)validator');
-      assert.ok(i.test('VALİDATOR'));
-      assert.ok(!i.test('valıdator')); // dotless i does not match
+      assert.ok(i.test('VALIDATOR'));
+      // CultureInvariant: neither the dotted capital I nor the dotless i matches i/I.
+      assert.ok(!i.test('VAL\u{130}DATOR'));
+      assert.ok(!i.test('val\u{131}dator'));
       assert.ok(!dotnetRegex('(?i)position').test('poſition')); // long s does not match
     });
 
@@ -76,17 +78,12 @@ describe('DotnetCompatTests', () => {
       assert.deepEqual(all(dotnetRegex('a.*?b'), 'aXbYb'), [[0, 'aXb']]);
     });
 
-    test('\\p{L} and \\p{Nd} use .NET 8 Unicode data, also inside a class and under IgnoreCase', () => {
-      // Membership observed on .NET 8 (probe "classes": letter, pNd, metadataKeyGuardCi).
-      const letter = dotnetRegex(String.raw`^\p{L}$`);
-      for (const c of ['é', 'Ж', '中', 'ʰ', 'ª', 'ǅ', '々']) assert.ok(letter.test(c), c);
-      for (const c of ['٣', '_', '-', '́', '²', '‿', 'ः', 'Ⅰ', '〇', '😀']) assert.ok(!letter.test(c), c);
-      const digit = dotnetRegex(String.raw`^\p{Nd}$`);
-      assert.ok(digit.test('٣') && digit.test('３') && !digit.test('²') && !digit.test('a'));
-      assert.ok(dotnetRegex(String.raw`^\P{L}$`).test('٣'));
-      const guard = dotnetRegex(String.raw`^[\p{L}\p{Nd}_\-]$`, { ignoreCase: true, multiline: true });
-      for (const c of ['é', 'ʰ', '٣', '_', '-', 'K']) assert.ok(guard.test(c), c);
-      for (const c of ['́', '²', '‿', ' ', '(', '.']) assert.ok(!guard.test(c), c);
+    test('multiline ^ or a lookbehind: the file-path key allowlist', () => {
+      // (?:^|(?<=[ \t(])) holds at offset 0, after \n, space, tab or "(", and nowhere else
+      // (not after \r: multiline ^ is anchored at \n only).
+      const key = dotnetRegex(String.raw`(?:^|(?<=[ \t(]))k`, { multiline: true, ignoreCase: true });
+      assert.deepEqual(all(key, 'k\nk K\tk(k'), [[0, 'k'], [2, 'k'], [4, 'K'], [6, 'k'], [8, 'k']]);
+      assert.deepEqual(all(key, '\rk-k_k.k|k\u{301}k\u{200D}k\u{1F600}k\u{A0}k'), []);
     });
 
     test('\\A anchors at the start of the input only, also in multiline mode', () => {
@@ -95,8 +92,8 @@ describe('DotnetCompatTests', () => {
     });
 
     test('constructs outside the supported subset throw instead of translating approximately', () => {
-      // \p{L} and \p{Nd} are supported since the C# file-path exclusion uses them; other categories are not.
-      for (const p of [String.raw`(?>a)`, String.raw`(?<n>a)`, String.raw`\p{Lu}`, String.raw`[\p{Mn}]`, String.raw`a(?i)b`, String.raw`[a-z-[aeiou]]`, String.raw`\1`, String.raw`\A*`]) {
+      // No Unicode category is supported: no Shroud pattern uses one.
+      for (const p of [String.raw`(?>a)`, String.raw`(?<n>a)`, String.raw`\p{L}`, String.raw`[\p{Nd}_]`, String.raw`\P{L}`, String.raw`\p{Lu}`, String.raw`[\p{Mn}]`, String.raw`a(?i)b`, String.raw`[a-z-[aeiou]]`, String.raw`\1`, String.raw`\A*`]) {
         assert.throws(() => dotnetRegex(p), UnsupportedRegexError, p);
       }
     });

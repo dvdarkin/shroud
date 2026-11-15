@@ -6,7 +6,7 @@
  *  - manifest.json  token metadata without secret values (Tier 0);
  *  - vault.shroud   encrypted JSON mapping token ids to original values (Tier 2).
  *
- * The output is format-compatible with the C# build in both directions; FORMAT.md
+ * The output is format-compatible with the C# build in both directions; docs/format.md
  * specifies every byte.
  */
 import { createHash, randomBytes } from 'node:crypto';
@@ -82,8 +82,8 @@ export interface ManifestFile {
   summary: Map<string, number>;
 }
 
-/** Culture-sensitive string order, like LINQ OrderBy over strings in .NET (current culture). */
-const cultureCompare = new Intl.Collator().compare;
+/** StringComparer.Ordinal: UTF-16 code unit order (what Array.prototype.sort does for strings). */
+const ordinalCompare = (a: string, b: string): number => (a < b ? -1 : a > b ? 1 : 0);
 
 export class VaultBuilder {
   private readonly scanner: SensitivityScanner;
@@ -102,14 +102,17 @@ export class VaultBuilder {
   }
 
   build(sourceDir: string): VaultResult {
-    const mdFiles = enumerateFiles(sourceDir, '*.md', true).sort(cultureCompare);
+    // Files are processed in ordinal (UTF-16 code unit) order of the relative path exactly as
+    // it is stored in the output (platform separator included), like the C# build.
+    const mdFiles = enumerateFiles(sourceDir, '*.md', true)
+      .map((filePath) => ({ filePath, relativePath: getRelativePath(sourceDir, filePath) }))
+      .sort((a, b) => ordinalCompare(a.relativePath, b.relativePath));
 
     const masker = new SpanMasker(this.maskingKey);
     const tokens = new Map<string, TokenEntry>();
     const maskedFiles: MaskedFile[] = [];
 
-    for (const filePath of mdFiles) {
-      const relativePath = getRelativePath(sourceDir, filePath);
+    for (const { filePath, relativePath } of mdFiles) {
       const text = readAllText(filePath);
       const scanResult = this.scanner.scan(text);
 

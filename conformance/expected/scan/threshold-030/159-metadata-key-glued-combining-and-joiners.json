@@ -1,0 +1,100 @@
+{
+  "input": "159-metadata-key-glued-combining-and-joiners.md",
+  "config": "threshold-030",
+  "inputBytes": 636,
+  "inputSha256": "189eeb1be1985dbdfcf62a32e17d37173bfa90c48da961851add2ca31ea39370",
+  "inputUtf16Length": 627,
+  "threshold": 0.3,
+  "thresholdString": "0.3",
+  "counts": {
+    "allDetected": 6,
+    "aboveThreshold": 6,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 128,
+      "end": 170,
+      "length": 42,
+      "matchedText": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 217,
+      "end": 259,
+      "length": 42,
+      "matchedText": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 301,
+      "end": 343,
+      "length": 42,
+      "matchedText": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 402,
+      "end": 444,
+      "length": 42,
+      "matchedText": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 4,
+      "start": 505,
+      "end": 545,
+      "length": 40,
+      "matchedText": "ghp_EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "entityType": "AccessToken",
+      "domain": "Credentials",
+      "service": "github_pat",
+      "typeAbbreviation": "TOKEN",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 5,
+      "start": 584,
+      "end": 626,
+      "length": 42,
+      "matchedText": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

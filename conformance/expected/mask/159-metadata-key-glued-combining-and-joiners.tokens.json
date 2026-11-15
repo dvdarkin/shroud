@@ -1,0 +1,58 @@
+{
+  "input": "159-metadata-key-glued-combining-and-joiners.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 468,
+  "maskedSha256": "08215e1da8411738256955401a487f007418c63bea73970f34c7b72b930b271e",
+  "tokenCount": 6,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "ADDR:3cf7ce68",
+      "start": 584,
+      "end": 626,
+      "originalValue": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TOKEN:7ea0599e",
+      "start": 505,
+      "end": 545,
+      "originalValue": "ghp_EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "entityType": "AccessToken",
+      "domain": "Credentials"
+    },
+    {
+      "tokenId": "ADDR:3cf7ce68",
+      "start": 402,
+      "end": 444,
+      "originalValue": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 301,
+      "end": 343,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 217,
+      "end": 259,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 128,
+      "end": 170,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

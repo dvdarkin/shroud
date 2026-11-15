@@ -1,0 +1,30 @@
+{
+  "input": "161-metadata-key-glued-punctuation.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 671,
+  "inputSha256": "773ea4afb6a0daaf233a4c7cef60c74eb852f6259a36e918107e134b8cd099f2",
+  "inputUtf16Length": 671,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 344,
+      "end": 384,
+      "length": 40,
+      "matchedText": "ghp_EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "entityType": "AccessToken",
+      "domain": "Credentials",
+      "service": "github_pat",
+      "typeAbbreviation": "TOKEN",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

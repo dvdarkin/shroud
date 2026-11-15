@@ -1,0 +1,58 @@
+{
+  "input": "161-metadata-key-glued-punctuation.md",
+  "config": "no-onchain",
+  "inputBytes": 671,
+  "inputSha256": "773ea4afb6a0daaf233a4c7cef60c74eb852f6259a36e918107e134b8cd099f2",
+  "inputUtf16Length": 671,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 3,
+    "aboveThreshold": 2,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 179,
+      "end": 180,
+      "length": 1,
+      "matchedText": "0",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "arithmetic_result",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.15,
+      "confidenceString": "0.15",
+      "aboveThreshold": false
+    },
+    {
+      "index": 1,
+      "start": 344,
+      "end": 384,
+      "length": 40,
+      "matchedText": "ghp_EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "entityType": "AccessToken",
+      "domain": "Credentials",
+      "service": "github_pat",
+      "typeAbbreviation": "TOKEN",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 549,
+      "end": 586,
+      "length": 37,
+      "matchedText": "file:///\\\\192.168.10.3\\share\\doc.txt>",
+      "entityType": "IpAddress",
+      "domain": "Identity",
+      "service": "file_uri_network_path",
+      "typeAbbreviation": "IP",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    }
+  ]
+}

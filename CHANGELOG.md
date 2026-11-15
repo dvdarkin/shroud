@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.3.0 - 2026-11-15
+
+A second implementation, and the leaks it turned up. See SECURITY.md: files masked with 0.2.0 or earlier should be rescanned.
+
+- Feat: TypeScript implementation in `ts/` (`@logmark/shroud`): the library and CLI with zero runtime dependencies, identical detection results, masked output and vault format; vaults are interchangeable with the C# build in both directions
+- Feat: conformance corpus in `conformance/` (106 inputs x 13 configs, mask goldens, token vectors, 6 vaults) generated from the C# build and checked against the TypeScript port; CI on Windows and Linux
+- Feat: format specification in `docs/format.md`
+- Security: front matter is excluded only when the file starts with `---`; text between two horizontal rules was never scanned
+- Security: `file:`/`path:`/`source_file:`/`attachment:` exclude a line only as a real metadata key (at a line start or after a space, tab or `(`), only up to the end of that line, and never the next line; `profile: ...` and similar hid text
+- Security: a token id collision between two different values fails the vault build (`TokenCollisionException`); the second value used to be lost and `reveal` restored the wrong text
+- Security: `manifest.json` stores only the source directory name, not the path as given
+- Fix: detection no longer depends on the process culture (under tr-TR, uppercase `VALIDATOR`, `LOGIN`, `API_KEY`, `POSITION`, `FILE:` did not match); vault file order is ordinal
+- Fix: separator-only text such as a lone `,` is no longer detected as an amount
+- Fix: `shroud.json` keys are matched case-insensitively (`"onchain"` used to be ignored silently)
+- Fix: manifest `service` is the pattern of the token's own entity type
+- Fix: `mask -o <file>` with several inputs is refused; it used to overwrite the same file for each input
+- Fix: `init --preset <unknown>` fails and writes nothing; it used to save the paranoid preset
+- Fix: `scan --verbose` shows the real base confidence and the winning pattern's scoring
+- 208 C# tests (159 unit, 49 integration), 241 TypeScript tests
+
 ## 0.2.0 — 2026-04-08
 
 Detection quality and release readiness.

@@ -5,7 +5,7 @@
  *   blob = salt(16) | nonce(12) | tag(16) | ciphertext(N)      AES-256-GCM, no AAD
  *
  * A wrong password (or any tampering) fails GCM tag verification and yields null; no
- * partial plaintext is ever returned. See FORMAT.md for the full specification.
+ * partial plaintext is ever returned. See docs/format.md for the full specification.
  */
 import { createCipheriv, createDecipheriv, pbkdf2Sync, randomBytes } from 'node:crypto';
 import { decodeUtf8 } from './internal/text-io.js';

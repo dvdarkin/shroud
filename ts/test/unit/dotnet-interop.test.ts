@@ -1,7 +1,7 @@
 // Interop vectors produced by the C# build itself (tools/dotnet-probe, mode "vectors"):
 // a real vault written by VaultBuilder.WriteOutput, blobs from VaultEncryption, token ids
 // from SpanMasker, and shroud.json files from ShroudConfig.Save. This file has no C#
-// counterpart; it pins the byte-level format documented in FORMAT.md.
+// counterpart; it pins the byte-level format documented in docs/format.md.
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
@@ -217,6 +217,15 @@ describe('DotnetInteropTests', () => {
       const order = (a: { typeAbbreviation: string; service: string }, b: { typeAbbreviation: string; service: string }) =>
         a.typeAbbreviation < b.typeAbbreviation ? -1 : a.typeAbbreviation > b.typeAbbreviation ? 1 : a.service < b.service ? -1 : a.service > b.service ? 1 : 0;
       assert.deepEqual([...summary.values()].sort(order), [...meta.manifestServices].sort(order), name);
+
+      // File order (ordinal on the stored relative path): the C# fileHashes key order. The
+      // fixtures were written on Windows; no fixture path has a character that sorts between
+      // '/' and '\', so the order is the same with either separator.
+      const csharpData = JSON.parse(readFileSync(join(dir, 'vault-data.decrypted.json'), 'utf8')) as {
+        fileHashes: Record<string, string>;
+      };
+      const slash = (p: string) => p.replace(/\\/g, '/');
+      assert.deepEqual(result.maskedFiles.map((f) => slash(f.relativePath)), Object.keys(csharpData.fileHashes).map(slash), name);
     }
   });
 });

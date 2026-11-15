@@ -170,7 +170,7 @@ function isFileEntry(dir: string, entry: Dirent): boolean {
  * TopDirectoryOnly). Entries come in file-system order (no sorting); subdirectories
  * are visited breadth-first after the current directory, and returned paths are
  * built from `directory` as given, like .NET. Symbolic links to directories are not
- * followed (unverified against .NET; see FORMAT.md).
+ * followed (unverified against .NET; see docs/format.md).
  */
 export function enumerateFiles(directory: string, searchPattern: string, recursive: boolean): string[] {
   const matches = compileSearchPattern(searchPattern);

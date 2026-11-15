@@ -48,17 +48,20 @@ public class VaultBuilder
 
     public VaultResult Build(string sourceDir)
     {
+        // Files are processed in ordinal (UTF-16 code unit) order of the relative path exactly as
+        // it is stored in the output (platform separator included), so token order, manifest
+        // "files" lists and fileHashes keys never depend on the process culture.
         var mdFiles = Directory.EnumerateFiles(sourceDir, "*.md", SearchOption.AllDirectories)
-            .OrderBy(f => f)
+            .Select(f => (FullPath: f, RelativePath: Path.GetRelativePath(sourceDir, f)))
+            .OrderBy(f => f.RelativePath, StringComparer.Ordinal)
             .ToList();
 
         var masker = new SpanMasker(_maskingKey);
         var allTokens = new Dictionary<string, TokenEntry>();
         var maskedFiles = new List<MaskedFile>();
 
-        foreach (var filePath in mdFiles)
+        foreach (var (filePath, relativePath) in mdFiles)
         {
-            var relativePath = Path.GetRelativePath(sourceDir, filePath);
             var text = File.ReadAllText(filePath);
             var scanResult = _scanner.Scan(text);
 

@@ -1,6 +1,6 @@
 // Port of src/Shroud.Tests.Unit/ExclusionZoneLeakTests.cs
 // Exclusion zones must not hide secrets that are not really metadata:
-// front matter only at offset 0, metadata keys only as whole words.
+// front matter only at offset 0, metadata keys only at a line start or after a space, tab or "(".
 // Each xUnit [InlineData] case of a [Theory] is its own test here.
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
@@ -93,6 +93,10 @@ describe('ExclusionZoneLeakTests', () => {
       'path: /home/x/' + ADDR_A,
       'Attachment: ' + ADDR_A,
       '- file: ' + ADDR_A,
+      '(path: ' + ADDR_A + ')',
+      '  file: ' + ADDR_A,
+      '\tpath: ' + ADDR_A,
+      'see (attachment: ' + ADDR_A + ')',
     ]) {
       test(line, () => {
         assert.equal(detects('## Notes\n\n' + line + '\n', ADDR_A), false, `'${line}' is a genuine metadata line`);
@@ -108,6 +112,73 @@ describe('ExclusionZoneLeakTests', () => {
           true,
           'a metadata key with nothing after it must not exclude the following line',
         );
+      });
+    }
+  });
+
+  // ---- Fix A: a key is metadata only at a line start or after a space, a tab or "(" ----
+
+  describe('key glued to any other character, does not hide line', () => {
+    for (const [label, glue] of [
+      ['combining acute accent (Mn)', 'e\u{301}'],
+      ['ZERO WIDTH JOINER', '\u{200D}'],
+      ['ZERO WIDTH NON-JOINER', '\u{200C}'],
+      ['MATHEMATICAL BOLD CAPITAL A (non-BMP letter, a surrogate pair)', '\u{1D400}'],
+      ['emoji (surrogate pair)', '\u{1F600}'],
+      ['|', '|'],
+      ['>', '>'],
+      ['"', '"'],
+      ['[', '['],
+      ['*', '*'],
+      ['`', '`'],
+      ['<', '<'],
+      ['.', '.'],
+      ['NO-BREAK SPACE is not one of the allowed separators', '\u{A0}'],
+    ] as const) {
+      test(label, () => {
+        for (const key of ['file:', 'FILE:', 'path:', 'source_file:', 'attachment:']) {
+          const line = glue + key + ' ' + ADDR_A;
+          assert.equal(
+            detects('## Notes\n\n' + line + '\n', ADDR_A),
+            true,
+            `'${line}' is ordinary text: the key is not at a line start or after a space, tab or '('`,
+          );
+        }
+      });
+    }
+  });
+
+  describe('key after lone carriage return, is scanned', () => {
+    // Multiline ^ matches only at the start of the text and after "\n", so with lone-CR line
+    // endings a key after "\r" is not at a line start: the line is scanned.
+    for (const text of ['x\rfile: ' + ADDR_A + '\r', '## Notes\rpath: ' + ADDR_A + '\r']) {
+      test(JSON.stringify(text), () => {
+        assert.equal(detects(text, ADDR_A), true, 'a key preceded by a lone CR is not a metadata key');
+      });
+    }
+  });
+
+  test('key at start of text, is still excluded', () => {
+    assert.equal(detects('file: ' + ADDR_A + '\n', ADDR_A), false, 'offset 0 is a line start');
+  });
+
+  describe('metadata zone, ends at a lone carriage return', () => {
+    for (const text of [
+      'file: notes.md\rwallet ' + ADDR_A + '\r',
+      'file: notes.md\rwallet ' + ADDR_A + '\r\n',
+      '- path: notes.md\rsecond line\rthird ' + ADDR_A + '\n',
+    ]) {
+      test(JSON.stringify(text), () => {
+        assert.equal(detects(text, ADDR_A), true,
+          'a metadata line ends at the first CR or LF; later lone-CR lines are scanned');
+      });
+    }
+  });
+
+  describe('metadata value, before a carriage return, is still excluded', () => {
+    for (const text of ['file: ' + ADDR_A + '\r\nnext line\r\n', 'file: ' + ADDR_A + '\rnext line\r']) {
+      test(JSON.stringify(text), () => {
+        assert.equal(detects(text, ADDR_A), false, "the value on the key's own line stays excluded");
       });
     }
   });

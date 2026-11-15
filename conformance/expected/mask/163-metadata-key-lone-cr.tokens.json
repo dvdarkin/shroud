@@ -1,0 +1,42 @@
+{
+  "input": "163-metadata-key-lone-cr.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 138,
+  "maskedSha256": "670a48c0708df50f9f560e05dee94e91b6c70259593de60f0c7eeb42f67e312f",
+  "tokenCount": 4,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "ADDR:3cf7ce68",
+      "start": 199,
+      "end": 241,
+      "originalValue": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "TOKEN:7ea0599e",
+      "start": 135,
+      "end": 175,
+      "originalValue": "ghp_EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "entityType": "AccessToken",
+      "domain": "Credentials"
+    },
+    {
+      "tokenId": "ADDR:3cf7ce68",
+      "start": 86,
+      "end": 128,
+      "originalValue": "0x4444444444444444444444444444444444444444",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    },
+    {
+      "tokenId": "ADDR:02137ccb",
+      "start": 30,
+      "end": 72,
+      "originalValue": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

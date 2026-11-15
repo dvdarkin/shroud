@@ -2,7 +2,7 @@
 
 Sensitive data detection and masking for text files. Scans markdown files for sensitive patterns across five detection domains, replaces matches with deterministic tokens, and stores originals in an AES-256-GCM encrypted vault.
 
-Zero runtime dependencies. Source-auditable. Built on .NET 8.
+Zero runtime dependencies. Source-auditable. Two implementations that behave identically: C# (.NET 8, `src/`) and TypeScript (Node 20 or later, `ts/`). Vaults written by one are read by the other.
 
 ## Quick Start
 
@@ -17,6 +17,14 @@ dotnet run --project src/Shroud.Cli -- scan my-notes.md --verbose
 # 2. Review the output. Adjust shroud.json if needed.
 # 3. When satisfied, vault a directory
 dotnet run --project src/Shroud.Cli -- vault ./notes
+```
+
+The same commands with the TypeScript build:
+
+```bash
+cd ts && npm ci && npm run build && cd ..
+node ts/dist/src/cli.js scan my-notes.md --verbose
+node ts/dist/src/cli.js vault ./notes
 ```
 
 ## Verify Before You Trust
@@ -102,7 +110,7 @@ Everything in `--verbose`, plus exclusion zones, overlap resolutions, Luhn rejec
 - **Arithmetic expressions** — Numbers in math ("10 / 2") can be flagged if currency codes appear within 120 characters.
 - **Seed phrase detection** — Placeholder only (first 10 BIP-39 words at 0.10 confidence).
 - **Markdown files only** — Other file formats are not scanned.
-- **Excluded regions** - YAML front matter is not scanned, but only when the file starts with a `---` line (it ends at the next `---` line); `---` pairs later in a document are horizontal rules and are scanned. Text from a whole-word `source_file:`, `file:`, `path:` or `attachment:` key to the end of its line is not scanned; `profile:`, `classpath:` or `my-file:` are ordinary text.
+- **Excluded regions** - YAML front matter is not scanned, but only when the file starts with a `---` line (it ends at the next `---` line); `---` pairs later in a document are horizontal rules and are scanned. Text from a `source_file:`, `file:`, `path:` or `attachment:` key to the end of its line is not scanned when the key starts a line or follows a space, a tab or `(`; a key glued to anything else (`profile:`, `classpath:`, `my-file:`, `|file:`, a combining mark) is ordinary text and is scanned.
 
 ## Trust Model
 
@@ -176,12 +184,42 @@ var masked = masker.Mask(userInput, result);
 // masked.Tokens maps token IDs back to original values (keep in memory or encrypt)
 ```
 
+**TypeScript library** - `@logmark/shroud`, built from `ts/` (not yet published to npm). The same API in camelCase, with no runtime dependencies beyond Node itself:
+
+```ts
+import { SensitivityScanner, SpanMasker, loadConfig } from '@logmark/shroud';
+
+const scanner = new SensitivityScanner(loadConfig('shroud.json'));
+const result = scanner.scan(userInput);
+const masked = new SpanMasker(key).mask(userInput, result);
+// masked.maskedText is safe to persist
+```
+
+## Two Implementations, One Corpus
+
+The C# and TypeScript implementations are held to the same behaviour by `conformance/`: 106 input files across 13 configurations, with the expected scan results, masked output, token derivation vectors and six encrypted vaults, all generated from the C# build. The TypeScript port has to reproduce every expected file and read every vault. CI runs this on Windows and Linux, and fails if the committed corpus no longer matches what the C# source generates.
+
+- Detection results are identical span for span, including confidence values.
+- Masked text and token ids are identical for the same key.
+- A vault written by either implementation is revealed by the other.
+
+The on-disk format (vault container, key derivation, token derivation, manifest, `shroud.json`) is specified in [docs/format.md](docs/format.md). A change in behaviour lands in both implementations together; see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Known differences are limited to the command-line host: the TypeScript CLI always writes UTF-8, does not open a directory given with a trailing dot or space on Windows, and is about three times slower than .NET on bulk scans. [ts/README.md](ts/README.md) lists them in full.
+
 ## Building
 
 ```bash
+# C#
 dotnet build src
 dotnet test src
 dotnet run --project src/Shroud.Cli -- help
+
+# TypeScript
+cd ts && npm ci && npm test && cd ..
+
+# The TypeScript port against the corpus generated from the C# build
+node conformance/run-ts.mjs
 ```
 
 ## License

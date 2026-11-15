@@ -165,4 +165,28 @@ describe('CliBehaviourTests', () => {
     assert.ok(out.includes('(base: 0.15 + context: +0.55)'));
     assert.ok(!out.includes('(base: 0.20 + context: +0.45)'));
   });
+
+  // ---- Culture independence: numbers in CLI output are invariant ----
+  // The C# tests run these under tr-TR; Node formats numbers without a culture.
+
+  test('scan verbose, under turkish culture, prints invariant numbers', async () => {
+    // tr-TR writes 0.95 as "0,95"; the report must not depend on the user's locale.
+    writeFileSync('a.md', 'card 4111 1111 1111 1111\nseed abandon\n');
+
+    const { exit, out } = await run('scan', 'a.md', '--verbose', '--debug');
+
+    assert.equal(exit, 0);
+    assert.ok(out.includes('0.95  4111 1111 1111 1111'));
+    assert.ok(out.includes('(base: 0.80 + context: +0.15)'));
+    assert.ok(out.includes('Below threshold (0.50):'));
+    for (const s of ['0,95', '0,80', '0,15', '0,50']) assert.ok(!out.includes(s), s);
+  });
+
+  test('init, under turkish culture, prints invariant threshold', async () => {
+    const { exit, out } = await run('init', '--preset', 'dev');
+
+    assert.equal(exit, 0);
+    assert.ok(out.includes('Threshold: 0.7'));
+    assert.ok(!out.includes('0,7'));
+  });
 });

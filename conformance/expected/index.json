@@ -605,6 +605,36 @@
       "bytes": 324,
       "utf16Length": 324,
       "sha256": "1e13946cb1a74d1884e94e70bb5b4be0631c85511d557a187edb8397482ec5ed"
+    },
+    {
+      "name": "159-metadata-key-glued-combining-and-joiners.md",
+      "bytes": 636,
+      "utf16Length": 627,
+      "sha256": "189eeb1be1985dbdfcf62a32e17d37173bfa90c48da961851add2ca31ea39370"
+    },
+    {
+      "name": "160-metadata-key-glued-non-bmp.md",
+      "bytes": 529,
+      "utf16Length": 519,
+      "sha256": "b404d98242fc923f646ee6d74ee6766bf954de52b145f3a54961006d6f8e80f2"
+    },
+    {
+      "name": "161-metadata-key-glued-punctuation.md",
+      "bytes": 671,
+      "utf16Length": 671,
+      "sha256": "773ea4afb6a0daaf233a4c7cef60c74eb852f6259a36e918107e134b8cd099f2"
+    },
+    {
+      "name": "162-metadata-key-allowed-positions.md",
+      "bytes": 765,
+      "utf16Length": 765,
+      "sha256": "a08fc41418be9d0856c458fd01d0e5f3730fd0b04685c1cea9b906e6a5dcaa19"
+    },
+    {
+      "name": "163-metadata-key-lone-cr.md",
+      "bytes": 243,
+      "utf16Length": 243,
+      "sha256": "9880af6b0e964c1a15794c18633a2538e8eea9377f4eb54f968583833be28515"
     }
   ],
   "configs": ["case-insensitive-keys", "default", "dev", "financial", "layer-magnitudes", "no-credentials-secrets", "no-identity", "no-onchain", "paranoid", "quirk-empty-object", "quirk-preset-name-only", "threshold-030", "threshold-090"],

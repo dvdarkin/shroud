@@ -18,8 +18,12 @@ public static partial class PatternLibrary
     internal const double MediumConfidence = 0.70;
     internal const double LowConfidence = 0.35;
 
-    /// <summary>Shared compiled-regex options used by every pattern.</summary>
-    internal static readonly RegexOptions Opts = RegexOptions.Compiled;
+    /// <summary>
+    /// Shared regex options used by every pattern. CultureInvariant: the in-pattern (?i) and
+    /// IgnoreCase must not depend on the process culture (under tr-TR an uppercase ASCII "I"
+    /// would otherwise stop matching "i", so "VALIDATOR" or "LOGIN" would be missed).
+    /// </summary>
+    internal static readonly RegexOptions Opts = RegexOptions.Compiled | RegexOptions.CultureInvariant;
 
     // -----------------------------------------------------------------
     // Context arrays shared across domains (primarily Financial)

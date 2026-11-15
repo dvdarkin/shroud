@@ -1,0 +1,30 @@
+{
+  "input": "163-metadata-key-lone-cr.md",
+  "config": "no-onchain",
+  "inputBytes": 243,
+  "inputSha256": "9880af6b0e964c1a15794c18633a2538e8eea9377f4eb54f968583833be28515",
+  "inputUtf16Length": 243,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 135,
+      "end": 175,
+      "length": 40,
+      "matchedText": "ghp_EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+      "entityType": "AccessToken",
+      "domain": "Credentials",
+      "service": "github_pat",
+      "typeAbbreviation": "TOKEN",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

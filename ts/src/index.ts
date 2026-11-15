@@ -1,8 +1,8 @@
 /**
  * @logmark/shroud - sensitive data detection and tokenization for text files.
  *
- * TypeScript port of Shroud 0.2.0 (C#/.NET 8). Detection results, masked output,
- * manifests and encrypted vaults are interchangeable with the C# build; see FORMAT.md.
+ * TypeScript port of Shroud 0.3.0 (C#/.NET 8). Detection results, masked output,
+ * manifests and encrypted vaults are interchangeable with the C# build; see docs/format.md.
  */
 export {
   ENTITY_TYPES,

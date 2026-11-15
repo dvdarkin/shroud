@@ -1,6 +1,6 @@
 ## Keys
 
-AWS: [KEY:41c0e154]
-JWT: [JWT:703f860e]
-Password: [PASSWD:9d806a87]
-Server [IP:c8d17f05] is the host.
+AWS: [KEY:5cc49926]
+JWT: [JWT:7b4b8b06]
+Password: [PASSWD:9645f42d]
+Server [IP:760af556] is the host.

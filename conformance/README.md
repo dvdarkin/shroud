@@ -10,15 +10,15 @@ Nothing here depends on, or is checked against, any other implementation. `src/S
 
 ```
 conformance/
-  inputs/            101 markdown inputs (exact bytes matter: CRLF, BOM, empty file, non-ASCII)
+  inputs/            106 markdown inputs (exact bytes matter: CRLF, BOM, empty file, non-ASCII)
   configs/           13 shroud.json variants
   expected/
     index.json                       input list with byte length, UTF-16 length, SHA-256; config list; mask key
     patterns.json                    the full pattern library in evaluation order (regex source, confidences, context words)
     config/<config>.json             effective config + which patterns it enables (indexes into patterns.json)
-    scan/<config>/<input>.json       scan result per (config, input)          13 x 101 = 1313 files
-    mask/<input>.md                  masked text, default config, fixed key  101 files
-    mask/<input>.tokens.json         token list for the same run             101 files
+    scan/<config>/<input>.json       scan result per (config, input)          13 x 106 = 1378 files
+    mask/<input>.md                  masked text, default config, fixed key  106 files
+    mask/<input>.tokens.json         token list for the same run             106 files
     tokens/derivation-vectors.json   HMAC token derivation vectors, abbreviation table
   vaults/            6 vaults written by the C# VaultBuilder (see vaults/README.md)
   Generator/         the C# console project that produces everything under expected/ and vaults/
@@ -38,7 +38,8 @@ dotnet run --project conformance/Generator -- --culture tr-TR --out DIR   # expe
 
 The generator references `src/Shroud/Shroud.csproj` directly (project reference) and lives outside `src/`, so
 `dotnet build src` / `dotnet test src` never see it. It pins `CultureInfo.InvariantCulture` before any `Regex` is
-built (see "Culture dependence" below). Without `--vaults` the existing vault fixtures are only verified (wrong
+built; the library itself is culture-independent (see "Culture independence" below), so `--culture tr-TR` produces
+byte-identical output. Without `--vaults` the existing vault fixtures are only verified (wrong
 passphrase rejected, right passphrase decrypts, reveal equals source, recorded file hashes match, `manifest.json`
 `source` is `input`, every manifest `service` is a pattern of the token's own type). Scan, mask,
 config, pattern and token outputs are byte-identical across runs; vault bytes are not (random salt, nonce and
@@ -72,13 +73,18 @@ Each file is small and focused; names are `NNN-topic.md`.
 | 156 | Whole-word metadata keys: `profile:`, `classpath:`, `my-file:`, `my_path:`, `Docfile:`, `file2path:` and a `file:` URI glued to a word are scanned; genuine `file:`, `FILE:`, `source_file:`, `path:`, `Attachment:`, `- file:`, `(path:` lines stay excluded |
 | 157 | Separator-only text (`,`, `,,,,`, `$,`, `EUR ,`, `at ,`) in every financial shape that used to match it, plus the same shapes with real numbers |
 | 158 | A metadata key at the end of its line (`file:`, `path:   `) does not hide the following line; a key with a value on the same line stays excluded |
+| 159 | Metadata keys glued to a combining mark (`e` + U+0301, U+0301 alone), ZWJ, ZWNJ (also before an uppercase key) or a no-break space: all scanned |
+| 160 | Metadata keys glued to supplementary-plane characters (a non-BMP letter and digit, two emoji): scanned; an emoji followed by a space keeps the key a metadata key |
+| 161 | Metadata keys glued to punctuation (`\|`, `>`, `"`, `[`, backtick, `**`, `<`, `.`, `=`) and a `file:` URI after `<` (`file_uri_network_path`): scanned; a `file:` URI after a space stays excluded |
+| 162 | Still-excluded positions: line start (any case), indented by spaces or a tab, list items (`- `, `* `, `1. `), blockquote `> `, table cell `\| `, `(path: ...)`, `see (attachment: ...)`, a key after a space mid-line |
+| 163 | Lone-CR line endings: a key after `\r` is scanned (Multiline `^` is not a line start after `\r`); a key at a real line start excludes only up to the next `\r` or `\n` |
 
 Strings from the existing C# fixtures (`FalsePositiveFixtures`, `ScannerFixtures`, unit tests) are reused; fixture
 files are marked `-fixture` where they are verbatim copies. All values are obviously fake (`0x1111...`, `AAAA...`,
 `example.com`, documentation-style card numbers, `123-45-6789`).
 
 Coverage: every one of the 22 entity types that have patterns and every one of the 5 domains is detected at least
-once; all 104 patterns are exercised (`file_uri_network_path` only in 156, see "Quirks").
+once; all 104 patterns are exercised (`file_uri_network_path` only in 156 and 161, see "Quirks").
 
 ## Configs
 
@@ -184,10 +190,15 @@ This is a description of what the C# source does, not a design opinion.
      line at offset 0 (after BOM stripping), up to and including the next `---` line (LF or CRLF; trailing spaces/tabs
      allowed; an empty block `---\n---` ends at its own closing line). At most one zone; later `---` pairs are
      horizontal rules. Unterminated front matter produces no zone. Inputs 130-132, 150-155.
-   - file-path metadata `(?<![\p{L}\p{Nd}_\-])(?:source_file|file|path|attachment):[ \t]*.+$` (multiline, ignore-case):
-     the key must not be preceded by a Unicode letter, decimal digit, `_` or `-` (start of line, space, `(`, `- ` are
-     fine). The value must be on the same line as the key: a key with nothing after it excludes nothing, so the
-     next line is scanned. Inputs 133, 156, 158.
+   - file-path metadata `(?:^|(?<=[ \t(]))(?:source_file|file|path|attachment):[ \t]*[^\r\n]+` (multiline, ignore-case,
+     culture-invariant): an allowlist. The key is a metadata key only at a line start (Multiline `^`: offset 0 or
+     directly after `\n`) or directly after a space, a tab or `(` (so `- file:`, `  path:`, `(path: x)` are
+     metadata). Any other preceding code unit makes the line ordinary text: letters, digits, `_`, `-`, combining
+     marks, ZWJ/ZWNJ, either half of a surrogate pair (non-BMP letters, emoji), punctuation, other spaces such as
+     U+00A0, and a lone `\r` (Multiline `^` does not match after `\r`, so with lone-CR line endings a key that
+     follows `\r` is scanned). The value ends at the first `\r` or `\n`, so a zone never runs across a lone CR or
+     takes the `\r` of a CRLF. The value must be on the same line as the key: a key with nothing after it excludes
+     nothing, so the next line is scanned. Inputs 133, 156, 158-163.
    - nine date/time regexes (private in C#; ISO date with optional time, year-month, clock time, MM/DD/YYYY,
      DD/MM/YYYY, month-name dates, ISO week, 12-hour clock, bare year 19xx/20xx). Copy them from
      `SensitivityScanner.cs`; the effects are visible in inputs 052/053.
@@ -264,31 +275,34 @@ concatenated, no header, no version byte.
   even with the `u` flag, and JS `\s` includes U+FEFF.
 - **`.` and `$`.** .NET `.` excludes only `\n`; JS `.` also excludes `\r`, ` `, ` `. .NET multiline `$` matches
   only before `\n`; JS multiline `$` also matches before `\r`. Inputs 131, 135, 136, 128 exercise this.
-- **Ignore-case.** .NET `IgnoreCase` without `CultureInvariant` uses the current culture (see below) and its own
-  equivalence table; U+017F (long s) and U+212A (Kelvin) do NOT match `s`/`k` here (input 126), while JS `/iu`
-  folds them.
+- **Ignore-case.** Every regex is built with `IgnoreCase`/`(?i)` plus `CultureInvariant`, which uses .NET's
+  culture-invariant equivalence table: U+212A (Kelvin) matches `k`, U+017F (long s) does NOT match `s`, and
+  U+0130/U+0131 (dotted capital I, dotless i) do NOT match `i`/`I` (input 126 has all four). JS `/iu` differs: it
+  folds the long s to `s` (and the Kelvin sign to `k`), and the translator therefore never relies on JS flags.
 - **Offsets** are UTF-16 code units; emoji are 2 units (123).
 - **Floating point.** Confidence arithmetic accumulates in a fixed order (see schema).
 - **Lookbehind** with variable length is used (`arithmetic_result`, `arithmetic_equals_right`, `table_cell_number`).
-- **Culture dependence.** Under a Turkish culture the `(?i)` patterns stop matching uppercase ASCII `I`
-  (`VALIDATOR`, `LOGIN`, `API_KEY`, `POSITION`, `FILE:`); only inputs 129 and 156 (its `FILE:` line) differ between
-  the invariant run and a `tr-TR` run (`--culture tr-TR`), so the goldens are the invariant-culture behaviour. `VaultBuilder` also orders
-  files with a culture-sensitive `OrderBy`, which changes only the order of JSON keys and of the file list, not content.
+- **Culture independence.** Nothing that reaches detection, tokens, the manifest, the vault payload or CLI output
+  depends on the process culture: every `Regex` in `src/Shroud` is `CultureInvariant` (uppercase ASCII `I` in
+  `VALIDATOR`, `LOGIN`, `API_KEY`, `POSITION`, `FILE:` matches under `tr-TR` too, input 129), `VaultBuilder`
+  processes files in ordinal order of the stored relative path (`StringComparer.Ordinal`, separator included:
+  `README.md` sorts before `clean.md`), and the CLI formats numbers with the invariant culture. A `--culture tr-TR`
+  run is byte-identical to the invariant run.
 - **Path separators.** `VaultBuilder` stores `Path.GetRelativePath` results unchanged, so `manifest.json` `files` and
   `fileHashes` keys use `\` when written on Windows and `/` elsewhere. The committed vaults were written on Windows.
 - **Timestamps and paths.** `created` is `DateTime.UtcNow`. `manifest.json` `source` is the source directory name
   only; the generator passes the ABSOLUTE path of each vault's `input/` and checks that `source` is `input`.
-- **Unicode lookbehind.** The file-path key lookbehind uses `\p{L}` and `\p{Nd}`; JavaScript needs the `u` flag for
-  those, and `\d`/`\w` must not be used in their place.
+- **Line start.** The file-path key allowlist uses Multiline `^`, which .NET anchors at offset 0 and after `\n`
+  only; JS `m`-mode `^` also matches after `\r`, U+2028 and U+2029, which would exclude the lone-CR lines of 163.
 
 ## Quirks recorded (not fixed; see report)
 
 1. `PatternLibrary.IsWithinFinancialLayer`: credit-card patterns fall into the default arm and require layer
    `directional`; the `financial` preset (`markets`) and `magnitudes` never detect cards (compare `scan/default` and
    `scan/financial` for 050/051).
-2. `file_uri_network_path` fires only when `file:` is glued to a preceding letter, digit, `_` or `-` (156,
-   `see-file:///...`); an ordinary `file:///...` URI starts with a whole-word `file:` key and lies fully inside the
-   file-path exclusion zone (062).
+2. `file_uri_network_path` fires only when `file:` is NOT at a line start or after a space, tab or `(` (156
+   `see-file:///...`, 161 `<file:///...>`); an ordinary `file:///...` URI after a space starts a metadata key and
+   lies fully inside the file-path exclusion zone (062, 161).
 3. `ShroudConfig.Load` silently ignores unknown property names; `preset` is informational only (`{"preset": "dev"}`
    loads as threshold 0.70, all domains on); `{}` is not equivalent to `Default()` (threshold 0.70, financial
    `markets`). CLI `init` defaults to the `financial` preset while no config means `paranoid`.
@@ -299,8 +313,18 @@ concatenated, no header, no version byte.
 
 ## Fixed (formerly listed as quirks or likely bugs)
 
+- With lone-CR line endings a metadata key at a line start excluded everything up to the next `\n`: the value
+  now ends at the first `\r` or `\n` (163).
 - Front matter was recognised between ANY two `---` lines, so horizontal rules hid secrets: now only at offset 0.
 - The file-path key matched inside longer words (`profile:`, `Docfile:`, `classpath:`): now whole words only.
+- The whole-word rule was a denylist (`(?<![\p{L}\p{Nd}_\-])`) and missed combining marks, ZWJ/ZWNJ, non-BMP letters
+  (surrogates), emoji and punctuation, so `e` + U+0301 + `file: <secret>` or `|file: <secret>` hid the rest of the line: now
+  an allowlist (line start, space, tab, `(`), inputs 159-163.
+- Detection depended on the process culture (under `tr-TR`, `VALIDATOR`, `LOGIN`, `API_KEY`, `POSITION` and `FILE:`
+  stopped matching) and `VaultBuilder` sorted files with a culture-sensitive `OrderBy`: now every regex is
+  `CultureInvariant` and files are sorted ordinally by relative path. As a side effect the invariant IgnoreCase
+  table no longer lets `i` match U+0130 (the old non-Turkish table did); no golden changed. The CLI printed
+  confidences and thresholds with the current culture (`0,95` under `tr-TR`): now invariant.
 - `ShroudConfig.Load` was case-sensitive on property names (`"onchain"` was ignored): now case-insensitive at every level.
 - Separator-only text (a lone `,`, `$,`) could be an Amount, Quantity or Price: now a financial number needs a digit.
 - `VaultBuilder` silently merged two different values that collided on a token id: now `TokenCollisionException`.

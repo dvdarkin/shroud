@@ -1,26 +1,26 @@
 {
   "version": 1,
-  "created": "2026-11-15T02:48:07.3147965Z",
+  "created": "2026-11-15T07:13:44.0872611Z",
   "tokens": {
-    "IP:c8d17f05": "10.0.0.50",
-    "PASSWD:9d806a87": "password = \u0022test_password_123\u0022",
-    "JWT:703f860e": "eyJhbGciOiJub25lIn0.eyJzdWIiOiJmYWtlIn0.c2ln",
-    "KEY:41c0e154": "AKIAIOSFODNN7EXAMPLE",
-    "IBAN:d5995e9e": "DE89370400440532013000",
-    "ADDR:f4e1fe44": "0x1111111111111111111111111111111111111111",
-    "EMAIL:f6bdab8e": "alice@example.com",
-    "SSN:2f1f6e36": "123-45-6789",
-    "PRICE:007e0cd5": "at $1,234",
-    "QTY:5cf8d175": " 0.5 ETH",
-    "ENS:68774276": "testname.eth",
-    "TX:85c7b889": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "ADDR:ce482f05": "0x2222222222222222222222222222222222222222"
+    "IP:760af556": "10.0.0.50",
+    "PASSWD:9645f42d": "password = \u0022test_password_123\u0022",
+    "JWT:7b4b8b06": "eyJhbGciOiJub25lIn0.eyJzdWIiOiJmYWtlIn0.c2ln",
+    "KEY:5cc49926": "AKIAIOSFODNN7EXAMPLE",
+    "IBAN:ec4ad966": "DE89370400440532013000",
+    "ADDR:24fd0250": "0x1111111111111111111111111111111111111111",
+    "EMAIL:c6f760d9": "alice@example.com",
+    "SSN:caaebd25": "123-45-6789",
+    "PRICE:1a201c54": "at $1,234",
+    "QTY:93a87098": " 0.5 ETH",
+    "ENS:7e55de77": "testname.eth",
+    "TX:1ed5a3c4": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "ADDR:6b8b49b9": "0x2222222222222222222222222222222222222222"
   },
   "fileHashes": {
+    "README.md": "sha256:3b97c4846b1a58f1fea0a7c31217f37366c18170d29ae396db395f74038b4a98",
     "clean.md": "sha256:16f423826d8e963009cff377767a480e37ccb3b4efc8c60d9c1a99c02ce06d03",
-    "notes\\deep\\keys.md": "sha256:a561341b575e78791f58a8c95efe1dac63d61ffceaa7712129830e957c2f7b8b",
-    "notes\\finance.md": "sha256:0edb5ceb06676cbd2c98ee704b959962c1c03b7bfe149ac78dcaff300f5c590d",
-    "notes\\wallets.md": "sha256:577925db33a2b919c4ba38a6e0920894fbefcd82afcaafbe241a43aab5b46671",
-    "README.md": "sha256:3b97c4846b1a58f1fea0a7c31217f37366c18170d29ae396db395f74038b4a98"
+    "notes\\deep\\keys.md": "sha256:f7e558416ceedbb023888afb10971a101eea496df0ab97c431db9f35060b8923",
+    "notes\\finance.md": "sha256:302bf9e4eb0ea5ac54c851a7a93b3bfacfc0b312d35f397fcf7ff8d852b149ba",
+    "notes\\wallets.md": "sha256:61924db859daa25dea1e261e1f7aa51863b00b6c9d1243b28561aa5db336c45b"
   }
 }

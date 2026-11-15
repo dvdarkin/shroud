@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: C# tests
+        run: dotnet test src --nologo
+
+      - name: TypeScript tests
+        working-directory: ts
+        run: |
+          npm ci
+          npm test
+
+      # The corpus under conformance/ is generated from the C# build. The
+      # TypeScript port has to reproduce every expected file and read every
+      # vault fixture.
+      - name: Conformance (TypeScript against the C# corpus)
+        run: node conformance/run-ts.mjs
+
+      # Regenerating the corpus from the C# source must change nothing: a
+      # behaviour change that did not update conformance/expected fails here.
+      - name: Corpus is up to date
+        if: matrix.os == 'windows-latest'
+        shell: bash
+        run: |
+          dotnet run --project conformance/Generator
+          git diff --exit-code -- conformance/expected
