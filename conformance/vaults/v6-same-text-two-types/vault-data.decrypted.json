@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "created": "2026-11-15T02:48:17.3541358Z",
+  "tokens": {
+    "AMT:0a3daba2": "5",
+    "AMT:f15239f7": "1,234",
+    "QTY:f15239f7": "1,234"
+  },
+  "fileHashes": {
+    "ledger.md": "sha256:752280c0ffc6ea46ba2fba6ee14c40e87dd6e14a1285829e1a330481f4f1f17c"
+  }
+}

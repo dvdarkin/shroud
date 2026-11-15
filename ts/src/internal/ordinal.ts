@@ -63,3 +63,25 @@ export function ordinalIgnoreCaseSearcher(haystack: string): (needle: string) =>
 export function containsOrdinalIgnoreCase(haystack: string, needle: string): boolean {
   return ordinalIgnoreCaseSearcher(haystack)(needle);
 }
+
+/**
+ * `string.Equals(a, b, StringComparison.OrdinalIgnoreCase)`. ASCII letters fold only to
+ * ASCII letters (verified, see above); other code units compare after a simple 1:1
+ * upper-case mapping, which approximates .NET's invariant mapping (Shroud only compares
+ * against ASCII names, where the approximation never decides the result).
+ */
+export function equalsOrdinalIgnoreCase(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  for (let i = 0; i < a.length; i++) {
+    const x = a.charCodeAt(i);
+    const y = b.charCodeAt(i);
+    if (x === y) continue;
+    if (x < 0x80 || y < 0x80) {
+      if (x >= 0x80 || y >= 0x80) return false;
+      if ((x | 0x20) !== (y | 0x20) || (x | 0x20) < 0x61 || (x | 0x20) > 0x7a) return false;
+      continue;
+    }
+    if (foldSimple(a[i]!) !== foldSimple(b[i]!)) return false;
+  }
+  return true;
+}

@@ -13,6 +13,9 @@ public static class Program
 {
     private const string ConfigFileName = "shroud.json";
 
+    /// <summary>Test seam: when set, `vault` uses this masking key instead of a random one.</summary>
+    internal static byte[]? VaultMaskingKeyOverride { get; set; }
+
     public static int Main(string[] args)
     {
         if (args.Length == 0)
@@ -103,12 +106,17 @@ public static class Program
         if (files.Count == 0)
             return Error("Usage: shroud mask <file.md> [-o output.md]");
 
+        var inputs = ExpandGlobs(files).ToList();
+        if (outputPath is not null && inputs.Count > 1)
+            return Error($"-o {outputPath} names one output file but {inputs.Count} input files were given; " +
+                         "mask them one at a time, or omit -o to mask each file in place.");
+
         var config = LoadConfig();
         var scanner = CreateScanner(config);
         var key = LoadOrCreateKey(config);
         var masker = new SpanMasker(key);
 
-        foreach (var path in ExpandGlobs(files))
+        foreach (var path in inputs)
         {
             if (!File.Exists(path))
             {
@@ -162,10 +170,20 @@ public static class Program
         outputDir ??= sourceDir.TrimEnd('/', '\\') + ".shroud";
 
         var config = LoadConfig();
-        var builder = new VaultBuilder(CreateScanner(config));
+        var builder = VaultMaskingKeyOverride is { } fixedKey
+            ? new VaultBuilder(CreateScanner(config), fixedKey)
+            : new VaultBuilder(CreateScanner(config));
 
         Console.WriteLine($"\n  Scanning {sourceDir}...\n");
-        var result = builder.Build(sourceDir);
+        VaultResult result;
+        try
+        {
+            result = builder.Build(sourceDir);
+        }
+        catch (TokenCollisionException ex)
+        {
+            return Error(ex.Message);
+        }
 
         if (result.Tokens.Count == 0)
         {
@@ -311,6 +329,9 @@ public static class Program
                 preset = args[++i];
         }
 
+        if (!ShroudConfig.PresetNames.Contains(preset))
+            return Error($"Unknown preset: {preset}. Valid presets: {string.Join(", ", ShroudConfig.PresetNames)}.");
+
         var config = ShroudConfig.ForPreset(preset);
 
         if (File.Exists(ConfigFileName))
@@ -393,7 +414,7 @@ public static class Program
                 Console.WriteLine($"    {span.Domain,-12} {span.EntityType,-18} {svc,-24} {span.Confidence,5:F2}  {display}");
 
                 var diag = diagnostics.AllSpans
-                    .FirstOrDefault(d => d.Span.Start == span.Start && d.Span.End == span.End && d.Span.EntityType == span.EntityType && !d.WasExcluded && !d.FailedLuhn);
+                    .FirstOrDefault(d => d.Span.Start == span.Start && d.Span.End == span.End && d.Span.EntityType == span.EntityType && d.Span.Service == span.Service && !d.WasExcluded && !d.FailedLuhn);
                 if (diag != null)
                     PrintScoringDetail(diag.Scoring, debug);
             }
@@ -411,7 +432,7 @@ public static class Program
                 Console.WriteLine($"      {span.Domain,-12} {span.EntityType,-18} {span.Confidence,5:F2}  {display}");
 
                 var diag = diagnostics.AllSpans
-                    .FirstOrDefault(d => d.Span.Start == span.Start && d.Span.End == span.End && d.Span.EntityType == span.EntityType && !d.WasExcluded && !d.FailedLuhn);
+                    .FirstOrDefault(d => d.Span.Start == span.Start && d.Span.End == span.End && d.Span.EntityType == span.EntityType && d.Span.Service == span.Service && !d.WasExcluded && !d.FailedLuhn);
                 if (diag != null)
                     PrintScoringDetail(diag.Scoring, debug);
             }
@@ -448,14 +469,18 @@ public static class Program
 
     private static void PrintScoringDetail(ScoringDetail scoring, bool debug)
     {
-        if (scoring.IsStructural)
+        if (!scoring.HasContextWords)
         {
+            // No context words: the final confidence IS the base.
             Console.WriteLine($"              structural match (base: {scoring.BaseConfidence:F2})");
         }
         else
         {
+            // Context words can boost even a structural (base >= 0.80) pattern, so show the real
+            // breakdown whenever the pattern has any.
+            var kind = scoring.IsStructural ? "structural" : "contextual";
             var boostStr = scoring.FinalConfidence - scoring.BaseConfidence;
-            Console.WriteLine($"              contextual match (base: {scoring.BaseConfidence:F2} + context: +{boostStr:F2})");
+            Console.WriteLine($"              {kind} match (base: {scoring.BaseConfidence:F2} + context: +{boostStr:F2})");
             if (scoring.ContextWordsFound.Count > 0)
             {
                 var words = string.Join(", ", scoring.ContextWordsFound.Select(w => $"\"{w}\""));
@@ -534,7 +559,7 @@ public static class Program
           shroud vault <directory> [-o output]        Same as above, explicit command
           shroud reveal <vault-dir> [-o output]       Decrypt and restore original files
           shroud scan <file.md> [--verbose] [--debug]      Detect sensitive spans, print report
-          shroud mask <file.md> [-o output.md]        Replace sensitive spans with tokens
+          shroud mask <file.md> [-o output.md]        Replace sensitive spans with tokens (-o: one input only)
           shroud init [--preset financial|dev|paranoid]     Create shroud.json config
 
         Vault mode:

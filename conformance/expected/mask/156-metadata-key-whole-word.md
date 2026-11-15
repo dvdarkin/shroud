@@ -1,0 +1,20 @@
+## Metadata keys must be whole words
+
+Your profile: [ADDR:02137ccb]
+profile: [ADDR:02137ccb]
+classpath: [TOKEN:1d81b177]
+my-file: [ADDR:3cf7ce68]
+my_path: [ADDR:3cf7ce68]
+Docfile: [AMT:653b8ea0] [KEY:2c699160]
+file2path: [ADDR:bbc86947]
+Glued key, not metadata: see-[IP:deac1e70]
+
+Genuine metadata lines stay excluded:
+
+file: C:\wallets\0x1111111111111111111111111111111111111111.txt
+FILE: wallet-0x1111111111111111111111111111111111111111.txt
+source_file: notes/0x1111111111111111111111111111111111111111.md
+path: /home/example/0x1111111111111111111111111111111111111111
+Attachment: 0x2222222222222222222222222222222222222222
+- file: 0x2222222222222222222222222222222222222222
+(path: 0x2222222222222222222222222222222222222222)

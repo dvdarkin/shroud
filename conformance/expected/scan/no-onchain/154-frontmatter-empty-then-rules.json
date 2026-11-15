@@ -1,0 +1,30 @@
+{
+  "input": "154-frontmatter-empty-then-rules.md",
+  "config": "no-onchain",
+  "inputBytes": 121,
+  "inputSha256": "1c9d74d88fc7be21e09b75162adce3084cd0d4d0ddb9a6941857f848004ba6e7",
+  "inputUtf16Length": 121,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 75,
+      "end": 115,
+      "length": 40,
+      "matchedText": "2222222222222222222222222222222222222222",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "arithmetic_sum_operand",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.15,
+      "confidenceString": "0.15",
+      "aboveThreshold": false
+    }
+  ]
+}

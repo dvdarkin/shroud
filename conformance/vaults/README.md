@@ -1,6 +1,6 @@
 # Vault interop fixtures
 
-Five vaults written by the C# `VaultBuilder` (`Build` + `WriteOutput`) from the small source directories in each
+Six vaults written by the C# `VaultBuilder` (`Build` + `WriteOutput`) from the small source directories in each
 `<name>/input/`. They test "C# wrote it, another implementation must read it". Format description:
 `../README.md`, section "Vault container format".
 
@@ -13,7 +13,8 @@ vault/manifest.json          public metadata
 vault/public/                masked copies
 vault-data.decrypted.json    the plaintext inside vault.shroud, verbatim (UTF-8; CRLF indentation, written on Windows)
 restored/                    expected plaintext after "reveal" (what the CLI reveal algorithm yields; equals input/)
-meta.json                    passphrase (also as UTF-8 hex), config, file list, token count
+meta.json                    passphrase (also as UTF-8 hex), config, file list, token count, manifestSource,
+                             manifestServices (manifest tokens grouped by type abbreviation and service)
 ```
 
 | Vault | Passphrase | Config | Tokens | Notes |
@@ -23,6 +24,7 @@ meta.json                    passphrase (also as UTF-8 hex), config, file list, 
 | `v3-dev-preset-credentials` | `simple-test-passphrase-3` | `dev` | 7 | credentials, secrets, identity; financial amounts deliberately left visible; nested `sub/` |
 | `v4-clean-only-no-tokens` | `empty-vault-passphrase` | `default` | 0 | nothing detected: `vault.shroud` holds an encrypted registry with an empty token map (the CLI would refuse to write this; the library does) |
 | `v5-large-many-tokens` | `large-vault-passphrase-5` | `financial` | 1600 | one 400-line file, 4 unique tokens per line, ~73 KB vault |
+| `v6-same-text-two-types` | `same-text-passphrase-6` | `default` | 3 | the text `1,234` is a Quantity (`comma_number`) on one line and an Amount (`arithmetic_equals_left`) on another: tokens `QTY:x` and `AMT:x` share the hash part, and each manifest `service` belongs to its own type |
 
 Passphrases are used as UTF-8 bytes exactly as written, with no normalisation and no trailing newline.
 
@@ -44,8 +46,8 @@ Passphrases are used as UTF-8 bytes exactly as written, with no normalisation an
   separator of the generating machine. These fixtures were generated on Windows, so nested files appear as
   `notes\\deep\\keys.md` in JSON (a single backslash in the decoded string). `public/` and `restored/` on disk use
   ordinary directories.
-- `manifest.json` `source` is `input` (the generator passes a relative path; the CLI would store whatever path the
-  user typed).
+- `manifest.json` `source` is `input`: the generator passes the ABSOLUTE path of `input/` and the builder keeps only
+  the directory name (it never stores an absolute path; the CLI behaves the same for `.` or any path the user types).
 - The C# key order inside `tokens` / `fileHashes` follows culture-sensitive file ordering and token creation order;
   readers must not depend on it.
 - Each token id embeds the masking key, so a different implementation cannot reproduce these ids; it can only

@@ -1,0 +1,15 @@
+{
+  "input": "050-financial-credit-card-fixture.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 276,
+  "inputSha256": "89cc48482dc86989549ed67a0591daa8cbe232d871c7820e8f2490c6f26dc8b1",
+  "inputUtf16Length": 276,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

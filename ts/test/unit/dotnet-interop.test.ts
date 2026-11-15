@@ -4,13 +4,21 @@
 // counterpart; it pins the byte-level format documented in FORMAT.md.
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, test } from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { configForPreset, parseConfig, serializeConfig } from '../../src/config.js';
+import { ConfigFormatError, configForPreset, loadConfig, parseConfig, serializeConfig } from '../../src/config.js';
 import { SpanMasker } from '../../src/masker.js';
 import type { EntityType, SensitiveSpan } from '../../src/models.js';
-import { parseManifest, parseVaultData, serializeManifest, serializeVaultData } from '../../src/vault-builder.js';
+import {
+  VaultBuilder,
+  buildManifest,
+  parseManifest,
+  parseVaultData,
+  serializeManifest,
+  serializeVaultData,
+} from '../../src/vault-builder.js';
 import { decrypt, decryptString, encryptWith, deriveKey } from '../../src/vault-encryption.js';
 
 interface Vectors {
@@ -147,5 +155,68 @@ describe('DotnetInteropTests', () => {
     assert.equal(config.domains!.financial!.layer, 'markets');
     // "secrets" is absent, so the DomainConfig default toggle applies.
     assert.deepEqual(config.domains!.secrets, { enabled: true, layer: 'markets' });
+  });
+
+  // test/fixtures/dotnet-config-vectors.json: ShroudConfig.Load (PropertyNameCaseInsensitive)
+  // on each document, from tools/dotnet-probe mode "configs" <inputs.json> <out.json>, where
+  // inputs.json is the array of the "json" fields. Covers mixed case at every level,
+  // duplicate names in the same and in different case, a replaced nested object, a wrong
+  // type before a valid duplicate, and non-ASCII look-alike keys (KELVIN SIGN, long s, dotted I).
+  test('shroud.json property names match like System.Text.Json PropertyNameCaseInsensitive', () => {
+    const configVectors = JSON.parse(
+      readFileSync(fileURLToPath(new URL('../../../test/fixtures/dotnet-config-vectors.json', import.meta.url)), 'utf8'),
+    ) as ({ json: string; error: string } | { json: string; domains: unknown; threshold: number; keyFile: string | null; preset: string | null })[];
+    assert.ok(configVectors.length >= 28);
+    for (const v of configVectors) {
+      if ('error' in v) {
+        assert.equal(v.error, 'System.Text.Json.JsonException', v.json);
+        assert.throws(() => parseConfig(v.json), ConfigFormatError, v.json);
+        continue;
+      }
+      const c = parseConfig(v.json);
+      assert.deepEqual(
+        { domains: c.domains, threshold: c.threshold, keyFile: c.keyFile ?? null, preset: c.preset ?? null },
+        { domains: v.domains, threshold: v.threshold, keyFile: v.keyFile, preset: v.preset },
+        v.json,
+      );
+    }
+  });
+
+  // conformance/vaults: six vaults written by the C# VaultBuilder from <name>/input/. The
+  // masking key is random, so token ids cannot be compared, but meta.json summarises the
+  // manifest by (type abbreviation, service), and the manifest source is the directory name.
+  test('VaultBuilder on the conformance vault inputs gives the C# manifest services and source', () => {
+    const vaultsDir = fileURLToPath(new URL('../../../../conformance/vaults/', import.meta.url));
+    const names = readdirSync(vaultsDir, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name);
+    assert.ok(names.length >= 6);
+    for (const name of names) {
+      const dir = join(vaultsDir, name);
+      const meta = JSON.parse(readFileSync(join(dir, 'meta.json'), 'utf8')) as {
+        config: string;
+        tokenCount: number;
+        manifestSource: string;
+        manifestServices: { typeAbbreviation: string; service: string; tokens: number; occurrences: number }[];
+      };
+      const csharpManifest = JSON.parse(readFileSync(join(dir, 'vault', 'manifest.json'), 'utf8')) as { source: string };
+      const config = loadConfig(join(vaultsDir, '..', meta.config));
+      const result = new VaultBuilder(config).build(join(dir, 'input'));
+      const manifest = buildManifest(result, 'created');
+
+      assert.equal(manifest.source, meta.manifestSource, name);
+      assert.equal(manifest.source, csharpManifest.source, name);
+      assert.equal(manifest.tokenCount, meta.tokenCount, name);
+      const summary = new Map<string, { typeAbbreviation: string; service: string; tokens: number; occurrences: number }>();
+      for (const [id, t] of manifest.tokens) {
+        const typeAbbreviation = id.slice(0, id.indexOf(':'));
+        const key = `${typeAbbreviation}|${t.service}`;
+        const s = summary.get(key) ?? { typeAbbreviation, service: t.service, tokens: 0, occurrences: 0 };
+        s.tokens++;
+        s.occurrences += t.occurrences;
+        summary.set(key, s);
+      }
+      const order = (a: { typeAbbreviation: string; service: string }, b: { typeAbbreviation: string; service: string }) =>
+        a.typeAbbreviation < b.typeAbbreviation ? -1 : a.typeAbbreviation > b.typeAbbreviation ? 1 : a.service < b.service ? -1 : a.service > b.service ? 1 : 0;
+      assert.deepEqual([...summary.values()].sort(order), [...meta.manifestServices].sort(order), name);
+    }
   });
 });

@@ -2,13 +2,13 @@ Not at start:
 
 ---
 title: x
-wallet: 0x1111111111111111111111111111111111111111
+wallet: [ADDR:f116adc4]
 ---
 
 Second block:
 
 ---
-other: 0x3333333333333333333333333333333333333333
+other: [ADDR:02137ccb]
 ---
 Unterminated:
 ---

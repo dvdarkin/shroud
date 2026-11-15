@@ -1,0 +1,15 @@
+{
+  "input": "074-fp-markdown-formatting.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 418,
+  "inputSha256": "e9c99adaf292a1dc6fe7060e04ee3e968a4996d25574900aea785a385a63cb82",
+  "inputUtf16Length": 418,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

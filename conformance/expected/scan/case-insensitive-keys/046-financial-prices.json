@@ -1,0 +1,15 @@
+{
+  "input": "046-financial-prices.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 243,
+  "inputSha256": "f06d5009ca7d779b7a1588a208db035fc6ab2dd46b7ab04a82ced45f1884ab22",
+  "inputUtf16Length": 243,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

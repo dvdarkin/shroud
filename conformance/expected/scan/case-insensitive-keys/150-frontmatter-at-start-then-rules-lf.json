@@ -1,0 +1,30 @@
+{
+  "input": "150-frontmatter-at-start-then-rules-lf.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 307,
+  "inputSha256": "f5eccc7b6bf01c93ee44f798eae820679231516b80e3ddb7b208871421bfe456",
+  "inputUtf16Length": 307,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 252,
+      "end": 292,
+      "length": 40,
+      "matchedText": "ghp_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "AccessToken",
+      "domain": "Credentials",
+      "service": "github_pat",
+      "typeAbbreviation": "TOKEN",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

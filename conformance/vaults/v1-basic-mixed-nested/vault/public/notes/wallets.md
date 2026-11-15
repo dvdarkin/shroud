@@ -1,7 +1,7 @@
 ## Wallets
 
-Main: [ADDR:c9fea93d]
-Cold: [ADDR:4e727c40]
-Main again: [ADDR:c9fea93d]
-Tx: [TX:602bc330]
-ENS: [ENS:370f8381]
+Main: [ADDR:f4e1fe44]
+Cold: [ADDR:ce482f05]
+Main again: [ADDR:f4e1fe44]
+Tx: [TX:85c7b889]
+ENS: [ENS:68774276]

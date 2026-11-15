@@ -1,0 +1,30 @@
+{
+  "input": "134-line-endings-lf.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 221,
+  "inputSha256": "60f142bc042f0798d5ff0555a24cbb0d2514a5eb283b0cd18145130f70dd0435",
+  "inputUtf16Length": 221,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 127,
+      "end": 153,
+      "length": 26,
+      "matchedText": "password = \"lf_password_1\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets",
+      "service": "password_assignment",
+      "typeAbbreviation": "PASSWD",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": false
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "config": "case-insensitive-keys",
+  "sourceFile": "configs/case-insensitive-keys.json",
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "preset": null,
+  "keyFile": null,
+  "domains": {
+    "onChain": {
+      "enabled": false,
+      "layer": "markets"
+    },
+    "financial": {
+      "enabled": false,
+      "layer": "markets"
+    },
+    "identity": {
+      "enabled": false,
+      "layer": "markets"
+    },
+    "credentials": {
+      "enabled": true,
+      "layer": "markets"
+    },
+    "secrets": {
+      "enabled": true,
+      "layer": "markets"
+    }
+  },
+  "patternCount": 31,
+  "patternIndexes": [40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 66, 67, 68, 69, 70, 71],
+  "patternServices": ["aws_access_key", "github_pat", "github_oauth", "github_user", "github_app", "github_fine_grained", "gitlab_pat", "slack_bot", "slack_user", "slack_app", "google_api_key", "openai_key", "anthropic_key", "stripe_key", "stripe_webhook", "sendgrid_key", "twilio_key", "telegram_bot", "discord_bot", "shopify_access", "npm_token", "pypi_token", "nuget_key", "cloudflare_key", "heroku_key", "pem_private_key", "jwt", "database_uri", "sql_connection_string", "password_assignment", "login_assignment"]
+}

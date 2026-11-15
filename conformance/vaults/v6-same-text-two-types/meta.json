@@ -1,0 +1,31 @@
+{
+  "name": "v6-same-text-two-types",
+  "passphrase": "same-text-passphrase-6",
+  "passphraseUtf8Hex": "73616d652d746578742d706173737068726173652d36",
+  "config": "configs/default.json",
+  "vaultFileBytes": 333,
+  "tokenCount": 3,
+  "sourceFiles": ["ledger.md"],
+  "manifestSource": "input",
+  "manifestServices": [
+    {
+      "typeAbbreviation": "AMT",
+      "service": "arithmetic_equals_left",
+      "tokens": 1,
+      "occurrences": 1
+    },
+    {
+      "typeAbbreviation": "AMT",
+      "service": "arithmetic_equals_right",
+      "tokens": 1,
+      "occurrences": 1
+    },
+    {
+      "typeAbbreviation": "QTY",
+      "service": "comma_number",
+      "tokens": 1,
+      "occurrences": 1
+    }
+  ],
+  "note": "vault/vault.shroud, vault/manifest.json and vault/public/ were written by the C# VaultBuilder on Windows from the ABSOLUTE path of input/; manifest.json source is only the directory name (manifestSource). manifestServices summarises manifest.json tokens by (type abbreviation, service). Relative paths inside manifest.json and vault-data.decrypted.json (files lists, fileHashes keys) use the OS separator, i.e. backslash here."
+}

@@ -1,0 +1,30 @@
+{
+  "input": "143-long-line.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 32490,
+  "inputSha256": "f6b8616430643d6b71dabfff8a217e761abd25fdf160f8fe0d9bf44660873cfc",
+  "inputUtf16Length": 32490,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 21659,
+      "end": 21679,
+      "length": 20,
+      "matchedText": "AKIAAAAAAAAAAAAAAAAA",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "aws_access_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

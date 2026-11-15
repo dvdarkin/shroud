@@ -1,0 +1,15 @@
+{
+  "input": "006-onchain-correlation-fixture.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 413,
+  "inputSha256": "a7d14ada47ee8b08062e0ddda3973c0d8b34edfce1fd177b35c2b5f258b75822",
+  "inputUtf16Length": 413,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

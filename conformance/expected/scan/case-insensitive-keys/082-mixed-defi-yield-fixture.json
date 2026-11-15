@@ -1,0 +1,15 @@
+{
+  "input": "082-mixed-defi-yield-fixture.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 381,
+  "inputSha256": "c279af20b70b30d087e405a6ab243f40d2ca2d0b23a897e1e02fe51eeb0ecfc3",
+  "inputUtf16Length": 381,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

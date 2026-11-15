@@ -38,6 +38,7 @@ public static class ContextScorer
         {
             BaseConfidence = pattern.BaseConfidence,
             IsStructural = pattern.IsStructural,
+            HasContextWords = pattern.ContextWords.Length > 0,
             PatternService = pattern.Service
         };
 
@@ -101,6 +102,7 @@ internal class ScoringDetail
     public double BaseConfidence { get; set; }
     public double FinalConfidence { get; set; }
     public bool IsStructural { get; set; }
+    public bool HasContextWords { get; set; }
     public List<string> ContextWordsFound { get; set; } = [];
     public int ContextWindowStart { get; set; }
     public int ContextWindowEnd { get; set; }

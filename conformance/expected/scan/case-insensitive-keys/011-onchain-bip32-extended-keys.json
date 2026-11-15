@@ -1,0 +1,15 @@
+{
+  "input": "011-onchain-bip32-extended-keys.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 557,
+  "inputSha256": "27ce6c48211e3203290e577c4e920e0ce32f09be8973304e86bfe4a775133d53",
+  "inputUtf16Length": 557,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

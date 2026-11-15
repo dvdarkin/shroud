@@ -7,9 +7,38 @@
   "threshold": 0.5,
   "thresholdString": "0.5",
   "counts": {
-    "allDetected": 0,
-    "aboveThreshold": 0,
+    "allDetected": 2,
+    "aboveThreshold": 2,
     "belowThreshold": 0
   },
-  "allDetected": []
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 437,
+      "end": 444,
+      "length": 7,
+      "matchedText": "$12,345",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 445,
+      "end": 465,
+      "length": 20,
+      "matchedText": "AKIAAAAAAAAAAAAAAAAA",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "aws_access_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
 }

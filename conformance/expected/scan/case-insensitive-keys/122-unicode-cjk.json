@@ -1,0 +1,44 @@
+{
+  "input": "122-unicode-cjk.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 283,
+  "inputSha256": "97409584e97b4df3fee04245d677ddb55f598477f01e67605034a56b5530ec82",
+  "inputUtf16Length": 201,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 1,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 70,
+      "end": 90,
+      "length": 20,
+      "matchedText": "AKIAAAAAAAAAAAAAAAAA",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "aws_access_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 96,
+      "end": 114,
+      "length": 18,
+      "matchedText": "password = \"密码是这个\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets",
+      "service": "password_assignment",
+      "typeAbbreviation": "PASSWD",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": false
+    }
+  ]
+}

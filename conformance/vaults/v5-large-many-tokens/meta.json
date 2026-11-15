@@ -6,5 +6,32 @@
   "vaultFileBytes": 73228,
   "tokenCount": 1600,
   "sourceFiles": ["large.md"],
-  "note": "vault/vault.shroud, vault/manifest.json and vault/public/ were written by the C# VaultBuilder on Windows; relative paths inside manifest.json and vault-data.decrypted.json (files lists, fileHashes keys) use the OS separator, i.e. backslash here."
+  "manifestSource": "input",
+  "manifestServices": [
+    {
+      "typeAbbreviation": "ADDR",
+      "service": "evm_address",
+      "tokens": 400,
+      "occurrences": 400
+    },
+    {
+      "typeAbbreviation": "AMT",
+      "service": "symbol_amount",
+      "tokens": 400,
+      "occurrences": 400
+    },
+    {
+      "typeAbbreviation": "EMAIL",
+      "service": "email",
+      "tokens": 400,
+      "occurrences": 400
+    },
+    {
+      "typeAbbreviation": "SSN",
+      "service": "us_ssn",
+      "tokens": 400,
+      "occurrences": 400
+    }
+  ],
+  "note": "vault/vault.shroud, vault/manifest.json and vault/public/ were written by the C# VaultBuilder on Windows from the ABSOLUTE path of input/; manifest.json source is only the directory name (manifestSource). manifestServices summarises manifest.json tokens by (type abbreviation, service). Relative paths inside manifest.json and vault-data.decrypted.json (files lists, fileHashes keys) use the OS separator, i.e. backslash here."
 }

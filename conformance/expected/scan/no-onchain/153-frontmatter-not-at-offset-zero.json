@@ -1,0 +1,30 @@
+{
+  "input": "153-frontmatter-not-at-offset-zero.md",
+  "config": "no-onchain",
+  "inputBytes": 113,
+  "inputSha256": "1d5f36311e75aa576de3b94953109fac1d156a050a400fd23431b27ddb19bad6",
+  "inputUtf16Length": 113,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 68,
+      "end": 108,
+      "length": 40,
+      "matchedText": "1111111111111111111111111111111111111111",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "arithmetic_sum_operand",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.15,
+      "confidenceString": "0.15",
+      "aboveThreshold": false
+    }
+  ]
+}

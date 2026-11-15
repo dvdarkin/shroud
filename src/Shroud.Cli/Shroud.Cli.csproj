@@ -14,6 +14,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="Shroud.Tests.Integration" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Shroud\Shroud.csproj" />
     <ProjectReference Include="..\Shroud.Private\Shroud.Private.csproj"
                       Condition="Exists('..\Shroud.Private\Shroud.Private.csproj')" />

@@ -1,0 +1,44 @@
+{
+  "input": "158-metadata-key-at-end-of-line.md",
+  "config": "threshold-030",
+  "inputBytes": 324,
+  "inputSha256": "1e13946cb1a74d1884e94e70bb5b4be0631c85511d557a187edb8397482ec5ed",
+  "inputUtf16Length": 324,
+  "threshold": 0.3,
+  "thresholdString": "0.3",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 2,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 118,
+      "end": 160,
+      "length": 42,
+      "matchedText": "0x6666666666666666666666666666666666666666",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 171,
+      "end": 211,
+      "length": 40,
+      "matchedText": "ghp_DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+      "entityType": "AccessToken",
+      "domain": "Credentials",
+      "service": "github_pat",
+      "typeAbbreviation": "TOKEN",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

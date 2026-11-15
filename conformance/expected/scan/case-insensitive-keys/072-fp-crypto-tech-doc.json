@@ -1,0 +1,15 @@
+{
+  "input": "072-fp-crypto-tech-doc.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 459,
+  "inputSha256": "62a12e0fc8ae17bb324f3aae60bd859b3457f8e211a601ece1d76ba6bd5178ea",
+  "inputUtf16Length": 459,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

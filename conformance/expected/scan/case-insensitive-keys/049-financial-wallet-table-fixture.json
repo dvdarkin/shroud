@@ -1,0 +1,15 @@
+{
+  "input": "049-financial-wallet-table-fixture.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 879,
+  "inputSha256": "1e47d121cc21eab3bae1ef54cbb604716151409f089ab92f848a938277065c88",
+  "inputUtf16Length": 879,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

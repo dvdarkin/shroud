@@ -1,0 +1,15 @@
+{
+  "input": "053-financial-datetime-vs-amounts.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 292,
+  "inputSha256": "ef804f41223737f82719fb6b1f995535e9e7f45bf5be93f2c6241419d811c7ad",
+  "inputUtf16Length": 292,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -33,6 +33,7 @@ public static class Program
         ("v3-dev-preset-credentials", "simple-test-passphrase-3", "dev"),
         ("v4-clean-only-no-tokens", "empty-vault-passphrase", "default"),
         ("v5-large-many-tokens", "large-vault-passphrase-5", "financial"),
+        ("v6-same-text-two-types", "same-text-passphrase-6", "default"),
     ];
 
     private static readonly List<string> Problems = [];
@@ -373,7 +374,6 @@ public static class Program
     private static void ProcessVaults(string conf, string configsDir, bool regen)
     {
         var vaultsDir = Path.Combine(conf, "vaults");
-        var originalCwd = Environment.CurrentDirectory;
         foreach (var (name, pass, configName) in VaultDefs)
         {
             var vdir = Path.Combine(vaultsDir, name);
@@ -389,16 +389,48 @@ public static class Program
                 foreach (var f in new[] { "vault-data.decrypted.json", "meta.json" })
                     if (File.Exists(Path.Combine(vdir, f))) File.Delete(Path.Combine(vdir, f));
 
-                // Relative source dir so manifest.json "source" is "input", not an absolute path.
-                Environment.CurrentDirectory = vdir;
-                try
-                {
-                    var builder = new VaultBuilder(cfg);
-                    var result = builder.Build("input");
-                    builder.WriteOutput(result, "vault", pass);
-                }
-                finally { Environment.CurrentDirectory = originalCwd; }
+                // The ABSOLUTE source path is passed on purpose: manifest.json is public and must
+                // record only the directory name ("input"), never the machine-specific location.
+                var builder = new VaultBuilder(cfg);
+                var result = builder.Build(inputDir);
+                builder.WriteOutput(result, vaultOut, pass);
             }
+
+            var manifestPath = Path.Combine(vaultOut, "manifest.json");
+            var manifestSource = (string?)null;
+            var serviceRows = new List<(string Abbr, string Service, int Occurrences)>();
+            if (File.Exists(manifestPath))
+            {
+                using var manifest = JsonDocument.Parse(File.ReadAllBytes(manifestPath));
+                manifestSource = manifest.RootElement.GetProperty("source").GetString();
+                if (manifestSource != "input")
+                    Problems.Add($"{name}: manifest.json source is \"{manifestSource}\", expected \"input\"");
+                // Every token's service id must be a pattern of the token's own type (the token id
+                // prefix is that type's abbreviation).
+                foreach (var tok in manifest.RootElement.GetProperty("tokens").EnumerateObject())
+                {
+                    var prefix = tok.Name[..tok.Name.IndexOf(':')];
+                    var service = tok.Value.GetProperty("service").GetString() ?? "";
+                    var types = PatternLibrary.GetAll().Where(p => p.Service == service)
+                        .Select(p => new SensitiveSpan(0, 0, p.EntityType, p.Domain, 0, "").TypeAbbreviation).ToHashSet();
+                    if (!types.Contains(prefix))
+                        Problems.Add($"{name}: manifest token {tok.Name} labelled with service \"{service}\" of another type");
+                    serviceRows.Add((prefix, service, tok.Value.GetProperty("occurrences").GetInt32()));
+                }
+            }
+            else Problems.Add($"{name}: manifest.json missing");
+            // Token ids are random per generation, so meta.json summarises the manifest by
+            // (type abbreviation, service): deterministic for a given input and config.
+            var manifestServices = serviceRows
+                .GroupBy(r => (r.Abbr, r.Service))
+                .OrderBy(g => g.Key.Abbr, StringComparer.Ordinal)
+                .ThenBy(g => g.Key.Service, StringComparer.Ordinal)
+                .Select(g => (object?)new O()
+                    .P("typeAbbreviation", g.Key.Abbr)
+                    .P("service", g.Key.Service)
+                    .P("tokens", g.Count())
+                    .P("occurrences", g.Sum(r => r.Occurrences)))
+                .ToList();
 
             if (!File.Exists(Path.Combine(vaultOut, "vault.shroud")))
             {
@@ -459,8 +491,12 @@ public static class Program
                     .P("vaultFileBytes", enc.Length)
                     .P("tokenCount", data.Tokens.Count)
                     .P("sourceFiles", restored.Keys.Cast<object?>().ToList())
-                    .P("note", "vault/vault.shroud, vault/manifest.json and vault/public/ were written by the C# VaultBuilder on Windows; " +
-                               "relative paths inside manifest.json and vault-data.decrypted.json (files lists, fileHashes keys) use the OS separator, i.e. backslash here.");
+                    .P("manifestSource", manifestSource)
+                    .P("manifestServices", manifestServices)
+                    .P("note", "vault/vault.shroud, vault/manifest.json and vault/public/ were written by the C# VaultBuilder on Windows " +
+                               "from the ABSOLUTE path of input/; manifest.json source is only the directory name (manifestSource). " +
+                               "manifestServices summarises manifest.json tokens by (type abbreviation, service). " +
+                               "Relative paths inside manifest.json and vault-data.decrypted.json (files lists, fileHashes keys) use the OS separator, i.e. backslash here.");
                 WriteJson(Path.Combine(vdir, "meta.json"), meta);
             }
             Console.WriteLine($"vault {name}: ok tokens={data.Tokens.Count} files={restored.Count} bytes={enc.Length}");

@@ -1,0 +1,15 @@
+{
+  "input": "044-financial-forex-journal-fixture.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 345,
+  "inputSha256": "a33d0840263917e51e4808784a26beccee66a007e4537ab331904144370cde8e",
+  "inputUtf16Length": 345,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

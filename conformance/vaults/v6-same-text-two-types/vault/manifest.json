@@ -1,0 +1,35 @@
+{
+  "created": "2026-11-15T02:48:17.3541358Z",
+  "source": "input",
+  "fileCount": 1,
+  "tokenCount": 3,
+  "tokens": {
+    "AMT:0a3daba2": {
+      "service": "arithmetic_equals_right",
+      "domain": "financial",
+      "files": [
+        "ledger.md"
+      ],
+      "occurrences": 1
+    },
+    "AMT:f15239f7": {
+      "service": "arithmetic_equals_left",
+      "domain": "financial",
+      "files": [
+        "ledger.md"
+      ],
+      "occurrences": 1
+    },
+    "QTY:f15239f7": {
+      "service": "comma_number",
+      "domain": "financial",
+      "files": [
+        "ledger.md"
+      ],
+      "occurrences": 1
+    }
+  },
+  "summary": {
+    "financial": 3
+  }
+}

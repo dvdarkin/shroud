@@ -7,13 +7,41 @@
   "threshold": 0.3,
   "thresholdString": "0.3",
   "counts": {
-    "allDetected": 1,
-    "aboveThreshold": 1,
+    "allDetected": 3,
+    "aboveThreshold": 3,
     "belowThreshold": 0
   },
   "allDetected": [
     {
       "index": 0,
+      "start": 36,
+      "end": 78,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 110,
+      "end": 152,
+      "length": 42,
+      "matchedText": "0x3333333333333333333333333333333333333333",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
       "start": 183,
       "end": 225,
       "length": 42,

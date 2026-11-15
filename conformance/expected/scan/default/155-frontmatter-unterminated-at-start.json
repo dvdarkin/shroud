@@ -1,0 +1,30 @@
+{
+  "input": "155-frontmatter-unterminated-at-start.md",
+  "config": "default",
+  "inputBytes": 78,
+  "inputSha256": "a081493c8ea8153ca1ffa63410a966b1f19cef6644a38c9f4d9490ae73d2a294",
+  "inputUtf16Length": 78,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 35,
+      "end": 77,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

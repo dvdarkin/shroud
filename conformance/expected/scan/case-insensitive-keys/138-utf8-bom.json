@@ -1,0 +1,15 @@
+{
+  "input": "138-utf8-bom.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 96,
+  "inputSha256": "4d8de40db0c470275a230c60397b870692d8445327bfc7981298036602a39f49",
+  "inputUtf16Length": 93,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -1,0 +1,15 @@
+{
+  "input": "042-financial-nonusd-fixture.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 280,
+  "inputSha256": "5da6a09c93a91ea2346b615becaddff705351ce5d3e7f55e357ddae4837098f6",
+  "inputUtf16Length": 280,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

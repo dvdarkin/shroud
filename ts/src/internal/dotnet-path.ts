@@ -71,6 +71,38 @@ function rootLength(p: string): number {
   return m ? m[0].length : 0;
 }
 
+/**
+ * Path.TrimEndingDirectorySeparator(Path.GetFullPath(p)): the absolute, normalized path
+ * without a trailing separator (a root keeps its separator). On Windows this also applies
+ * the Win32 normalization .NET gets from GetFullPathNameW, checked against .NET 8: the
+ * final segment loses all trailing periods and spaces unless the path ends in a
+ * separator ("notes. " -> "notes"), any other segment loses one trailing period when it
+ * ends in exactly one ("a.\b" -> "a\b", "a..\b" unchanged), a UNC root has no trailing
+ * separator, and \\?\ and \\.\ device paths are left untouched.
+ */
+export function getFullPath(p: string): string {
+  if (!isWindows) return posix.resolve(p);
+  if (/^[\\/]{2}[?.][\\/]/.test(p)) return p.length > 4 && isSeparator(p[p.length - 1]) ? p.slice(0, -1) : p;
+  const full = win32.resolve(p);
+  const root = rootLength(full);
+  const segments = full.slice(root).split('\\');
+  const endsInSeparator = isSeparator(p[p.length - 1]);
+  for (let i = 0; i < segments.length; i++) {
+    const s = segments[i]!;
+    if (i === segments.length - 1 && !endsInSeparator) segments[i] = s.replace(/[. ]+$/, '');
+    else if (/[^.]\.$/.test(s)) segments[i] = s.slice(0, -1);
+  }
+  const rest = segments.join('\\');
+  const rootPart = full.slice(0, root);
+  // UNC: "\\server\share\" is not a root to TrimEndingDirectorySeparator.
+  return rest === '' && /^[\\/]{2}/.test(rootPart) && isSeparator(rootPart[rootPart.length - 1]) ? rootPart.slice(0, -1) : rootPart + rest;
+}
+
+/** True when `p` is no longer than its root (Path.GetFileName returns "" for it). */
+export function isRootPath(p: string): boolean {
+  return p.length <= rootLength(p);
+}
+
 /** Path.GetRelativePath(relativeTo, path). */
 export function getRelativePath(relativeTo: string, path: string): string {
   const lib = isWindows ? win32 : posix;

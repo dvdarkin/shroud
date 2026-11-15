@@ -1,0 +1,15 @@
+{
+  "input": "001-onchain-evm-addresses.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 608,
+  "inputSha256": "5c81798c9755627b676087b7def983117b649998c45b0f971ebfc004ac0604fe",
+  "inputUtf16Length": 604,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -1,0 +1,15 @@
+{
+  "input": "071-fp-legal-contract.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 356,
+  "inputSha256": "6a2a055469f8d7ccffe0e65c6a47646e20eb9d890ef3ded8b0fc0101f9fe3189",
+  "inputUtf16Length": 356,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -16,11 +16,18 @@ public class SensitivityScanner
     private readonly IReadOnlyList<SensitivityPattern> _patterns;
     private readonly double _tokenizeThreshold;
 
+    // YAML front matter: only when the text STARTS with a "---" line (offset 0; File.ReadAllText
+    // has already stripped a BOM), ending at the next "---" line. Whole lines are consumed one at
+    // a time, so LF and CRLF both work and an empty block ("---\n---") ends at its own closing line.
+    // A pair of "---" lines later in the document is a pair of horizontal rules, not front matter.
     private static readonly Regex FrontmatterRegex = new(
-        @"^---\s*\n[\s\S]*?\n---\s*$",
+        @"\A---[ \t]*\r?\n(?:[^\n]*\n)*?---[ \t]*\r?$",
         RegexOptions.Compiled | RegexOptions.Multiline);
+    // File-path metadata line ("file: ...", "source_file: ..."). The key must be a whole word:
+    // not preceded by a letter, digit, underscore or hyphen, so "profile:", "classpath:" and
+    // "my-file:" are ordinary text.
     private static readonly Regex FilePathRegex = new(
-        @"(?:source_file|file|path|attachment):\s*.+$",
+        @"(?<![\p{L}\p{Nd}_\-])(?:source_file|file|path|attachment):[ \t]*.+$",
         RegexOptions.Compiled | RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
     // Date and time patterns. These never produce SensitiveSpans; they only carve
@@ -115,6 +122,12 @@ public class SensitivityScanner
                 }
 
                 var matchedText = text.Substring(match.Index, match.Length);
+
+                // Several financial regexes are built from [\d,]+ and can match separator-only
+                // text (a lone ","). A financial number must contain at least one digit.
+                if (IsDigitlessFinancialNumber(pattern, matchedText))
+                    continue;
+
                 var span = new SensitiveSpan(
                     Start: match.Index,
                     End: match.Index + match.Length,
@@ -265,6 +278,15 @@ public class SensitivityScanner
                 zones.Add((m.Index, m.Index + m.Length));
         return zones;
     }
+
+    /// <summary>
+    /// True for a Financial Amount/Quantity/Price match with no decimal digit (char.IsDigit is
+    /// Unicode Nd, the same class as .NET regex \d).
+    /// </summary>
+    private static bool IsDigitlessFinancialNumber(SensitivityPattern pattern, string matchedText) =>
+        pattern.Domain == SensitivityDomain.Financial &&
+        pattern.EntityType is EntityType.Amount or EntityType.Quantity or EntityType.Price &&
+        !matchedText.Any(char.IsDigit);
 
     private static bool IsExcluded(int start, int end, List<(int Start, int End)> exclusions)
     {

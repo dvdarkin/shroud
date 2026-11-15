@@ -1,0 +1,58 @@
+{
+  "input": "121-unicode-cyrillic.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 406,
+  "inputSha256": "6dd304799e1c99c37c666962c0db92e0fd81af2b04ff330d9a848cdb8e9678fd",
+  "inputUtf16Length": 314,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 3,
+    "aboveThreshold": 2,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 143,
+      "end": 163,
+      "length": 20,
+      "matchedText": "AKIAAAAAAAAAAAAAAAAA",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "aws_access_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 176,
+      "end": 196,
+      "length": 20,
+      "matchedText": "AKIABBBBBBBBBBBBBBBB",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "aws_access_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 246,
+      "end": 275,
+      "length": 29,
+      "matchedText": "password = \"секретный_пароль\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets",
+      "service": "password_assignment",
+      "typeAbbreviation": "PASSWD",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": false
+    }
+  ]
+}

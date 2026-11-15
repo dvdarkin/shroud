@@ -1,0 +1,15 @@
+{
+  "input": "040-financial-currency-fixture.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 542,
+  "inputSha256": "d745cd107f4c3eaea5e514df6e0342c37fc85102e5f9f1cc69eeaae4aa0ff2ba",
+  "inputUtf16Length": 542,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

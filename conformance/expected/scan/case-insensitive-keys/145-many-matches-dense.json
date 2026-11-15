@@ -1,0 +1,15 @@
+{
+  "input": "145-many-matches-dense.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 2471,
+  "inputSha256": "becf9d214ff2f78bb3377239295bb2c6bf1d01efbdd22546ae25f37228a09d01",
+  "inputUtf16Length": 2471,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -1,0 +1,30 @@
+{
+  "input": "101-overlap-same-range-different-types.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 426,
+  "inputSha256": "7f61e9285d4db021ae96b09b7dbf90da521e9929e14873fac21901ff49777b2d",
+  "inputUtf16Length": 426,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 325,
+      "end": 361,
+      "length": 36,
+      "matchedText": "12345678-1234-1234-1234-123456789012",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "heroku_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.2,
+      "confidenceString": "0.2",
+      "aboveThreshold": false
+    }
+  ]
+}

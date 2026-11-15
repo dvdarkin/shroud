@@ -1,0 +1,8 @@
+{
+  "Domains": {
+    "onchain": { "enabled": false },
+    "FINANCIAL": { "Enabled": false },
+    "identity": { "ENABLED": false }
+  },
+  "THRESHOLD": 0.90
+}

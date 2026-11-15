@@ -1,0 +1,15 @@
+{
+  "input": "110-context-before-edge-inside.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 160,
+  "inputSha256": "3d039744fc6bdaeac5e5256dd28db68c9f4f1ae96eec8806ab2569327a31b40e",
+  "inputUtf16Length": 160,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

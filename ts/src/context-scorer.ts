@@ -1,8 +1,8 @@
 /**
  * Scores detection confidence by examining a 120-character window around each match.
- * Structural patterns (no context words) return their base confidence. Contextual
- * patterns are boosted when any of their context words appears in the window, plus a
- * small capped bonus per additional word. Financial-domain patterns get extra
+ * Patterns with no context words return their base confidence. Patterns with context
+ * words (structural ones, base >= 0.80, included) are boosted when any of their context
+ * words appears in the window, plus a small capped bonus per additional word. Financial-domain patterns get extra
  * non-cumulative boosts for a known asset name and for a currency signal.
  *
  * Matching is case-insensitive substring search (.NET OrdinalIgnoreCase): "sol"
@@ -29,6 +29,8 @@ export interface ScoringDetail {
   baseConfidence: number;
   finalConfidence: number;
   isStructural: boolean;
+  /** The pattern has context words (so the confidence can differ from the base). */
+  hasContextWords: boolean;
   contextWordsFound: string[];
   contextWindowStart: number;
   contextWindowEnd: number;
@@ -42,6 +44,7 @@ export function emptyScoringDetail(baseConfidence = 0, patternService = ''): Sco
     baseConfidence,
     finalConfidence: 0,
     isStructural: false,
+    hasContextWords: false,
     contextWordsFound: [],
     contextWindowStart: 0,
     contextWindowEnd: 0,
@@ -63,6 +66,7 @@ export function scoreWithDetail(
   let value = pattern.baseConfidence;
   const detail = emptyScoringDetail(pattern.baseConfidence, pattern.service);
   detail.isStructural = isStructural(pattern);
+  detail.hasContextWords = pattern.contextWords.length > 0;
 
   if (pattern.contextWords.length === 0) {
     detail.finalConfidence = value;

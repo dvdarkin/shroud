@@ -1,0 +1,15 @@
+{
+  "input": "002-onchain-bitcoin-family.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 656,
+  "inputSha256": "8f419d56fb84d552a9c49249ec145a7daf6788cac1f5cb894ba9e480ac09ba65",
+  "inputUtf16Length": 656,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

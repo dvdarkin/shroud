@@ -35,9 +35,15 @@ public class VaultBuilder
     }
 
     public VaultBuilder(SensitivityScanner scanner)
+        : this(scanner, RandomNumberGenerator.GetBytes(32))
+    {
+    }
+
+    /// <summary>Test seam: a fixed masking key makes token ids (and collisions) reproducible.</summary>
+    internal VaultBuilder(SensitivityScanner scanner, byte[] maskingKey)
     {
         _scanner = scanner;
-        _maskingKey = RandomNumberGenerator.GetBytes(32);
+        _maskingKey = maskingKey;
     }
 
     public VaultResult Build(string sourceDir)
@@ -70,6 +76,11 @@ public class VaultBuilder
             {
                 if (allTokens.TryGetValue(token.TokenId, out var existing))
                 {
+                    // Same id, different value: the second value would be lost and reveal
+                    // would restore the wrong text. Fail before anything is written.
+                    if (existing.Value != token.OriginalValue)
+                        throw new TokenCollisionException(token.TokenId);
+
                     existing.Files.Add(relativePath);
                     existing.Occurrences++;
                 }
@@ -112,7 +123,7 @@ public class VaultBuilder
         var manifest = new ManifestFile
         {
             Created = DateTime.UtcNow.ToString("o"),
-            Source = result.SourceDir,
+            Source = SourceDirectoryName(result.SourceDir),
             FileCount = result.MaskedFiles.Count,
             TokenCount = result.Tokens.Count,
             Tokens = result.Tokens.ToDictionary(
@@ -153,8 +164,20 @@ public class VaultBuilder
     private static string GetServiceId(ScanResult scanResult, TokenMapping token)
     {
         var span = scanResult.AboveThreshold
-            .FirstOrDefault(s => s.MatchedText == token.OriginalValue);
+            .FirstOrDefault(s => s.MatchedText == token.OriginalValue && s.EntityType == token.EntityType);
         return span?.Service ?? "";
+    }
+
+    /// <summary>
+    /// manifest.json is public, so it records only the final directory name of the source
+    /// ("." and relative paths are resolved first), never the absolute path.
+    /// </summary>
+    internal static string SourceDirectoryName(string sourceDir)
+    {
+        var full = Path.TrimEndingDirectorySeparator(Path.GetFullPath(sourceDir));
+        var name = Path.GetFileName(full);
+        // A filesystem root ("/", "C:\") has no name; the root itself carries no user path.
+        return string.IsNullOrEmpty(name) ? full : name;
     }
 
     private static string ComputeHash(string content)

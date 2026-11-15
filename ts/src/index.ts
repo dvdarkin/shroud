@@ -88,6 +88,7 @@ export {
 export {
   VaultBuilder,
   VaultFormatError,
+  TokenCollisionException,
   parseVaultData,
   serializeVaultData,
   serializeManifest,

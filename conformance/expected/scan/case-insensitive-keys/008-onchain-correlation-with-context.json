@@ -1,0 +1,15 @@
+{
+  "input": "008-onchain-correlation-with-context.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 274,
+  "inputSha256": "7f786784e5e3d256af5caf46bcf4092d18e423580fe44b1e58b5e4309b792762",
+  "inputUtf16Length": 274,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

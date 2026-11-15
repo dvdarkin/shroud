@@ -5,6 +5,6 @@ file: wallet-0x1111111111111111111111111111111111111111.txt
 path: C:\wallets\0x1111111111111111111111111111111111111111
 attachment: 0x2222222222222222222222222222222222222222
 Attachment: UPPER 0x2222222222222222222222222222222222222222
-Your profile: 0x3333333333333333333333333333333333333333 (excluded because "profile:" contains "file:")
-Docfile: $12,345 AKIAAAAAAAAAAAAAAAAA
+Your profile: [ADDR:02137ccb] (excluded because "profile:" contains "file:")
+Docfile: [AMT:653b8ea0] [KEY:2c699160]
 Not metadata: the wallet is [ADDR:3cf7ce68]

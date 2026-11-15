@@ -63,6 +63,8 @@ shroud mask <file.md> [-o output.md]            Replace spans with tokens
 shroud init [--preset financial|dev|paranoid]    Create shroud.json
 ```
 
+`mask -o` takes exactly one input file; with several inputs (after glob expansion) it refuses and writes nothing. Without `-o` each file is masked in place. `init` with an unknown preset name fails and writes nothing.
+
 ## Diagnostic Output
 
 ### `--verbose` (verify detections)
@@ -76,7 +78,13 @@ Financial   Amount        currency_amount   0.85  $12,500
 OnChain     CryptoAddr    solana_address    0.85  7xKXtg...
             contextual match (base: 0.30 + context: +0.55)
             context words: "solana", "phantom" (within 120 chars)
+
+Financial   CreditCard    visa              0.95  4111 1111 1111 1111
+            structural match (base: 0.80 + context: +0.15)
+            context words: "card" (within 120 chars)
 ```
+
+A structural pattern (base >= 0.80) that also has context words shows the same breakdown, because nearby words can still raise its confidence. When two patterns of the same type match the same span, the scoring shown is the winning pattern's.
 
 ### `--debug` (contributor diagnostics)
 
@@ -94,6 +102,7 @@ Everything in `--verbose`, plus exclusion zones, overlap resolutions, Luhn rejec
 - **Arithmetic expressions** — Numbers in math ("10 / 2") can be flagged if currency codes appear within 120 characters.
 - **Seed phrase detection** — Placeholder only (first 10 BIP-39 words at 0.10 confidence).
 - **Markdown files only** — Other file formats are not scanned.
+- **Excluded regions** - YAML front matter is not scanned, but only when the file starts with a `---` line (it ends at the next `---` line); `---` pairs later in a document are horizontal rules and are scanned. Text from a whole-word `source_file:`, `file:`, `path:` or `attachment:` key to the end of its line is not scanned; `profile:`, `classpath:` or `my-file:` are ordinary text.
 
 ## Trust Model
 
@@ -124,6 +133,8 @@ See [docs/trust-architecture.md](docs/trust-architecture.md) for details.
 }
 ```
 
+Property names are matched case-insensitively at every level (`"onchain"` configures `onChain`).
+
 ## Vault Output
 
 ```
@@ -132,6 +143,8 @@ See [docs/trust-architecture.md](docs/trust-architecture.md) for details.
   vault.shroud     Encrypted token registry (AES-256-GCM, PBKDF2-SHA512 600k iterations)
   manifest.json    Public metadata for agents (no secret values)
 ```
+
+`manifest.json` records the source only as its directory name (`my-notes`), never the absolute path.
 
 ### Token Collision Safety
 
@@ -144,6 +157,8 @@ Token IDs are HMAC-SHA256 truncated to 4 bytes (2^32 = ~4.3 billion possible val
 | 50,000 | ~25% |
 
 For realistic workloads (hundreds of files, thousands of unique sensitive values), collision risk is negligible. Same value always produces the same token (deterministic via HMAC), so repeated occurrences of the same address or key are not collisions — they correctly map to the same token.
+
+If two different values do produce the same token ID, `VaultBuilder.Build` throws `TokenCollisionException` (naming the token ID, never the values) instead of silently dropping one, and `shroud vault` prints a one-line error, exits non-zero and writes nothing. Each run uses a fresh masking key, so running again resolves it.
 
 ## Two Ways to Use Shroud
 

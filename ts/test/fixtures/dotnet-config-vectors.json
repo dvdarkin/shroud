@@ -1,0 +1,693 @@
+[
+  {
+    "json": "{ \u0022domains\u0022: { \u0022onchain\u0022: { \u0022enabled\u0022: false } } }",
+    "domains": {
+      "onChain": {
+        "enabled": false,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022Domains\u0022:{\u0022onchain\u0022:{\u0022enabled\u0022:false},\u0022FINANCIAL\u0022:{\u0022Enabled\u0022:false},\u0022identity\u0022:{\u0022ENABLED\u0022:false}},\u0022THRESHOLD\u0022:0.90}",
+    "domains": {
+      "onChain": {
+        "enabled": false,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": false,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": false,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.9,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022threshold\u0022:0.1,\u0022threshold\u0022:0.3}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.3,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022threshold\u0022:0.1,\u0022Threshold\u0022:0.2,\u0022threshold\u0022:0.3}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.3,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022THRESHOLD\u0022:0.2,\u0022threshold\u0022:0.1,\u0022Threshold\u0022:0.4}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.4,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022domains\u0022:{\u0022financial\u0022:{\u0022enabled\u0022:false}},\u0022DOMAINS\u0022:{\u0022identity\u0022:{\u0022enabled\u0022:false}}}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": false,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022domains\u0022:{\u0022onChain\u0022:{\u0022enabled\u0022:false,\u0022ENABLED\u0022:true}}}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022domains\u0022:{\u0022onChain\u0022:{\u0022enabled\u0022:false},\u0022ONCHAIN\u0022:{\u0022layer\u0022:\u0022x\u0022}}}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "x"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022threshold\u0022:\u0022x\u0022,\u0022THRESHOLD\u0022:0.5}",
+    "error": "System.Text.Json.JsonException"
+  },
+  {
+    "json": "{\u0022threshold\u0022:0.5,\u0022THRESHOLD\u0022:\u0022x\u0022}",
+    "error": "System.Text.Json.JsonException"
+  },
+  {
+    "json": "{\u0022\u212AeyFile\u0022:\u0022kelvin\u0022}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022keyfile\u0022:\u0022a\u0022,\u0022KEYFILE\u0022:\u0022b\u0022,\u0022keyFile\u0022:null}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022domains\u0022:{\u0022\u017Fecrets\u0022:{\u0022enabled\u0022:false}}}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022domains\u0022:{\u0022\u0130dentity\u0022:{\u0022enabled\u0022:false},\u0022\u0131dentity\u0022:{\u0022enabled\u0022:false}}}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022Domains\u0022:null}",
+    "domains": null,
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022domains\u0022:null,\u0022domains\u0022:{\u0022secrets\u0022:{\u0022enabled\u0022:false}}}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": false,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022domains\u0022:{\u0022secrets\u0022:{\u0022enabled\u0022:false}},\u0022domains\u0022:null}",
+    "domains": null,
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022PRESET\u0022:null,\u0022Preset\u0022:\u0022p\u0022}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": "p"
+  },
+  {
+    "json": "{\u0022domains\u0022:{\u0022OnChain\u0022:null}}",
+    "domains": {
+      "onChain": null,
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022foo\u0022:1,\u0022Threshold\u0022:0.4,\u0022bar\u0022:{\u0022threshold\u0022:0.9}}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.4,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "null",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022THRESHOLD\u0022:0.6}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.6,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022domains\u0022:{\u0022FINANCIAL\u0022:{\u0022LAYER\u0022:null}}}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": null
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022domains\u0022:{\u0022Financial\u0022:{\u0022Layer\u0022:\u0022magnitudes\u0022,\u0022layer\u0022:\u0022markets\u0022,\u0022LAYER\u0022:\u0022directional\u0022}}}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "directional"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022on_chain\u0022:1,\u0022domains\u0022:{\u0022on_chain\u0022:{\u0022enabled\u0022:false},\u0022onChain \u0022:{\u0022enabled\u0022:false}}}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022threshold\u0022:1e-7,\u0022Threshold\u0022:-0}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": -0,
+    "keyFile": null,
+    "preset": null
+  },
+  {
+    "json": "{\u0022domains\u0022:{\u0022identity\u0022:{\u0022enabled\u0022:false},\u0022identity\u0022:{\u0022layer\u0022:\u0022z\u0022}}}",
+    "domains": {
+      "onChain": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "financial": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "identity": {
+        "enabled": true,
+        "layer": "z"
+      },
+      "credentials": {
+        "enabled": true,
+        "layer": "markets"
+      },
+      "secrets": {
+        "enabled": true,
+        "layer": "markets"
+      }
+    },
+    "threshold": 0.7,
+    "keyFile": null,
+    "preset": null
+  }
+]

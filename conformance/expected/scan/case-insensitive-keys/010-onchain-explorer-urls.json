@@ -1,0 +1,15 @@
+{
+  "input": "010-onchain-explorer-urls.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 615,
+  "inputSha256": "ef19d32a36f2adbee51a40eb6803c125fd44dd910a1f2268f85ab0e67cd02d08",
+  "inputUtf16Length": 615,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

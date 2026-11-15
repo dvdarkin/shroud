@@ -1,0 +1,15 @@
+{
+  "input": "125-unicode-arabic-indic-digits.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 394,
+  "inputSha256": "e3e6eb15383ef4243388bba83ecf2b1dfac6ab4a0ee7b8bafcce82ef6f36748a",
+  "inputUtf16Length": 327,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

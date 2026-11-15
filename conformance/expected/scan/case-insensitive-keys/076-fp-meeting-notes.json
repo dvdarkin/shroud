@@ -1,0 +1,15 @@
+{
+  "input": "076-fp-meeting-notes.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 419,
+  "inputSha256": "f2ddf6dff87dc932a3a8babf272cd59752e389ccb74fc2f1e4ab52cb81b6bba0",
+  "inputUtf16Length": 419,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

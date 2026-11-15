@@ -1,0 +1,15 @@
+{
+  "input": "005-onchain-ens-validators-pools.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 523,
+  "inputSha256": "51842dffa523a8a82ee9451a4ba2860552beb9b09e1298d011cfdd961d07459d",
+  "inputUtf16Length": 523,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -1,0 +1,15 @@
+{
+  "input": "047-financial-arithmetic.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 252,
+  "inputSha256": "c723ebf85871ebf5f071f64821e3cf5466289c3e05092c73901765a3fe7036e3",
+  "inputUtf16Length": 252,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

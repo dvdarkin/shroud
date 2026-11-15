@@ -1,0 +1,18 @@
+{
+  "input": "154-frontmatter-empty-then-rules.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 94,
+  "maskedSha256": "c7aadfe353f6e1ca9194b3b20b5a52386b762ba2c9dcd227cf7219e01b4ded6b",
+  "tokenCount": 1,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "ADDR:818ae287",
+      "start": 73,
+      "end": 115,
+      "originalValue": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

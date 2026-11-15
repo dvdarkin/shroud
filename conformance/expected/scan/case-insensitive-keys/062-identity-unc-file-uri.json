@@ -1,0 +1,15 @@
+{
+  "input": "062-identity-unc-file-uri.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 183,
+  "inputSha256": "c5df565c27f2960da631fdbddcac73cd01996b65fc93d6ca612902cf4b22c0ed",
+  "inputUtf16Length": 183,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -1,0 +1,15 @@
+{
+  "input": "155-frontmatter-unterminated-at-start.md",
+  "config": "no-onchain",
+  "inputBytes": 78,
+  "inputSha256": "a081493c8ea8153ca1ffa63410a966b1f19cef6644a38c9f4d9490ae73d2a294",
+  "inputUtf16Length": 78,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

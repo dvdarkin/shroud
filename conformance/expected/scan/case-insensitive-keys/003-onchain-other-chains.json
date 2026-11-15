@@ -1,0 +1,15 @@
+{
+  "input": "003-onchain-other-chains.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 1045,
+  "inputSha256": "a01017bdc416f1e2827eba25316c3257ad875c716933a0b481915a2a7c5964d5",
+  "inputUtf16Length": 1045,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -1,0 +1,15 @@
+{
+  "input": "131-frontmatter-crlf.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 152,
+  "inputSha256": "078bd62970281952fb8668f69c3acb8231f3956b39ad060687f195d1f328b34e",
+  "inputUtf16Length": 152,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

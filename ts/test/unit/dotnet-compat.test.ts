@@ -4,7 +4,7 @@
 import assert from 'node:assert/strict';
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { basename, join } from 'node:path';
 import { describe, test } from 'node:test';
 import { formatDouble, formatFixed } from '../../src/internal/dotnet-format.js';
 import { escapeJsonString } from '../../src/internal/dotnet-json.js';
@@ -13,6 +13,7 @@ import { UnsupportedRegexError, dotnetRegex } from '../../src/internal/dotnet-re
 import { containsOrdinalIgnoreCase } from '../../src/internal/ordinal.js';
 import { readAllText } from '../../src/internal/text-io.js';
 import { isValidLuhn } from '../../src/luhn.js';
+import { sourceDirectoryName } from '../../src/vault-builder.js';
 
 const all = (re: RegExp, s: string) => [...s.matchAll(new RegExp(re, 'g'))].map((m) => [m.index, m[0]]);
 
@@ -75,8 +76,27 @@ describe('DotnetCompatTests', () => {
       assert.deepEqual(all(dotnetRegex('a.*?b'), 'aXbYb'), [[0, 'aXb']]);
     });
 
+    test('\\p{L} and \\p{Nd} use .NET 8 Unicode data, also inside a class and under IgnoreCase', () => {
+      // Membership observed on .NET 8 (probe "classes": letter, pNd, metadataKeyGuardCi).
+      const letter = dotnetRegex(String.raw`^\p{L}$`);
+      for (const c of ['é', 'Ж', '中', 'ʰ', 'ª', 'ǅ', '々']) assert.ok(letter.test(c), c);
+      for (const c of ['٣', '_', '-', '́', '²', '‿', 'ः', 'Ⅰ', '〇', '😀']) assert.ok(!letter.test(c), c);
+      const digit = dotnetRegex(String.raw`^\p{Nd}$`);
+      assert.ok(digit.test('٣') && digit.test('３') && !digit.test('²') && !digit.test('a'));
+      assert.ok(dotnetRegex(String.raw`^\P{L}$`).test('٣'));
+      const guard = dotnetRegex(String.raw`^[\p{L}\p{Nd}_\-]$`, { ignoreCase: true, multiline: true });
+      for (const c of ['é', 'ʰ', '٣', '_', '-', 'K']) assert.ok(guard.test(c), c);
+      for (const c of ['́', '²', '‿', ' ', '(', '.']) assert.ok(!guard.test(c), c);
+    });
+
+    test('\\A anchors at the start of the input only, also in multiline mode', () => {
+      assert.deepEqual(all(dotnetRegex(String.raw`\A-`, { multiline: true }), '-\n-\r\n-'), [[0, '-']]);
+      assert.deepEqual(all(dotnetRegex(String.raw`\A-`), 'x-'), []);
+    });
+
     test('constructs outside the supported subset throw instead of translating approximately', () => {
-      for (const p of [String.raw`(?>a)`, String.raw`(?<n>a)`, String.raw`\p{L}`, String.raw`a(?i)b`, String.raw`[a-z-[aeiou]]`, String.raw`\1`]) {
+      // \p{L} and \p{Nd} are supported since the C# file-path exclusion uses them; other categories are not.
+      for (const p of [String.raw`(?>a)`, String.raw`(?<n>a)`, String.raw`\p{Lu}`, String.raw`[\p{Mn}]`, String.raw`a(?i)b`, String.raw`[a-z-[aeiou]]`, String.raw`\1`, String.raw`\A*`]) {
         assert.throws(() => dotnetRegex(p), UnsupportedRegexError, p);
       }
     });
@@ -150,6 +170,35 @@ describe('DotnetCompatTests', () => {
       assert.ok(isValidLuhn('4532-0151-1283-0366'));
       assert.ok(!isValidLuhn('4532015112830367'));
       assert.ok(!isValidLuhn('453201511283'));
+    });
+
+    test('manifest source: GetFullPath + TrimEndingDirectorySeparator + GetFileName', () => {
+      // Observed on .NET 8 (tools/dotnet-probe mode "paths"), relative to the current directory.
+      const cwdName = basename(process.cwd());
+      assert.equal(sourceDirectoryName('.'), cwdName);
+      assert.equal(sourceDirectoryName('notes'), 'notes');
+      assert.equal(sourceDirectoryName('notes/'), 'notes');
+      assert.equal(sourceDirectoryName('a/./b/../c'), 'c');
+      assert.equal(sourceDirectoryName('x//y'), 'y');
+      if (process.platform === 'win32') {
+        assert.equal(sourceDirectoryName('notes\\'), 'notes');
+        assert.equal(sourceDirectoryName('notes.'), 'notes'); // Win32: trailing dots and spaces trimmed
+        assert.equal(sourceDirectoryName('notes. '), 'notes');
+        assert.equal(sourceDirectoryName('notes...'), 'notes');
+        assert.equal(sourceDirectoryName('notes.\\'), 'notes'); // one trailing dot of a non-final segment
+        assert.equal(sourceDirectoryName('notes. \\'), 'notes. ');
+        assert.equal(sourceDirectoryName('a..\\b'), 'b');
+        assert.equal(sourceDirectoryName('C:\\'), 'C:\\');
+        assert.equal(sourceDirectoryName('C:/'), 'C:\\');
+        assert.equal(sourceDirectoryName('C:\\..\\..'), 'C:\\');
+        assert.equal(sourceDirectoryName('\\\\server\\share'), '\\\\server\\share');
+        assert.equal(sourceDirectoryName('\\\\server\\share\\'), '\\\\server\\share');
+        assert.equal(sourceDirectoryName('\\\\server\\share\\dir\\'), 'dir');
+        assert.equal(sourceDirectoryName('\\\\?\\C:\\x\\y.'), 'y.'); // device paths are not normalized
+        assert.equal(sourceDirectoryName('x\t'), 'x\t');
+      } else {
+        assert.equal(sourceDirectoryName('/'), '/');
+      }
     });
   });
 });

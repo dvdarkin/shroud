@@ -1,0 +1,15 @@
+{
+  "input": "128-unicode-combining-and-special-spaces.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 397,
+  "inputSha256": "c24a57847638b98d61e0df67e2cda7fea728111f0da856fd5c414f391b1d91aa",
+  "inputUtf16Length": 378,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -1,0 +1,15 @@
+{
+  "input": "077-fp-strategy-thinking.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 468,
+  "inputSha256": "29d5cc9b96905d88e8c98a1bf41959e2e7f82ac196b407cf8c2e78fe4fa0e232",
+  "inputUtf16Length": 468,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

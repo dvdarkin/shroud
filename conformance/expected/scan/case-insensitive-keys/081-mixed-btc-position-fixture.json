@@ -1,0 +1,15 @@
+{
+  "input": "081-mixed-btc-position-fixture.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 451,
+  "inputSha256": "ecf2434f7d9307be3668cd97f4bd5fddeb164ba42301fe82ab0c93b8f487d9bf",
+  "inputUtf16Length": 451,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

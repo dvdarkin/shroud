@@ -5,7 +5,11 @@
 //   - for four scanners (all patterns @0.70, and the paranoid/financial/dev presets):
 //     the deduplicated spans (start, end, type, domain, confidence bit pattern,
 //     service, matched text), above-threshold count, exclusion zones, every
-//     SpanDiagnostic with its full ScoringDetail, and every overlap resolution.
+//     SpanDiagnostic with its full ScoringDetail (HasContextWords included), and every
+//     overlap resolution.
+// The corpus mixes test strings, repository documents, Unicode edge cases, seeded fuzz
+// and targeted inputs for the exclusion rules (front matter at and away from offset 0,
+// metadata keys glued to words or at the end of a line) and digit-less financial text.
 //
 //   npm run build && node tools/differential.mjs [fuzzCount] [seed]
 //
@@ -71,6 +75,24 @@ for (const d of ['2026-04-20', '2019-12-31', '1999-01-01', '2026-04-20T17:30:34'
 for (const d of ['04/20/2026', '4-20-2026', '4.20.26', '20/04/2026', '20-04-2026']) testStrings.push(`Trade executed ${d} for USDC profit`);
 for (const d of ['20 Apr 2026', 'April 20, 2026', 'Apr 20 2026', 'Jan 2026']) testStrings.push(`Position opened ${d} in USDC`);
 for (const t of ['17:30:34', '14:25', '5:00', '5pm', '11:45 AM', '5:30pm']) testStrings.push(`Entry at ${t} for trading USDC position`);
+// ExclusionZoneLeakTests and FinancialDigitRequiredTests inputs.
+{
+  const A = '0x1111111111111111111111111111111111111111';
+  const B = '0x2222222222222222222222222222222222222222';
+  const pat = 'ghp_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+  for (const nl of ['\n', '\r\n']) {
+    testStrings.push(`---${nl}title: Notes${nl}wallet: ${A}${nl}---${nl}${nl}Body wallet: ${B}${nl}`);
+    testStrings.push(`# Title${nl}${nl}Intro text.${nl}${nl}---${nl}${nl}Wallet: ${A}${nl}${nl}---${nl}${nl}Footer.${nl}`);
+  }
+  testStrings.push(`\n---\nwallet: ${A}\n---\n`, `---\ntitle: x\n---\n\nText\n\n---\n\nwallet: ${B}\n\n---\n`,
+    `---\ntitle: x\n---\nwallet: ${B}\n---\n`, `---\n---\nwallet: ${B}\n\n---\n`);
+  for (const line of ['Your profile: ' + A, 'profile: ' + A, 'classpath: ' + pat, 'my-file: ' + A, 'my_file: ' + A, 'Docfile: ' + A,
+    'file2path: ' + A, 'file: C:\\wallets\\' + A, 'FILE: wallet-' + A + '.txt', 'source_file: notes/' + A + '.md', 'path: /home/x/' + A,
+    'Attachment: ' + A, '- file: ' + A]) testStrings.push('## Notes\n\n' + line + '\n');
+  for (const t of ['file:\n' + A + '\n', 'path:   \n' + A + '\n', 'attachment:\r\n' + A + '\r\n']) testStrings.push('## Notes\n\n' + t);
+  testStrings.push('fee 1,250 = 5 usd and paid $1,200 and EUR 300', 'bought 1,234 units.\n\nfee 1,234 = 5 usd\n',
+    'card 4111 1111 1111 1111\n', 'balance 1234.56\n');
+}
 testStrings.forEach(add);
 
 // Real markdown documents from the repository.
@@ -144,6 +166,26 @@ const words = [...lib.TRADING_CONTEXT, ...lib.PRICE_CONTEXT, ...lib.AMOUNT_CONTE
   'Jan', 'FEB', 'mar', 'April', 'May', 'jun', 'JUL', 'Aug', 'sep', 'Oct', 'nov', 'Dec', 'AM', 'pm', 'GB', 'MB', 'tb', 'k', 'M', 'B', 'm',
   'password', 'passwd', 'pwd', 'secret', 'apikey', 'api_key', 'login', 'username', 'user', 'Server=', 'Data Source=', 'Password=', 'Pwd=',
   'mongodb://', 'postgres://', 'mysql://', 'redis://', 'mongodb+srv://', 'file:', 'path:', 'source_file:', 'attachment:', 'File:'];
+// Characters before a metadata key: letters (ASCII, accented, Cyrillic, CJK, modifier), Unicode
+// decimal digits, `_` and `-` make it part of a longer word; the rest do not.
+const metadataGlue = ['', ' ', '- ', '(', '[', '"', '/', '.', ':', 'pro', 'class', 'my-', 'my_', 'Doc', 'file2', 'é', 'Ж', '中', 'ʰ', '々',
+  '١', '３', '৩', '9', '_', '-', '́', 'ः', '²', '‿', 'Ⅰ', '〇', '‌', '‍', ' ', '\t', '😀', '\uD800', 'K', 'ſ', 'İ'];
+const metadataKeys = ['file:', 'FILE:', 'File:', 'path:', 'PATH:', 'source_file:', 'Source_File:', 'attachment:', 'Attachment:', 'fıle:', 'ſource_file:', 'patħ:'];
+// Separator-only text in the financial shapes built from [\d,]+.
+const digitlessShapes = ['fee x, = 5 usd', 'usd fee: total = , then', 'usd fee x, * 2', 'usd fee 2 * , x', 'usd fee x,,,, - 3',
+  'Paid $, then left', 'Balance x, USD', 'Paid EUR , ok', 'Paid x, EUR ok', 'filled at $,x price', 'filled at ,x price',
+  'Paid $,,, USD', 'at , ETH', ', USDC', 'fee , + , = ,', 'Paid ¥, ok', 'Paid £,, ok', 'sold ,k ETH', 'bought ,,, units', 'at ١, price', 'Paid $١ ok'];
+const secretValue = () => pick(['0x1111111111111111111111111111111111111111', 'ghp_' + 'A'.repeat(36), '123-45-6789', '$1,234', '4111 1111 1111 1111', 'AKIA' + 'A'.repeat(16)]);
+const secretLine = () => pick(['wallet: ', 'Wallet ', 'key ', 'paid ', 'card ', '']) + secretValue();
+// A "---" block at the start of the generated text: closed or not, empty or not, with
+// trailing spaces/tabs, LF or CRLF, sometimes with secrets inside.
+const frontMatterCandidate = (nl = pick(['\n', '\r\n'])) => {
+  const open = pick(['---', '---', '--- ', '---\t', '----', ' ---', '---x']) + nl;
+  const lines = [];
+  for (let k = Math.floor(rnd() * 4); k > 0; k--) lines.push(pick(['title: x', 'a: 1,234', secretLine(), 'file: ' + secretValue(), '', '  ']));
+  const close = pick(['---', '---', '--- ', '---\t', '---  \t', '', '...', '--']);
+  return open + lines.map((l) => l + nl).join('') + close + pick([nl, '', nl + nl]);
+};
 const fragments = [
   () => '0x' + run(HEX, 3, 70),
   () => '0x' + run(HEX, 3, 10) + pick(['...', '..', '…', '.']) + run(HEX, 3, 12),
@@ -194,16 +236,40 @@ const fragments = [
   () => pick(['20', '19']) + run(DIG, 2, 2) + '-W' + run(DIG, 2, 2) + pick(['', '-3']),
   () => '| ' + run(DIG, 1, 4) + pick(['', '.5', ',000']) + ' |',
   () => '---\n' + pick(['title: x', 'a: 1,234']) + '\n---' + pick(['', '\n', '  \n']),
+  () => pick(['---', '--- ', '---\t', '----', ' ---']) + pick(['\n', '\r\n', '\r', '']),
   () => pick(['file', 'path', 'Source_File', 'ATTACHMENT']) + ':' + pick([' ', '', '\t']) + run(LOWERNUM + ' /.', 1, 30),
+  () => pick(metadataGlue) + pick(metadataKeys) + pick(['', ' ', '\t', '   ', ' \t']) + pick(['\n', '\r\n', '', '\r', ' x', '\u0085y']),
+  () => pick(digitlessShapes),
   () => pick(words),
   () => pick(tricky),
   () => pick([' ', ' ', ' ', '\n', '  ', ', ', '. ', ' | ', ' (', ') ', '\n\n', ' - ', ' # ', '#', '-', '/', ':', '=', '+']),
 ];
 for (let i = 0; i < fuzzCount; i++) {
   const n = 5 + Math.floor(rnd() * 60);
-  let s = '';
+  // One input in eight starts with a front matter candidate, so the offset-0 rule is fuzzed too.
+  let s = i % 8 === 0 ? frontMatterCandidate() : '';
   for (let j = 0; j < n; j++) s += pick(fragments)();
   add(s);
+}
+
+// Targeted inputs for the exclusion and digit rules (front matter at and away from offset 0,
+// metadata keys glued to words or at the end of a line, digit-less financial shapes).
+for (let i = 0; i < 300; i++) {
+  const nl = pick(['\n', '\r\n']);
+  const lead = i % 3 === 0 ? pick(['', '', '\n', '\r\n', ' ', '﻿', 'x\n', '# T' + nl + nl]) : '';
+  const body = [secretLine(), pick(digitlessShapes), pick(metadataGlue) + pick(metadataKeys) + ' ' + secretValue()];
+  add(lead + frontMatterCandidate(nl) + body.join(nl) + nl + pick(['', '---' + nl, nl + '---' + nl + secretLine() + nl + '---' + nl]));
+}
+for (const glue of metadataGlue) {
+  for (const key of metadataKeys) {
+    add(`## Notes\n\n${glue}${key} ${secretValue()}\n`);
+    add(`${glue}${key}${pick(['', ' ', '\t', '  '])}${pick(['\n', '\r\n'])}${secretValue()}\n`);
+  }
+}
+for (const shape of digitlessShapes) {
+  add(shape);
+  add(shape.replace(',', '1,2'));
+  add(`${shape} ${pick(['usd', 'fee', 'EUR', 'bought', 'price', 'ETH'])} ${shape}`);
 }
 
 // ---------------------------------------------------------------------------
@@ -211,11 +277,9 @@ for (let i = 0; i < fuzzCount; i++) {
 // ---------------------------------------------------------------------------
 const BATCH = 2500;
 const probeDll = join(here, 'dotnet-probe', 'bin', 'Release', 'net8.0', 'Probe.dll');
-try {
-  readdirSync(join(here, 'dotnet-probe', 'bin', 'Release', 'net8.0'));
-} catch {
-  execFileSync('dotnet', ['build', '-c', 'Release', join(here, 'dotnet-probe')], { stdio: 'inherit' });
-}
+// Always (re)build: the probe references ../../src/Shroud, so a stale build would compare the
+// port against an old C# library. The build is incremental.
+execFileSync('dotnet', ['build', '-c', 'Release', '-nologo', '-v', 'q', join(here, 'dotnet-probe')], { stdio: 'inherit' });
 function runDotnet(batch, n) {
   const chunks = [];
   for (const s of batch) {
@@ -265,7 +329,7 @@ function tsResult(text) {
     o[name + '_zones'] = diagnostics.exclusionZones.flatMap((z) => [z.start, z.end]);
     o[name + '_diag'] = diagnostics.allSpans.map((d) => [
       span(d.span), d.wasExcluded, d.failedLuhn,
-      bits(d.scoring.baseConfidence), bits(d.scoring.finalConfidence), d.scoring.isStructural,
+      bits(d.scoring.baseConfidence), bits(d.scoring.finalConfidence), d.scoring.isStructural, d.scoring.hasContextWords,
       d.scoring.contextWordsFound.join('|'), d.scoring.contextWindowStart, d.scoring.contextWindowEnd,
       d.scoring.assetBoostApplied, d.scoring.currencyBoostApplied, d.scoring.patternService,
     ]);

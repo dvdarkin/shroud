@@ -101,3 +101,79 @@ function write(value: JsonValue, indent: string, newline: string): string {
 export function serializeIndented(value: JsonValue, newline?: string): string {
   return write(value, '', newline ?? EOL);
 }
+
+// ---------------------------------------------------------------------------
+// Reading with every property kept
+// ---------------------------------------------------------------------------
+
+/**
+ * A parsed JSON value in which objects keep every property in document order,
+ * duplicates included (JSON.parse keeps only the last value of a duplicate name, at
+ * the position of the first). System.Text.Json reads a POCO property by property in
+ * document order, so this is the shape needed to reproduce its precedence rules.
+ */
+export type JsonNode = null | boolean | number | string | JsonNode[] | JsonObject;
+
+export class JsonObject {
+  constructor(readonly properties: readonly (readonly [string, JsonNode])[]) {}
+}
+
+/**
+ * Parses JSON text into JsonNodes. Validity, error messages and number/string decoding
+ * are exactly JSON.parse's: the text is first validated by JSON.parse, and every scalar
+ * token is decoded by JSON.parse too.
+ */
+export function parseJsonPreservingProperties(json: string): JsonNode {
+  JSON.parse(json); // validates; throws the same SyntaxError as before
+  let pos = 0;
+  const ws = () => {
+    while (pos < json.length && (json[pos] === ' ' || json[pos] === '\t' || json[pos] === '\n' || json[pos] === '\r')) pos++;
+  };
+  const stringToken = (): string => {
+    const start = pos++;
+    while (json[pos] !== '"') pos += json[pos] === '\\' ? 2 : 1;
+    pos++;
+    return JSON.parse(json.slice(start, pos)) as string;
+  };
+  const value = (): JsonNode => {
+    ws();
+    const c = json[pos];
+    if (c === '{') {
+      pos++;
+      const props: [string, JsonNode][] = [];
+      ws();
+      if (json[pos] === '}') {
+        pos++;
+        return new JsonObject(props);
+      }
+      for (;;) {
+        ws();
+        const key = stringToken();
+        ws();
+        pos++; // :
+        props.push([key, value()]);
+        ws();
+        if (json[pos++] === '}') return new JsonObject(props);
+      }
+    }
+    if (c === '[') {
+      pos++;
+      const items: JsonNode[] = [];
+      ws();
+      if (json[pos] === ']') {
+        pos++;
+        return items;
+      }
+      for (;;) {
+        items.push(value());
+        ws();
+        if (json[pos++] === ']') return items;
+      }
+    }
+    if (c === '"') return stringToken();
+    const start = pos;
+    while (pos < json.length && !/[\s,\]}]/.test(json[pos]!)) pos++;
+    return JSON.parse(json.slice(start, pos)) as JsonNode;
+  };
+  return value();
+}

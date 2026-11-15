@@ -1,0 +1,30 @@
+{
+  "input": "151-frontmatter-at-start-then-rules-crlf.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 329,
+  "inputSha256": "260c1addc09bb65d96faec3cf35616a29538a5a8b70736aecd987ae791ed9b41",
+  "inputUtf16Length": 329,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 269,
+      "end": 309,
+      "length": 40,
+      "matchedText": "ghp_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "entityType": "AccessToken",
+      "domain": "Credentials",
+      "service": "github_pat",
+      "typeAbbreviation": "TOKEN",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

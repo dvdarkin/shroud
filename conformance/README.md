@@ -10,17 +10,17 @@ Nothing here depends on, or is checked against, any other implementation. `src/S
 
 ```
 conformance/
-  inputs/            92 markdown inputs (exact bytes matter: CRLF, BOM, empty file, non-ASCII)
+  inputs/            101 markdown inputs (exact bytes matter: CRLF, BOM, empty file, non-ASCII)
   configs/           13 shroud.json variants
   expected/
     index.json                       input list with byte length, UTF-16 length, SHA-256; config list; mask key
     patterns.json                    the full pattern library in evaluation order (regex source, confidences, context words)
     config/<config>.json             effective config + which patterns it enables (indexes into patterns.json)
-    scan/<config>/<input>.json       scan result per (config, input)          13 x 92 = 1196 files
-    mask/<input>.md                  masked text, default config, fixed key  92 files
-    mask/<input>.tokens.json         token list for the same run             92 files
+    scan/<config>/<input>.json       scan result per (config, input)          13 x 101 = 1313 files
+    mask/<input>.md                  masked text, default config, fixed key  101 files
+    mask/<input>.tokens.json         token list for the same run             101 files
     tokens/derivation-vectors.json   HMAC token derivation vectors, abbreviation table
-  vaults/            5 vaults written by the C# VaultBuilder (see vaults/README.md)
+  vaults/            6 vaults written by the C# VaultBuilder (see vaults/README.md)
   Generator/         the C# console project that produces everything under expected/ and vaults/
   .gitattributes     `* -text`: never normalise line endings in this tree
 ```
@@ -39,7 +39,8 @@ dotnet run --project conformance/Generator -- --culture tr-TR --out DIR   # expe
 The generator references `src/Shroud/Shroud.csproj` directly (project reference) and lives outside `src/`, so
 `dotnet build src` / `dotnet test src` never see it. It pins `CultureInfo.InvariantCulture` before any `Regex` is
 built (see "Culture dependence" below). Without `--vaults` the existing vault fixtures are only verified (wrong
-passphrase rejected, right passphrase decrypts, reveal equals source, recorded file hashes match). Scan, mask,
+passphrase rejected, right passphrase decrypts, reveal equals source, recorded file hashes match, `manifest.json`
+`source` is `input`, every manifest `service` is a pattern of the token's own type). Scan, mask,
 config, pattern and token outputs are byte-identical across runs; vault bytes are not (random salt, nonce and
 masking key), which is why vault regeneration is opt-in.
 
@@ -64,16 +65,20 @@ Each file is small and focused; names are `NNN-topic.md`.
 | 100-101 | Overlapping candidate spans |
 | 110-115 | Context window: a context word exactly at the 120-character edge, one character outside, before and after the match, case and multiple words |
 | 120-129 | Non-ASCII: accented Latin, Cyrillic, CJK, emoji (surrogate pairs), fullwidth digits, Arabic-Indic digits, case-folding oddities, letters adjacent to word-bounded patterns, combining marks and special spaces, uppercase ASCII `I` (Turkish culture trap) |
-| 130-133 | YAML front matter (LF, CRLF, edge cases), `file:`/`path:`/`attachment:` metadata lines |
+| 130-133 | YAML front matter (LF, CRLF, edge cases), `file:`/`path:`/`attachment:` metadata lines. The prose inside 132 and 133 predates the front matter and metadata-key fixes (for example "excluded because profile: contains file:"); the bytes are kept stable and the goldens show the current behaviour |
 | 134-139 | LF, CRLF, mixed and lone-CR line endings, no trailing newline, UTF-8 BOM, tabs and blank lines |
 | 140-145 | Empty file (0 bytes), whitespace only, no-match line, 30k-character line, long digit/hex runs, 40 dense matches |
+| 150-155 | Front matter only at offset 0: real front matter followed by a horizontal-rule pair with secrets between (LF 150, CRLF 151), rules with a secret and trailing spaces/tab and no front matter (152), a `---` block preceded by a blank line (153), empty front matter followed by more text and a lone rule (154), unterminated front matter at offset 0 (155) |
+| 156 | Whole-word metadata keys: `profile:`, `classpath:`, `my-file:`, `my_path:`, `Docfile:`, `file2path:` and a `file:` URI glued to a word are scanned; genuine `file:`, `FILE:`, `source_file:`, `path:`, `Attachment:`, `- file:`, `(path:` lines stay excluded |
+| 157 | Separator-only text (`,`, `,,,,`, `$,`, `EUR ,`, `at ,`) in every financial shape that used to match it, plus the same shapes with real numbers |
+| 158 | A metadata key at the end of its line (`file:`, `path:   `) does not hide the following line; a key with a value on the same line stays excluded |
 
 Strings from the existing C# fixtures (`FalsePositiveFixtures`, `ScannerFixtures`, unit tests) are reused; fixture
 files are marked `-fixture` where they are verbatim copies. All values are obviously fake (`0x1111...`, `AAAA...`,
 `example.com`, documentation-style card numbers, `123-45-6789`).
 
 Coverage: every one of the 22 entity types that have patterns and every one of the 5 domains is detected at least
-once; 103 of the 104 patterns are exercised (see `file_uri_network_path` under "Quirks": it can never fire).
+once; all 104 patterns are exercised (`file_uri_network_path` only in 156, see "Quirks").
 
 ## Configs
 
@@ -84,7 +89,8 @@ once; 103 of the 104 patterns are exercised (see `file_uri_network_path` under "
 | `threshold-090.json`, `threshold-030.json` | paranoid domains, threshold 0.90 and 0.30 |
 | `layer-magnitudes.json` | financial layer `magnitudes` |
 | `no-onchain.json`, `no-identity.json`, `no-credentials-secrets.json` | a domain switched off |
-| `quirk-empty-object.json`, `quirk-preset-name-only.json`, `quirk-lowercase-keys.json` | how the C# loader treats incomplete or oddly-cased files (see "Quirks") |
+| `quirk-empty-object.json`, `quirk-preset-name-only.json` | how the C# loader treats incomplete files (see "Quirks") |
+| `case-insensitive-keys.json` | property names in mixed case at both levels (`Domains`, `onchain`, `FINANCIAL`/`Enabled`, `identity`/`ENABLED`, `THRESHOLD`): all honoured, so on-chain, financial and identity are off and the threshold is 0.90 (replaces the former `quirk-lowercase-keys.json`, where `onchain` was ignored) |
 
 The mask goldens and vault fixtures use `default` (vaults also use `dev` and `financial`).
 
@@ -173,11 +179,23 @@ This is a description of what the C# source does, not a design opinion.
 
 ### Pipeline (`SensitivityScanner.Scan`)
 
-1. Exclusion zones on the full text: front matter regex `^---\s*\n[\s\S]*?\n---\s*$` (multiline), file-path regex
-   `(?:source_file|file|path|attachment):\s*.+$` (multiline, ignore-case), plus nine date/time regexes (private in
-   C#; ISO date with optional time, year-month, clock time, MM/DD/YYYY, DD/MM/YYYY, month-name dates, ISO week,
-   12-hour clock, bare year 19xx/20xx). Copy them from `SensitivityScanner.cs`; the effects are visible in inputs 052/053/130-133.
-2. For each pattern in order, for each regex match: drop it when it lies FULLY inside one zone.
+1. Exclusion zones on the full text:
+   - front matter `\A---[ \t]*\r?\n(?:[^\n]*\n)*?---[ \t]*\r?$` (multiline): only when the text starts with a `---`
+     line at offset 0 (after BOM stripping), up to and including the next `---` line (LF or CRLF; trailing spaces/tabs
+     allowed; an empty block `---\n---` ends at its own closing line). At most one zone; later `---` pairs are
+     horizontal rules. Unterminated front matter produces no zone. Inputs 130-132, 150-155.
+   - file-path metadata `(?<![\p{L}\p{Nd}_\-])(?:source_file|file|path|attachment):[ \t]*.+$` (multiline, ignore-case):
+     the key must not be preceded by a Unicode letter, decimal digit, `_` or `-` (start of line, space, `(`, `- ` are
+     fine). The value must be on the same line as the key: a key with nothing after it excludes nothing, so the
+     next line is scanned. Inputs 133, 156, 158.
+   - nine date/time regexes (private in C#; ISO date with optional time, year-month, clock time, MM/DD/YYYY,
+     DD/MM/YYYY, month-name dates, ISO week, 12-hour clock, bare year 19xx/20xx). Copy them from
+     `SensitivityScanner.cs`; the effects are visible in inputs 052/053.
+2. For each pattern in order, for each regex match: drop it when it lies FULLY inside one zone. Then drop it when the
+   pattern is Financial with entity type Amount, Quantity or Price and the matched text contains no decimal digit
+   (`char.IsDigit`, i.e. Unicode Nd, the same class as .NET `\d`). This post-filter (inputs 041, 157) removes
+   separator-only matches such as `,` from `[\d,]+` patterns; the regexes in `patterns.json` are unchanged. A dropped
+   match is not scored and takes no part in overlap resolution.
 3. Score: if the pattern has no context words the confidence is the base. Otherwise take the window
    `[max(0, start-120), min(len, end+120))`; every context word found in the window (ordinal ignore-case
    SUBSTRING) is collected; found > 0 adds `contextBoost`; found > 1 adds `0.05 * min(found-1, 3)`; for
@@ -220,6 +238,14 @@ concatenated, no header, no version byte.
   Windows): `{"version": 1, "created": "<ISO-8601 UTC, 7 fractional digits>", "tokens": {"ADDR:abcd1234": "<original value>", ...}, "fileHashes": {"<relative path>": "sha256:<hex>", ...}}`.
   `fileHashes` hashes the UTF-8 bytes of the MASKED file content. The CLI never verifies them.
 - `manifest.json` (public): `{created, source, fileCount, tokenCount, tokens: {tokenId: {service (pattern id), domain (lowercase enum name), files[], occurrences}}, summary: {domain: occurrences}}`.
+  `source` is only the final directory name of the source: the path passed to `Build` is resolved to a full path
+  (so `.` and relative paths work), a trailing separator is trimmed, and the last segment is kept (a filesystem root
+  has no name and is kept as is). `service` is the pattern id of the first above-threshold span, in the file where the
+  token first appears, whose matched text AND entity type equal the token's (vault `v6` shows the same text as an
+  Amount and as a Quantity, each with its own service).
+- Token id collisions: when a token id already registered maps to a DIFFERENT original value, `Build` throws
+  `TokenCollisionException` (property `TokenId`; the message names the token id only, never a value) before anything
+  is written; the same value seen again is just another occurrence.
 - `public/<relative path>`: masked copies, same relative layout, UTF-8 without BOM, newlines preserved; files with
   no above-threshold span are re-written as read (so a BOM is dropped).
 - Reveal (CLI): for each `public/**/*.md`, `ReadAllText`, then for each `(tokenId, value)` of `tokens` in file
@@ -245,33 +271,42 @@ concatenated, no header, no version byte.
 - **Floating point.** Confidence arithmetic accumulates in a fixed order (see schema).
 - **Lookbehind** with variable length is used (`arithmetic_result`, `arithmetic_equals_right`, `table_cell_number`).
 - **Culture dependence.** Under a Turkish culture the `(?i)` patterns stop matching uppercase ASCII `I`
-  (`VALIDATOR`, `LOGIN`, `API_KEY`, `POSITION`, `FILE:`); only input 129 differs between the invariant run and a
-  `tr-TR` run (`--culture tr-TR`), so the goldens are the invariant-culture behaviour. `VaultBuilder` also orders
+  (`VALIDATOR`, `LOGIN`, `API_KEY`, `POSITION`, `FILE:`); only inputs 129 and 156 (its `FILE:` line) differ between
+  the invariant run and a `tr-TR` run (`--culture tr-TR`), so the goldens are the invariant-culture behaviour. `VaultBuilder` also orders
   files with a culture-sensitive `OrderBy`, which changes only the order of JSON keys and of the file list, not content.
 - **Path separators.** `VaultBuilder` stores `Path.GetRelativePath` results unchanged, so `manifest.json` `files` and
   `fileHashes` keys use `\` when written on Windows and `/` elsewhere. The committed vaults were written on Windows.
-- **Timestamps and absolute paths.** `created` is `DateTime.UtcNow`; `manifest.json` `source` is whatever path string
-  was passed to `Build` (the CLI passes the user's argument, i.e. possibly an absolute path). The generator passes
-  the relative path `input`.
+- **Timestamps and paths.** `created` is `DateTime.UtcNow`. `manifest.json` `source` is the source directory name
+  only; the generator passes the ABSOLUTE path of each vault's `input/` and checks that `source` is `input`.
+- **Unicode lookbehind.** The file-path key lookbehind uses `\p{L}` and `\p{Nd}`; JavaScript needs the `u` flag for
+  those, and `\d`/`\w` must not be used in their place.
 
 ## Quirks recorded (not fixed; see report)
 
 1. `PatternLibrary.IsWithinFinancialLayer`: credit-card patterns fall into the default arm and require layer
    `directional`; the `financial` preset (`markets`) and `magnitudes` never detect cards (compare `scan/default` and
    `scan/financial` for 050/051).
-2. `file_uri_network_path` can never fire: a `file:///...` URI always starts with `file:` and so lies fully inside
-   the file-path exclusion zone.
-3. The file-path exclusion regex is an unanchored, case-insensitive substring: `profile:`, `Docfile:` etc. exclude
-   the rest of the line (133).
-4. The front matter regex is not anchored to the start of the file: any pair of lines consisting of `---` hides
-   everything between them, including markdown horizontal rules (132).
-5. `ShroudConfig.Load` is case-sensitive on property names and silently ignores unknown ones (`"onchain"` is
-   dropped, the domain stays enabled); `preset` is informational only (`{"preset": "dev"}` loads as threshold 0.70,
-   all domains on); `{}` is not equivalent to `Default()` (threshold 0.70, financial `markets`). CLI `init` defaults
-   to the `financial` preset while no config means `paranoid`.
-6. `VaultBuilder` keys tokens by id (4 bytes of HMAC): on a collision between two different values the second is
-   counted as an occurrence of the first and its original value is lost; reveal would then restore the wrong text.
-7. `GetServiceId` picks the first above-threshold span with the same matched text regardless of type.
-8. `LuhnValidator` uses `char.IsDigit` and `c - '0'`, which is wrong for non-ASCII digits (latent: the card regexes only admit `[0-9]`).
-9. CLI `mask a.md b.md -o out.md` writes every result to the same output file.
-10. `bip39` (0.10) can only be reported below the default thresholds; `EntityType.PhoneNumber` and `EntityType.AssetName` have no pattern.
+2. `file_uri_network_path` fires only when `file:` is glued to a preceding letter, digit, `_` or `-` (156,
+   `see-file:///...`); an ordinary `file:///...` URI starts with a whole-word `file:` key and lies fully inside the
+   file-path exclusion zone (062).
+3. `ShroudConfig.Load` silently ignores unknown property names; `preset` is informational only (`{"preset": "dev"}`
+   loads as threshold 0.70, all domains on); `{}` is not equivalent to `Default()` (threshold 0.70, financial
+   `markets`). CLI `init` defaults to the `financial` preset while no config means `paranoid`.
+4. `LuhnValidator` uses `char.IsDigit` and `c - '0'`, which is wrong for non-ASCII digits (latent: the card regexes only admit `[0-9]`).
+5. `bip39` (0.10) can only be reported below the default thresholds; `EntityType.PhoneNumber` and `EntityType.AssetName` have no pattern.
+6. `arithmetic_sum_operand` (`[\d,]{4,}\.?\d*(?=\s*[+\-])`) has no leading boundary, so the digit run inside a hex value
+   such as `0x1111...1111` followed by a newline and `---` matches when on-chain detection is off (`scan/no-onchain/132`).
+
+## Fixed (formerly listed as quirks or likely bugs)
+
+- Front matter was recognised between ANY two `---` lines, so horizontal rules hid secrets: now only at offset 0.
+- The file-path key matched inside longer words (`profile:`, `Docfile:`, `classpath:`): now whole words only.
+- `ShroudConfig.Load` was case-sensitive on property names (`"onchain"` was ignored): now case-insensitive at every level.
+- Separator-only text (a lone `,`, `$,`) could be an Amount, Quantity or Price: now a financial number needs a digit.
+- `VaultBuilder` silently merged two different values that collided on a token id: now `TokenCollisionException`.
+- `GetServiceId` ignored the entity type: now text and type must both match.
+- `manifest.json` `source` stored the path as given (possibly absolute): now the directory name only.
+- CLI: `mask a.md b.md -o out.md` overwrote one output with every input: now refused with exit 1 before writing.
+  `init --preset <unknown>` saved the paranoid preset: now exit 1, the error lists the valid presets, nothing written.
+  `scan --verbose` printed structural patterns with context words as "structural match (base: X)" and could show a
+  losing same-type pattern's scoring: now the real breakdown and the winner's own scoring.

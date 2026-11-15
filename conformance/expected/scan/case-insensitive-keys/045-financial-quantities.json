@@ -1,0 +1,15 @@
+{
+  "input": "045-financial-quantities.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 502,
+  "inputSha256": "387d6de65ab71c88e4b959fd61bf0c26c0460f37f2495d10daa2cb99e2a7ca51",
+  "inputUtf16Length": 502,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

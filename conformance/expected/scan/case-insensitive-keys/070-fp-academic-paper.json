@@ -1,0 +1,15 @@
+{
+  "input": "070-fp-academic-paper.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 444,
+  "inputSha256": "7394eb2987bc4d46b72896f500c9a5fe1b23ee63f0733db69f70b17209b7f22a",
+  "inputUtf16Length": 444,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

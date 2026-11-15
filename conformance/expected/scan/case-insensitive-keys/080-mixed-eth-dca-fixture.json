@@ -1,0 +1,15 @@
+{
+  "input": "080-mixed-eth-dca-fixture.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 414,
+  "inputSha256": "98c932b6ec9700c3fd59b95c001e08a9e53772bb7bf9a582bfcb3bd6e5e64a67",
+  "inputUtf16Length": 414,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

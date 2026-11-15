@@ -1,0 +1,15 @@
+{
+  "input": "139-tabs-and-blank-lines.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 66,
+  "inputSha256": "3b73027d02d69b1ad1b460fbb0cf2fc961f21f9de80db07c9d312a398ca6558b",
+  "inputUtf16Length": 66,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -1,0 +1,44 @@
+{
+  "input": "123-unicode-emoji-surrogates.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 275,
+  "inputSha256": "9bb886367292476fde4527ab2109788327798b9016dfcb1da978e7fe81813ae4",
+  "inputUtf16Length": 231,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 1,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 67,
+      "end": 87,
+      "length": 20,
+      "matchedText": "AKIAAAAAAAAAAAAAAAAA",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "aws_access_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 207,
+      "end": 230,
+      "length": 23,
+      "matchedText": "password = \"p😀ssword1\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets",
+      "service": "password_assignment",
+      "typeAbbreviation": "PASSWD",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": false
+    }
+  ]
+}

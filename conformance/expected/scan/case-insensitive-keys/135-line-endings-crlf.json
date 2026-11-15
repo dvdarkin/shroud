@@ -1,0 +1,30 @@
+{
+  "input": "135-line-endings-crlf.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 229,
+  "inputSha256": "7c01cc7604d34b45ea974cf609adc8edd237b1b33b4c8bdb6b06643bae4238a9",
+  "inputUtf16Length": 229,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 0,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 130,
+      "end": 158,
+      "length": 28,
+      "matchedText": "password = \"crlf_password_1\"",
+      "entityType": "PasswordInContext",
+      "domain": "Secrets",
+      "service": "password_assignment",
+      "typeAbbreviation": "PASSWD",
+      "confidence": 0.85,
+      "confidenceString": "0.85",
+      "aboveThreshold": false
+    }
+  ]
+}

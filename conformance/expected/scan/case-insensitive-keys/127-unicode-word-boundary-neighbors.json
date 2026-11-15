@@ -1,0 +1,15 @@
+{
+  "input": "127-unicode-word-boundary-neighbors.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 340,
+  "inputSha256": "33fca8e6f265fa57924a79177c1884198538726dc7d20bd2c49d6ca6de33f399",
+  "inputUtf16Length": 331,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -1,0 +1,15 @@
+{
+  "input": "055-financial-wei-precision-no-context.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 209,
+  "inputSha256": "7199d44054c85483fdf367f42a0c56b8b30774e3681d489688f4bbb3612798e1",
+  "inputUtf16Length": 209,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

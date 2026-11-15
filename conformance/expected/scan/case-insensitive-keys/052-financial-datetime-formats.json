@@ -1,0 +1,15 @@
+{
+  "input": "052-financial-datetime-formats.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 1112,
+  "inputSha256": "fa19ac2d812d3d73be0b0056a33bad56242c0f1d3be86486d4846d2c0e7c5ff8",
+  "inputUtf16Length": 1112,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

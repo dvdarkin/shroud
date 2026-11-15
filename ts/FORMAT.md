@@ -153,10 +153,10 @@ as "Corrupt vault file."; malformed JSON or a wrong-typed property aborts the pr
 | Property | Meaning |
 |----------|---------|
 | `created` | Same value as the vault payload. |
-| `source` | The source directory exactly as given on the command line. |
+| `source` | Only the final directory name of the source: the path given to `build` is resolved to a full path (so `.` and relative paths work; on Windows with the Win32 rules, for example a trailing `.` or space on the last segment is dropped), a trailing separator is trimmed, and the last segment is kept. A filesystem root has no name and is kept as is (`C:`, `/`, `\servershare`). The manifest never records the absolute location. |
 | `fileCount` | Number of `.md` files written to `public/` (clean files included). |
 | `tokenCount` | Number of distinct token ids. |
-| `tokens.<id>.service` | Pattern identifier (for example `evm_address`) of the first above-threshold span **in the same file** whose matched text equals the token's value (observed; may name a pattern of a different entity type that matched the same text). |
+| `tokens.<id>.service` | Pattern identifier (for example `evm_address`) of the first above-threshold span **in the file where the token first appears** whose matched text AND entity type equal the token's, so it always names a pattern of the token's own type (`1,234` as a Quantity and as an Amount gets `comma_number` and `arithmetic_equals_left`). |
 | `tokens.<id>.domain` | Lower-cased domain: `onchain`, `financial`, `identity`, `credentials`, `secrets`. |
 | `tokens.<id>.files` | Distinct relative paths (platform separator) in first-seen order. |
 | `tokens.<id>.occurrences` | Total number of replaced spans. |
@@ -193,9 +193,18 @@ The HMAC key depends on the command:
 The matched text is UTF-8 encoded without normalization (a lone surrogate becomes
 `EF BF BD`). The same value and type always give the same id under one key.
 
-Collisions (observed): ids are 32-bit; if two different values of the same type
-collide in one vault, the registry keeps the first value and silently counts the
-second as another occurrence, so reveal restores the first value in both places.
+Collisions: ids are 32-bit. When a token id that is already registered in a vault run
+maps to a DIFFERENT original value (same type, colliding HMAC prefix), `build` throws
+`TokenCollisionException` (property `tokenId`) before anything is written; the message
+names the token id only, never a value:
+
+```
+Token id collision: two different values both map to [<id>]. Nothing was written. Run the vault again (a new masking key is generated each run).
+```
+
+`shroud vault` prints it as `  Error: <message>` on stderr and exits 1, after the
+`Scanning <dir>...` line on stdout and before asking for a password. The same value seen
+again is just another occurrence. `shroud mask` does not check for collisions.
 
 ## 6. Reveal
 
@@ -240,7 +249,13 @@ printed to stderr. The file is raw bytes; any length (including zero) is accepte
 }
 ```
 
-- Reading: camelCase names matched case-sensitively; unknown properties ignored; a
+- Reading: property names are matched case-insensitively (OrdinalIgnoreCase, ASCII
+  letters only, so `K`, `ſ` or `İ` never stand in for `k`, `s` or `i`) at every
+  level: `onchain`, `OnChain` and `ONCHAIN` all configure `onChain`. Properties are
+  applied in document order, so when a name appears more than once (in any case) the
+  last occurrence wins, a repeated object (`domains` or a domain) replaces the earlier
+  one entirely rather than merging, and a wrong-typed earlier occurrence aborts even if
+  a later one is valid. Unknown properties are ignored; a
   missing property keeps the default of a freshly constructed object (all domains
   enabled, `layer` `"markets"`, `threshold` 0.70, no preset); a JSON `null` document
   gives those defaults; `enabled` must be a boolean and `threshold` a number (anything
@@ -252,7 +267,10 @@ printed to stderr. The file is raw bytes; any length (including zero) is accepte
   else in the financial domain, currently credit cards). Any other value, including
   null, behaves like `"magnitudes"`.
 - Writing (`shroud init`): the section 3 serialization rules, property order
-  `domains, threshold, keyFile, preset`, null properties omitted.
+  `domains, threshold, keyFile, preset`, null properties omitted. `--preset` must be
+  exactly `paranoid`, `financial` or `dev` (case-sensitive); anything else prints
+  `  Error: Unknown preset: <name>. Valid presets: paranoid, financial, dev.`, exits 1
+  and writes nothing (checked before the "already exists" check).
 
 ## 9. Verification
 
@@ -260,6 +278,10 @@ printed to stderr. The file is raw bytes; any length (including zero) is accepte
   blobs, token ids and `shroud.json` files produced by the C# build itself;
   `test/unit/dotnet-interop.test.ts` decrypts, re-serializes and re-derives them
   byte for byte.
+- `test/fixtures/dotnet-config-vectors.json` holds `ShroudConfig.Load` results for
+  mixed-case, duplicate and look-alike property names (`dotnet-interop.test.ts`), and the
+  same test rebuilds the six `conformance/vaults` inputs and compares the manifest
+  services and `source` with the C# vaults.
 - `tools/differential.mjs` diffs the TS and C# scanners match by match.
 - The CLI cross-checks (C# vault revealed by TS and the reverse) are described in the
   port report.

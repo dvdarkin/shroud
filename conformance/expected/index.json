@@ -551,8 +551,62 @@
       "bytes": 2471,
       "utf16Length": 2471,
       "sha256": "becf9d214ff2f78bb3377239295bb2c6bf1d01efbdd22546ae25f37228a09d01"
+    },
+    {
+      "name": "150-frontmatter-at-start-then-rules-lf.md",
+      "bytes": 307,
+      "utf16Length": 307,
+      "sha256": "f5eccc7b6bf01c93ee44f798eae820679231516b80e3ddb7b208871421bfe456"
+    },
+    {
+      "name": "151-frontmatter-at-start-then-rules-crlf.md",
+      "bytes": 329,
+      "utf16Length": 329,
+      "sha256": "260c1addc09bb65d96faec3cf35616a29538a5a8b70736aecd987ae791ed9b41"
+    },
+    {
+      "name": "152-horizontal-rules-with-secret.md",
+      "bytes": 253,
+      "utf16Length": 253,
+      "sha256": "c3c81054bcb0a8bea23e27c3bf12c085a6220ba13e48c5df4f890a5cd1e5195e"
+    },
+    {
+      "name": "153-frontmatter-not-at-offset-zero.md",
+      "bytes": 113,
+      "utf16Length": 113,
+      "sha256": "1d5f36311e75aa576de3b94953109fac1d156a050a400fd23431b27ddb19bad6"
+    },
+    {
+      "name": "154-frontmatter-empty-then-rules.md",
+      "bytes": 121,
+      "utf16Length": 121,
+      "sha256": "1c9d74d88fc7be21e09b75162adce3084cd0d4d0ddb9a6941857f848004ba6e7"
+    },
+    {
+      "name": "155-frontmatter-unterminated-at-start.md",
+      "bytes": 78,
+      "utf16Length": 78,
+      "sha256": "a081493c8ea8153ca1ffa63410a966b1f19cef6644a38c9f4d9490ae73d2a294"
+    },
+    {
+      "name": "156-metadata-key-whole-word.md",
+      "bytes": 910,
+      "utf16Length": 910,
+      "sha256": "1144f0111c786085d2a16623f34a0c04eda855ff3cf64f2654f89acf15edab22"
+    },
+    {
+      "name": "157-financial-lone-comma.md",
+      "bytes": 360,
+      "utf16Length": 360,
+      "sha256": "73a8c83a4c1848bcb5e012f11d1f3277ee03d339d2caedfae731f4efa3df9a0d"
+    },
+    {
+      "name": "158-metadata-key-at-end-of-line.md",
+      "bytes": 324,
+      "utf16Length": 324,
+      "sha256": "1e13946cb1a74d1884e94e70bb5b4be0631c85511d557a187edb8397482ec5ed"
     }
   ],
-  "configs": ["default", "dev", "financial", "layer-magnitudes", "no-credentials-secrets", "no-identity", "no-onchain", "paranoid", "quirk-empty-object", "quirk-lowercase-keys", "quirk-preset-name-only", "threshold-030", "threshold-090"],
+  "configs": ["case-insensitive-keys", "default", "dev", "financial", "layer-magnitudes", "no-credentials-secrets", "no-identity", "no-onchain", "paranoid", "quirk-empty-object", "quirk-preset-name-only", "threshold-030", "threshold-090"],
   "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
 }

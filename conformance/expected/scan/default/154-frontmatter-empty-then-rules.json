@@ -1,0 +1,44 @@
+{
+  "input": "154-frontmatter-empty-then-rules.md",
+  "config": "default",
+  "inputBytes": 121,
+  "inputSha256": "1c9d74d88fc7be21e09b75162adce3084cd0d4d0ddb9a6941857f848004ba6e7",
+  "inputUtf16Length": 121,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 1,
+    "belowThreshold": 1
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 28,
+      "end": 33,
+      "length": 5,
+      "matchedText": "above",
+      "entityType": "SeedPhrase",
+      "domain": "OnChain",
+      "service": "bip39",
+      "typeAbbreviation": "SEED",
+      "confidence": 0.1,
+      "confidenceString": "0.1",
+      "aboveThreshold": false
+    },
+    {
+      "index": 1,
+      "start": 73,
+      "end": 115,
+      "length": 42,
+      "matchedText": "0x2222222222222222222222222222222222222222",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

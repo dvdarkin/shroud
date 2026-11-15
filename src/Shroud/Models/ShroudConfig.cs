@@ -22,6 +22,9 @@ public class ShroudConfig
     {
         WriteIndented = true,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        // "onchain", "OnChain" and "ONCHAIN" all configure onChain, at every nesting level:
+        // a misspelled-case key must not be silently ignored.
+        PropertyNameCaseInsensitive = true,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
     };
 
@@ -36,6 +39,9 @@ public class ShroudConfig
         var json = JsonSerializer.Serialize(this, JsonOpts);
         File.WriteAllText(path, json);
     }
+
+    /// <summary>The preset names <see cref="ForPreset"/> recognises (CLI `init --preset`).</summary>
+    internal static readonly IReadOnlyList<string> PresetNames = ["paranoid", "financial", "dev"];
 
     public static ShroudConfig Default() => ForPreset("paranoid");
 

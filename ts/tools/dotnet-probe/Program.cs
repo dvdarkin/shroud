@@ -17,6 +17,8 @@ switch (mode)
     case "oic": Oic.Run(args[1]); break;
     case "bench": Bench.Run(args[1]); break;
     case "vectors": Vectors.Run(args[1]); break;
+    case "configs": Configs.Run(args[1], args[2]); break;
+    case "paths": Paths.Run(args[1], args[2]); break;
 }
 
 static List<int[]> Ranges(Func<char, bool> pred)
@@ -42,6 +44,11 @@ static void Classes(string outPath)
     var ciAz = new Regex(@"^[a-z]$", RegexOptions.IgnoreCase);
     var ciAzInline = new Regex(@"(?i)^[a-z]$");
     var ciAf = new Regex(@"^[a-fA-F0-9]$", RegexOptions.IgnoreCase);
+    var pL = new Regex(@"^\p{L}$");
+    var pNd = new Regex(@"^\p{Nd}$");
+    // The look-behind class of SensitivityScanner.FilePathRegex, with and without its options.
+    var guard = new Regex(@"^[\p{L}\p{Nd}_\-]$");
+    var guardCi = new Regex(@"^[\p{L}\p{Nd}_\-]$", RegexOptions.IgnoreCase | RegexOptions.Multiline);
     var ciAll = new Dictionary<string, List<int[]>>();
     for (int a = 0x20; a < 0x7F; a++)
     {
@@ -64,6 +71,10 @@ static void Classes(string outPath)
         ["ciAzInline"] = Ranges(c => ciAzInline.IsMatch(c.ToString())),
         ["ciAf"] = Ranges(c => ciAf.IsMatch(c.ToString())),
         ["isDigit"] = Ranges(char.IsDigit),
+        ["letter"] = Ranges(c => pL.IsMatch(c.ToString())),
+        ["pNd"] = Ranges(c => pNd.IsMatch(c.ToString())),
+        ["metadataKeyGuard"] = Ranges(c => guard.IsMatch(c.ToString())),
+        ["metadataKeyGuardCi"] = Ranges(c => guardCi.IsMatch(c.ToString())),
         ["isControl"] = Ranges(char.IsControl),
         ["ci"] = ciAll,
     };
@@ -202,6 +213,7 @@ static void Scan(string inPath, string outPath)
                 w.WriteStringValue(Bits((double)sct.GetProperty("BaseConfidence")!.GetValue(sc2)!));
                 w.WriteStringValue(Bits((double)sct.GetProperty("FinalConfidence")!.GetValue(sc2)!));
                 w.WriteBooleanValue((bool)sct.GetProperty("IsStructural")!.GetValue(sc2)!);
+                w.WriteBooleanValue((bool)sct.GetProperty("HasContextWords")!.GetValue(sc2)!);
                 w.WriteStringValue(string.Join("|", (List<string>)sct.GetProperty("ContextWordsFound")!.GetValue(sc2)!));
                 w.WriteNumberValue((int)sct.GetProperty("ContextWindowStart")!.GetValue(sc2)!);
                 w.WriteNumberValue((int)sct.GetProperty("ContextWindowEnd")!.GetValue(sc2)!);
@@ -352,5 +364,61 @@ static class Vectors
         };
         File.WriteAllText(outPath, JsonSerializer.Serialize(o, new JsonSerializerOptions { WriteIndented = true }));
         Directory.Delete(tmp, true);
+    }
+}
+
+static class Configs
+{
+    // Loads each document of a JSON array of strings with ShroudConfig.Load and reports the
+    // effective config, or the exception type, for test/fixtures/dotnet-config-vectors.json.
+    public static void Run(string inPath, string outPath)
+    {
+        var docs = JsonSerializer.Deserialize<List<string>>(File.ReadAllText(inPath))!;
+        var tmp = Path.Combine(Path.GetTempPath(), "shroud-configs-" + Guid.NewGuid().ToString("N")[..8] + ".json");
+        var results = new List<object?>();
+        static object? T(DomainToggle? t) =>
+            t is null ? null : new Dictionary<string, object?> { ["enabled"] = t.Enabled, ["layer"] = t.Layer };
+        foreach (var doc in docs)
+        {
+            File.WriteAllText(tmp, doc);
+            try
+            {
+                var c = ShroudConfig.Load(tmp);
+                results.Add(new Dictionary<string, object?>
+                {
+                    ["json"] = doc,
+                    ["domains"] = c.Domains is null ? null : new Dictionary<string, object?>
+                    {
+                        ["onChain"] = T(c.Domains.OnChain),
+                        ["financial"] = T(c.Domains.Financial),
+                        ["identity"] = T(c.Domains.Identity),
+                        ["credentials"] = T(c.Domains.Credentials),
+                        ["secrets"] = T(c.Domains.Secrets),
+                    },
+                    ["threshold"] = c.Threshold,
+                    ["keyFile"] = c.KeyFile,
+                    ["preset"] = c.Preset,
+                });
+            }
+            catch (Exception e)
+            {
+                results.Add(new Dictionary<string, object?> { ["json"] = doc, ["error"] = e.GetType().FullName });
+            }
+        }
+        File.Delete(tmp);
+        File.WriteAllText(outPath, JsonSerializer.Serialize(results, new JsonSerializerOptions { WriteIndented = true }));
+    }
+}
+
+static class Paths
+{
+    // For each path of a JSON array: Path.GetFullPath and VaultBuilder.SourceDirectoryName
+    // (internal, via reflection), resolved against the current directory.
+    public static void Run(string inPath, string outPath)
+    {
+        var paths = JsonSerializer.Deserialize<List<string>>(File.ReadAllText(inPath))!;
+        var m = typeof(Shroud.Vault.VaultBuilder).GetMethod("SourceDirectoryName", BindingFlags.NonPublic | BindingFlags.Static)!;
+        var res = paths.Select(p => new[] { p, Path.GetFullPath(p), (string)m.Invoke(null, [p])! }).ToList();
+        File.WriteAllText(outPath, JsonSerializer.Serialize(res, new JsonSerializerOptions { WriteIndented = true }));
     }
 }

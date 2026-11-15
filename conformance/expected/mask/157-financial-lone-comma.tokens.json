@@ -1,0 +1,82 @@
+{
+  "input": "157-financial-lone-comma.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 450,
+  "maskedSha256": "890bdf4f73162c521542978862518ae419127964391e69a724b73014e8366221",
+  "tokenCount": 9,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "PRICE:462a7b13",
+      "start": 344,
+      "end": 353,
+      "originalValue": "at $1,050",
+      "entityType": "Price",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:6facaa02",
+      "start": 329,
+      "end": 336,
+      "originalValue": "450 EUR",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:47ddded1",
+      "start": 317,
+      "end": 324,
+      "originalValue": "EUR 300",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:9092a571",
+      "start": 306,
+      "end": 312,
+      "originalValue": "$1,200",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:ea5a6a44",
+      "start": 295,
+      "end": 296,
+      "originalValue": "5",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:e7a06332",
+      "start": 287,
+      "end": 292,
+      "originalValue": "1,250",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:80ddc334",
+      "start": 103,
+      "end": 104,
+      "originalValue": "2",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:80ddc334",
+      "start": 93,
+      "end": 94,
+      "originalValue": "2",
+      "entityType": "Amount",
+      "domain": "Financial"
+    },
+    {
+      "tokenId": "AMT:ea5a6a44",
+      "start": 50,
+      "end": 51,
+      "originalValue": "5",
+      "entityType": "Amount",
+      "domain": "Financial"
+    }
+  ]
+}

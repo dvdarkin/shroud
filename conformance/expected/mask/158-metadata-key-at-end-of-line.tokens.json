@@ -1,0 +1,26 @@
+{
+  "input": "158-metadata-key-at-end-of-line.md",
+  "config": "default",
+  "maskKeyHex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+  "maskedUtf16Length": 273,
+  "maskedSha256": "5e83d1ef42874e37f621da57af2058d7df200dd5fe4bed25fd322aed22c12e41",
+  "tokenCount": 2,
+  "tokensInReplacementOrder": [
+    {
+      "tokenId": "TOKEN:5b2de042",
+      "start": 171,
+      "end": 211,
+      "originalValue": "ghp_DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+      "entityType": "AccessToken",
+      "domain": "Credentials"
+    },
+    {
+      "tokenId": "ADDR:e2034703",
+      "start": 118,
+      "end": 160,
+      "originalValue": "0x6666666666666666666666666666666666666666",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain"
+    }
+  ]
+}

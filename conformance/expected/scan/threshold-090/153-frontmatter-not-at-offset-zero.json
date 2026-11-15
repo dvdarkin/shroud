@@ -1,0 +1,30 @@
+{
+  "input": "153-frontmatter-not-at-offset-zero.md",
+  "config": "threshold-090",
+  "inputBytes": 113,
+  "inputSha256": "1d5f36311e75aa576de3b94953109fac1d156a050a400fd23431b27ddb19bad6",
+  "inputUtf16Length": 113,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 66,
+      "end": 108,
+      "length": 42,
+      "matchedText": "0x1111111111111111111111111111111111111111",
+      "entityType": "CryptoAddr",
+      "domain": "OnChain",
+      "service": "evm_address",
+      "typeAbbreviation": "ADDR",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

@@ -14,7 +14,15 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import type { ShroudConfig } from './config.js';
 import { defaultConfig } from './config.js';
 import { serializeIndented } from './internal/dotnet-json.js';
-import { enumerateFiles, getDirectoryName, getRelativePath, pathCombine } from './internal/dotnet-path.js';
+import {
+  enumerateFiles,
+  getDirectoryName,
+  getFileName,
+  getFullPath,
+  getRelativePath,
+  isRootPath,
+  pathCombine,
+} from './internal/dotnet-path.js';
 import { readAllText, writeAllText } from './internal/text-io.js';
 import { SpanMasker, type TokenMapping } from './masker.js';
 import type { ScanResult } from './models.js';
@@ -81,12 +89,16 @@ export class VaultBuilder {
   private readonly scanner: SensitivityScanner;
   private readonly maskingKey: Uint8Array;
 
-  constructor(configOrScanner?: ShroudConfig | SensitivityScanner | null) {
+  /**
+   * `maskingKey` is a test seam (an `internal` constructor in C#): a fixed key makes
+   * token ids, and so collisions, reproducible. Omit it to use a random 32-byte key.
+   */
+  constructor(configOrScanner?: ShroudConfig | SensitivityScanner | null, maskingKey?: Uint8Array) {
     this.scanner =
       configOrScanner instanceof SensitivityScanner
         ? configOrScanner
         : new SensitivityScanner(configOrScanner ?? defaultConfig());
-    this.maskingKey = randomBytes(32);
+    this.maskingKey = maskingKey ?? randomBytes(32);
   }
 
   build(sourceDir: string): VaultResult {
@@ -112,6 +124,10 @@ export class VaultBuilder {
       for (const token of maskResult.tokens) {
         const existing = tokens.get(token.tokenId);
         if (existing) {
+          // Same id, different value: the second value would be lost and reveal would
+          // restore the wrong text. Fail before anything is written.
+          if (existing.value !== token.originalValue) throw new TokenCollisionException(token.tokenId);
+
           existing.files.push(relativePath);
           existing.occurrences++;
         } else {
@@ -160,13 +176,45 @@ export class VaultBuilder {
 }
 
 /**
+ * Thrown by VaultBuilder.build when two different original values produce the same
+ * token id (4-byte HMAC prefix). Continuing would map both values to one token and
+ * reveal would restore the wrong text. The message names the token id only, never an
+ * original value.
+ */
+export class TokenCollisionException extends Error {
+  readonly tokenId: string;
+
+  constructor(tokenId: string) {
+    super(
+      `Token id collision: two different values both map to [${tokenId}]. ` +
+        'Nothing was written. Run the vault again (a new masking key is generated each run).',
+    );
+    this.name = 'TokenCollisionException';
+    this.tokenId = tokenId;
+  }
+}
+
+/**
  * The pattern id recorded for a new token: the service of the first above-threshold
- * span in the same file whose matched text equals the token's value. (This reproduces
- * the C# lookup, which matches on text only and can pick a span of a different entity
- * type that has the same text.)
+ * span in the same file whose matched text and entity type equal the token's.
  */
 function serviceIdFor(scanResult: ScanResult, token: TokenMapping): string {
-  return scanResult.aboveThreshold.find((s) => s.matchedText === token.originalValue)?.service ?? '';
+  return (
+    scanResult.aboveThreshold.find((s) => s.matchedText === token.originalValue && s.entityType === token.entityType)
+      ?.service ?? ''
+  );
+}
+
+/**
+ * manifest.json is public, so it records only the final directory name of the source
+ * ("." and relative paths are resolved first), never the absolute path. A filesystem
+ * root has no name and is kept as is. (Path.GetFullPath, TrimEndingDirectorySeparator
+ * and GetFileName in C#.)
+ */
+export function sourceDirectoryName(sourceDir: string): string {
+  const full = getFullPath(sourceDir);
+  const name = isRootPath(full) ? '' : getFileName(full);
+  return name === '' ? full : name;
 }
 
 function computeHash(content: string): string {
@@ -190,7 +238,7 @@ export function buildManifest(result: VaultResult, created: string): ManifestFil
   }
   return {
     created,
-    source: result.sourceDir,
+    source: sourceDirectoryName(result.sourceDir),
     fileCount: result.maskedFiles.length,
     tokenCount: result.tokens.size,
     tokens: new Map(

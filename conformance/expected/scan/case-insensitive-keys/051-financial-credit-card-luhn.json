@@ -1,0 +1,15 @@
+{
+  "input": "051-financial-credit-card-luhn.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 641,
+  "inputSha256": "be9a941e28234e56accdf69876a52aab7d03b2d1f02e59e02a78c85383dba80c",
+  "inputUtf16Length": 641,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

@@ -1,0 +1,44 @@
+{
+  "input": "156-metadata-key-whole-word.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 910,
+  "inputSha256": "1144f0111c786085d2a16623f34a0c04eda855ff3cf64f2654f89acf15edab22",
+  "inputUtf16Length": 910,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 2,
+    "aboveThreshold": 2,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 158,
+      "end": 198,
+      "length": 40,
+      "matchedText": "ghp_CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+      "entityType": "AccessToken",
+      "domain": "Credentials",
+      "service": "github_pat",
+      "typeAbbreviation": "TOKEN",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 320,
+      "end": 340,
+      "length": 20,
+      "matchedText": "AKIAAAAAAAAAAAAAAAAA",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "aws_access_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 ## Finance
 
-Bought[QTY:0d042031] [PRICE:1ebb6521].
-SSN for filing: [SSN:26a25f23]
-Contact: [EMAIL:a701a43e]
-Wallet repeated: [ADDR:c9fea93d]
-Wire to IBAN: [IBAN:c7cb76c3]
+Bought[QTY:5cf8d175] [PRICE:007e0cd5].
+SSN for filing: [SSN:2f1f6e36]
+Contact: [EMAIL:f6bdab8e]
+Wallet repeated: [ADDR:f4e1fe44]
+Wire to IBAN: [IBAN:d5995e9e]

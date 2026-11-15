@@ -7,9 +7,38 @@
   "threshold": 0.5,
   "thresholdString": "0.5",
   "counts": {
-    "allDetected": 0,
+    "allDetected": 2,
     "aboveThreshold": 0,
-    "belowThreshold": 0
+    "belowThreshold": 2
   },
-  "allDetected": []
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 38,
+      "end": 78,
+      "length": 40,
+      "matchedText": "1111111111111111111111111111111111111111",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "arithmetic_sum_operand",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.15,
+      "confidenceString": "0.15",
+      "aboveThreshold": false
+    },
+    {
+      "index": 1,
+      "start": 112,
+      "end": 152,
+      "length": 40,
+      "matchedText": "3333333333333333333333333333333333333333",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "arithmetic_sum_operand",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.15,
+      "confidenceString": "0.15",
+      "aboveThreshold": false
+    }
+  ]
 }

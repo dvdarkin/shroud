@@ -9,12 +9,20 @@
  * "markets" adds market pairs, "directional" adds everything else in the domain.
  *
  * The JSON format and its (de)serialization rules mirror System.Text.Json with the
- * camelCase naming policy used by the C# build: property names are matched
- * case-sensitively, unknown properties are ignored, missing properties keep their
- * defaults, a null/wrong-typed value type throws, and null strings/objects are kept.
+ * camelCase naming policy and PropertyNameCaseInsensitive used by the C# build:
+ * property names are matched OrdinalIgnoreCase at every level ("onchain", "OnChain"
+ * and "ONCHAIN" all configure onChain), properties are applied in document order so a
+ * repeated name (in any case) wins with its last occurrence and a repeated object
+ * replaces the earlier one entirely, unknown properties are ignored, missing
+ * properties keep their defaults, a null/wrong-typed value type throws (even when a
+ * later duplicate would be valid), and null strings/objects are kept.
  */
 import { readAllText, writeAllText } from './internal/text-io.js';
-import { serializeIndented } from './internal/dotnet-json.js';
+import { JsonObject, type JsonNode, parseJsonPreservingProperties, serializeIndented } from './internal/dotnet-json.js';
+import { equalsOrdinalIgnoreCase } from './internal/ordinal.js';
+
+/** The preset names configForPreset recognises, in this order (CLI `init --preset`). */
+export const PRESET_NAMES: readonly string[] = ['paranoid', 'financial', 'dev'];
 
 export interface DomainToggle {
   enabled: boolean;
@@ -105,10 +113,15 @@ export class ConfigFormatError extends Error {
   }
 }
 
-type Json = null | boolean | number | string | Json[] | { [key: string]: Json };
+type Json = JsonNode;
 
-function isObject(v: Json): v is { [key: string]: Json } {
-  return typeof v === 'object' && v !== null && !Array.isArray(v);
+function isObject(v: Json): v is JsonObject {
+  return v instanceof JsonObject;
+}
+
+/** The first of `names` equal to `key` under OrdinalIgnoreCase (System.Text.Json lookup). */
+function match<T extends string>(key: string, names: readonly T[]): T | undefined {
+  return names.find((name) => equalsOrdinalIgnoreCase(key, name));
 }
 
 function readBool(v: Json, path: string): boolean {
@@ -126,13 +139,16 @@ function readNullableString(v: Json, path: string): string | null {
   return v;
 }
 
+const TOGGLE_KEYS = ['enabled', 'layer'] as const;
+
 function readToggle(v: Json, path: string): DomainToggle | null {
   if (v === null) return null;
   if (!isObject(v)) throw new ConfigFormatError(path, 'expected an object or null');
   const t = toggle();
-  for (const [key, value] of Object.entries(v)) {
-    if (key === 'enabled') t.enabled = readBool(value, `${path}.enabled`);
-    else if (key === 'layer') t.layer = readNullableString(value, `${path}.layer`);
+  for (const [key, value] of v.properties) {
+    const k = match(key, TOGGLE_KEYS);
+    if (k === 'enabled') t.enabled = readBool(value, `${path}.enabled`);
+    else if (k === 'layer') t.layer = readNullableString(value, `${path}.layer`);
   }
   return t;
 }
@@ -143,21 +159,23 @@ function readDomains(v: Json, path: string): DomainConfig | null {
   if (v === null) return null;
   if (!isObject(v)) throw new ConfigFormatError(path, 'expected an object or null');
   const d = createDomainConfig();
-  for (const [key, value] of Object.entries(v)) {
-    const k = DOMAIN_KEYS.find((name) => name === key);
+  for (const [key, value] of v.properties) {
+    const k = match(key, DOMAIN_KEYS);
     if (k) d[k] = readToggle(value, `${path}.${k}`);
   }
   return d;
 }
 
+const ROOT_KEYS = ['domains', 'threshold', 'keyFile', 'preset'] as const;
+
 /** Parses `shroud.json` text. `null` yields the parameterless defaults, like the C# Load. */
 export function parseConfig(json: string): ShroudConfig {
-  const root = JSON.parse(json) as Json;
+  const root = parseJsonPreservingProperties(json);
   if (root === null) return createConfig();
   if (!isObject(root)) throw new ConfigFormatError('$', 'expected an object');
   const config = createConfig();
-  for (const [key, value] of Object.entries(root)) {
-    switch (key) {
+  for (const [key, value] of root.properties) {
+    switch (match(key, ROOT_KEYS)) {
       case 'domains':
         config.domains = readDomains(value, '$.domains');
         break;

@@ -10,6 +10,9 @@
  *    the .NET engine (see unicode-tables.ts). .NET classes are Unicode-aware but
  *    operate on UTF-16 code units; JS without the `u` flag is ASCII-only for \d/\w
  *    and has a different \s (JS includes U+FEFF, .NET includes U+0085).
+ *  - \p{L} and \p{Nd} (and \P{..}) become the .NET 8 letter and decimal-digit tables;
+ *    no other Unicode category is supported. Like .NET, IgnoreCase does not change them.
+ *  - \A is the start of the input in every mode.
  *  - \b is rebuilt from lookarounds over the .NET word set (which also counts
  *    U+200C/U+200D as word characters for boundaries). JS \b is ASCII-only.
  *  - `.` becomes [^\n] (.NET); JS `.` also excludes \r, U+2028 and U+2029.
@@ -40,6 +43,7 @@ import {
   DOTNET_BOUNDARY_EXTRA,
   DOTNET_DIGIT,
   DOTNET_IGNORECASE_EXTRAS,
+  DOTNET_LETTER,
   DOTNET_SPACE,
   DOTNET_WORD,
 } from './unicode-tables.js';
@@ -52,6 +56,7 @@ export interface DotnetRegexOptions {
 }
 
 const DIGIT: CharSet = normalize(DOTNET_DIGIT);
+const LETTER: CharSet = normalize(DOTNET_LETTER);
 const WORD: CharSet = normalize(DOTNET_WORD);
 const SPACE: CharSet = normalize(DOTNET_SPACE);
 const BOUNDARY_WORD: CharSet = union(WORD, DOTNET_BOUNDARY_EXTRA.map((c) => [c, c] as const));
@@ -69,6 +74,7 @@ type Node =
   | { readonly kind: 'set'; readonly set: CharSet }
   | { readonly kind: 'group'; readonly open: GroupOpen; readonly body: Alternation }
   | { readonly kind: 'bol' }
+  | { readonly kind: 'bos' }
   | { readonly kind: 'eol' }
   | { readonly kind: 'boundary'; readonly negated: boolean };
 
@@ -132,7 +138,7 @@ class Parser {
       if (c === '|' || c === ')') break;
       const node = this.parseAtom();
       const quantifier = this.parseQuantifier();
-      if (quantifier && (node.kind === 'bol' || node.kind === 'eol' || node.kind === 'boundary')) {
+      if (quantifier && (node.kind === 'bol' || node.kind === 'bos' || node.kind === 'eol' || node.kind === 'boundary')) {
         this.fail('quantified anchor');
       }
       items.push(quantifier ? { node, quantifier } : { node });
@@ -238,12 +244,32 @@ class Parser {
       this.pos += 2;
       return { kind: 'boundary', negated: e === 'B' };
     }
+    if (e === 'A') {
+      this.pos += 2;
+      return { kind: 'bos' };
+    }
+    if (e === 'p' || e === 'P') return { kind: 'set', set: this.parseCategory() };
     const shorthand = shorthandSet(e);
     if (shorthand) {
       this.pos += 2;
       return { kind: 'set', set: shorthand };
     }
     return this.literal(this.parseCharEscape(false));
+  }
+
+  /**
+   * Parses \p{Name} or \P{Name}; positioned at the backslash. Only the categories
+   * Shroud uses (L, Nd) are supported. Category sets are not case-closed under
+   * IgnoreCase, matching .NET (checked by tools/generate-unicode-tables.mjs).
+   */
+  private parseCategory(): CharSet {
+    const negated = this.pattern[this.pos + 1] === 'P';
+    const m = /^\{([A-Za-z]+)\}/.exec(this.pattern.slice(this.pos + 2));
+    if (!m) this.fail('bad \\p{...} escape');
+    const set = UNICODE_CATEGORIES[m[1]!];
+    if (!set) this.fail(`Unicode category \\p{${m[1]}}`);
+    this.pos += 2 + m[0].length;
+    return negated ? complement(set) : set;
   }
 
   /** Parses an escape that denotes a single code unit; positioned at the backslash. */
@@ -296,9 +322,11 @@ class Parser {
       first = false;
       if (c === '-' && this.peek(1) === '[') this.fail('character class subtraction');
       if (c === '\\') {
-        const s = shorthandSet(this.pattern[this.pos + 1] ?? '');
+        const e = this.pattern[this.pos + 1] ?? '';
+        const category = e === 'p' || e === 'P';
+        const s = category ? this.parseCategory() : shorthandSet(e);
         if (s) {
-          this.pos += 2;
+          if (!category) this.pos += 2;
           if (this.peek() === '-' && this.peek(1) !== ']') this.fail('class shorthand used as range start');
           shorthands.push(s);
           continue;
@@ -308,7 +336,9 @@ class Parser {
       if (this.peek() === '-' && this.peek(1) !== ']' && this.peek(1) !== undefined) {
         if (this.peek(1) === '[') this.fail('character class subtraction');
         this.pos++; // -
-        if (this.peek() === '\\' && shorthandSet(this.pattern[this.pos + 1] ?? '')) this.fail('class shorthand used as range end');
+        if (this.peek() === '\\' && (shorthandSet(this.pattern[this.pos + 1] ?? '') || /[pP]/.test(this.pattern[this.pos + 1] ?? ''))) {
+          this.fail('class shorthand used as range end');
+        }
         const hi = this.classChar();
         if (hi < lo) this.fail('range in reverse order');
         explicit.push([lo, hi]);
@@ -330,6 +360,8 @@ class Parser {
     return c.charCodeAt(0);
   }
 }
+
+const UNICODE_CATEGORIES: Readonly<Record<string, CharSet>> = { L: LETTER, Nd: DIGIT };
 
 function shorthandSet(e: string): CharSet | undefined {
   switch (e) {
@@ -421,7 +453,7 @@ const W = emitClass(BOUNDARY_WORD);
 
 function isZeroWidth(item: Item): boolean {
   const n = item.node;
-  return n.kind === 'bol' || n.kind === 'eol' || n.kind === 'boundary' || (n.kind === 'group' && n.open !== '(' && n.open !== '(?:');
+  return n.kind === 'bol' || n.kind === 'bos' || n.kind === 'eol' || n.kind === 'boundary' || (n.kind === 'group' && n.open !== '(' && n.open !== '(?:');
 }
 
 /**
@@ -549,6 +581,10 @@ function emitSequence(seq: Sequence, multiline: boolean): string {
       case 'bol':
         // Multiline: start of input or just after \n. Otherwise: start of input.
         out += multiline ? '(?<![^\\n])' : '^';
+        break;
+      case 'bos':
+        // \A: start of input in every mode (the output RegExp has no `m` flag).
+        out += '^';
         break;
       case 'eol':
         // Multiline: end of input or just before \n. Otherwise: end, or before a final \n.

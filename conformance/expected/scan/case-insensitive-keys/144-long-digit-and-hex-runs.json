@@ -1,0 +1,15 @@
+{
+  "input": "144-long-digit-and-hex-runs.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 4319,
+  "inputSha256": "04593d4378a355ac173ac60907ac45bc422d04cf33542fb76429bee99b14812c",
+  "inputUtf16Length": 4319,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

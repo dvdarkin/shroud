@@ -1,0 +1,15 @@
+{
+  "input": "157-financial-lone-comma.md",
+  "config": "dev",
+  "inputBytes": 360,
+  "inputSha256": "73a8c83a4c1848bcb5e012f11d1f3277ee03d339d2caedfae731f4efa3df9a0d",
+  "inputUtf16Length": 360,
+  "threshold": 0.7,
+  "thresholdString": "0.7",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

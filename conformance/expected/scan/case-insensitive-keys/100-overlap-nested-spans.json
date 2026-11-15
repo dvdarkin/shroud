@@ -1,0 +1,30 @@
+{
+  "input": "100-overlap-nested-spans.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 1019,
+  "inputSha256": "3784d877ae409b36fd05c1f7b3ca076f1806c212551dc7256310d91667d04ad2",
+  "inputUtf16Length": 1019,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 1,
+    "aboveThreshold": 1,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 460,
+      "end": 511,
+      "length": 51,
+      "matchedText": "postgres://alice@example.com:pw@host.example.com/db",
+      "entityType": "ConnectionString",
+      "domain": "Secrets",
+      "service": "database_uri",
+      "typeAbbreviation": "CONNSTR",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    }
+  ]
+}

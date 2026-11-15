@@ -1,13 +1,16 @@
 /**
  * Core detection pipeline. For each registered pattern, finds all regex matches,
- * skips matches fully inside exclusion zones (YAML frontmatter, file-path metadata
- * lines, dates and times), scores each match, runs the Luhn check for credit cards,
+ * skips matches fully inside exclusion zones (YAML frontmatter at offset 0, file-path
+ * metadata lines, dates and times), drops digit-less financial numbers, scores each
+ * match, runs the Luhn check for credit cards,
  * deduplicates overlapping spans (longest wins, containers absorb contents) and splits
  * the result at the confidence threshold.
  */
 import type { ShroudConfig } from './config.js';
 import { type ScoringDetail, emptyScoringDetail, scoreWithDetail } from './context-scorer.js';
+import { contains, normalize } from './internal/charset.js';
 import { dotnetRegex } from './internal/dotnet-regex.js';
+import { DOTNET_DIGIT } from './internal/unicode-tables.js';
 import { isValidLuhn } from './luhn.js';
 import {
   type ScanResult,
@@ -45,8 +48,17 @@ export function createScanDiagnostics(): ScanDiagnostics {
   return { exclusionZones: [], allSpans: [], overlapResolutions: [] };
 }
 
-const FRONTMATTER = dotnetRegex(String.raw`^---\s*\n[\s\S]*?\n---\s*$`, { multiline: true });
-const FILE_PATH = dotnetRegex(String.raw`(?:source_file|file|path|attachment):\s*.+$`, { multiline: true, ignoreCase: true });
+// YAML front matter: only when the text STARTS with a "---" line (offset 0; readAllText has
+// already stripped a BOM), ending at the next "---" line. Whole lines are consumed one at a
+// time, so LF and CRLF both work and an empty block ("---\n---") ends at its own closing
+// line. A pair of "---" lines later in the document is a pair of horizontal rules.
+const FRONTMATTER = dotnetRegex(String.raw`\A---[ \t]*\r?\n(?:[^\n]*\n)*?---[ \t]*\r?$`, { multiline: true });
+// File-path metadata line ("file: ...", "source_file: ..."). The key must be a whole word:
+// not preceded by a letter, digit, underscore or hyphen, and its value is on the same line.
+const FILE_PATH = dotnetRegex(String.raw`(?<![\p{L}\p{Nd}_\-])(?:source_file|file|path|attachment):[ \t]*.+$`, {
+  multiline: true,
+  ignoreCase: true,
+});
 
 // Date and time patterns. They never produce spans; they carve "do not touch" zones so
 // numeric patterns do not match inside temporal text. A span is dropped only when FULLY
@@ -127,6 +139,22 @@ function buildExclusions(text: string): ExclusionZone[] {
   return zones;
 }
 
+const DIGITS = normalize(DOTNET_DIGIT);
+
+/**
+ * True for a Financial Amount/Quantity/Price match with no decimal digit (char.IsDigit is
+ * Unicode Nd, the same class as .NET regex \d). Several financial regexes are built from
+ * [\d,]+ and can match separator-only text such as a lone ",".
+ */
+function isDigitlessFinancialNumber(pattern: SensitivityPattern, matchedText: string): boolean {
+  if (pattern.domain !== 'Financial') return false;
+  if (pattern.entityType !== 'Amount' && pattern.entityType !== 'Quantity' && pattern.entityType !== 'Price') return false;
+  for (let i = 0; i < matchedText.length; i++) {
+    if (contains(DIGITS, matchedText.charCodeAt(i))) return false;
+  }
+  return true;
+}
+
 function isExcluded(start: number, end: number, zones: readonly ExclusionZone[]): boolean {
   return zones.some((z) => start >= z.start && end <= z.end);
 }
@@ -194,6 +222,10 @@ export class SensitivityScanner {
           });
           continue;
         }
+
+        // A financial number must contain at least one digit. The match is dropped before
+        // scoring and leaves no diagnostic record (C# `continue`s here too).
+        if (isDigitlessFinancialNumber(pattern, matchedText)) continue;
 
         const { confidence, detail } = scoreWithDetail(span, pattern, text);
         const scored: SensitiveSpan = { ...span, confidence };

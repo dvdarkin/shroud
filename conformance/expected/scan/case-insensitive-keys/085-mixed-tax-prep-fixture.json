@@ -1,0 +1,15 @@
+{
+  "input": "085-mixed-tax-prep-fixture.md",
+  "config": "case-insensitive-keys",
+  "inputBytes": 284,
+  "inputSha256": "2bf820a49a032a59a423721594a4788cb28054503468a3a7182a508d37302001",
+  "inputUtf16Length": 284,
+  "threshold": 0.9,
+  "thresholdString": "0.9",
+  "counts": {
+    "allDetected": 0,
+    "aboveThreshold": 0,
+    "belowThreshold": 0
+  },
+  "allDetected": []
+}

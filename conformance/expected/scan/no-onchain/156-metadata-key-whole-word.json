@@ -1,0 +1,72 @@
+{
+  "input": "156-metadata-key-whole-word.md",
+  "config": "no-onchain",
+  "inputBytes": 910,
+  "inputSha256": "1144f0111c786085d2a16623f34a0c04eda855ff3cf64f2654f89acf15edab22",
+  "inputUtf16Length": 910,
+  "threshold": 0.5,
+  "thresholdString": "0.5",
+  "counts": {
+    "allDetected": 4,
+    "aboveThreshold": 4,
+    "belowThreshold": 0
+  },
+  "allDetected": [
+    {
+      "index": 0,
+      "start": 158,
+      "end": 198,
+      "length": 40,
+      "matchedText": "ghp_CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+      "entityType": "AccessToken",
+      "domain": "Credentials",
+      "service": "github_pat",
+      "typeAbbreviation": "TOKEN",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 1,
+      "start": 312,
+      "end": 319,
+      "length": 7,
+      "matchedText": "$12,345",
+      "entityType": "Amount",
+      "domain": "Financial",
+      "service": "symbol_amount",
+      "typeAbbreviation": "AMT",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 2,
+      "start": 320,
+      "end": 340,
+      "length": 20,
+      "matchedText": "AKIAAAAAAAAAAAAAAAAA",
+      "entityType": "ApiKey",
+      "domain": "Credentials",
+      "service": "aws_access_key",
+      "typeAbbreviation": "KEY",
+      "confidence": 0.95,
+      "confidenceString": "0.95",
+      "aboveThreshold": true
+    },
+    {
+      "index": 3,
+      "start": 424,
+      "end": 460,
+      "length": 36,
+      "matchedText": "file:///\\\\192.168.10.2\\share\\doc.txt",
+      "entityType": "IpAddress",
+      "domain": "Identity",
+      "service": "file_uri_network_path",
+      "typeAbbreviation": "IP",
+      "confidence": 0.9,
+      "confidenceString": "0.9",
+      "aboveThreshold": true
+    }
+  ]
+}
