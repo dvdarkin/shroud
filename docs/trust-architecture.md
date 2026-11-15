@@ -156,14 +156,15 @@ Shroud is the engine. LogMark adds the car:
 | Configuration | shroud.json | Route-level sensitivity cascade + config.md |
 | Key management | Key file on disk | DPAPI (standard) or Argon2id (paranoid) |
 | Reveal | CLI `reveal` command | `/fill` command with layered domain control |
-| Agent access | `--json` output | MCP tools with Tier 0 enforcement |
+| Agent access | Masked copies and `manifest.json` (no secret values) | MCP tools with Tier 0 enforcement |
 | Trust UI | N/A | Setup wizard, smart detection prompts, feed suggestions |
 
 LogMark can reference Shroud as:
-1. **NuGet package** (standard distribution, versioned, signed)
-2. **Local project reference** (for users who compile from source for maximum trust)
+1. **A prebuilt `Shroud.dll`** shipped with LogMark (what LogMark does today)
+2. **A user-built `Shroud.dll`** dropped in place of the shipped one, for users who compile from source for maximum trust
+3. **NuGet package** `LogMark.Shroud` (planned, not yet published; the bare `Shroud` ID on NuGet belongs to an unrelated project)
 
-Option 2 is the trust play. A user who doesn't trust precompiled binaries can clone Shroud, audit the code, build it, and point LogMark at their local build. The zero-dependency design makes this audit tractable -- there's nothing hidden behind abstractions or transitive dependencies.
+Option 2 is the trust play. A user who doesn't trust precompiled binaries can clone Shroud, audit the code, build it, and replace LogMark's copy with their local build. The zero-dependency design makes this audit tractable -- there's nothing hidden behind abstractions or transitive dependencies.
 
 ## Design Principles
 

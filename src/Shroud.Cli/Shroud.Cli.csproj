@@ -3,7 +3,7 @@
     <OutputType>Exe</OutputType>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>shroud</ToolCommandName>
-    <PackageId>Shroud.Cli</PackageId>
+    <PackageId>LogMark.Shroud.Cli</PackageId>
     <Description>CLI tool for detecting and masking sensitive data in markdown files.</Description>
     <Authors>LogMark</Authors>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>

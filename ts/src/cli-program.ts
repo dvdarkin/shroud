@@ -621,7 +621,7 @@ const USAGE = [
   '',
   'Trust:',
   // Verbatim from the C# CLI, which the TS CLI reproduces byte for byte.
-  '  Zero dependencies beyond .NET 8 runtime. Source-auditable.',
+  '  Zero runtime dependencies. Source-auditable.',
   '  https://github.com/dvdarkin/shroud',
 ];
 

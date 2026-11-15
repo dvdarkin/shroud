@@ -581,7 +581,7 @@ public static class Program
           --debug    Full diagnostics: exclusion zones, overlap resolutions, context windows
 
         Trust:
-          Zero dependencies beyond .NET 8 runtime. Source-auditable.
+          Zero runtime dependencies. Source-auditable.
           https://github.com/dvdarkin/shroud
         """);
         return 0;

@@ -10,7 +10,9 @@ Zero runtime dependencies (only `node:` built-ins). Node.js 20 or later. ESM.
 ## CLI
 
 ```bash
-npm install -g @logmark/shroud     # or: npx @logmark/shroud <command>
+# Not yet published to npm. Until it is, build and install from this folder:
+npm ci && npm run build && npm install -g .
+
 
 shroud scan notes.md --verbose     # detection report with scoring breakdown
 shroud mask notes.md -o out.md     # replace spans with [TYPE:xxxxxxxx] tokens

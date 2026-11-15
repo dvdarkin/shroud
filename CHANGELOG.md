@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Packaging: NuGet package IDs are now `LogMark.Shroud` (library) and `LogMark.Shroud.Cli` (tool, command `shroud`). The `Shroud` ID on NuGet belongs to an unrelated project. The assembly is still `Shroud.dll`.
+- Docs: install instructions describe what works today (build from source, or a locally packed tool / `npm install -g .`); neither package is published yet. The README used to point at `Shroud.Cli` and the `Shroud` package on NuGet, and `ts/README.md` at `npm install @logmark/shroud`.
+- Docs: trust-architecture.md describes how LogMark references Shroud today (a shipped `Shroud.dll`) and drops the `--json` agent output, which neither CLI has.
+- CLI: the help text's trust line reads "Zero runtime dependencies. Source-auditable." in both implementations; it used to say ".NET 8 runtime" in the TypeScript CLI too.
+
 ## 0.3.0 - 2026-11-15
 
 A second implementation, and the leaks it turned up. See SECURITY.md: files masked with 0.2.0 or earlier should be rescanned.
