@@ -66,7 +66,8 @@ Recommended workflow:
 shroud <directory>                              Vault (default command)
 shroud vault <directory> [-o output]            Vault with explicit command
 shroud reveal <vault-dir> [-o output]           Decrypt and restore
-shroud scan <file.md> [--verbose] [--debug]     Detection report
+shroud reveal <vault-dir> --text <file|->       Restore tokens in one text (a model's answer)
+shroud scan <file|-> [--verbose] [--debug]      Detection report (- reads stdin)
 shroud mask <file.md> [-o output.md]            Replace spans with tokens (one-way)
 shroud init [--preset paranoid|financial|dev]    Create shroud.json (default: paranoid)
 ```
@@ -75,9 +76,13 @@ shroud init [--preset paranoid|financial|dev]    Create shroud.json (default: pa
 
 `mask -o` takes exactly one input file; with several inputs (after glob expansion) it refuses and writes nothing. `init` without `--preset` writes the paranoid preset, the same detection as having no `shroud.json`; an unknown preset name fails and writes nothing.
 
-Exit codes: `0` success, `1` error (an unknown option, a wrong password, a file that was not found). `scan --exit-code` exits `2` when a file has spans that would be tokenized, for hooks and CI. `scan` prints the matched values, so treat its output like the source file.
+Exit codes: `0` success, `1` error (an unknown option, a wrong password, a file that was not found). `scan --exit-code` exits `2` when a file has spans that would be tokenized, for hooks and CI. `scan` prints the matched values, so treat its output like the source file, or add `--no-values` to print only their lengths.
 
-Passwords: `vault` and `reveal` prompt for the password, take it from `-p <password>` (visible in shell history and the process list), or read one line from piped stdin (`pass show notes | shroud reveal notes.shroud`).
+`scan` and `mask` take any text file (`scan -` reads stdin); `vault` processes `.md` files. `--config <file>` on `scan`, `mask` and `vault` uses that file instead of `./shroud.json`.
+
+Passwords: `vault` and `reveal` take the password from `-p <password>` (visible in shell history and the process list), else from the `SHROUD_PASSWORD` environment variable, else from one line of piped stdin (`pass show notes | shroud reveal notes.shroud`), else they prompt.
+
+`reveal --text` restores this vault's tokens in a single text instead of the masked copies and writes the result to stdout or `-o`: the way back for an answer a model wrote about your masked files.
 
 A command name always wins over a directory of the same name; write `shroud ./scan` to vault a directory called `scan`.
 

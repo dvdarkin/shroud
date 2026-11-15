@@ -14,6 +14,11 @@ CLI audit. Detection, masked output and the vault format are unchanged; the conf
 - Fix: unknown options and options without a value are errors in every command; `scan --json` used to print "File not found: --json" and exit 0, and `vault` ignored anything it did not know
 - Fix: `scan` and `mask` exit 1 when a file was not found
 - Feat: `scan --exit-code` exits 2 when a file has spans that would be tokenized
+- Feat: `scan -` reads the text from stdin (reported as `<stdin>`)
+- Feat: `scan --no-values` prints the length of each match instead of its text, in every report mode, so the output is safe for logs, CI and model context
+- Feat: `--config <file>` on `scan`, `mask` and `vault`
+- Feat: `SHROUD_PASSWORD` environment variable for `vault` and `reveal` (after `-p`, before piped stdin and the prompt)
+- Feat: `reveal <vault-dir> --text <file|->` restores the vault's tokens in one text, to stdout or `-o`
 - Fix: a command name wins over a directory of the same name (`shroud scan x.md` with a `scan/` directory present vaulted that directory)
 - Change: `init` without `--preset` writes `paranoid` (it wrote `financial`, weaker than having no config at all) and its summary lists all five domains
 - Docs: trust-architecture.md describes what the code does: no DPAPI, Argon2id or key rotation in standalone Shroud, 8-hex token ids, the manifest in place of a `scan --json` that never existed, and `scan` output is not Tier 0 (it prints values)

@@ -17,6 +17,13 @@ public static class Program
     /// <summary>Test seam: when set, `vault` uses this masking key instead of a random one.</summary>
     internal static byte[]? VaultMaskingKeyOverride { get; set; }
 
+    /// <summary>Test seams: the raw standard streams (scan -, reveal --text).</summary>
+    internal static Func<Stream> OpenStdin { get; set; } = Console.OpenStandardInput;
+    internal static Func<Stream> OpenStdout { get; set; } = Console.OpenStandardOutput;
+
+    private const string StdinArg = "-";
+    private const string PasswordVariable = "SHROUD_PASSWORD";
+
     public static int Main(string[] args)
     {
         if (args.Length == 0)
@@ -70,6 +77,25 @@ public static class Program
     private static string? Value(Dictionary<string, string> values, string shortName, string longName) =>
         values.TryGetValue(longName, out var v) ? v : values.GetValueOrDefault(shortName);
 
+    /// <summary>All of stdin as text, decoded like File.ReadAllText (UTF-8, a BOM is honoured and dropped).</summary>
+    private static string ReadStdinText()
+    {
+        using var reader = new StreamReader(OpenStdin(), new System.Text.UTF8Encoding(false), detectEncodingFromByteOrderMarks: true);
+        return reader.ReadToEnd();
+    }
+
+    /// <summary>The password from -p, else from the SHROUD_PASSWORD environment variable, else null.</summary>
+    private static string? GivenPassword(string? passwordArg)
+    {
+        if (passwordArg is not null) return passwordArg;
+        var fromEnvironment = Environment.GetEnvironmentVariable(PasswordVariable);
+        return string.IsNullOrEmpty(fromEnvironment) ? null : fromEnvironment;
+    }
+
+    /// <summary>A matched value for the report: truncated, or only its length with --no-values.</summary>
+    private static string Display(string text, int max, bool noValues) =>
+        noValues ? $"<{text.Length} chars>" : text.Length > max ? text[..max] + "..." : text;
+
     /// <summary>
     /// The directory path without trailing separators. ".", ".." and roots have no name of their
     /// own to append a suffix to, so they are resolved to a full path first.
@@ -96,42 +122,52 @@ public static class Program
     {
         var files = new List<string>();
         var flags = new HashSet<string>();
-        var parseError = ParseArgs(args, ["--verbose", "-v", "--debug", "--exit-code"], [], flags, [], files);
+        var values = new Dictionary<string, string>();
+        var parseError = ParseArgs(args, ["--verbose", "-v", "--debug", "--exit-code", "--no-values"],
+            ["-c", "--config"], flags, values, files);
         if (parseError is not null)
             return Error(parseError);
 
         if (files.Count == 0)
-            return Error("Usage: shroud scan <file.md> [file2.md ...] [--verbose] [--debug] [--exit-code]");
+            return Error("Usage: shroud scan <file|-> [file2 ...] [--verbose] [--debug] [--exit-code] [--no-values] [--config file]");
+        if (files.Count(f => f == StdinArg) > 1)
+            return Error("- (stdin) can be given only once.");
 
+        var noValues = flags.Contains("--no-values");
         var debug = flags.Contains("--debug");
         var verbose = debug || flags.Contains("--verbose") || flags.Contains("-v");
         var missing = 0;
         var detected = false;
 
-        var config = LoadConfig();
+        var configPath = Value(values, "-c", "--config");
+        var config = LoadConfig(configPath);
+        if (config is null)
+            return Error($"Config file not found: {configPath}");
         var scanner = CreateScanner(config);
 
         foreach (var path in ExpandGlobs(files))
         {
-            if (!File.Exists(path))
+            var fromStdin = path == StdinArg;
+            if (!fromStdin && !File.Exists(path))
             {
                 Console.Error.WriteLine($"  File not found: {path}");
                 missing++;
                 continue;
             }
 
-            var text = File.ReadAllText(path);
+            var text = fromStdin ? ReadStdinText() : File.ReadAllText(path);
+            var label = fromStdin ? "<stdin>" : path;
 
             ScanResult result;
             if (verbose)
             {
                 result = scanner.ScanWithDiagnostics(text, out var diagnostics);
-                PrintScanResultVerbose(path, result, diagnostics, debug);
+                PrintScanResultVerbose(label, result, diagnostics, debug, noValues);
             }
             else
             {
                 result = scanner.Scan(text);
-                PrintScanResult(path, result);
+                PrintScanResult(label, result, noValues);
             }
             if (result.AboveThreshold.Count > 0) detected = true;
         }
@@ -145,7 +181,7 @@ public static class Program
     {
         var files = new List<string>();
         var values = new Dictionary<string, string>();
-        var parseError = ParseArgs(args, [], ["-o", "--output"], [], values, files);
+        var parseError = ParseArgs(args, [], ["-o", "--output", "-c", "--config"], [], values, files);
         if (parseError is not null)
             return Error(parseError);
         var outputPath = Value(values, "-o", "--output");
@@ -158,7 +194,10 @@ public static class Program
             return Error($"-o {outputPath} names one output file but {inputs.Count} input files were given; " +
                          "mask them one at a time, or omit -o to mask each file in place.");
 
-        var config = LoadConfig();
+        var configPath = Value(values, "-c", "--config");
+        var config = LoadConfig(configPath);
+        if (config is null)
+            return Error($"Config file not found: {configPath}");
         var scanner = CreateScanner(config);
         var key = LoadOrCreateKey(config);
         var masker = new SpanMasker(key);
@@ -209,24 +248,27 @@ public static class Program
     {
         var positionals = new List<string>();
         var values = new Dictionary<string, string>();
-        var parseError = ParseArgs(args, [], ["-o", "--output", "-p", "--password"], [], values, positionals);
+        var parseError = ParseArgs(args, [], ["-o", "--output", "-p", "--password", "-c", "--config"], [], values, positionals);
         if (parseError is not null)
             return Error(parseError);
         if (positionals.Count != 1)
-            return Error("Usage: shroud vault <directory> [-o output] [-p password]");
+            return Error("Usage: shroud vault <directory> [-o output] [-p password] [--config file]");
 
         var sourceDir = positionals[0];
         if (!Directory.Exists(sourceDir))
             return Error($"Directory not found: {sourceDir}");
 
-        var passwordArg = Value(values, "-p", "--password");
+        var passwordArg = GivenPassword(Value(values, "-p", "--password"));
         var outputDir = Value(values, "-o", "--output") ?? NamedDirectory(sourceDir) + ".shroud";
 
         // An output inside the source would be scanned by the next run (masked copies of masked copies).
         if (IsSameOrInside(sourceDir, outputDir))
             return Error($"Output directory {outputDir} is inside the source directory. Choose a location outside it with -o.");
 
-        var config = LoadConfig();
+        var configPath = Value(values, "-c", "--config");
+        var config = LoadConfig(configPath);
+        if (config is null)
+            return Error($"Config file not found: {configPath}");
         var builder = VaultMaskingKeyOverride is { } fixedKey
             ? new VaultBuilder(CreateScanner(config), fixedKey)
             : new VaultBuilder(CreateScanner(config));
@@ -291,11 +333,11 @@ public static class Program
     {
         var positionals = new List<string>();
         var values = new Dictionary<string, string>();
-        var parseError = ParseArgs(args, [], ["-o", "--output", "-p", "--password"], [], values, positionals);
+        var parseError = ParseArgs(args, [], ["-o", "--output", "-p", "--password", "--text"], [], values, positionals);
         if (parseError is not null)
             return Error(parseError);
         if (positionals.Count != 1)
-            return Error("Usage: shroud reveal <vault-dir> [-o output] [-p password]");
+            return Error("Usage: shroud reveal <vault-dir> [-o output] [-p password] [--text file|-]");
 
         var vaultDir = positionals[0];
         var vaultFile = Path.Combine(vaultDir, "vault.shroud");
@@ -304,8 +346,11 @@ public static class Program
         if (!File.Exists(vaultFile))
             return Error($"No vault.shroud found in {vaultDir}");
 
-        var passwordArg = Value(values, "-p", "--password");
+        var passwordArg = GivenPassword(Value(values, "-p", "--password"));
         var outputDir = Value(values, "-o", "--output");
+
+        if (values.TryGetValue("--text", out var textPath))
+            return RevealText(vaultDir, vaultFile, textPath, outputDir, passwordArg);
 
         // Default: "<name>.shroud" reveals to "<name>.revealed", any other name to
         // "<name>.revealed" next to it. Never into the vault directory, whose public/ is shared.
@@ -373,6 +418,52 @@ public static class Program
         }
 
         Console.WriteLine($"\n  {filesRevealed} files revealed to {outputDir}/");
+        return 0;
+    }
+
+    /// <summary>
+    /// reveal --text: restores the tokens of this vault in one text (a file, or "-" for stdin),
+    /// for example a model's answer about the masked copies. The result goes to -o or to stdout,
+    /// as UTF-8; nothing else is written to stdout, so it can be piped.
+    /// </summary>
+    private static int RevealText(string vaultDir, string vaultFile, string textPath, string? outputPath, string? passwordArg)
+    {
+        var fromStdin = textPath == StdinArg;
+        if (!fromStdin && !File.Exists(textPath))
+            return Error($"File not found: {textPath}");
+        if (fromStdin && passwordArg is null)
+            return Error($"--text - reads the text from stdin, so the password must come from -p or {PasswordVariable}.");
+        if (outputPath is not null && IsSameOrInside(vaultDir, outputPath))
+            return Error($"Output file {outputPath} is inside the vault directory, which holds the shareable copies. Choose a location outside it with -o.");
+
+        var password = passwordArg ?? ReadPassword("  Vault password: ");
+        if (string.IsNullOrEmpty(password))
+            return Error("Password required.");
+
+        var json = VaultEncryption.DecryptString(File.ReadAllBytes(vaultFile), password);
+        if (json is null)
+            return Error("Wrong password.");
+
+        var vaultData = System.Text.Json.JsonSerializer.Deserialize<VaultData>(json,
+            new System.Text.Json.JsonSerializerOptions { PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase });
+        if (vaultData?.Tokens is null)
+            return Error("Corrupt vault file.");
+
+        var text = fromStdin ? ReadStdinText() : File.ReadAllText(textPath);
+        var restored = TokenRestorer.Restore(text, vaultData.Tokens, out var unresolved);
+        if (unresolved > 0)
+            Console.Error.WriteLine($"  Warning: {unresolved} token(s) are not in this vault and were left in place.");
+
+        if (outputPath is not null)
+        {
+            File.WriteAllText(outputPath, restored);
+        }
+        else
+        {
+            using var stdout = OpenStdout();
+            stdout.Write(System.Text.Encoding.UTF8.GetBytes(restored));
+            stdout.Flush();
+        }
         return 0;
     }
 
@@ -446,7 +537,7 @@ public static class Program
         return 0;
     }
 
-    private static void PrintScanResult(string path, ScanResult result)
+    private static void PrintScanResult(string path, ScanResult result, bool noValues)
     {
         Console.WriteLine($"\n  {path}");
         Console.WriteLine($"  Detected: {result.AllDetected.Count} " +
@@ -460,9 +551,7 @@ public static class Program
             Console.WriteLine($"    {new string('-', 90)}");
             foreach (var span in result.AboveThreshold)
             {
-                var display = span.MatchedText.Length > 35
-                    ? span.MatchedText[..35] + "..."
-                    : span.MatchedText;
+                var display = Display(span.MatchedText, 35, noValues);
                 var svc = string.IsNullOrEmpty(span.Service) ? "-" : span.Service;
                 Console.WriteLine(Invariant($"    {span.Domain,-12} {span.EntityType,-18} {svc,-24} {span.Confidence,5:F2}  {display}"));
             }
@@ -474,16 +563,14 @@ public static class Program
             Console.WriteLine(Invariant($"    Below threshold ({result.Threshold:F2}):"));
             foreach (var span in result.BelowThreshold)
             {
-                var display = span.MatchedText.Length > 40
-                    ? span.MatchedText[..40] + "..."
-                    : span.MatchedText;
+                var display = Display(span.MatchedText, 40, noValues);
                 Console.WriteLine(Invariant($"      {span.Domain,-12} {span.EntityType,-18} {span.Confidence,5:F2}  {display}"));
             }
         }
     }
 
     private static void PrintScanResultVerbose(string path, ScanResult result,
-        ScanDiagnostics diagnostics, bool debug)
+        ScanDiagnostics diagnostics, bool debug, bool noValues)
     {
         Console.WriteLine($"\n  {path}");
         Console.WriteLine($"  Detected: {result.AllDetected.Count} " +
@@ -504,9 +591,7 @@ public static class Program
             Console.WriteLine($"    {new string('-', 90)}");
             foreach (var span in result.AboveThreshold)
             {
-                var display = span.MatchedText.Length > 35
-                    ? span.MatchedText[..35] + "..."
-                    : span.MatchedText;
+                var display = Display(span.MatchedText, 35, noValues);
                 var svc = string.IsNullOrEmpty(span.Service) ? "-" : span.Service;
                 Console.WriteLine(Invariant($"    {span.Domain,-12} {span.EntityType,-18} {svc,-24} {span.Confidence,5:F2}  {display}"));
 
@@ -523,9 +608,7 @@ public static class Program
             Console.WriteLine(Invariant($"    Below threshold ({result.Threshold:F2}):"));
             foreach (var span in result.BelowThreshold)
             {
-                var display = span.MatchedText.Length > 40
-                    ? span.MatchedText[..40] + "..."
-                    : span.MatchedText;
+                var display = Display(span.MatchedText, 40, noValues);
                 Console.WriteLine(Invariant($"      {span.Domain,-12} {span.EntityType,-18} {span.Confidence,5:F2}  {display}"));
 
                 var diag = diagnostics.AllSpans
@@ -541,12 +624,8 @@ public static class Program
             Console.WriteLine($"    Overlap resolutions:");
             foreach (var res in diagnostics.OverlapResolutions)
             {
-                var droppedText = res.Dropped.MatchedText.Length > 30
-                    ? res.Dropped.MatchedText[..30] + "..."
-                    : res.Dropped.MatchedText;
-                var winnerText = res.Winner.MatchedText.Length > 30
-                    ? res.Winner.MatchedText[..30] + "..."
-                    : res.Winner.MatchedText;
+                var droppedText = Display(res.Dropped.MatchedText, 30, noValues);
+                var winnerText = Display(res.Winner.MatchedText, 30, noValues);
                 Console.WriteLine($"      dropped \"{droppedText}\" ({res.Reason}) -> winner \"{winnerText}\"");
             }
         }
@@ -592,8 +671,15 @@ public static class Program
         }
     }
 
-    private static ShroudConfig LoadConfig()
+    /// <summary>
+    /// --config path when given (null when that file does not exist), else shroud.json in the
+    /// current directory, else the default (paranoid) configuration.
+    /// </summary>
+    private static ShroudConfig? LoadConfig(string? configPath)
     {
+        if (configPath is not null)
+            return File.Exists(configPath) ? ShroudConfig.Load(configPath) : null;
+
         return File.Exists(ConfigFileName)
             ? ShroudConfig.Load(ConfigFileName)
             : ShroudConfig.Default();
@@ -655,7 +741,8 @@ public static class Program
           shroud <directory>                         Vault a directory (safe copy + encrypted registry)
           shroud vault <directory> [-o output]        Same as above, explicit command
           shroud reveal <vault-dir> [-o output]       Decrypt and restore original files
-          shroud scan <file.md> [--verbose] [--debug]      Detect sensitive spans, print report
+          shroud reveal <vault-dir> --text <file|->   Restore this vault's tokens in one text, to stdout or -o
+          shroud scan <file|-> [--verbose] [--debug]       Detect sensitive spans, print report (- reads stdin)
           shroud mask <file.md> [-o output.md]        Replace spans with tokens, one-way (-o: one input only)
           shroud init [--preset paranoid|financial|dev]     Create shroud.json config (default: paranoid)
 
@@ -663,9 +750,14 @@ public static class Program
           0 success, 1 error (including a file that was not found).
           scan --exit-code exits 2 when a file has spans that would be tokenized.
 
+        Options:
+          --config <file>  scan, mask, vault: use this config instead of ./shroud.json
+          --no-values      scan: print the length of each match instead of its text
+          scan and mask take any text file; vault processes .md files only.
+
         Passwords:
-          vault and reveal prompt for the password, take it from -p, or read one line
-          from piped stdin.
+          vault and reveal take the password from -p, else from the SHROUD_PASSWORD
+          environment variable, else from one line of piped stdin, else they prompt.
 
         Vault mode:
           Point at a directory. Shroud scans all .md files, produces:

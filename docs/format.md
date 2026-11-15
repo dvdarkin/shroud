@@ -244,6 +244,15 @@ again is just another occurrence. `shroud mask` does not check for collisions.
 
 A payload whose `tokens` is JSON `null` is reported as "Corrupt vault file."
 
+`shroud reveal <vaultDir> --text <file|->` applies step 3 to one text (a file, or all of
+stdin for `-`) instead of `public/`, and writes the result as UTF-8 without a BOM to
+`-o` or to stdout, with nothing else on stdout. Unknown tokens give
+`  Warning: <n> token(s) are not in this vault and were left in place.` on stderr.
+
+The password for `vault` and `reveal` is taken from `-p`, else a non-empty
+`SHROUD_PASSWORD` environment variable, else the first line of redirected stdin, else
+an interactive prompt (`vault` asks twice only when prompting).
+
 Round-trip guarantees and limits: the revealed bytes equal the original bytes when the
 source was UTF-8 without a BOM. A source BOM is dropped, UTF-16/UTF-32 sources come back
 as UTF-8, and invalid UTF-8 comes back as U+FFFD (all observed in both builds). Text in

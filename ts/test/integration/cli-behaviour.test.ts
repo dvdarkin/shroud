@@ -4,11 +4,11 @@
 // (node:test runs the tests of one file sequentially, each test file in its own process).
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { type Dirent, appendFileSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { type Dirent, appendFileSync, existsSync, mkdirSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, relative, sep } from 'node:path';
 import { afterEach, beforeEach, describe, test } from 'node:test';
-import { main, setCliIo, setVaultMaskingKeyOverride } from '../../src/cli-program.js';
+import { main, setCliIo, setCliStdin, setVaultMaskingKeyOverride } from '../../src/cli-program.js';
 
 describe('CliBehaviourTests', () => {
   let dir = '';
@@ -24,6 +24,8 @@ describe('CliBehaviourTests', () => {
   afterEach(() => {
     process.chdir(oldCwd);
     setVaultMaskingKeyOverride(null);
+    setCliStdin(null);
+    delete process.env.SHROUD_PASSWORD;
     if (existsSync(dir)) rmSync(dir, { recursive: true, force: true });
   });
 
@@ -394,5 +396,117 @@ describe('CliBehaviourTests', () => {
 
     assert.ok(!err.includes('one-way'));
     assert.equal(readFileSync('a.md', 'utf8'), `wallet ${WALLET}\n`);
+  });
+
+  // ---- Hooks and pipelines: stdin, --no-values, --config, SHROUD_PASSWORD, reveal --text ----
+
+  const stdinIs = (text: string) => setCliStdin(() => Buffer.from(text, 'utf8'));
+
+  test('scan dash, reads stdin, and works with exit code', async () => {
+    stdinIs(`wallet ${WALLET}\n`);
+
+    const { exit, out } = await run('scan', '-', '--exit-code');
+
+    assert.equal(exit, 2);
+    assert.ok(out.includes('<stdin>') && out.includes('evm_address'));
+  });
+
+  test('scan dash with bom, scans the same as a file', async () => {
+    setCliStdin(() => Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), Buffer.from('clean text\n', 'utf8')]));
+
+    assert.equal((await run('scan', '-', '--exit-code')).exit, 0);
+  });
+
+  test('scan no values, never prints matched text, in any mode', async () => {
+    writeFileSync('a.md', `wallet ${WALLET}\ncard 4111 1111 1111 1111 total 12,500 / 4\nseed abandon\n`);
+
+    for (const mode of [[], ['--verbose'], ['--debug']]) {
+      const { exit, out, err } = await run('scan', 'a.md', '--no-values', ...mode);
+
+      assert.equal(exit, 0);
+      assert.ok(out.includes('evm_address') && out.includes('<42 chars>'));
+      for (const s of [WALLET, '4111', '12,500', 'abandon']) assert.ok(!(out + err).includes(s), s);
+    }
+  });
+
+  test('config option, selects the config file, and a missing one is an error', async () => {
+    writeFileSync('a.md', 'bought 100 ETH at $2,000\n');
+    mkdirSync('cfg');
+    assert.equal((await run('init', '--preset', 'dev')).exit, 0);
+    renameSync('shroud.json', join('cfg', 'dev.json'));
+
+    assert.equal((await run('scan', 'a.md', '--exit-code')).exit, 2);
+    assert.equal((await run('scan', 'a.md', '--exit-code', '--config', join('cfg', 'dev.json'))).exit, 0);
+
+    const { exit, err } = await run('scan', 'a.md', '--config', 'nope.json');
+    assert.equal(exit, 1);
+    assert.ok(err.includes('Config file not found: nope.json'));
+  });
+
+  test('password variable, is used by vault and reveal, and dash p wins', async () => {
+    mkdirSync('notes');
+    writeFileSync(join('notes', 'a.md'), `wallet ${WALLET}\n`);
+    process.env.SHROUD_PASSWORD = 'from-env';
+
+    assert.equal((await run('vault', 'notes')).exit, 0);
+    assert.equal((await run('reveal', 'notes.shroud')).exit, 0);
+    assert.equal(readFileSync(join('notes.revealed', 'a.md'), 'utf8'), `wallet ${WALLET}\n`);
+
+    const { exit, err } = await run('reveal', 'notes.shroud', '-p', 'other');
+    assert.equal(exit, 1);
+    assert.ok(err.includes('Wrong password.'));
+  });
+
+  async function vaultNotesAndGetToken(): Promise<string> {
+    mkdirSync('notes');
+    writeFileSync(join('notes', 'a.md'), `wallet ${WALLET}\n`);
+    assert.equal((await run('vault', 'notes', '-p', 'pw')).exit, 0);
+    const masked = readFileSync(join('notes.shroud', 'public', 'a.md'), 'utf8');
+    return masked.slice('wallet '.length).trimEnd();
+  }
+
+  test('reveal text file, restores tokens to stdout, and nothing else', async () => {
+    const token = await vaultNotesAndGetToken();
+    writeFileSync('answer.md', `The wallet ${token} appears once. Café [ADDR:00000000]\n`);
+
+    const { exit, out, err } = await run('reveal', 'notes.shroud', '--text', 'answer.md', '-p', 'pw');
+
+    assert.equal(exit, 0);
+    assert.equal(out, `The wallet ${WALLET} appears once. Café [ADDR:00000000]\n`);
+    assert.ok(err.includes('1 token(s) are not in this vault'));
+    assert.equal(existsSync('notes.revealed'), false);
+  });
+
+  test('reveal text stdin, with password variable, writes to output file', async () => {
+    const token = await vaultNotesAndGetToken();
+    stdinIs(`seen ${token}\n`);
+    process.env.SHROUD_PASSWORD = 'pw';
+
+    const { exit } = await run('reveal', 'notes.shroud', '--text', '-', '-o', 'answer.txt');
+
+    assert.equal(exit, 0);
+    assert.equal(readFileSync('answer.txt', 'utf8'), `seen ${WALLET}\n`);
+  });
+
+  test('reveal text stdin, without a password, is refused', async () => {
+    await vaultNotesAndGetToken();
+    stdinIs('anything\n');
+
+    const { exit, err } = await run('reveal', 'notes.shroud', '--text', '-');
+
+    assert.equal(exit, 1);
+    assert.ok(err.includes('SHROUD_PASSWORD'));
+  });
+
+  test('reveal text, output inside the vault, or wrong password, writes nothing', async () => {
+    const token = await vaultNotesAndGetToken();
+    writeFileSync('answer.md', `${token}\n`);
+
+    const inside = join('notes.shroud', 'public', 'x.md');
+    assert.equal((await run('reveal', 'notes.shroud', '--text', 'answer.md', '-p', 'pw', '-o', inside)).exit, 1);
+    assert.equal((await run('reveal', 'notes.shroud', '--text', 'answer.md', '-p', 'bad', '-o', 'out.md')).exit, 1);
+
+    assert.equal(existsSync(inside), false);
+    assert.equal(existsSync('out.md'), false);
   });
 });

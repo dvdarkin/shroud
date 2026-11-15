@@ -30,6 +30,9 @@ public class CliBehaviourTests : IDisposable
     {
         Directory.SetCurrentDirectory(_oldCwd);
         Shroud.Cli.Program.VaultMaskingKeyOverride = null;
+        Shroud.Cli.Program.OpenStdin = Console.OpenStandardInput;
+        Shroud.Cli.Program.OpenStdout = Console.OpenStandardOutput;
+        Environment.SetEnvironmentVariable("SHROUD_PASSWORD", null);
         if (Directory.Exists(_dir)) Directory.Delete(_dir, true);
     }
 
@@ -475,5 +478,163 @@ public class CliBehaviourTests : IDisposable
 
         stderr.Should().NotContain("one-way");
         File.ReadAllText("a.md").Should().Be($"wallet {Wallet}\n");
+    }
+
+    // ---- Hooks and pipelines: stdin, --no-values, --config, SHROUD_PASSWORD, reveal --text ----
+
+    private static void StdinIs(string text) =>
+        Shroud.Cli.Program.OpenStdin = () => new MemoryStream(System.Text.Encoding.UTF8.GetBytes(text));
+
+    private static MemoryStream CaptureStdout()
+    {
+        var stream = new MemoryStream();
+        Shroud.Cli.Program.OpenStdout = () => new NonClosingStream(stream);
+        return stream;
+    }
+
+    private sealed class NonClosingStream(MemoryStream inner) : Stream
+    {
+        public override bool CanRead => false;
+        public override bool CanSeek => false;
+        public override bool CanWrite => true;
+        public override long Length => inner.Length;
+        public override long Position { get => inner.Position; set => inner.Position = value; }
+        public override void Flush() => inner.Flush();
+        public override int Read(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+        public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+        public override void SetLength(long value) => throw new NotSupportedException();
+        public override void Write(byte[] buffer, int offset, int count) => inner.Write(buffer, offset, count);
+    }
+
+    [Fact]
+    public void Scan_Dash_ReadsStdin_AndWorksWithExitCode()
+    {
+        StdinIs($"wallet {Wallet}\n");
+
+        var (exit, stdout, _) = Run("scan", "-", "--exit-code");
+
+        exit.Should().Be(2);
+        stdout.Should().Contain("<stdin>").And.Contain("evm_address");
+    }
+
+    [Fact]
+    public void Scan_Dash_WithBom_ScansTheSameAsAFile()
+    {
+        Shroud.Cli.Program.OpenStdin = () => new MemoryStream(
+            new byte[] { 0xEF, 0xBB, 0xBF }.Concat(System.Text.Encoding.UTF8.GetBytes("clean text\n")).ToArray());
+
+        Run("scan", "-", "--exit-code").Exit.Should().Be(0);
+    }
+
+    [Fact]
+    public void Scan_NoValues_NeverPrintsMatchedText_InAnyMode()
+    {
+        File.WriteAllText("a.md", $"wallet {Wallet}\ncard 4111 1111 1111 1111 total 12,500 / 4\nseed abandon\n");
+
+        foreach (var mode in new[] { Array.Empty<string>(), ["--verbose"], ["--debug"] })
+        {
+            var (exit, stdout, stderr) = Run(["scan", "a.md", "--no-values", .. mode]);
+
+            exit.Should().Be(0);
+            stdout.Should().Contain("evm_address").And.Contain("<42 chars>");
+            (stdout + stderr).Should().NotContain(Wallet).And.NotContain("4111").And.NotContain("12,500").And.NotContain("abandon");
+        }
+    }
+
+    [Fact]
+    public void Config_Option_SelectsTheConfigFile_AndAMissingOneIsAnError()
+    {
+        File.WriteAllText("a.md", "bought 100 ETH at $2,000\n");
+        Directory.CreateDirectory("cfg");
+        Run("init", "--preset", "dev").Exit.Should().Be(0);
+        File.Move("shroud.json", Path.Combine("cfg", "dev.json"));
+
+        Run("scan", "a.md", "--exit-code").Exit.Should().Be(2);
+        Run("scan", "a.md", "--exit-code", "--config", Path.Combine("cfg", "dev.json")).Exit.Should().Be(0);
+
+        var (exit, _, stderr) = Run("scan", "a.md", "--config", "nope.json");
+        exit.Should().Be(1);
+        stderr.Should().Contain("Config file not found: nope.json");
+    }
+
+    [Fact]
+    public void PasswordVariable_IsUsedByVaultAndReveal_AndDashPWins()
+    {
+        Directory.CreateDirectory("notes");
+        File.WriteAllText(Path.Combine("notes", "a.md"), $"wallet {Wallet}\n");
+        Environment.SetEnvironmentVariable("SHROUD_PASSWORD", "from-env");
+
+        Run("vault", "notes").Exit.Should().Be(0);
+        Run("reveal", "notes.shroud").Exit.Should().Be(0);
+        File.ReadAllText(Path.Combine("notes.revealed", "a.md")).Should().Be($"wallet {Wallet}\n");
+
+        var (exit, _, stderr) = Run("reveal", "notes.shroud", "-p", "other");
+        exit.Should().Be(1);
+        stderr.Should().Contain("Wrong password.");
+    }
+
+    private static string VaultNotesAndGetToken()
+    {
+        Directory.CreateDirectory("notes");
+        File.WriteAllText(Path.Combine("notes", "a.md"), $"wallet {Wallet}\n");
+        Run("vault", "notes", "-p", "pw").Exit.Should().Be(0);
+        var masked = File.ReadAllText(Path.Combine("notes.shroud", "public", "a.md"));
+        return masked["wallet ".Length..].TrimEnd();
+    }
+
+    [Fact]
+    public void RevealText_File_RestoresTokensToStdout_AndNothingElse()
+    {
+        var token = VaultNotesAndGetToken();
+        File.WriteAllText("answer.md", $"The wallet {token} appears once. Café [ADDR:00000000]\n");
+        var captured = CaptureStdout();
+
+        var (exit, stdout, stderr) = Run("reveal", "notes.shroud", "--text", "answer.md", "-p", "pw");
+
+        exit.Should().Be(0);
+        stdout.Should().BeEmpty();
+        System.Text.Encoding.UTF8.GetString(captured.ToArray())
+            .Should().Be($"The wallet {Wallet} appears once. Café [ADDR:00000000]\n");
+        stderr.Should().Contain("1 token(s) are not in this vault");
+        Directory.Exists("notes.revealed").Should().BeFalse();
+    }
+
+    [Fact]
+    public void RevealText_Stdin_WithPasswordVariable_WritesToOutputFile()
+    {
+        var token = VaultNotesAndGetToken();
+        StdinIs($"seen {token}\n");
+        Environment.SetEnvironmentVariable("SHROUD_PASSWORD", "pw");
+
+        var (exit, _, _) = Run("reveal", "notes.shroud", "--text", "-", "-o", "answer.txt");
+
+        exit.Should().Be(0);
+        File.ReadAllText("answer.txt").Should().Be($"seen {Wallet}\n");
+    }
+
+    [Fact]
+    public void RevealText_Stdin_WithoutAPassword_IsRefused()
+    {
+        VaultNotesAndGetToken();
+        StdinIs("anything\n");
+
+        var (exit, _, stderr) = Run("reveal", "notes.shroud", "--text", "-");
+
+        exit.Should().Be(1);
+        stderr.Should().Contain("SHROUD_PASSWORD");
+    }
+
+    [Fact]
+    public void RevealText_OutputInsideTheVault_OrWrongPassword_WritesNothing()
+    {
+        var token = VaultNotesAndGetToken();
+        File.WriteAllText("answer.md", $"{token}\n");
+
+        Run("reveal", "notes.shroud", "--text", "answer.md", "-p", "pw", "-o", Path.Combine("notes.shroud", "public", "x.md"))
+            .Exit.Should().Be(1);
+        Run("reveal", "notes.shroud", "--text", "answer.md", "-p", "bad", "-o", "out.md").Exit.Should().Be(1);
+
+        File.Exists(Path.Combine("notes.shroud", "public", "x.md")).Should().BeFalse();
+        File.Exists("out.md").Should().BeFalse();
     }
 }

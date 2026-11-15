@@ -26,8 +26,10 @@ the platform line ending). Run `shroud help` for the full usage text. `mask -o` 
 exactly one input (several inputs, also after glob expansion, are an error before any
 config or key file is touched), and `init --preset` accepts only `paranoid`,
 `financial` or `dev` (case-sensitive). `mask` is one-way (only `vault` output can be
-revealed), `scan --exit-code` exits 2 when something would be tokenized, and `vault`
-and `reveal` read the password from one line of piped stdin when it is not a terminal.
+revealed), `scan --exit-code` exits 2 when something would be tokenized, `scan -` reads
+stdin, `--no-values` keeps matched text out of the report, and `vault` and `reveal` take
+the password from `-p`, `SHROUD_PASSWORD`, or one line of piped stdin. `reveal --text`
+restores the tokens in a single text.
 
 `shroud.json` property names are matched case-insensitively at every level, like the
 C# loader (System.Text.Json `PropertyNameCaseInsensitive`): `"onchain"`, `"OnChain"`
