@@ -67,11 +67,19 @@ shroud <directory>                              Vault (default command)
 shroud vault <directory> [-o output]            Vault with explicit command
 shroud reveal <vault-dir> [-o output]           Decrypt and restore
 shroud scan <file.md> [--verbose] [--debug]     Detection report
-shroud mask <file.md> [-o output.md]            Replace spans with tokens
-shroud init [--preset financial|dev|paranoid]    Create shroud.json
+shroud mask <file.md> [-o output.md]            Replace spans with tokens (one-way)
+shroud init [--preset paranoid|financial|dev]    Create shroud.json (default: paranoid)
 ```
 
-`mask -o` takes exactly one input file; with several inputs (after glob expansion) it refuses and writes nothing. Without `-o` each file is masked in place. `init` with an unknown preset name fails and writes nothing.
+**`vault` is reversible, `mask` is not.** `vault` leaves the source untouched and keeps the original values in the encrypted `vault.shroud`, so `reveal` can restore them. `mask` only writes the tokenized text: it stores no originals, and without `-o` it overwrites each file in place. Its key file (`.shroud/vault.key`) only keeps token ids stable from run to run; it cannot unmask anything. Use `mask` for text you never need back, or keep the original yourself.
+
+`mask -o` takes exactly one input file; with several inputs (after glob expansion) it refuses and writes nothing. `init` without `--preset` writes the paranoid preset, the same detection as having no `shroud.json`; an unknown preset name fails and writes nothing.
+
+Exit codes: `0` success, `1` error (an unknown option, a wrong password, a file that was not found). `scan --exit-code` exits `2` when a file has spans that would be tokenized, for hooks and CI. `scan` prints the matched values, so treat its output like the source file.
+
+Passwords: `vault` and `reveal` prompt for the password, take it from `-p <password>` (visible in shell history and the process list), or read one line from piped stdin (`pass show notes | shroud reveal notes.shroud`).
+
+A command name always wins over a directory of the same name; write `shroud ./scan` to vault a directory called `scan`.
 
 ## Diagnostic Output
 
@@ -116,7 +124,7 @@ Everything in `--verbose`, plus exclusion zones, overlap resolutions, Luhn rejec
 
 Three-tier trust architecture:
 - **Tier 0 (Public):** Read masked files, view manifest metadata, correlate tokens across files
-- **Tier 1 (Operator):** Can mask files (requires key file), cannot unmask
+- **Tier 1 (Operator):** Can scan, mask or vault the source files it is given; cannot reveal anything already masked
 - **Tier 2 (Owner):** Can reveal original data (requires vault password)
 
 Masking increases safety (allowed). Revealing decreases safety (password-gated).
@@ -153,6 +161,10 @@ Property names are matched case-insensitively at every level (`"onchain"` config
 ```
 
 `manifest.json` records the source only as its directory name (`my-notes`), never the absolute path.
+
+The default output is `<dir>.shroud` next to the source (`shroud vault .` inside `notes/` writes `../notes.shroud`); an output directory inside the source is refused, since the next run would scan it. Running `vault` again into the same output replaces `public/`: masked copies of files that no longer exist in the source are removed (only `.md` files are touched).
+
+`reveal` writes to `<name>.revealed` next to the vault directory, never into it. It warns when a file in `public/` was changed or added after vaulting, and when a token is not in the vault (it is left in place).
 
 ### Token Collision Safety
 

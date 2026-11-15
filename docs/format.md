@@ -23,7 +23,13 @@ than designed.
 ```
 
 - `<out>` defaults to `<dir>` with trailing `/` and `\` characters removed, plus
-  `.shroud` (so `notes/` gives `notes.shroud`; observed: `.` gives `..shroud`).
+  `.shroud` (so `notes/` gives `notes.shroud`). When the last segment is empty, `.` or
+  `..`, `<dir>` is resolved to a full path first, so `.` inside `/home/a/notes` gives
+  `/home/a/notes.shroud`.
+- An `<out>` that is `<dir>` itself or lies inside it is refused before anything is
+  scanned (exit 1): the next run would scan the masked copies.
+- Before writing, every `*.md` file already under `<out>/public/` is deleted, so
+  `public/` holds exactly the files of this run. Other files are left alone.
 - Input files: every file matching `*.md` in `<dir>` and all subdirectories (Win32
   wildcard matching, case-insensitive on Windows, case-sensitive elsewhere), processed
   in ordinal order of their relative path string exactly as stored in the output
@@ -108,7 +114,7 @@ reveal applies tokens in document order, section 6):
 - `fileHashes`: file processing order.
 - Relative paths use the platform directory separator of the writer (`\` on
   Windows, `/` elsewhere), so a vault written on Windows has `sub\b.md` keys.
-  `fileHashes` is informational: neither build verifies it on reveal.
+  Reveal checks `fileHashes` and warns on a mismatch (section 6).
 
 Serialization (System.Text.Json, `WriteIndented = true`, camelCase names, null
 properties omitted):
@@ -191,7 +197,9 @@ The HMAC key depends on the command:
 - `shroud vault`: 32 fresh random bytes per run, never stored. Tokens therefore
   correlate across files of one vault but not across vault runs, and never match
   `mask` tokens.
-- `shroud mask`: the raw bytes of the key file (section 7), any length.
+- `shroud mask`: the raw bytes of the key file (section 7), any length. `mask` writes
+  only the masked text; nothing records the original values, so its output cannot be
+  revealed.
 
 The matched text is UTF-8 encoded without normalization (a lone surrogate becomes
 `EF BF BD`). The same value and type always give the same id under one key.
@@ -214,15 +222,27 @@ again is just another occurrence. `shroud mask` does not check for collisions.
 `shroud reveal <vaultDir>`:
 
 1. Decrypt `<vaultDir>/vault.shroud` (section 2) and parse it (section 3).
-2. Output directory: `-o` if given, else `<vaultDir>` with **every** `.shroud`
-   substring replaced by `.revealed` (observed: a directory name without `.shroud`
-   reveals into the vault directory itself).
-3. For every `*.md` file under `<vaultDir>/public/` (recursive), read it as text and,
-   for each `(id, value)` in `tokens` document order, replace every occurrence of
-   `[id]` with `value` (ordinal, non-overlapping, left to right; a JSON `null` value
-   replaces with the empty string). Replacements are sequential, so a value that
-   itself contains `[other-id]` text is expanded by a later token.
+2. Output directory: `-o` if given. Otherwise `<vaultDir>` without trailing separators
+   (resolved to a full path when its last segment is empty, `.` or `..`), with a
+   trailing `.shroud` removed when something precedes it in the directory name, plus
+   `.revealed`: `notes.shroud` gives `notes.revealed`, `out` gives `out.revealed`. An
+   output directory that is `<vaultDir>` or lies inside it is refused (exit 1).
+3. For every `*.md` file under `<vaultDir>/public/` (recursive), read it as text and
+   restore it in ONE left-to-right pass: every innermost bracket pair `[` ... `]` (no
+   `[` or `]` between them) whose content is a key of `tokens` is replaced by its
+   value (a JSON `null` value by the empty string). Replaced text is not scanned
+   again, so a value that itself contains `[other-id]` text comes back verbatim. A
+   bracket pair whose content matches `[A-Z]+:[0-9a-f]{4,}` but is not a key is left
+   in place and counted.
 4. Write each result to the same relative path under the output directory.
+5. Warnings on stderr (the exit code stays 0); the first two only when `fileHashes`
+   is not empty: `  Warning: <path> is not part of this vault.` when the relative
+   path (tried as is, with `\` as `/`, and with `/` as `\`) has no `fileHashes`
+   entry; `  Warning: <path> was changed after it was vaulted.` when the SHA-256 of
+   the UTF-8 encoding of the text read differs from the entry; and
+   `  Warning: <path>: <n> token(s) are not in this vault and were left in place.`
+
+A payload whose `tokens` is JSON `null` is reported as "Corrupt vault file."
 
 Round-trip guarantees and limits: the revealed bytes equal the original bytes when the
 source was UTF-8 without a BOM. A source BOM is dropped, UTF-16/UTF-32 sources come back
@@ -233,8 +253,10 @@ the source that already looks like `[ID:xxxxxxxx]` for an id in the vault is rep
 
 `shroud mask` reads the HMAC key from `keyFile` in `shroud.json`, default
 `.shroud/vault.key` relative to the working directory. When the file does not exist it
-is created with 32 random bytes (creating the directory if needed) and a warning is
+is created with 32 random bytes (creating the directory if needed) and a notice is
 printed to stderr. The file is raw bytes; any length (including zero) is accepted.
+The key only makes token ids repeatable across `mask` runs. It is not needed, and not
+sufficient, to recover a masked value.
 
 ## 8. `shroud.json`
 
@@ -264,7 +286,8 @@ printed to stderr. The file is raw bytes; any length (including zero) is accepte
   gives those defaults; `enabled` must be a boolean and `threshold` a number (anything
   else aborts); `layer`, `keyFile`, `preset` and the domain objects may be `null`.
   Note that `{}` therefore means "markets at 0.70", while having no `shroud.json` at
-  all means the paranoid preset (directional at 0.50).
+  all means the paranoid preset (directional at 0.50). `shroud init` without
+  `--preset` writes the paranoid preset.
 - `layer` (financial only): `"magnitudes"` (amounts, prices, quantities),
   `"markets"` (adds market pairs and asset names) or `"directional"` (adds everything
   else in the financial domain, currently credit cards). Any other value, including

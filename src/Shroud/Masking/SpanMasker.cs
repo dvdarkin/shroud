@@ -9,8 +9,9 @@ namespace Shroud.Masking;
 /// HMAC-SHA256(key, matchedText) truncated to 4 bytes (8 hex chars) — same value + same key always
 /// produces the same token, enabling cross-file correlation without exposing the original. Spans
 /// are replaced right-to-left to preserve character indices. 4-byte truncation gives a 2^32 token
-/// space; by the birthday problem, collision probability stays below 0.01% for up to 10,000 unique
-/// values and below 1% for up to 100,000 — safe for any realistic vault workload.
+/// space; by the birthday problem, the chance that two distinct values of one type share an id is
+/// about 0.01% at 1,000 unique values, 1.2% at 10,000 and 25% at 50,000. VaultBuilder detects a
+/// collision and fails the build rather than storing one value for both.
 /// </summary>
 public class SpanMasker
 {

@@ -1,5 +1,25 @@
 # Changelog
 
+## Unreleased
+
+CLI audit. Detection, masked output and the vault format are unchanged; the conformance corpus did not move. Both implementations.
+
+- Security: `reveal` never writes into the vault directory. The default output replaced every `.shroud` in the path, so a vault directory without that suffix (`vault notes -o out`) had its plaintext written next to `public/`. It is now `<name>.revealed` beside the vault, and an output inside the vault directory is refused
+- Security: `vault .` wrote to `./..shroud`, inside the source, and the next run vaulted its own masked copies. The default is now a sibling of the resolved directory, and an output inside the source is refused
+- Fix: `mask` said of its key file "Losing it means masked data cannot be unmasked". The key cannot unmask anything and `mask` keeps no originals; the message, the help text and the docs now say that `mask` is one-way, and masking in place prints a note
+- Fix: a second `vault` run into the same output left masked copies of deleted source files in `public/`, with tokens the new vault could not resolve; stale `.md` files are now removed
+- Fix: `reveal` restores in a single pass (`TokenRestorer` / `restoreTokens`), so a value containing `[OTHER:id]` text is no longer expanded a second time; tokens that are not in the vault are reported instead of silently left
+- Feat: `reveal` checks the recorded `fileHashes` and warns about masked copies changed or added after vaulting
+- Fix: a password on piped stdin works (`echo "$PW" | shroud reveal dir`); it used to crash with an unhandled exception
+- Fix: unknown options and options without a value are errors in every command; `scan --json` used to print "File not found: --json" and exit 0, and `vault` ignored anything it did not know
+- Fix: `scan` and `mask` exit 1 when a file was not found
+- Feat: `scan --exit-code` exits 2 when a file has spans that would be tokenized
+- Fix: a command name wins over a directory of the same name (`shroud scan x.md` with a `scan/` directory present vaulted that directory)
+- Change: `init` without `--preset` writes `paranoid` (it wrote `financial`, weaker than having no config at all) and its summary lists all five domains
+- Docs: trust-architecture.md describes what the code does: no DPAPI, Argon2id or key rotation in standalone Shroud, 8-hex token ids, the manifest in place of a `scan --json` that never existed, and `scan` output is not Tier 0 (it prints values)
+- Docs: the collision figures in the `SpanMasker` comment now match the README (1.2% at 10,000 values, not "below 0.01%")
+- CI: the TypeScript build is also tested on Node 20, the minimum `engines` version
+
 ## 0.3.1 - 2026-11-15
 
 First release published to package registries: `LogMark.Shroud` and `LogMark.Shroud.Cli` on NuGet, `@logmark/shroud` on npm. Detection, masking and the vault format are unchanged from 0.3.0.

@@ -10,7 +10,7 @@
  * specifies every byte.
  */
 import { createHash, randomBytes } from 'node:crypto';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, unlinkSync, writeFileSync } from 'node:fs';
 import type { ShroudConfig } from './config.js';
 import { defaultConfig } from './config.js';
 import { serializeIndented } from './internal/dotnet-json.js';
@@ -23,7 +23,7 @@ import {
   isRootPath,
   pathCombine,
 } from './internal/dotnet-path.js';
-import { readAllText, writeAllText } from './internal/text-io.js';
+import { directoryExists, readAllText, writeAllText } from './internal/text-io.js';
 import { SpanMasker, type TokenMapping } from './masker.js';
 import type { ScanResult } from './models.js';
 import { SensitivityScanner } from './scanner.js';
@@ -153,6 +153,13 @@ export class VaultBuilder {
 
   writeOutput(result: VaultResult, outputDir: string, password: string): void {
     const publicDir = pathCombine(outputDir, 'public');
+
+    // public/ mirrors exactly this run. Masked copies left by an earlier run (a file since
+    // deleted or renamed in the source) carry tokens of that run's key, which this vault
+    // cannot resolve, so they are removed first. Only *.md files are touched.
+    if (directoryExists(publicDir)) {
+      for (const stale of enumerateFiles(publicDir, '*.md', true)) unlinkSync(stale);
+    }
     mkdirSync(publicDir, { recursive: true });
 
     // Masked files, preserving directory structure
@@ -220,7 +227,8 @@ export function sourceDirectoryName(sourceDir: string): string {
   return name === '' ? full : name;
 }
 
-function computeHash(content: string): string {
+/** "sha256:" + lower-case hex SHA-256 of the UTF-8 bytes, as stored in fileHashes. */
+export function computeHash(content: string): string {
   return `sha256:${createHash('sha256').update(Buffer.from(content, 'utf8')).digest('hex')}`;
 }
 
@@ -356,4 +364,29 @@ function readStringMap(value: unknown, name: string): Map<string, string | null>
  */
 export function dotnetUtcNowRoundTrip(now: Date = new Date()): string {
   return now.toISOString().replace(/\.(\d{3})Z$/, (_match, ms: string) => `.${ms}0000Z`);
+}
+
+// Innermost bracket pair: no "[" or "]" inside, so "[[ADDR:1234abcd]]" finds the inner token.
+const BRACKETED = /\[([^\[\]]+)\]/g;
+// What SpanMasker writes: upper-case type abbreviation, colon, lower-case hex.
+const TOKEN_ID = /^[A-Z]+:[0-9a-f]{4,}$/;
+
+/**
+ * Puts original values back in place of `[TOKEN:id]` markers (TokenRestorer.Restore in C#).
+ * The text is read once, left to right: every `[...]` whose content is a key of the token
+ * map is replaced by its value, and replaced text is never looked at again, so a value that
+ * itself contains bracketed text is restored exactly as it was stored. `unresolved` counts
+ * the markers that look like Shroud tokens but are not in the map; they are left as they are.
+ */
+export function restoreTokens(
+  text: string,
+  tokens: ReadonlyMap<string, string | null>,
+): { text: string; unresolved: number } {
+  let unresolved = 0;
+  const restored = text.replace(BRACKETED, (match: string, id: string) => {
+    if (tokens.has(id)) return tokens.get(id) ?? '';
+    if (TOKEN_ID.test(id)) unresolved++;
+    return match;
+  });
+  return { text: restored, unresolved };
 }

@@ -110,6 +110,15 @@ public class VaultBuilder
     public void WriteOutput(VaultResult result, string outputDir, string password)
     {
         var publicDir = Path.Combine(outputDir, "public");
+
+        // public/ mirrors exactly this run. Masked copies left by an earlier run (a file since
+        // deleted or renamed in the source) carry tokens of that run's key, which this vault
+        // cannot resolve, so they are removed first. Only *.md files are touched.
+        if (Directory.Exists(publicDir))
+        {
+            foreach (var stale in Directory.EnumerateFiles(publicDir, "*.md", SearchOption.AllDirectories).ToList())
+                File.Delete(stale);
+        }
         Directory.CreateDirectory(publicDir);
 
         // Write masked files preserving directory structure
@@ -183,7 +192,8 @@ public class VaultBuilder
         return string.IsNullOrEmpty(name) ? full : name;
     }
 
-    private static string ComputeHash(string content)
+    /// <summary>"sha256:" + lower-case hex SHA-256 of the UTF-8 bytes, as stored in fileHashes.</summary>
+    public static string ComputeHash(string content)
     {
         var hash = SHA256.HashData(Encoding.UTF8.GetBytes(content));
         return $"sha256:{Convert.ToHexString(hash).ToLowerInvariant()}";

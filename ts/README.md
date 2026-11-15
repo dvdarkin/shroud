@@ -18,14 +18,16 @@ shroud scan notes.md --verbose     # detection report with scoring breakdown
 shroud mask notes.md -o out.md     # replace spans with [TYPE:xxxxxxxx] tokens
 shroud vault ./notes               # masked copy + encrypted registry in notes.shroud/
 shroud reveal notes.shroud         # decrypt and restore into notes.revealed/
-shroud init --preset financial     # write shroud.json
+shroud init --preset financial     # write shroud.json (default preset: paranoid)
 ```
 
 Commands, flags, exit codes and output text are the C# CLI's, byte for byte (including
 the platform line ending). Run `shroud help` for the full usage text. `mask -o` takes
 exactly one input (several inputs, also after glob expansion, are an error before any
 config or key file is touched), and `init --preset` accepts only `paranoid`,
-`financial` or `dev` (case-sensitive).
+`financial` or `dev` (case-sensitive). `mask` is one-way (only `vault` output can be
+revealed), `scan --exit-code` exits 2 when something would be tokenized, and `vault`
+and `reveal` read the password from one line of piped stdin when it is not a terminal.
 
 `shroud.json` property names are matched case-insensitively at every level, like the
 C# loader (System.Text.Json `PropertyNameCaseInsensitive`): `"onchain"`, `"OnChain"`

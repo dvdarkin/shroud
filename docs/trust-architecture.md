@@ -19,14 +19,14 @@ Three tiers, defined by what operations are permitted. The boundary between tier
 
 **Can do:**
 - Read masked files (tokens visible, values hidden)
-- Run `shroud scan` to get a detection report (span positions, types, confidence -- no original values)
+- Read `manifest.json`: which tokens exist, their type and domain, which files they appear in (no original values)
 - Reason about entry structure ("this entry has 3 on-chain artifacts and 2 financial spans")
-- Correlate tokens across entries ("ADDR:6335 appears in 5 entries")
+- Correlate tokens across entries ("ADDR:6335a1c0 appears in 5 entries")
 
 **Cannot do:**
 - See original values behind tokens
-- Access the key file
-- Run mask or unmask operations
+- Run `shroud scan` on the originals: its report prints the matched values, so it belongs to whoever may read the source files
+- Unmask anything
 
 **Trust assumption:** Zero. This tier assumes the reader may be compromised, monitored, or cloud-hosted. The masked file is designed to be safe for this audience. A blockchain analyst who reads a Tier 0 file learns nothing.
 
@@ -45,14 +45,13 @@ Three tiers, defined by what operations are permitted. The boundary between tier
 
 **Cannot do:**
 - Unmask tokens (resolve back to original values)
-- Read the key file contents
-- Export or transmit the key
+- Learn anything from the masking key that the source files do not already show (the key derives token ids; it decrypts nothing)
 
 **Trust assumption:** The operator is running locally and is not adversarial, but may be compromised via supply chain, plugin injection, or prompt injection. Allowing masking is safe because masking is a one-way operation that increases safety. An operator that masks your files is helping you. An operator that unmasks is a risk.
 
-**Implementation:** The `shroud mask` command uses the key file to generate deterministic HMAC tokens but does not expose the key or original values to the caller. The key is read, used, and discarded within the process. The operator sees the token IDs, never the mapped values.
+**Implementation:** `shroud mask` reads a key file (`.shroud/vault.key` by default, an ordinary file readable by whoever runs the command) and uses it as the HMAC key for token ids. `mask` stores no mapping from token to value: its output cannot be reversed by anyone, with or without the key. `shroud vault` is the operation that keeps the originals, encrypted under the owner's password, and it uses a fresh random masking key on every run.
 
-**Why masking requires the key:** Deterministic tokens (same value = same token) require HMAC with a secret. Without the key, masking would produce random tokens that can't correlate across entries. The key is used for tokenization but doesn't grant unmask access -- unmasking requires a separate resolution step.
+**Why masking uses a key:** Deterministic tokens (same value = same token) need a keyed hash. With an unkeyed hash, anyone could confirm a guessed value by hashing it. The key therefore protects token ids against guessing; it is not an unmasking key. An operator necessarily sees the values it masks, so Tier 1 is about what the operator can do to already-masked data (nothing), not about hiding the source from it.
 
 ### Tier 2: Owner (full access)
 
@@ -61,19 +60,14 @@ Three tiers, defined by what operations are permitted. The boundary between tier
 **Can do:**
 - Everything in Tier 0 and Tier 1
 - Run `shroud reveal` to resolve tokens back to original values
-- Rotate keys
-- Export/backup the key
-- Configure trust settings
-- Grant Tier 1 access to specific tools
+- Change the password (reveal, then vault again with a new one)
+- Decide which tools get the masked copies and which get the source
 
 **Cannot do:** Nothing restricted.
 
-**Trust assumption:** This is you. You have the key because you generated it or received it at setup. In standard mode, your OS session is the trust boundary. In paranoid mode, your memory is.
+**Trust assumption:** This is you. You know the vault password.
 
-**Implementation:** The `reveal` command requires either:
-- Standard mode: DPAPI-unwrapped key + password gate
-- Paranoid mode: User-provided secret (Argon2id key derivation)
-- Standalone Shroud: Direct key file access
+**Implementation:** `shroud reveal` needs the vault password. `vault.shroud` is AES-256-GCM encrypted under a key derived from it with PBKDF2-SHA512 (600,000 iterations); there is no other way in, and no recovery if the password is lost. LogMark, which embeds this library, manages keys its own way (DPAPI in its standard mode, Argon2id in its paranoid mode); that is LogMark's design and not part of standalone Shroud.
 
 ## The Trust Boundary
 
@@ -83,8 +77,8 @@ Three tiers, defined by what operations are permitted. The boundary between tier
     Tier 0 (Public)      |     Tier 1 (Operator)         Tier 2 (Owner)
                          |                                     |
     Read masked files    |     Detect + tokenize              |  Reveal original values
-    Correlate tokens     |     Config management              |  Key rotation
-    Scan (report only)   |     Batch processing               |  Key export/backup
+    Correlate tokens     |     Config management              |  Password change
+    Read manifest.json   |     Batch processing               |
                          |                                     |
                          |              REVEAL BOUNDARY -------+
                          |
@@ -96,52 +90,48 @@ The critical insight: **the trust boundary sits between mask and reveal, not bet
 
 Agents are Tier 0 consumers by default. They read masked files and receive structured metadata about what was detected, without seeing the values.
 
-### Scan Output for Agents
+### The manifest, for agents
 
-```
-shroud scan journal.md --json
-```
+`shroud vault` writes `manifest.json` next to the masked copies:
 
 ```json
 {
-  "file": "journal.md",
-  "summary": {
-    "onchain": 3,
-    "financial": 5,
-    "identity": 0
-  },
-  "spans": [
-    {
-      "token": "ADDR:6335",
-      "type": "CryptoAddrEth",
+  "source": "journal",
+  "fileCount": 6,
+  "tokenCount": 2,
+  "tokens": {
+    "ADDR:6335a1c0": {
+      "service": "evm_address",
       "domain": "onchain",
-      "line": 3,
-      "confidence": 0.95
+      "files": ["trades.md", "notes.md"],
+      "occurrences": 12
     },
-    {
-      "token": "QTY:3ba8",
-      "type": "Quantity",
+    "QTY:3ba80f2e": {
+      "service": "verb_quantity",
       "domain": "financial",
-      "line": 3,
-      "confidence": 0.75
+      "files": ["trades.md"],
+      "occurrences": 1
     }
-  ]
+  },
+  "summary": { "onchain": 12, "financial": 1 }
 }
 ```
 
-An agent reading this knows: "line 3 has an ETH address and a quantity next to each other -- this is probably a transaction record." It can reason about the entry's sensitivity profile, suggest route changes, flag unusual patterns -- all without seeing a single real value.
+An agent reading this, together with the masked files, knows that one EVM address recurs across two files and that a quantity sits next to it in `trades.md`: probably a transaction record. It can reason about the sensitivity profile, suggest route changes, flag unusual patterns, all without seeing a single real value. [format.md](format.md) section 4 specifies the file.
+
+Token ids are stable within one vault run. A new `shroud vault` run uses a new masking key, so ids change between runs; correlation over time needs the same vault output, not a re-vault.
 
 ### What Agents Can Reason About (Tier 0)
 
-- **Token correlation:** "ADDR:6335 appears in 12 entries across 3 months -- this is a frequently used address"
+- **Token correlation:** "ADDR:6335a1c0 appears in 12 entries across 3 months -- this is a frequently used address"
 - **Domain distribution:** "This route is 80% on-chain artifacts -- suggest escalating to sealed"
 - **Anomaly detection:** "This entry in +work has financial tokens -- unusual for a work route"
 - **Temporal patterns:** "Financial activity clusters on Mondays and Fridays"
 
 ### What Agents Cannot Do
 
-- Reconstruct the original address from ADDR:6335
-- Determine the magnitude of QTY:3ba8
+- Reconstruct the original address from ADDR:6335a1c0
+- Determine the magnitude of QTY:3ba80f2e
 - Distinguish between a $500 and $500,000 position
 - Link an on-chain token to a real blockchain address
 
@@ -154,7 +144,7 @@ Shroud is the engine. LogMark adds the car:
 | Detection | PatternLibrary, ContextScorer | Same engine via library reference |
 | Masking | CLI `mask` command | VaultWriter automatic integration |
 | Configuration | shroud.json | Route-level sensitivity cascade + config.md |
-| Key management | Key file on disk | DPAPI (standard) or Argon2id (paranoid) |
+| Key management | Vault password (PBKDF2-SHA512); a key file only for `mask` token ids | DPAPI (standard) or Argon2id (paranoid) |
 | Reveal | CLI `reveal` command | `/fill` command with layered domain control |
 | Agent access | Masked copies and `manifest.json` (no secret values) | MCP tools with Tier 0 enforcement |
 | Trust UI | N/A | Setup wizard, smart detection prompts, feed suggestions |
@@ -178,14 +168,14 @@ Option 2 is the trust play. A user who doesn't trust precompiled binaries can cl
 
 5. **Zero trust in the library itself.** Shroud has zero external dependencies. Every line of code is auditable. No network calls, no telemetry, no logging of sensitive values, no ambient authority. The library is a pure function: text in, safe text out.
 
-6. **Trust is earned through transparency.** Open source, reproducible builds, minimal surface area. The README leads with "audit this" not "trust us."
-
----
-
-**Version:** 1.0
+6. **Trust is earned through transparency.** Open source, two independent implementations checked against one corpus, minimal surface area. The README leads with "audit this" not "trust us."
 
 ## Implementations
 
 The tiers above are a property of the file format and the keys, not of one program. Shroud has two implementations, C# and TypeScript, that produce and accept the same files: a vault masked by one is revealed by the other, with the same password. They are held together by the conformance corpus in `conformance/` and the format specification in [format.md](format.md).
 
 Auditing the trust boundary therefore means reading either implementation, or neither: the specification states what a vault contains and how the keys are derived, and the corpus contains vaults with their passwords that any third implementation can test itself against.
+
+---
+
+**Version:** 1.1

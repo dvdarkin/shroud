@@ -136,7 +136,7 @@ for (const v of fs.readdirSync(vaultsDir, { withFileTypes: true }).filter((e) =>
   const publicDir = path.join(dir, 'vault', 'public');
   for (const rel of fs.existsSync(publicDir) ? walk(publicDir) : []) {
     let content = textIo.decodeText(fs.readFileSync(path.join(publicDir, rel)));
-    for (const [id, value] of tokens) content = content.split(`[${id}]`).join(value);
+    content = lib.restoreTokens(content, new Map(tokens)).text;
     const want = fs.readFileSync(path.join(dir, 'restored', rel));
     check('vault-restore', `${v.name}/${rel}`, Buffer.from(content, 'utf8').equals(want));
   }

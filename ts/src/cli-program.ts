@@ -4,8 +4,9 @@
  * including its line endings (os.EOL, CRLF on Windows) and number formatting.
  */
 import { randomFillSync } from 'node:crypto';
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, readSync, writeFileSync } from 'node:fs';
 import { EOL } from 'node:os';
+import { sep } from 'node:path';
 import {
   ConfigFormatError,
   PRESET_NAMES,
@@ -26,7 +27,9 @@ import {
   enumerateFiles,
   getDirectoryName,
   getFileName,
+  getFullPath,
   getRelativePath,
+  isPathRooted,
   pathCombine,
 } from './internal/dotnet-path.js';
 import { directoryExists, fileExists, readAllText, writeAllText } from './internal/text-io.js';
@@ -41,7 +44,9 @@ import {
   VaultFormatError,
   type TokenEntry,
   type VaultResult,
+  computeHash,
   parseVaultData,
+  restoreTokens,
 } from './vault-builder.js';
 
 const CONFIG_FILE_NAME = 'shroud.json';
@@ -91,9 +96,8 @@ class DotnetException extends Error {
 export async function main(args: string[]): Promise<number> {
   if (args.length === 0) return printUsage();
 
-  // If first arg is a directory path (no command prefix), treat as vault
-  if (directoryExists(args[0]!)) return runVault(args);
-
+  // A command name always means the command, even when a directory of that name exists
+  // (write "./scan" to vault a directory called "scan").
   switch (args[0]) {
     case 'vault':
       return runVault(args.slice(1));
@@ -110,24 +114,69 @@ export async function main(args: string[]): Promise<number> {
     case '-h':
       return printUsage();
     default:
-      return error(`Unknown command: ${args[0]}`);
+      // Any other first argument that is a directory: vault it (the default command).
+      return directoryExists(args[0]!) ? runVault(args) : error(`Unknown command: ${args[0]}`);
   }
 }
 
-function runScan(args: string[]): number {
-  const files: string[] = [];
-  let verbose = false;
-  let debug = false;
+interface ParsedArgs {
+  flags: Set<string>;
+  values: Map<string, string>;
+  positionals: string[];
+}
 
-  for (const arg of args) {
-    if (arg === '--verbose' || arg === '-v') verbose = true;
-    else if (arg === '--debug') debug = true;
-    else files.push(arg);
+/**
+ * Splits arguments into flags, options that take a value, and positionals. Returns an
+ * error message for an option that is not known or has no value. A lone "-" and anything
+ * not starting with "-" is a positional.
+ */
+function parseArgs(args: string[], flagNames: string[], valueNames: string[]): ParsedArgs | string {
+  const parsed: ParsedArgs = { flags: new Set(), values: new Map(), positionals: [] };
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i]!;
+    if (arg.length < 2 || arg[0] !== '-') parsed.positionals.push(arg);
+    else if (flagNames.includes(arg)) parsed.flags.add(arg);
+    else if (valueNames.includes(arg)) {
+      if (i + 1 >= args.length) return `Option ${arg} needs a value.`;
+      parsed.values.set(arg, args[++i]!);
+    } else return `Unknown option: ${arg}`;
+  }
+  return parsed;
+}
+
+function optionValue(values: Map<string, string>, shortName: string, longName: string): string | undefined {
+  return values.get(longName) ?? values.get(shortName);
+}
+
+/**
+ * The directory path without trailing separators. ".", ".." and roots have no name of
+ * their own to append a suffix to, so they are resolved to a full path first.
+ */
+function namedDirectory(dir: string): string {
+  const trimmed = dir.replace(/[/\\]+$/, '');
+  const name = getFileName(trimmed);
+  return name === '' || name === '.' || name === '..' ? getFullPath(dir) : trimmed;
+}
+
+/** True when `path` is `dir` or lies under it. */
+function isSameOrInside(dir: string, path: string): boolean {
+  const relative = getRelativePath(getFullPath(dir), getFullPath(path));
+  return relative === '.' || (!isPathRooted(relative) && relative !== '..' && !relative.startsWith('..' + sep));
+}
+
+function runScan(args: string[]): number {
+  const parsed = parseArgs(args, ['--verbose', '-v', '--debug', '--exit-code'], []);
+  if (typeof parsed === 'string') return error(parsed);
+  const { flags, positionals: files } = parsed;
+
+  if (files.length === 0) {
+    return error('Usage: shroud scan <file.md> [file2.md ...] [--verbose] [--debug] [--exit-code]');
   }
 
-  if (files.length === 0) return error('Usage: shroud scan <file.md> [file2.md ...] [--verbose] [--debug]');
-
-  if (debug) verbose = true;
+  const debug = flags.has('--debug');
+  const verbose = debug || flags.has('--verbose') || flags.has('-v');
+  let missing = 0;
+  let detected = false;
 
   const config = loadConfigOrDefault();
   const scanner = createScanner(config);
@@ -135,33 +184,34 @@ function runScan(args: string[]): number {
   for (const path of expandGlobs(files)) {
     if (!fileExists(path)) {
       err(`  File not found: ${path}`);
+      missing++;
       continue;
     }
 
     const text = readAllText(path);
 
+    let result: ScanResult;
     if (verbose) {
-      const { result, diagnostics } = scanner.scanWithDiagnostics(text);
-      printScanResultVerbose(path, result, diagnostics, debug);
+      const scanned = scanner.scanWithDiagnostics(text);
+      result = scanned.result;
+      printScanResultVerbose(path, result, scanned.diagnostics, debug);
     } else {
-      printScanResult(path, scanner.scan(text));
+      result = scanner.scan(text);
+      printScanResult(path, result);
     }
+    if (result.aboveThreshold.length > 0) detected = true;
   }
 
-  return 0;
+  // 1: a file was not found. 2 (only with --exit-code): something would be tokenized.
+  if (missing > 0) return 1;
+  return detected && flags.has('--exit-code') ? 2 : 0;
 }
 
 function runMask(args: string[]): number {
-  let outputPath: string | undefined;
-  const files: string[] = [];
-
-  for (let i = 0; i < args.length; i++) {
-    if ((args[i] === '-o' || args[i] === '--output') && i + 1 < args.length) {
-      outputPath = args[++i];
-    } else {
-      files.push(args[i]!);
-    }
-  }
+  const parsed = parseArgs(args, [], ['-o', '--output']);
+  if (typeof parsed === 'string') return error(parsed);
+  const files = parsed.positionals;
+  const outputPath = optionValue(parsed.values, '-o', '--output');
 
   if (files.length === 0) return error('Usage: shroud mask <file.md> [-o output.md]');
 
@@ -177,10 +227,13 @@ function runMask(args: string[]): number {
   const scanner = createScanner(config);
   const key = loadOrCreateKey(config);
   const masker = new SpanMasker(key);
+  let missing = 0;
+  let maskedInPlace = false;
 
   for (const path of inputs) {
     if (!fileExists(path)) {
       err(`  File not found: ${path}`);
+      missing++;
       continue;
     }
 
@@ -195,6 +248,7 @@ function runMask(args: string[]): number {
     const maskResult = masker.mask(text, scanResult);
     const target = outputPath ?? path;
     writeAllText(target, maskResult.maskedText);
+    if (outputPath === undefined) maskedInPlace = true;
 
     out(`  ${path} -> ${target}`);
     out(`    Masked ${maskResult.tokens.length} spans:`);
@@ -203,23 +257,29 @@ function runMask(args: string[]): number {
     }
   }
 
-  return 0;
+  if (maskedInPlace) {
+    err('  Note: files were masked in place. mask is one-way: the original values are not stored anywhere.');
+    err("  Use 'shroud vault' when you need to reveal them later.");
+  }
+
+  return missing > 0 ? 1 : 0;
 }
 
 async function runVault(args: string[]): Promise<number> {
-  if (args.length === 0) return error('Usage: shroud vault <directory>');
+  const parsed = parseArgs(args, [], ['-o', '--output', '-p', '--password']);
+  if (typeof parsed === 'string') return error(parsed);
+  if (parsed.positionals.length !== 1) return error('Usage: shroud vault <directory> [-o output] [-p password]');
 
-  const sourceDir = args[0]!;
+  const sourceDir = parsed.positionals[0]!;
   if (!directoryExists(sourceDir)) return error(`Directory not found: ${sourceDir}`);
 
-  let outputDir: string | undefined;
-  let passwordArg: string | undefined;
-  for (let i = 1; i < args.length; i++) {
-    if ((args[i] === '-o' || args[i] === '--output') && i + 1 < args.length) outputDir = args[++i];
-    else if ((args[i] === '-p' || args[i] === '--password') && i + 1 < args.length) passwordArg = args[++i];
-  }
+  const passwordArg = optionValue(parsed.values, '-p', '--password');
+  const outputDir = optionValue(parsed.values, '-o', '--output') ?? namedDirectory(sourceDir) + '.shroud';
 
-  outputDir ??= sourceDir.replace(/[/\\]+$/, '') + '.shroud';
+  // An output inside the source would be scanned by the next run (masked copies of masked copies).
+  if (isSameOrInside(sourceDir, outputDir)) {
+    return error(`Output directory ${outputDir} is inside the source directory. Choose a location outside it with -o.`);
+  }
 
   const config = loadConfigOrDefault();
   const builder = new VaultBuilder(createScanner(config), vaultMaskingKeyOverride ?? undefined);
@@ -257,7 +317,8 @@ async function runVault(args: string[]): Promise<number> {
   const password = passwordArg ?? (await readPassword('  Vault password: '));
   if (!password) return error('Password required.');
 
-  if (passwordArg === undefined) {
+  // A piped password is one line on stdin; there is nothing to confirm it against.
+  if (passwordArg === undefined && process.stdin.isTTY) {
     const confirm = await readPassword('  Confirm: ');
     if (password !== confirm) return error("Passwords don't match.");
   }
@@ -278,19 +339,32 @@ async function runVault(args: string[]): Promise<number> {
 }
 
 async function runReveal(args: string[]): Promise<number> {
-  if (args.length === 0) return error('Usage: shroud reveal <vault-dir>');
+  const parsed = parseArgs(args, [], ['-o', '--output', '-p', '--password']);
+  if (typeof parsed === 'string') return error(parsed);
+  if (parsed.positionals.length !== 1) return error('Usage: shroud reveal <vault-dir> [-o output] [-p password]');
 
-  const vaultDir = args[0]!;
+  const vaultDir = parsed.positionals[0]!;
   const vaultFile = pathCombine(vaultDir, 'vault.shroud');
   const publicDir = pathCombine(vaultDir, 'public');
 
   if (!fileExists(vaultFile)) return error(`No vault.shroud found in ${vaultDir}`);
 
-  let passwordArg: string | undefined;
-  let outputDir: string | undefined;
-  for (let i = 1; i < args.length; i++) {
-    if ((args[i] === '-p' || args[i] === '--password') && i + 1 < args.length) passwordArg = args[++i];
-    else if ((args[i] === '-o' || args[i] === '--output') && i + 1 < args.length) outputDir = args[++i];
+  const passwordArg = optionValue(parsed.values, '-p', '--password');
+  let outputDir = optionValue(parsed.values, '-o', '--output');
+
+  // Default: "<name>.shroud" reveals to "<name>.revealed", any other name to
+  // "<name>.revealed" next to it. Never into the vault directory, whose public/ is shared.
+  if (outputDir === undefined) {
+    const named = namedDirectory(vaultDir);
+    const suffix = '.shroud';
+    const stem =
+      named.endsWith(suffix) && getFileName(named).length > suffix.length ? named.slice(0, -suffix.length) : named;
+    outputDir = stem + '.revealed';
+  }
+  if (isSameOrInside(vaultDir, outputDir)) {
+    return error(
+      `Output directory ${outputDir} is inside the vault directory, which holds the shareable copies. Choose a location outside it with -o.`,
+    );
   }
 
   const password = passwordArg ?? (await readPassword('  Vault password: '));
@@ -302,27 +376,36 @@ async function runReveal(args: string[]): Promise<number> {
   if (json === null) return error('Wrong password.');
 
   const vaultData = parseVaultData(json);
-  if (vaultData === null) return error('Corrupt vault file.');
+  if (vaultData === null || vaultData.tokens === null) return error('Corrupt vault file.');
 
-  outputDir ??= vaultDir.split('.shroud').join('.revealed');
   mkdirSync(outputDir, { recursive: true });
+  const hashes = vaultData.fileHashes ?? new Map<string, string | null>();
 
   let filesRevealed = 0;
   if (directoryExists(publicDir)) {
     for (const file of enumerateFiles(publicDir, '*.md', true)) {
       const relative = getRelativePath(publicDir, file);
-      let content = readAllText(file);
+      const content = readAllText(file);
 
-      // Replace all tokens with original values, in vault order (ordinal, all occurrences)
-      if (vaultData.tokens === null) throw new DotnetException('System.NullReferenceException', 'Object reference not set to an instance of an object.');
-      for (const [tokenId, value] of vaultData.tokens) {
-        content = content.split(`[${tokenId}]`).join(value ?? '');
+      // The vault records a hash of every masked copy it was built with (keys use the
+      // writer's path separator). A vault without hashes is not checked.
+      if (hashes.size > 0) {
+        const key = [relative, relative.replaceAll('\\', '/'), relative.replaceAll('/', '\\')].find((k) =>
+          hashes.has(k),
+        );
+        if (key === undefined) err(`  Warning: ${relative} is not part of this vault.`);
+        else if (hashes.get(key) !== computeHash(content)) err(`  Warning: ${relative} was changed after it was vaulted.`);
+      }
+
+      const restored = restoreTokens(content, vaultData.tokens);
+      if (restored.unresolved > 0) {
+        err(`  Warning: ${relative}: ${restored.unresolved} token(s) are not in this vault and were left in place.`);
       }
 
       const outPath = pathCombine(outputDir, relative);
       const dir = getDirectoryName(outPath);
       if (dir) mkdirSync(dir, { recursive: true });
-      writeAllText(outPath, content);
+      writeAllText(outPath, restored.text);
       filesRevealed++;
     }
   }
@@ -331,15 +414,39 @@ async function runReveal(args: string[]): Promise<number> {
   return 0;
 }
 
+/** Console.In.ReadLine on redirected input: the first line of stdin, without its line ending. */
+function readStdinLine(): string {
+  const chunks: Buffer[] = [];
+  const buffer = Buffer.alloc(4096);
+  for (;;) {
+    let read: number;
+    try {
+      read = readSync(0, buffer, 0, buffer.length, null);
+    } catch (e) {
+      const code = (e as NodeJS.ErrnoException).code;
+      if (code === 'EAGAIN') continue;
+      if (code === 'EOF') break;
+      throw e;
+    }
+    if (read === 0) break;
+    const chunk = Buffer.from(buffer.subarray(0, read));
+    chunks.push(chunk);
+    if (chunk.includes(0x0a)) break;
+  }
+  const text = Buffer.concat(chunks).toString('utf8');
+  const end = text.search(/\r\n|\n|\r/);
+  return end < 0 ? text : text.slice(0, end);
+}
+
 /** Console.ReadKey-based masked password prompt (echoes '*', prompt on stderr). */
 function readPassword(prompt: string): Promise<string> {
   io.stderr(prompt);
   const stdin = process.stdin;
+  // Piped or redirected input: the password is the first line of stdin.
   if (!stdin.isTTY) {
-    throw new DotnetException(
-      'System.InvalidOperationException',
-      'Cannot read keys when either application does not have a console or when console input has been redirected. Try Console.Read.',
-    );
+    const line = readStdinLine();
+    io.stderr(EOL);
+    return Promise.resolve(line);
   }
 
   return new Promise((resolve) => {
@@ -403,10 +510,12 @@ function isControl(code: number): boolean {
 }
 
 function runInit(args: string[]): number {
-  let preset = 'financial';
-  for (let i = 0; i < args.length; i++) {
-    if ((args[i] === '--preset' || args[i] === '-p') && i + 1 < args.length) preset = args[++i]!;
-  }
+  const parsed = parseArgs(args, [], ['-p', '--preset']);
+  if (typeof parsed === 'string') return error(parsed);
+  if (parsed.positionals.length > 0) return error('Usage: shroud init [--preset paranoid|financial|dev]');
+
+  // Same detection as running without a shroud.json at all.
+  const preset = optionValue(parsed.values, '-p', '--preset') ?? 'paranoid';
 
   if (!PRESET_NAMES.includes(preset)) {
     return error(`Unknown preset: ${preset}. Valid presets: ${PRESET_NAMES.join(', ')}.`);
@@ -425,7 +534,9 @@ function runInit(args: string[]): number {
   out(
     `  Domains: onchain=${formatBool(d.onChain!.enabled)}, ` +
       `financial=${formatBool(d.financial!.enabled)} (${d.financial!.layer ?? ''}), ` +
-      `identity=${formatBool(d.identity!.enabled)}`,
+      `identity=${formatBool(d.identity!.enabled)}, ` +
+      `credentials=${formatBool(d.credentials!.enabled)}, ` +
+      `secrets=${formatBool(d.secrets!.enabled)}`,
   );
   out(`  Threshold: ${formatDouble(config.threshold)}`);
   return 0;
@@ -571,7 +682,7 @@ function loadOrCreateKey(config: ShroudConfig): Uint8Array {
   randomFillSync(key);
   writeFileSync(keyPath, key);
   err(`  Generated new key: ${keyPath}`);
-  err('  Back this up. Losing it means masked data cannot be unmasked.');
+  err('  Keep it to get the same token for the same value in later runs. It cannot unmask anything.');
   return key;
 }
 
@@ -599,14 +710,23 @@ const USAGE = [
   '  shroud vault <directory> [-o output]        Same as above, explicit command',
   '  shroud reveal <vault-dir> [-o output]       Decrypt and restore original files',
   '  shroud scan <file.md> [--verbose] [--debug]      Detect sensitive spans, print report',
-  '  shroud mask <file.md> [-o output.md]        Replace sensitive spans with tokens (-o: one input only)',
-  '  shroud init [--preset financial|dev|paranoid]     Create shroud.json config',
+  '  shroud mask <file.md> [-o output.md]        Replace spans with tokens, one-way (-o: one input only)',
+  '  shroud init [--preset paranoid|financial|dev]     Create shroud.json config (default: paranoid)',
+  '',
+  'Exit codes:',
+  '  0 success, 1 error (including a file that was not found).',
+  '  scan --exit-code exits 2 when a file has spans that would be tokenized.',
+  '',
+  'Passwords:',
+  '  vault and reveal prompt for the password, take it from -p, or read one line',
+  '  from piped stdin.',
   '',
   'Vault mode:',
   '  Point at a directory. Shroud scans all .md files, produces:',
   '    <dir>.shroud/public/       Masked copies (safe to share)',
   '    <dir>.shroud/vault.shroud  Encrypted token registry (password required)',
   '    <dir>.shroud/manifest.json Metadata for agents (no secret values)',
+  "  Only vault output can be revealed; 'mask' keeps no record of the original values.",
   '',
   'Presets:',
   '  paranoid   All domains, lower threshold, directional financial (DEFAULT)',

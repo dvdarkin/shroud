@@ -4,9 +4,9 @@
 // (node:test runs the tests of one file sequentially, each test file in its own process).
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { type Dirent, appendFileSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { join, relative, sep } from 'node:path';
 import { afterEach, beforeEach, describe, test } from 'node:test';
 import { main, setCliIo, setVaultMaskingKeyOverride } from '../../src/cli-program.js';
 
@@ -188,5 +188,211 @@ describe('CliBehaviourTests', () => {
     assert.equal(exit, 0);
     assert.ok(out.includes('Threshold: 0.7'));
     assert.ok(!out.includes('0,7'));
+  });
+
+  // ---- CLI audit: output locations ----
+
+  const WALLET = '0x1111111111111111111111111111111111111111';
+
+  function filesUnder(root: string): string[] {
+    return (readdirSync(root, { recursive: true, withFileTypes: true }) as Dirent[])
+      .filter((e) => e.isFile())
+      .map((e) => relative(root, join(e.parentPath, e.name)).replaceAll('\\', '/'))
+      .sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+  }
+
+  test('reveal vault dir without shroud suffix, reveals next to it, never into the vault', async () => {
+    mkdirSync('notes');
+    writeFileSync(join('notes', 'a.md'), `wallet ${WALLET}\n`);
+    assert.equal((await run('vault', 'notes', '-p', 'pw', '-o', 'out')).exit, 0);
+
+    const { exit } = await run('reveal', 'out', '-p', 'pw');
+
+    assert.equal(exit, 0);
+    assert.deepEqual(filesUnder('out'), ['manifest.json', 'public/a.md', 'vault.shroud']);
+    assert.equal(readFileSync(join('out.revealed', 'a.md'), 'utf8'), `wallet ${WALLET}\n`);
+  });
+
+  test('reveal default output, replaces only the trailing shroud suffix', async () => {
+    const notes = join('my.shroud.stuff', 'notes');
+    mkdirSync(notes, { recursive: true });
+    writeFileSync(join(notes, 'a.md'), `wallet ${WALLET}\n`);
+    assert.equal((await run('vault', notes, '-p', 'pw')).exit, 0);
+
+    const { exit } = await run('reveal', notes + '.shroud' + sep, '-p', 'pw');
+
+    assert.equal(exit, 0);
+    assert.ok(existsSync(join('my.shroud.stuff', 'notes.revealed', 'a.md')));
+    assert.equal(existsSync('my.revealed.stuff'), false);
+  });
+
+  test('reveal output inside the vault directory, is refused', async () => {
+    mkdirSync('notes');
+    writeFileSync(join('notes', 'a.md'), `wallet ${WALLET}\n`);
+    assert.equal((await run('vault', 'notes', '-p', 'pw')).exit, 0);
+
+    const { exit, err } = await run('reveal', 'notes.shroud', '-p', 'pw', '-o', join('notes.shroud', 'public'));
+
+    assert.notEqual(exit, 0);
+    assert.ok(err.includes('inside the vault directory'));
+    assert.ok(!readFileSync(join('notes.shroud', 'public', 'a.md'), 'utf8').includes(WALLET));
+  });
+
+  test('vault dot source, default output is a sibling of the source, and a second run does not nest', async () => {
+    const project = join(dir, 'alice-project');
+    mkdirSync(project);
+    writeFileSync(join(project, 'a.md'), `wallet ${WALLET}\n`);
+    process.chdir(project);
+
+    assert.equal((await run('vault', '.', '-p', 'pw')).exit, 0);
+    assert.equal((await run('vault', '.', '-p', 'pw')).exit, 0);
+
+    assert.deepEqual(filesUnder(project), ['a.md']);
+    assert.deepEqual(filesUnder(join(dir, 'alice-project.shroud')), ['manifest.json', 'public/a.md', 'vault.shroud']);
+  });
+
+  test('vault output inside the source, is refused, writes nothing', async () => {
+    mkdirSync('notes');
+    writeFileSync(join('notes', 'a.md'), `wallet ${WALLET}\n`);
+
+    const { exit, err } = await run('vault', 'notes', '-p', 'pw', '-o', join('notes', 'out'));
+
+    assert.notEqual(exit, 0);
+    assert.ok(err.includes('inside the source directory'));
+    assert.equal(existsSync(join('notes', 'out')), false);
+  });
+
+  test('vault second run, removes masked copies of files no longer in the source', async () => {
+    mkdirSync(join('notes', 'sub'), { recursive: true });
+    writeFileSync(join('notes', 'a.md'), `wallet ${WALLET}\n`);
+    writeFileSync(join('notes', 'sub', 'gone.md'), 'wallet 0x2222222222222222222222222222222222222222\n');
+    assert.equal((await run('vault', 'notes', '-p', 'pw')).exit, 0);
+    writeFileSync(join('notes.shroud', 'public', 'keep.txt'), 'not ours');
+    rmSync(join('notes', 'sub', 'gone.md'));
+
+    assert.equal((await run('vault', 'notes', '-p', 'pw')).exit, 0);
+
+    assert.deepEqual(filesUnder('notes.shroud'), ['manifest.json', 'public/a.md', 'public/keep.txt', 'vault.shroud']);
+    const { exit, err } = await run('reveal', 'notes.shroud', '-p', 'pw');
+    assert.equal(exit, 0);
+    assert.equal(err, '');
+  });
+
+  // ---- CLI audit: reveal integrity ----
+
+  test('reveal public file changed or added, warns, and leaves unknown tokens in place', async () => {
+    mkdirSync('notes');
+    writeFileSync(join('notes', 'a.md'), `wallet ${WALLET}\n`);
+    assert.equal((await run('vault', 'notes', '-p', 'pw')).exit, 0);
+    const publicDir = join('notes.shroud', 'public');
+    appendFileSync(join(publicDir, 'a.md'), 'edited [ADDR:00000000]\n');
+    writeFileSync(join(publicDir, 'extra.md'), 'hello\n');
+
+    const { exit, err } = await run('reveal', 'notes.shroud', '-p', 'pw');
+
+    assert.equal(exit, 0);
+    assert.ok(err.includes('a.md was changed after it was vaulted'));
+    assert.ok(err.includes('a.md: 1 token(s) are not in this vault'));
+    assert.ok(err.includes('extra.md is not part of this vault'));
+    assert.equal(readFileSync(join('notes.revealed', 'a.md'), 'utf8'), `wallet ${WALLET}\nedited [ADDR:00000000]\n`);
+  });
+
+  // ---- CLI audit: arguments and exit codes ----
+
+  test('scan missing file, exits one, but still scans the others', async () => {
+    writeFileSync('a.md', `wallet ${WALLET}\n`);
+
+    const { exit, out, err } = await run('scan', 'nope.md', 'a.md');
+
+    assert.equal(exit, 1);
+    assert.ok(err.includes('File not found: nope.md'));
+    assert.ok(out.includes('evm_address'));
+  });
+
+  test('scan unknown option, is refused, not treated as a file', async () => {
+    writeFileSync('a.md', `wallet ${WALLET}\n`);
+
+    const { exit, out, err } = await run('scan', 'a.md', '--json');
+
+    assert.equal(exit, 1);
+    assert.ok(err.includes('Unknown option: --json'));
+    assert.equal(out, '');
+  });
+
+  test('scan exit code flag, two when something would be tokenized, zero when clean', async () => {
+    writeFileSync('dirty.md', `wallet ${WALLET}\n`);
+    writeFileSync('clean.md', 'nothing to see here\n');
+
+    assert.equal((await run('scan', 'dirty.md')).exit, 0);
+    assert.equal((await run('scan', 'dirty.md', '--exit-code')).exit, 2);
+    assert.equal((await run('scan', 'clean.md', 'dirty.md', '--exit-code')).exit, 2);
+    assert.equal((await run('scan', 'clean.md', '--exit-code')).exit, 0);
+  });
+
+  test('options without a value, or unknown, are refused', async () => {
+    mkdirSync('notes');
+    writeFileSync(join('notes', 'a.md'), `wallet ${WALLET}\n`);
+
+    let r = await run('vault', 'notes', '-p');
+    assert.equal(r.exit, 1);
+    assert.ok(r.err.includes('Option -p needs a value.'));
+
+    r = await run('vault', 'notes', '-p', 'pw', '--force');
+    assert.equal(r.exit, 1);
+    assert.ok(r.err.includes('Unknown option: --force'));
+    assert.equal(existsSync('notes.shroud'), false);
+  });
+
+  test('command name, wins over a directory of the same name', async () => {
+    mkdirSync('scan');
+    writeFileSync(join('scan', 'a.md'), `wallet ${WALLET}\n`);
+    writeFileSync('a.md', `wallet ${WALLET}\n`);
+
+    const { exit, out } = await run('scan', 'a.md');
+
+    assert.equal(exit, 0);
+    assert.ok(out.includes('evm_address'));
+    assert.equal(existsSync('scan.shroud'), false);
+  });
+
+  test('directory as first argument, is still the vault command', async () => {
+    mkdirSync('notes');
+    writeFileSync(join('notes', 'a.md'), `wallet ${WALLET}\n`);
+
+    assert.equal((await run('notes', '-p', 'pw')).exit, 0);
+
+    assert.ok(existsSync(join('notes.shroud', 'vault.shroud')));
+  });
+
+  // ---- CLI audit: init and mask wording ----
+
+  test('init without preset, writes paranoid, the same as having no config', async () => {
+    const { exit, out } = await run('init');
+
+    assert.equal(exit, 0);
+    assert.ok(readFileSync('shroud.json', 'utf8').includes('"preset": "paranoid"'));
+    assert.ok(out.includes('Threshold: 0.5'));
+    assert.ok(out.includes('credentials=True, secrets=True'));
+  });
+
+  test('mask in place, says it is one way, and the key message does not promise unmasking', async () => {
+    writeFileSync('a.md', `wallet ${WALLET}\n`);
+
+    const { exit, err } = await run('mask', 'a.md');
+
+    assert.equal(exit, 0);
+    assert.ok(err.includes('Generated new key'));
+    assert.ok(err.includes('cannot unmask'));
+    assert.ok(err.includes('one-way'));
+    assert.ok(!err.includes('cannot be unmasked'));
+  });
+
+  test('mask to output file, prints no in place note', async () => {
+    writeFileSync('a.md', `wallet ${WALLET}\n`);
+
+    const { err } = await run('mask', 'a.md', '-o', 'out.md');
+
+    assert.ok(!err.includes('one-way'));
+    assert.equal(readFileSync('a.md', 'utf8'), `wallet ${WALLET}\n`);
   });
 });

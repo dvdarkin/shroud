@@ -239,4 +239,241 @@ public class CliBehaviourTests : IDisposable
         stdout.Should().Contain("Threshold: 0.7");
         stdout.Should().NotContain("0,7");
     }
+
+    // ---- CLI audit: output locations ----
+
+    private const string Wallet = "0x1111111111111111111111111111111111111111";
+
+    private static string[] FilesUnder(string dir) =>
+        Directory.EnumerateFiles(dir, "*", SearchOption.AllDirectories)
+            .Select(f => Path.GetRelativePath(dir, f).Replace('\\', '/'))
+            .OrderBy(f => f, StringComparer.Ordinal)
+            .ToArray();
+
+    [Fact]
+    public void Reveal_VaultDirWithoutShroudSuffix_RevealsNextToIt_NeverIntoTheVault()
+    {
+        Directory.CreateDirectory("notes");
+        File.WriteAllText(Path.Combine("notes", "a.md"), $"wallet {Wallet}\n");
+        Run("vault", "notes", "-p", "pw", "-o", "out").Exit.Should().Be(0);
+
+        var (exit, _, _) = Run("reveal", "out", "-p", "pw");
+
+        exit.Should().Be(0);
+        FilesUnder("out").Should().Equal("manifest.json", "public/a.md", "vault.shroud");
+        File.ReadAllText(Path.Combine("out.revealed", "a.md")).Should().Be($"wallet {Wallet}\n");
+    }
+
+    [Fact]
+    public void Reveal_DefaultOutput_ReplacesOnlyTheTrailingShroudSuffix()
+    {
+        var notes = Path.Combine("my.shroud.stuff", "notes");
+        Directory.CreateDirectory(notes);
+        File.WriteAllText(Path.Combine(notes, "a.md"), $"wallet {Wallet}\n");
+        Run("vault", notes, "-p", "pw").Exit.Should().Be(0);
+
+        var (exit, _, _) = Run("reveal", notes + ".shroud" + Path.DirectorySeparatorChar, "-p", "pw");
+
+        exit.Should().Be(0);
+        File.Exists(Path.Combine("my.shroud.stuff", "notes.revealed", "a.md")).Should().BeTrue();
+        Directory.Exists("my.revealed.stuff").Should().BeFalse();
+    }
+
+    [Fact]
+    public void Reveal_OutputInsideTheVaultDirectory_IsRefused()
+    {
+        Directory.CreateDirectory("notes");
+        File.WriteAllText(Path.Combine("notes", "a.md"), $"wallet {Wallet}\n");
+        Run("vault", "notes", "-p", "pw").Exit.Should().Be(0);
+
+        var (exit, _, stderr) = Run("reveal", "notes.shroud", "-p", "pw", "-o", Path.Combine("notes.shroud", "public"));
+
+        exit.Should().NotBe(0);
+        stderr.Should().Contain("inside the vault directory");
+        File.ReadAllText(Path.Combine("notes.shroud", "public", "a.md")).Should().NotContain(Wallet);
+    }
+
+    [Fact]
+    public void Vault_DotSource_DefaultOutputIsASiblingOfTheSource_AndASecondRunDoesNotNest()
+    {
+        var project = Path.Combine(_dir, "alice-project");
+        Directory.CreateDirectory(project);
+        File.WriteAllText(Path.Combine(project, "a.md"), $"wallet {Wallet}\n");
+        Directory.SetCurrentDirectory(project);
+
+        Run("vault", ".", "-p", "pw").Exit.Should().Be(0);
+        Run("vault", ".", "-p", "pw").Exit.Should().Be(0);
+
+        FilesUnder(project).Should().Equal("a.md");
+        FilesUnder(Path.Combine(_dir, "alice-project.shroud")).Should().Equal("manifest.json", "public/a.md", "vault.shroud");
+    }
+
+    [Fact]
+    public void Vault_OutputInsideTheSource_IsRefused_WritesNothing()
+    {
+        Directory.CreateDirectory("notes");
+        File.WriteAllText(Path.Combine("notes", "a.md"), $"wallet {Wallet}\n");
+
+        var (exit, _, stderr) = Run("vault", "notes", "-p", "pw", "-o", Path.Combine("notes", "out"));
+
+        exit.Should().NotBe(0);
+        stderr.Should().Contain("inside the source directory");
+        Directory.Exists(Path.Combine("notes", "out")).Should().BeFalse();
+    }
+
+    [Fact]
+    public void Vault_SecondRun_RemovesMaskedCopiesOfFilesNoLongerInTheSource()
+    {
+        Directory.CreateDirectory(Path.Combine("notes", "sub"));
+        File.WriteAllText(Path.Combine("notes", "a.md"), $"wallet {Wallet}\n");
+        File.WriteAllText(Path.Combine("notes", "sub", "gone.md"), "wallet 0x2222222222222222222222222222222222222222\n");
+        Run("vault", "notes", "-p", "pw").Exit.Should().Be(0);
+        File.WriteAllText(Path.Combine("notes.shroud", "public", "keep.txt"), "not ours");
+        File.Delete(Path.Combine("notes", "sub", "gone.md"));
+
+        Run("vault", "notes", "-p", "pw").Exit.Should().Be(0);
+
+        FilesUnder("notes.shroud").Should().Equal("manifest.json", "public/a.md", "public/keep.txt", "vault.shroud");
+        var (exit, _, stderr) = Run("reveal", "notes.shroud", "-p", "pw");
+        exit.Should().Be(0);
+        stderr.Should().BeEmpty();
+    }
+
+    // ---- CLI audit: reveal integrity ----
+
+    [Fact]
+    public void Reveal_PublicFileChangedOrAdded_Warns_AndLeavesUnknownTokensInPlace()
+    {
+        Directory.CreateDirectory("notes");
+        File.WriteAllText(Path.Combine("notes", "a.md"), $"wallet {Wallet}\n");
+        Run("vault", "notes", "-p", "pw").Exit.Should().Be(0);
+        var publicDir = Path.Combine("notes.shroud", "public");
+        File.AppendAllText(Path.Combine(publicDir, "a.md"), "edited [ADDR:00000000]\n");
+        File.WriteAllText(Path.Combine(publicDir, "extra.md"), "hello\n");
+
+        var (exit, _, stderr) = Run("reveal", "notes.shroud", "-p", "pw");
+
+        exit.Should().Be(0);
+        stderr.Should().Contain("a.md was changed after it was vaulted");
+        stderr.Should().Contain("a.md: 1 token(s) are not in this vault");
+        stderr.Should().Contain("extra.md is not part of this vault");
+        File.ReadAllText(Path.Combine("notes.revealed", "a.md")).Should().Be($"wallet {Wallet}\nedited [ADDR:00000000]\n");
+    }
+
+    // ---- CLI audit: arguments and exit codes ----
+
+    [Fact]
+    public void Scan_MissingFile_ExitsOne_ButStillScansTheOthers()
+    {
+        File.WriteAllText("a.md", $"wallet {Wallet}\n");
+
+        var (exit, stdout, stderr) = Run("scan", "nope.md", "a.md");
+
+        exit.Should().Be(1);
+        stderr.Should().Contain("File not found: nope.md");
+        stdout.Should().Contain("evm_address");
+    }
+
+    [Fact]
+    public void Scan_UnknownOption_IsRefused_NotTreatedAsAFile()
+    {
+        File.WriteAllText("a.md", $"wallet {Wallet}\n");
+
+        var (exit, stdout, stderr) = Run("scan", "a.md", "--json");
+
+        exit.Should().Be(1);
+        stderr.Should().Contain("Unknown option: --json");
+        stdout.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void Scan_ExitCodeFlag_TwoWhenSomethingWouldBeTokenized_ZeroWhenClean()
+    {
+        File.WriteAllText("dirty.md", $"wallet {Wallet}\n");
+        File.WriteAllText("clean.md", "nothing to see here\n");
+
+        Run("scan", "dirty.md").Exit.Should().Be(0);
+        Run("scan", "dirty.md", "--exit-code").Exit.Should().Be(2);
+        Run("scan", "clean.md", "dirty.md", "--exit-code").Exit.Should().Be(2);
+        Run("scan", "clean.md", "--exit-code").Exit.Should().Be(0);
+    }
+
+    [Fact]
+    public void Options_WithoutAValue_OrUnknown_AreRefused()
+    {
+        Directory.CreateDirectory("notes");
+        File.WriteAllText(Path.Combine("notes", "a.md"), $"wallet {Wallet}\n");
+
+        var (exit, _, stderr) = Run("vault", "notes", "-p");
+        exit.Should().Be(1);
+        stderr.Should().Contain("Option -p needs a value.");
+
+        (exit, _, stderr) = Run("vault", "notes", "-p", "pw", "--force");
+        exit.Should().Be(1);
+        stderr.Should().Contain("Unknown option: --force");
+        Directory.Exists("notes.shroud").Should().BeFalse();
+    }
+
+    [Fact]
+    public void CommandName_WinsOverADirectoryOfTheSameName()
+    {
+        Directory.CreateDirectory("scan");
+        File.WriteAllText(Path.Combine("scan", "a.md"), $"wallet {Wallet}\n");
+        File.WriteAllText("a.md", $"wallet {Wallet}\n");
+
+        var (exit, stdout, _) = Run("scan", "a.md");
+
+        exit.Should().Be(0);
+        stdout.Should().Contain("evm_address");
+        Directory.Exists("scan.shroud").Should().BeFalse();
+    }
+
+    [Fact]
+    public void Directory_AsFirstArgument_IsStillTheVaultCommand()
+    {
+        Directory.CreateDirectory("notes");
+        File.WriteAllText(Path.Combine("notes", "a.md"), $"wallet {Wallet}\n");
+
+        Run("notes", "-p", "pw").Exit.Should().Be(0);
+
+        File.Exists(Path.Combine("notes.shroud", "vault.shroud")).Should().BeTrue();
+    }
+
+    // ---- CLI audit: init and mask wording ----
+
+    [Fact]
+    public void Init_WithoutPreset_WritesParanoid_TheSameAsHavingNoConfig()
+    {
+        var (exit, stdout, _) = Run("init");
+
+        exit.Should().Be(0);
+        File.ReadAllText("shroud.json").Should().Contain("\"preset\": \"paranoid\"");
+        stdout.Should().Contain("Threshold: 0.5");
+        stdout.Should().Contain("credentials=True, secrets=True");
+    }
+
+    [Fact]
+    public void Mask_InPlace_SaysItIsOneWay_AndTheKeyMessageDoesNotPromiseUnmasking()
+    {
+        File.WriteAllText("a.md", $"wallet {Wallet}\n");
+
+        var (exit, _, stderr) = Run("mask", "a.md");
+
+        exit.Should().Be(0);
+        stderr.Should().Contain("Generated new key");
+        stderr.Should().Contain("cannot unmask");
+        stderr.Should().Contain("one-way");
+        stderr.Should().NotContain("cannot be unmasked");
+    }
+
+    [Fact]
+    public void Mask_ToOutputFile_PrintsNoInPlaceNote()
+    {
+        File.WriteAllText("a.md", $"wallet {Wallet}\n");
+
+        var (_, _, stderr) = Run("mask", "a.md", "-o", "out.md");
+
+        stderr.Should().NotContain("one-way");
+        File.ReadAllText("a.md").Should().Be($"wallet {Wallet}\n");
+    }
 }

@@ -90,6 +90,8 @@ export {
   VaultFormatError,
   TokenCollisionException,
   parseVaultData,
+  restoreTokens,
+  computeHash,
   serializeVaultData,
   serializeManifest,
   type VaultResult,

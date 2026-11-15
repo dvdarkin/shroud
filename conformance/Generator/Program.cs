@@ -455,9 +455,7 @@ public static class Program
                 var content = File.ReadAllText(file);
                 var maskedBytes = File.ReadAllBytes(file);
                 // same algorithm as the CLI "reveal" command
-                var plain = content;
-                foreach (var (tokenId, value) in data.Tokens)
-                    plain = plain.Replace($"[{tokenId}]", value);
+                var plain = TokenRestorer.Restore(content, data.Tokens);
                 restored[rel] = plain;
 
                 var srcPath = Path.Combine(inputDir, rel.Replace('/', Path.DirectorySeparatorChar));

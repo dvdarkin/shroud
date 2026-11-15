@@ -259,8 +259,8 @@ concatenated, no header, no version byte.
   is written; the same value seen again is just another occurrence.
 - `public/<relative path>`: masked copies, same relative layout, UTF-8 without BOM, newlines preserved; files with
   no above-threshold span are re-written as read (so a BOM is dropped).
-- Reveal (CLI): for each `public/**/*.md`, `ReadAllText`, then for each `(tokenId, value)` of `tokens` in file
-  order `content = content.Replace("[" + tokenId + "]", value)` (ordinal, sequential), `WriteAllText`.
+- Reveal (CLI): for each `public/**/*.md`, `ReadAllText`, then `TokenRestorer.Restore` (`restoreTokens` in the port):
+  one left-to-right pass replacing every innermost `[...]` whose content is a key of `tokens`, `WriteAllText`.
 - The vault masking key is 32 fresh random bytes per `VaultBuilder` instance and is not exposed by the public API,
   so the token ids inside a vault fixture cannot be recomputed by another implementation. Verify vaults by decrypting
   and restoring, not by recomputing tokens. (Token derivation is verified separately by `tokens/derivation-vectors.json`
@@ -305,7 +305,7 @@ concatenated, no header, no version byte.
    lies fully inside the file-path exclusion zone (062, 161).
 3. `ShroudConfig.Load` silently ignores unknown property names; `preset` is informational only (`{"preset": "dev"}`
    loads as threshold 0.70, all domains on); `{}` is not equivalent to `Default()` (threshold 0.70, financial
-   `markets`). CLI `init` defaults to the `financial` preset while no config means `paranoid`.
+   `markets`). CLI `init` without `--preset` writes `paranoid`, the same as no config.
 4. `LuhnValidator` uses `char.IsDigit` and `c - '0'`, which is wrong for non-ASCII digits (latent: the card regexes only admit `[0-9]`).
 5. `bip39` (0.10) can only be reported below the default thresholds; `EntityType.PhoneNumber` and `EntityType.AssetName` have no pattern.
 6. `arithmetic_sum_operand` (`[\d,]{4,}\.?\d*(?=\s*[+\-])`) has no leading boundary, so the digit run inside a hex value
