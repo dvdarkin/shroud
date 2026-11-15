@@ -1,6 +1,6 @@
 {
   "name": "@logmark/shroud",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Sensitive data detection and tokenization for text files. Zero dependencies. Auditable. TypeScript port of Shroud.",
   "license": "Apache-2.0",
   "author": "LogMark",
@@ -32,6 +32,18 @@
     "sensitive-data",
     "markdown"
   ],
+  "homepage": "https://github.com/dvdarkin/shroud/tree/main/ts#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dvdarkin/shroud.git",
+    "directory": "ts"
+  },
+  "bugs": {
+    "url": "https://github.com/dvdarkin/shroud/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",

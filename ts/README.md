@@ -1,6 +1,6 @@
 # @logmark/shroud
 
-TypeScript port of [Shroud](../README.md) 0.3.0: sensitive data detection and masking for
+TypeScript port of [Shroud](../README.md) 0.3.1: sensitive data detection and masking for
 markdown files. Same five detection domains, same patterns, same confidence scoring, same
 CLI, same `shroud.json`, and the same vault format. A vault written by the C# build
 reveals with this one and vice versa ([docs/format.md](../docs/format.md) specifies every byte).
@@ -10,8 +10,8 @@ Zero runtime dependencies (only `node:` built-ins). Node.js 20 or later. ESM.
 ## CLI
 
 ```bash
-# Not yet published to npm. Until it is, build and install from this folder:
-npm ci && npm run build && npm install -g .
+npm install -g @logmark/shroud     # or: npx @logmark/shroud <command>
+# from source instead: npm ci && npm run build && npm install -g .
 
 
 shroud scan notes.md --verbose     # detection report with scoring breakdown

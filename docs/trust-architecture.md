@@ -162,7 +162,7 @@ Shroud is the engine. LogMark adds the car:
 LogMark can reference Shroud as:
 1. **A prebuilt `Shroud.dll`** shipped with LogMark (what LogMark does today)
 2. **A user-built `Shroud.dll`** dropped in place of the shipped one, for users who compile from source for maximum trust
-3. **NuGet package** `LogMark.Shroud` (planned, not yet published; the bare `Shroud` ID on NuGet belongs to an unrelated project)
+3. **NuGet package** `LogMark.Shroud` (versioned; the bare `Shroud` ID on NuGet belongs to an unrelated project)
 
 Option 2 is the trust play. A user who doesn't trust precompiled binaries can clone Shroud, audit the code, build it, and replace LogMark's copy with their local build. The zero-dependency design makes this audit tractable -- there's nothing hidden behind abstractions or transitive dependencies.
 

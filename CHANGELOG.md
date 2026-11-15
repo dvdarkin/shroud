@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.3.1 - 2026-11-15
+
+First release published to package registries: `LogMark.Shroud` and `LogMark.Shroud.Cli` on NuGet, `@logmark/shroud` on npm. Detection, masking and the vault format are unchanged from 0.3.0.
 
 - Packaging: NuGet package IDs are now `LogMark.Shroud` (library) and `LogMark.Shroud.Cli` (tool, command `shroud`). The `Shroud` ID on NuGet belongs to an unrelated project. The assembly is still `Shroud.dll`.
 - Docs: install instructions describe what works today (build from source, or a locally packed tool / `npm install -g .`); neither package is published yet. The README used to point at `Shroud.Cli` and the `Shroud` package on NuGet, and `ts/README.md` at `npm install @logmark/shroud`.

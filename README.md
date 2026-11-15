@@ -170,11 +170,11 @@ If two different values do produce the same token ID, `VaultBuilder.Build` throw
 
 ## Two Ways to Use Shroud
 
-Neither implementation is published to a package registry yet; build from source as shown in Quick Start. The package names are reserved in the project files: `LogMark.Shroud` (library) and `LogMark.Shroud.Cli` (.NET tool, command `shroud`) on NuGet, and `@logmark/shroud` on npm. The package called `Shroud` on NuGet is an unrelated project; do not install it expecting this one.
+Packages: `LogMark.Shroud` (library) and `LogMark.Shroud.Cli` (.NET tool, command `shroud`) on NuGet, `@logmark/shroud` on npm. The package called `Shroud` on NuGet is an unrelated project; do not install it expecting this one. Building from source (Quick Start) gives the same result.
 
-**CLI tool** — `dotnet run --project src/Shroud.Cli -- <command>`, or pack the tool locally and install it from the output folder (`dotnet pack src/Shroud.Cli -o nupkg` then `dotnet tool install --global LogMark.Shroud.Cli --add-source ./nupkg`). Scan files, mask in place, or vault entire directories from the command line. Best for batch processing and CI pipelines.
+**CLI tool** — `dotnet tool install --global LogMark.Shroud.Cli`, or `npm install -g @logmark/shroud`, or from source with `dotnet run --project src/Shroud.Cli -- <command>`. Scan files, mask in place, or vault entire directories from the command line. Best for batch processing and CI pipelines.
 
-**Library** — add a project reference to `src/Shroud/Shroud.csproj`, or reference the `Shroud.dll` you built. Call `SensitivityScanner.Scan()` to detect spans, `SpanMasker.Mask()` to tokenize them, and `VaultEncryption` to encrypt/decrypt vault data. This lets applications shroud data on the fly — for example, showing original values in a UI while persisting only masked content to disk, or scanning user input before it reaches storage. The library has zero dependencies beyond .NET 8, making it safe to embed in any application without dependency conflicts.
+**Library** — `dotnet add package LogMark.Shroud`, or a project reference to `src/Shroud/Shroud.csproj` if you build from source. Call `SensitivityScanner.Scan()` to detect spans, `SpanMasker.Mask()` to tokenize them, and `VaultEncryption` to encrypt/decrypt vault data. This lets applications shroud data on the fly — for example, showing original values in a UI while persisting only masked content to disk, or scanning user input before it reaches storage. The library has zero dependencies beyond .NET 8, making it safe to embed in any application without dependency conflicts.
 
 ```csharp
 var scanner = new SensitivityScanner(config);
@@ -186,7 +186,7 @@ var masked = masker.Mask(userInput, result);
 // masked.Tokens maps token IDs back to original values (keep in memory or encrypt)
 ```
 
-**TypeScript library** - `@logmark/shroud`, built from `ts/` (not yet published to npm). The same API in camelCase, with no runtime dependencies beyond Node itself:
+**TypeScript library** - `npm install @logmark/shroud`, built from `ts/`. The same API in camelCase, with no runtime dependencies beyond Node itself:
 
 ```ts
 import { SensitivityScanner, SpanMasker, loadConfig } from '@logmark/shroud';
