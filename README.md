@@ -124,7 +124,8 @@ Everything in `--verbose`, plus exclusion zones, overlap resolutions, Luhn rejec
 - **Market pairs with dashes** — "CI-CD" matches the `[A-Z]{2,6}-[A-Z]{2,6}` pattern at 0.40 base confidence. Requires trading context words to reach threshold.
 - **Arithmetic expressions** — Numbers in math ("10 / 2") can be flagged if currency codes appear within 120 characters.
 - **Seed phrase detection** — Placeholder only (first 10 BIP-39 words at 0.10 confidence).
-- **Markdown files only** — Other file formats are not scanned.
+- **Markdown for vaults** — `vault` processes `.md` files only; `scan` and `mask` read any text file. Binary formats are not understood.
+- **Output location checks compare paths as written** — the refusals for an output inside the vault or source directory resolve `.`, `..`, case and separators, but not other spellings of the same directory: a `\\?\` or UNC path, a junction or symbolic link, or (TypeScript only) an 8.3 short name can get past them. Give plain paths.
 - **Excluded regions** - YAML front matter is not scanned, but only when the file starts with a `---` line (it ends at the next `---` line); `---` pairs later in a document are horizontal rules and are scanned. Text from a `source_file:`, `file:`, `path:` or `attachment:` key to the end of its line is not scanned when the key starts a line or follows a space, a tab or `(`; a key glued to anything else (`profile:`, `classpath:`, `my-file:`, `|file:`, a combining mark) is ordinary text and is scanned.
 
 ## Trust Model
@@ -169,7 +170,7 @@ Property names are matched case-insensitively at every level (`"onchain"` config
 
 `manifest.json` records the source only as its directory name (`my-notes`), never the absolute path.
 
-The default output is `<dir>.shroud` next to the source (`shroud vault .` inside `notes/` writes `../notes.shroud`); an output directory inside the source is refused, since the next run would scan it. Running `vault` again into the same output replaces `public/`: masked copies of files that no longer exist in the source are removed (only `.md` files are touched).
+The default output is `<dir>.shroud` next to the source (`shroud vault .` inside `notes/` writes `../notes.shroud`); an output directory inside the source is refused, since the next run would scan it, and so is a source inside the output. The output must be new, empty (hidden entries such as `.git` are ignored) or an earlier vault (`vault.shroud`, `manifest.json`, `public/`); any other directory is refused, because `vault` owns `public/`. Running `vault` again into the same output replaces `public/`: masked copies of files that no longer exist in the source are removed (only `.md` files are touched, and links to directories are not followed).
 
 `reveal` writes to `<name>.revealed` next to the vault directory, never into it. It warns when a file in `public/` was changed or added after vaulting, and when a token is not in the vault (it is left in place).
 

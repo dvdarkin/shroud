@@ -102,6 +102,6 @@ jobs:
             echo "exit $code  $file"
             count=$((count + 1))
             if [ "$code" -ne 0 ] && [ "$code" -ne 2 ]; then fail=1; fi
-          done < <(git diff --name-only --diff-filter=ACM -z "origin/${{ github.base_ref }}...HEAD" -- '*.md' '*.txt' '*.env' '*.json' '*.yml' '*.yaml')
+          done < <(git diff --name-only --diff-filter=ACMRT -z "origin/${{ github.base_ref }}...HEAD" -- '*.md' '*.txt' '*.env' '*.json' '*.yml' '*.yaml')
           echo "$count changed text files scanned"
           exit $fail

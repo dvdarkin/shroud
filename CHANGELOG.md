@@ -1,9 +1,12 @@
 # Changelog
 
-## Unreleased
+## 0.4.0 - 2026-11-16
 
-CLI audit. Detection, masked output and the vault format are unchanged; the conformance corpus did not move. Both implementations.
+First release published to package registries: `LogMark.Shroud` (library) and `LogMark.Shroud.Cli` (tool, command `shroud`) on NuGet, `@logmark/shroud` on npm. A CLI audit and new options for hooks and pipelines. Detection, masked output and the vault format are unchanged from 0.3.0, and the conformance corpus did not move. Both implementations. See SECURITY.md for the 0.3.0 output-location advisory.
 
+- Security: `vault` refuses a source inside the output, and an output that is not new, empty (hidden entries aside) or an earlier vault. `vault X/public -o X` overwrote the source files with their masked copies; without the check, the stale-copy cleanup below would also delete `.md` files Shroud never wrote. The cleanup does not follow links to directories
+- Security: the example Claude Code hooks fail closed (anything but a clean scan blocks, including a missing `shroud`), and the read guard passes the file on stdin, so no path reaches a shell command line
+- Security: the example pre-commit hook, the CI gate recipe and the CI job also scan renamed files (`--diff-filter=ACMRT`), so a file moved with `git mv` and edited in the same commit is checked
 - Security: `reveal` never writes into the vault directory. The default output replaced every `.shroud` in the path, so a vault directory without that suffix (`vault notes -o out`) had its plaintext written next to `public/`. It is now `<name>.revealed` beside the vault, and an output inside the vault directory is refused
 - Security: `vault .` wrote to `./..shroud`, inside the source, and the next run vaulted its own masked copies. The default is now a sibling of the resolved directory, and an output inside the source is refused
 - Fix: `mask` said of its key file "Losing it means masked data cannot be unmasked". The key cannot unmask anything and `mask` keeps no originals; the message, the help text and the docs now say that `mask` is one-way, and masking in place prints a note
@@ -25,15 +28,11 @@ CLI audit. Detection, masked output and the vault format are unchanged; the conf
 - Docs: trust-architecture.md describes what the code does: no DPAPI, Argon2id or key rotation in standalone Shroud, 8-hex token ids, the manifest in place of a `scan --json` that never existed, and `scan` output is not Tier 0 (it prints values)
 - Docs: the collision figures in the `SpanMasker` comment now match the README (1.2% at 10,000 values, not "below 0.01%")
 - CI: the TypeScript build is also tested on Node 20, the minimum `engines` version
-
-## 0.3.1 - 2026-11-15
-
-First release published to package registries: `LogMark.Shroud` and `LogMark.Shroud.Cli` on NuGet, `@logmark/shroud` on npm. Detection, masking and the vault format are unchanged from 0.3.0.
-
-- Packaging: NuGet package IDs are now `LogMark.Shroud` (library) and `LogMark.Shroud.Cli` (tool, command `shroud`). The `Shroud` ID on NuGet belongs to an unrelated project. The assembly is still `Shroud.dll`.
-- Docs: install instructions describe what works today (build from source, or a locally packed tool / `npm install -g .`); neither package is published yet. The README used to point at `Shroud.Cli` and the `Shroud` package on NuGet, and `ts/README.md` at `npm install @logmark/shroud`.
-- Docs: trust-architecture.md describes how LogMark references Shroud today (a shipped `Shroud.dll`) and drops the `--json` agent output, which neither CLI has.
-- CLI: the help text's trust line reads "Zero runtime dependencies. Source-auditable." in both implementations; it used to say ".NET 8 runtime" in the TypeScript CLI too.
+- Fix: an option given an empty value (`-o ""`) is an error; the C# CLI crashed and the TypeScript CLI wrote the vault into the current directory
+- Packaging: NuGet package IDs `LogMark.Shroud` and `LogMark.Shroud.Cli`; the `Shroud` ID on NuGet belongs to an unrelated project. The assembly is still `Shroud.dll`. Both packages carry the README and the repository URL; the npm package is public with repository metadata
+- Docs: install from the registries or build from source; trust-architecture.md describes how LogMark references Shroud (a shipped `Shroud.dll`)
+- CLI: the help text's trust line reads "Zero runtime dependencies. Source-auditable." in both implementations; the TypeScript CLI used to claim a .NET 8 runtime
+- C# 244 tests, TypeScript 277, conformance all pass
 
 ## 0.3.0 - 2026-11-15
 

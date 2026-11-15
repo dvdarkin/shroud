@@ -325,6 +325,77 @@ public class CliBehaviourTests : IDisposable
     }
 
     [Fact]
+    public void Vault_SourceInsideTheOutput_IsRefused_AndDeletesNothing()
+    {
+        Directory.CreateDirectory(Path.Combine("y", "notes"));
+        Directory.CreateDirectory(Path.Combine("y", "public", "docs"));
+        File.WriteAllText(Path.Combine("y", "notes", "a.md"), $"wallet {Wallet}\n");
+        File.WriteAllText(Path.Combine("y", "public", "docs", "readme.md"), "not ours\n");
+
+        var (exit, _, stderr) = Run("vault", Path.Combine("y", "notes"), "-p", "pw", "-o", "y");
+
+        exit.Should().Be(1);
+        stderr.Should().Contain("inside the output directory");
+        File.ReadAllText(Path.Combine("y", "public", "docs", "readme.md")).Should().Be("not ours\n");
+        File.Exists(Path.Combine("y", "vault.shroud")).Should().BeFalse();
+    }
+
+    [Fact]
+    public void Vault_SourceIsTheOutputsPublicDirectory_IsRefused_AndLeavesTheOriginals()
+    {
+        Directory.CreateDirectory(Path.Combine("x", "public"));
+        File.WriteAllText(Path.Combine("x", "public", "a.md"), $"wallet {Wallet}\n");
+
+        var (exit, _, stderr) = Run("vault", Path.Combine("x", "public"), "-p", "pw", "-o", "x");
+
+        exit.Should().Be(1);
+        stderr.Should().Contain("inside the output directory");
+        File.ReadAllText(Path.Combine("x", "public", "a.md")).Should().Be($"wallet {Wallet}\n");
+    }
+
+    [Fact]
+    public void Vault_OutputIsAnUnrelatedDirectory_IsRefused_AndDeletesNothing()
+    {
+        Directory.CreateDirectory("notes");
+        Directory.CreateDirectory(Path.Combine("site", "public"));
+        File.WriteAllText(Path.Combine("notes", "a.md"), $"wallet {Wallet}\n");
+        File.WriteAllText(Path.Combine("site", "public", "index.md"), "not ours\n");
+
+        var (exit, _, stderr) = Run("vault", "notes", "-p", "pw", "-o", "site");
+
+        exit.Should().Be(1);
+        stderr.Should().Contain("is not empty and is not a Shroud vault");
+        FilesUnder("site").Should().Equal("public/index.md");
+    }
+
+    [Fact]
+    public void Vault_OutputHoldingOnlyHiddenEntries_IsAccepted()
+    {
+        Directory.CreateDirectory("notes");
+        Directory.CreateDirectory(Path.Combine("repo", ".git"));
+        File.WriteAllText(Path.Combine("notes", "a.md"), $"wallet {Wallet}\n");
+        File.WriteAllText(Path.Combine("repo", ".gitignore"), "*.revealed/\n");
+
+        var (exit, _, _) = Run("vault", "notes", "-p", "pw", "-o", "repo");
+
+        exit.Should().Be(0);
+        FilesUnder("repo").Should().Equal(".gitignore", "manifest.json", "public/a.md", "vault.shroud");
+    }
+
+    [Fact]
+    public void Options_WithAnEmptyValue_AreErrors()
+    {
+        Directory.CreateDirectory("notes");
+        File.WriteAllText(Path.Combine("notes", "a.md"), $"wallet {Wallet}\n");
+
+        var (exit, _, stderr) = Run("vault", "notes", "-p", "pw", "-o", "");
+
+        exit.Should().Be(1);
+        stderr.Should().Contain("Option -o needs a value.");
+        File.Exists("manifest.json").Should().BeFalse();
+    }
+
+    [Fact]
     public void Vault_SecondRun_RemovesMaskedCopiesOfFilesNoLongerInTheSource()
     {
         Directory.CreateDirectory(Path.Combine("notes", "sub"));

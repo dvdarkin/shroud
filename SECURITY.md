@@ -12,6 +12,16 @@ Shroud is a detection and masking tool — vulnerabilities in the encryption (AE
 
 ## Advisories
 
+### 0.3.0 and earlier: plaintext written into the vault or source directory (fixed in 0.4.0)
+
+Three command-line cases put files where they did not belong. Detection and the vault format were not affected.
+
+- `reveal` built its default output by replacing every `.shroud` in the vault path. For a vault directory without that suffix (`shroud vault notes -o out`, then `shroud reveal out`) the revealed plaintext was written inside the vault directory, next to `public/`, where anything that syncs or shares the vault would pick it up.
+- `shroud vault .` wrote its output to `./..shroud`, inside the source directory.
+- `shroud vault X/public -o X` overwrote the source files with their masked copies.
+
+If you used `reveal` on a vault directory not named `*.shroud`, look in that directory for anything besides `manifest.json`, `public/` and `vault.shroud`, delete it, and check whether it was synced, committed or backed up. 0.4.0 writes revealed files to `<name>.revealed` beside the vault, refuses an output inside the vault or source, and refuses a source inside the output.
+
 ### 0.2.0 and earlier: text hidden from the scanner (fixed in 0.3.0)
 
 Versions up to 0.2.0 skipped detection in places where they should not have, so sensitive values there were left unmasked:
