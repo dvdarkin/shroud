@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Refuse a commit when a staged text file contains something Shroud would tokenize.
+fail=0
+while IFS= read -r -d '' file; do
+  if ! report=$(git show ":$file" | shroud scan - --exit-code --no-values 2>&1); then
+    printf 'shroud: %s\n%s\n' "$file" "$report" >&2
+    fail=1
+  fi
+done < <(git diff --cached --name-only --diff-filter=ACM -z -- '*.md' '*.txt' '*.env' '*.json' '*.yml' '*.yaml')
+if [ "$fail" -ne 0 ]; then
+  echo "Commit refused. Remove the values, or bypass once with: git commit --no-verify" >&2
+fi
+exit "$fail"

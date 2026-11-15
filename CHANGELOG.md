@@ -19,6 +19,7 @@ CLI audit. Detection, masked output and the vault format are unchanged; the conf
 - Feat: `--config <file>` on `scan`, `mask` and `vault`
 - Feat: `SHROUD_PASSWORD` environment variable for `vault` and `reveal` (after `-p`, before piped stdin and the prompt)
 - Feat: `reveal <vault-dir> --text <file|->` restores the vault's tokens in one text, to stdout or `-o`
+- Docs: `docs/cookbook.md` with eleven recipes, and the tested hook scripts in `examples/` (git pre-commit, Claude Code prompt and read guards)
 - Fix: a command name wins over a directory of the same name (`shroud scan x.md` with a `scan/` directory present vaulted that directory)
 - Change: `init` without `--preset` writes `paranoid` (it wrote `financial`, weaker than having no config at all) and its summary lists all five domains
 - Docs: trust-architecture.md describes what the code does: no DPAPI, Argon2id or key rotation in standalone Shroud, 8-hex token ids, the manifest in place of a `scan --json` that never existed, and `scan` output is not Tier 0 (it prints values)

@@ -84,6 +84,8 @@ Passwords: `vault` and `reveal` take the password from `-p <password>` (visible 
 
 `reveal --text` restores this vault's tokens in a single text instead of the masked copies and writes the result to stdout or `-o`: the way back for an answer a model wrote about your masked files.
 
+[docs/cookbook.md](docs/cookbook.md) has recipes: a git pre-commit hook, Claude Code hooks, a CI gate, reveal on demand with a password manager, the round trip through a cloud model, and library use.
+
 A command name always wins over a directory of the same name; write `shroud ./scan` to vault a directory called `scan`.
 
 ## Diagnostic Output

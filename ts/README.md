@@ -29,7 +29,7 @@ config or key file is touched), and `init --preset` accepts only `paranoid`,
 revealed), `scan --exit-code` exits 2 when something would be tokenized, `scan -` reads
 stdin, `--no-values` keeps matched text out of the report, and `vault` and `reveal` take
 the password from `-p`, `SHROUD_PASSWORD`, or one line of piped stdin. `reveal --text`
-restores the tokens in a single text.
+restores the tokens in a single text. Recipes: [docs/cookbook.md](../docs/cookbook.md).
 
 `shroud.json` property names are matched case-insensitively at every level, like the
 C# loader (System.Text.Json `PropertyNameCaseInsensitive`): `"onchain"`, `"OnChain"`

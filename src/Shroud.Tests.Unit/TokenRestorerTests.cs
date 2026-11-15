@@ -54,6 +54,21 @@ public class TokenRestorerTests
     }
 
     [Fact]
+    public void MaskThenRestore_InMemory_RoundTrips_AsInTheCookbook()
+    {
+        var scanner = new Shroud.Detection.SensitivityScanner(Shroud.Models.ShroudConfig.ForPreset("dev"));
+        var masker = new Shroud.Masking.SpanMasker(System.Security.Cryptography.RandomNumberGenerator.GetBytes(32));
+        const string text = "send 0x52908400098527886E0F7030069857D2E4169EE7 to bob@example.com, again bob@example.com";
+
+        var masked = masker.Mask(text, scanner.Scan(text));
+        var tokens = new Dictionary<string, string>();
+        foreach (var t in masked.Tokens) tokens[t.TokenId] = t.OriginalValue;
+
+        masked.MaskedText.Should().NotContain("0x5290").And.NotContain("bob@example.com");
+        TokenRestorer.Restore("reply: " + masked.MaskedText, tokens).Should().Be("reply: " + text);
+    }
+
+    [Fact]
     public void Restore_NullValue_RestoresAsEmpty()
     {
         var tokens = new Dictionary<string, string> { ["ADDR:11111111"] = null! };
