@@ -1,0 +1,75 @@
+# Publishes LogMark.Shroud and LogMark.Shroud.Cli to nuget.org with Trusted Publishing:
+# GitHub's OIDC token is exchanged for a NuGet API key that lives for this run only, so
+# no long-lived key is stored anywhere.
+#
+# Runs only when started by hand (Actions > Publish to NuGet > Run workflow) for an
+# existing release tag. With required reviewers on the nuget-release environment, the
+# job also waits for that approval before anything is built or pushed.
+#
+# One-time setup:
+#   nuget.org > your account > Trusted Publishing > Create policy:
+#     repository owner dvdarkin, repository shroud,
+#     workflow file publish-nuget.yml, environment nuget-release
+#   GitHub > Settings > Secrets and variables > Actions > Variables:
+#     NUGET_USER = the nuget.org username (the profile name, not the email)
+#   GitHub > Settings > Environments > nuget-release (optional):
+#     required reviewers, deployment tags v*
+name: Publish to NuGet
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to publish, for example v0.4.0
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish ${{ inputs.tag }}
+    runs-on: ubuntu-latest
+    environment: nuget-release
+    permissions:
+      contents: read
+      id-token: write # the OIDC token that Trusted Publishing exchanges for a short-lived key
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: refs/tags/${{ inputs.tag }}
+          persist-credentials: false
+
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Tag and project version agree
+        env:
+          TAG: ${{ inputs.tag }}
+        run: |
+          version=$(sed -n 's:.*<Version>\(.*\)</Version>.*:\1:p' src/Directory.Build.props)
+          if [ "v$version" != "$TAG" ]; then
+            echo "::error::Tag $TAG does not match <Version>$version</Version> in src/Directory.Build.props"
+            exit 1
+          fi
+
+      - name: Test
+        run: dotnet test src -c Release
+
+      - name: Pack
+        run: |
+          dotnet pack src/Shroud -c Release -o out
+          dotnet pack src/Shroud.Cli -c Release -o out
+          ls -l out
+
+      - name: Log in to NuGet (OIDC, short-lived key)
+        id: login
+        uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1.2.0
+        with:
+          user: ${{ vars.NUGET_USER }}
+
+      - name: Push
+        env:
+          NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+        run: dotnet nuget push "out/*.nupkg" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate

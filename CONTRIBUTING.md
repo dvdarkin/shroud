@@ -85,3 +85,11 @@ The `SensitivityScanner` constructor accepts custom pattern lists in both implem
 - One concern per PR
 - Tests pass in both implementations and the conformance check is green
 - New patterns need both a positive detection test and a false-positive consideration
+
+## Releasing
+
+1. Set the same version in `src/Directory.Build.props` and `ts/package.json` (`npm install --package-lock-only` updates the lockfile), and write the `CHANGELOG.md` entry.
+2. Merge, then tag the merge commit: `git tag -a vX.Y.Z`, pushed to both remotes.
+3. **NuGet** (`LogMark.Shroud`, `LogMark.Shroud.Cli`): run the *Publish to NuGet* workflow (`.github/workflows/publish-nuget.yml`) with the tag. It uses Trusted Publishing, so there is no API key to store or rotate; the workflow file's header lists the one-time setup on nuget.org and GitHub.
+4. **npm** (`@logmark/shroud`): `npm publish ts --otp=<code>` from the tagged commit, right after `npm login` (the login is short-lived; a stale one fails with a misleading 404).
+5. Check both registries from a clean cache: `npx @logmark/shroud@X.Y.Z help` and `dotnet tool install --tool-path <tmp> LogMark.Shroud.Cli --version X.Y.Z`. A package's first publish can take several minutes to appear.
